@@ -39,7 +39,14 @@
       <email>malin.anulf@agurait.com</email>
       <organization>AguraIT</organization>
       <roles/>
-    </developer>    
+    </developer>
+    <developer>
+      <name>Anders Lindman</name>
+      <id>anders</id>
+      <email>anders.lindman@ncmedia.com</email>
+      <organization>AguraIT</organization>
+      <roles/>
+    </developer>
   </developers>
   <dependencies>
     <dependency>
