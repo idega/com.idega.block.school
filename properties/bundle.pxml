@@ -10,14 +10,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolArea</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolArea.pxml</value>
                 </key>
               </map>
             </value>
@@ -28,14 +23,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolType</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolType.pxml</value>
                 </key>
               </map>
             </value>
@@ -46,14 +36,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>School</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.School.pxml</value>
                 </key>
               </map>
             </value>
@@ -64,14 +49,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolSeason</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolSeason.pxml</value>
                 </key>
               </map>
             </value>
@@ -82,14 +62,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolYear</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolYear.pxml</value>
                 </key>
               </map>
             </value>
@@ -100,14 +75,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolYearPlaces</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolYearPlaces.pxml</value>
                 </key>
               </map>
             </value>
@@ -118,14 +88,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolClass</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolClass.pxml</value>
                 </key>
               </map>
             </value>
@@ -136,14 +101,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolClassMember</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.data</value>
+                  <value>com.idega.block.school.data.SchoolClassMember.pxml</value>
                 </key>
               </map>
             </value>
@@ -154,14 +114,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolAreaEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
+                  <value>com.idega.block.school.presentation.SchoolAreaEditor.pxml</value>
                 </key>
               </map>
             </value>
@@ -172,14 +127,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolTypeEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
+                  <value>com.idega.block.school.presentation.SchoolTypeEditor.pxml</value>
                 </key>
               </map>
             </value>
@@ -190,21 +140,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map />
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolEditor.pxml</value>
                 </key>
               </map>
             </value>
@@ -215,14 +153,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolSeasonEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
+                  <value>com.idega.block.school.presentation.SchoolSeasonEditor.pxml</value>
                 </key>
               </map>
             </value>
@@ -233,14 +166,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolYearEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
+                  <value>com.idega.block.school.presentation.SchoolYearEditor.pxml</value>
                 </key>
               </map>
             </value>
@@ -251,14 +179,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolYearPlacesEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
+                  <value>com.idega.block.school.presentation.SchoolYearPlacesEditor.pxml</value>
                 </key>
               </map>
             </value>
@@ -269,267 +192,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolTypeSelector</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map>
-                      <key>
-                        <name>:method:1:implied:void:setFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSelectedFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Selected Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Selected Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSelectedFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSelectedFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Selected Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Selected Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSelectedFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSpaceBetween:int:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Space Between</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Space Between</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSpaceBetween:int:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                    </map>
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolTypeSelector.pxml</value>
                 </key>
               </map>
             </value>
@@ -540,659 +205,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolAreaSelector</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map>
-                      <key>
-                        <name>:method:1:implied:void:setExpandedFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Expanded Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Expanded Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setExpandedFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setExpandedFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Expanded Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Expanded Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setExpandedFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setExpandedSelectedFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Expanded Selected Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Expanded Selected Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setExpandedSelectedFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setExpandedSelectedFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Expanded Selected Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Expanded Selected Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setExpandedSelectedFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSchoolsToExpand:boolean:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Expand Schools</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Expand Schools</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSchoolsToExpand:boolean:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSelectedFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Selected Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Selected Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSelectedFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSelectedFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Selected Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Selected Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSelectedFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSpaceBeforeExpanded:int:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Space before Expanded</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Space before Expanded</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSpaceBeforeExpanded:int:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSpaceBetween:int:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Space Between</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Space Between</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSpaceBetween:int:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setDisplayWithoutSchoolTypeId:boolean:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Display Without SchoolTypeId</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Display Without SchoolTypeId</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setDisplayWithoutSchoolTypeId:boolean:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setPage:com.idega.builder.data.IBPage:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.IBPageHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Page to send to</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Page to send to</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setPage:com.idega.builder.data.IBPage:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                    </map>
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolAreaSelector.pxml</value>
                 </key>
               </map>
             </value>
@@ -1203,218 +218,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolContentItemName</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map>
-                      <key>
-                        <name>:method:1:implied:void:setFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setShowDemoWhenEmpty:boolean:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Show Demo When Empty</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Show Demo When Empty</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setShowDemoWhenEmpty:boolean:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setFontClass:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.StyleClassHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Style class</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Style class</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontClass:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                    </map>
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolContentItemName.pxml</value>
                 </key>
               </map>
             </value>
@@ -1425,267 +231,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolContentItemInformation</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map>
-                      <key>
-                        <name>:method:1:implied:void:setFontColor:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.ColorHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Color</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Color</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontColor:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setFontStyle:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.FontStyleHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Font Style</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Font Style</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setFontStyle:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setWidth:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Width</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Width</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setWidth:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setHeigth:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Height</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Height</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setHeigth:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setShowDemoWhenEmpty:boolean:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Show Demo When Empty</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Show Demo When Empty</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setShowDemoWhenEmpty:boolean:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                    </map>
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolContentItemInformation.pxml</value>
                 </key>
               </map>
             </value>
@@ -1696,218 +244,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolContentItemImage</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map>
-                      <key>
-                        <name>:method:1:implied:void:setMaxImageWidth:int:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Max Image Width</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Max Image Width</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setMaxImageWidth:int:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setSpaceBetweenImage:int:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Space Between Images</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Space Between Images</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSpaceBetweenImage:int:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setShowDemoWhenEmpty:boolean:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Show Demo When Empty</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Show Demo When Empty</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setShowDemoWhenEmpty:boolean:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                      <key>
-                        <name>:method:1:implied:void:setHorizontalAlignment:java.lang.String:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value>com.idega.builder.handler.HorizontalAlignmentHandler</value>
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Horizontal alignment</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Horizontal alignment</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setHorizontalAlignment:java.lang.String:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                    </map>
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolContentItemImage.pxml</value>
                 </key>
               </map>
             </value>
@@ -1918,21 +257,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolContentItemEditButton</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map />
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolContentItemEditButton.pxml</value>
                 </key>
               </map>
             </value>
@@ -1943,71 +270,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolContentItemLinks</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map>
-                      <key>
-                        <name>:method:1:implied:void:setSpaceBetween:int:</name>
-                        <value>
-                          <map>
-                            <key>
-                              <name>iw_method_params</name>
-                              <value>
-                                <map>
-                                  <key>
-                                    <name>0</name>
-                                    <value>
-                                      <map>
-                                        <key>
-                                          <name>iw_method_param_handler</name>
-                                          <type>java.lang.String</type>
-                                          <value />
-                                        </key>
-                                        <key>
-                                          <name>iw_method_param_desc</name>
-                                          <type>java.lang.String</type>
-                                          <value>Space between</value>
-                                        </key>
-                                      </map>
-                                    </value>
-                                    <type>map</type>
-                                  </key>
-                                </map>
-                              </value>
-                              <type>map</type>
-                            </key>
-                            <key>
-                              <name>iw_method_option_multiv</name>
-                              <type>java.lang.Boolean</type>
-                              <value>false</value>
-                            </key>
-                            <key>
-                              <name>iw_method_description</name>
-                              <type>java.lang.String</type>
-                              <value>Space between</value>
-                            </key>
-                            <key>
-                              <name>iw_method_identifier</name>
-                              <type>java.lang.String</type>
-                              <value>:method:1:implied:void:setSpaceBetween:int:</value>
-                            </key>
-                          </map>
-                        </value>
-                        <type>map</type>
-                      </key>
-                    </map>
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolContentItemLinks.pxml</value>
                 </key>
               </map>
             </value>
@@ -2018,21 +283,9 @@
             <value>
               <map>
                 <key>
-                  <name>component_name</name>
+                  <name>component_property_file</name>
                   <type>java.lang.String</type>
-                  <value>SchoolUserEditor</value>
-                </key>
-                <key>
-                  <name>component_type</name>
-                  <type>java.lang.String</type>
-                  <value>iw.block</value>
-                </key>
-                <key>
-                  <name>iw_component_methods</name>
-                  <value>
-                    <map />
-                  </value>
-                  <type>map</type>
+                  <value>com.idega.block.school.presentation.SchoolUserEditor.pxml</value>
                 </key>
               </map>
             </value>

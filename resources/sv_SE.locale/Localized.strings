@@ -1,4 +1,4 @@
-#Fri Oct 24 11:14:50 CEST 2003
+#Mon Oct 27 01:32:55 CET 2003
 =
 address=Adress
 age=\u00C5lder
@@ -10,7 +10,7 @@ case_status_key.FLYT=Flyttad
 category=Kategori
 childcare=Barnomsorg
 city=Stad
-commune=Commune
+commune=Kommun
 content_editor=Redigeraren
 content_item_not_found=Ingen skola hittades
 current=Nuvarande 
@@ -34,8 +34,8 @@ iw.component.com.idega.block.school.presentation.SchoolTypeSelector.name=SchoolT
 iw.component.com.idega.block.school.presentation.SchoolUserEditor.name=SchoolUserEditor
 iw.component.com.idega.block.school.presentation.SchoolYearEditor.name=SchoolYearEditor
 iw.component.com.idega.block.school.presentation.SchoolYearPlacesEditor.name=SchoolYearPlacesEditor
-iw.component.se.idega.idegaweb.commune.school.presentation.CurrentSchoolSeasonEditor.name=
-iw.component.se.idega.idegaweb.commune.school.presentation.SchoolUserEditor.name=
+iw.component.se.idega.idegaweb.commune.school.presentation.CurrentSchoolSeasonEditor.name=CurrentSchoolSeasonEditor
+iw.component.se.idega.idegaweb.commune.school.presentation.SchoolUserEditor.name=SchoolUserEditor
 keycode=Omr\u00E5deskod
 latitude=Latitud 
 localization_key=Nyckel
