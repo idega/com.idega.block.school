@@ -4,9 +4,9 @@
   <extend>${base.project.dir}/block-dependencies.xml</extend>
   <pomVersion>3</pomVersion>
   <name>idegaWeb School Block</name>
-  <!--artifactId>com.idega.block.school</artifactId-->
+  <artifactId>com.idega.block.school</artifactId>
   <currentVersion>1.0.1</currentVersion>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <!--currentVersion>1.0-SNAPSHOT</currentVersion-->
 
   <inceptionYear>2000</inceptionYear>
   <shortDescription>School</shortDescription>
