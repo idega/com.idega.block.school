@@ -1,25 +1,25 @@
-.schoolForm {
+form.schoolForm {
 	font-size: 10px;
 }
 
-.schoolForm .listTable td, th {
+form.schoolForm .listTable td, th {
 	font-size: 10px;
 	empty-cells: show;
 }
 
-.schoolForm .listTable tbody tr td {
+form.schoolForm .listTable tbody tr td {
 	padding: 3px;
 }
 
-.schoolForm .listTable tbody tr td:first-child {
+form.schoolForm .listTable tbody tr td:first-child {
 	padding-left: 12px;
 }
 
-.schoolForm .listTable tbody tr td:last-child {
+form.schoolForm .listTable tbody tr td:last-child {
 	padding-right: 12px;
 }
 
-.schoolForm .listTable thead tr th {
+form.schoolForm .listTable thead tr th {
 	text-align: left;
 	padding: 3px;
 	font-weight: bold;
@@ -28,32 +28,41 @@
 	border-bottom: 1px solid #D7D7D7;
 }
 
-.schoolForm .listTable thead tr th:first-child {
+form.schoolForm .listTable thead tr th:first-child {
 	padding-left: 12px;
 }
 
-.schoolForm .listTable thead tr th:last-child {
+form.schoolForm .listTable thead tr th:last-child {
 	padding-right: 12px;
 }
 
-.schoolForm .listTable .listTable_oddRow {
+form.schoolForm .listTable .listTable_oddRow {
 	background-color: #EFEFEF;	
 }
 
-.schoolForm .listTable .listTable_evenRow {
+form.schoolForm .listTable .listTable_evenRow {
 	background-color: #FFFFFF;	
 }
 
 div.FormElement {	clear:left;
 	height: auto;
-}
-div.FormElement label {	padding-left: 12px;
-	width: 120px;
-	float:left;}
-div.FormElement input, textarea, select {	margin-bottom: 6px;
 	margin-left: 12px;
+}
+div.FormElement label {	width: 120px;
+	float:left;}
+input, textarea, select {
+	margin: 0;
+	font-size: 10px;
+}
+
+div.FormElement input, textarea, select {	margin-bottom: 6px;
 	font-size: 9px;
 	border: 1px #CCCCCC solid;
+}
+
+div.FormElement iframe {
+	border: 0;
+	margin: 0;
 }
 
 div.FormElement textarea {
@@ -61,23 +70,51 @@ div.FormElement textarea {
 	height: 50px;
 }
 
-.schoolForm input {
-	margin-left: 12px;
-}
-
-.schoolForm .InterfaceButton {
+form.schoolForm .InterfaceButton {
 	font-size: 9px;
 	border: 1px #CCCCCC solid;
 	margin-left: 12px;
 	margin-right: -11px;
 }
 
-.schoolForm ul {
+form.schoolForm ul {
 	list-style-type: none;
-	margin: 0;
+	margin: 0 0 0 12px;
 	padding: 0;
 }
 
-.schoolForm ul ul {
+form.schoolForm ul li {
+	margin-bottom: 6px;
+}
+
+form.schoolForm ul ul {
+	margin-top: 6px;
 	margin-left: 36px;
+}
+
+ul.schoolList {
+	margin: 0 0 0 12px;
+	padding: 0;
+}
+
+ul.schoolList li {
+	font-size:10px;
+	font-weight:bold;
+	line-height:15px;
+	font-family:Arial,Helvetica,sans-serif;
+	color:#444444;
+}
+
+ul.schoolList li a {
+	text-decoration:underline;
+}
+
+ul.schoolList li a:hover {
+	color:#b4bcb1;
+	text-decoration:underline;
+}
+
+ul.schoolList li a:visited {
+	color:#444444;
+	text-decoration:underline;
 }
