@@ -11,14 +11,6 @@ form.schoolForm .listTable tbody tr td {
 	padding: 3px;
 }
 
-form.schoolForm .listTable tbody tr td:first-child {
-	padding-left: 12px;
-}
-
-form.schoolForm .listTable tbody tr td:last-child {
-	padding-right: 12px;
-}
-
 form.schoolForm .listTable thead tr th {
 	text-align: left;
 	padding: 3px;
@@ -28,11 +20,11 @@ form.schoolForm .listTable thead tr th {
 	border-bottom: 1px solid #D7D7D7;
 }
 
-form.schoolForm .listTable thead tr th:first-child {
+form.schoolForm .listTable thead tr th.firstColumn, form.schoolForm .listTable tbody tr td.firstColumn {
 	padding-left: 12px;
 }
 
-form.schoolForm .listTable thead tr th:last-child {
+form.schoolForm .listTable thead tr th.lastColumn, form.schoolForm .listTable tbody tr td.lastColumn {
 	padding-right: 12px;
 }
 
