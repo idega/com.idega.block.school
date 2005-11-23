@@ -1,19 +1,11 @@
-/*
- * $Id: SchoolClassMemberHomeImpl.java,v 1.75 2005/10/27 11:03:12 palli Exp $
- * Created on Oct 26, 2005
- *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
 import java.sql.Date;
 import java.util.Collection;
-
 import javax.ejb.FinderException;
-
 import com.idega.core.location.data.Commune;
 import com.idega.data.IDOException;
 import com.idega.data.IDOFactory;
@@ -23,11 +15,13 @@ import com.idega.user.data.User;
 
 
 /**
+ * <p>
+ * TODO Dainis Describe Type SchoolClassMemberHomeImpl
+ * </p>
+ *  Last modified: $Date: 2005/11/23 09:17:43 $ by $Author: dainis $
  * 
- *  Last modified: $Date: 2005/10/27 11:03:12 $ by $Author: palli $
- * 
- * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.75 $
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
+ * @version $Revision: 1.76 $
  */
 public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClassMemberHome {
 
@@ -622,4 +616,10 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
+	public Collection findAll() throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAll();
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
 }

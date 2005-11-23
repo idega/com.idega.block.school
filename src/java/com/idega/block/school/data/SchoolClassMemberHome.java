@@ -1,19 +1,11 @@
-/*
- * $Id: SchoolClassMemberHome.java,v 1.75 2005/10/27 11:03:13 palli Exp $
- * Created on Oct 26, 2005
- *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
 import java.sql.Date;
 import java.util.Collection;
-
 import javax.ejb.FinderException;
-
 import com.idega.core.location.data.Commune;
 import com.idega.data.IDOException;
 import com.idega.data.IDOHome;
@@ -23,11 +15,13 @@ import com.idega.user.data.User;
 
 
 /**
+ * <p>
+ * TODO Dainis Describe Type SchoolClassMemberHome
+ * </p>
+ *  Last modified: $Date: 2005/11/23 09:17:43 $ by $Author: dainis $
  * 
- *  Last modified: $Date: 2005/10/27 11:03:13 $ by $Author: palli $
- * 
- * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.75 $
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
+ * @version $Revision: 1.76 $
  */
 public interface SchoolClassMemberHome extends IDOHome {
 
@@ -434,4 +428,8 @@ public interface SchoolClassMemberHome extends IDOHome {
 	 */
 	public Collection findSubGroupPlacements() throws FinderException;
 
+	/**
+	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#ejbFindAll
+	 */
+	public Collection findAll() throws FinderException;
 }
