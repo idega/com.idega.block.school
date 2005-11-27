@@ -18,10 +18,10 @@ import com.idega.user.data.User;
  * <p>
  * TODO Dainis Describe Type SchoolClassMemberHome
  * </p>
- *  Last modified: $Date: 2005/11/23 09:17:43 $ by $Author: dainis $
+ *  Last modified: $Date: 2005/11/27 17:13:17 $ by $Author: dainis $
  * 
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
- * @version $Revision: 1.76 $
+ * @version $Revision: 1.77 $
  */
 public interface SchoolClassMemberHome extends IDOHome {
 
