@@ -2091,7 +2091,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	//ny
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
 			Timestamp registerDate, int registrator, int studyPathID) {
-		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, null, null, studyPathID);
+		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, null, null, studyPathID, -1);
 	}
 
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
@@ -2109,7 +2109,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
 			Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate,
-				registrator, notes, language, -1);
+				registrator, notes, language, -1, -1);
 	}
 	
 	/**
@@ -2117,7 +2117,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * is updated
 	 */
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language, int studyPathID) {
+			Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language, int studyPathID, int handicraftId) {
 		try {
 			SchoolClass group = this.findSchoolClass(new Integer(schoolClassID));
 			if (group.getIsSubGroup()) {
@@ -2171,7 +2171,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 					if (language != null)
 						member.setLanguage(language);
 					if (studyPathID != -1)
-						member.setStudyPathId(studyPathID);
+						member.setStudyPathId(studyPathID);					
+					if (handicraftId > 0) 
+						member.setHandicraftId(handicraftId);					
 					member.setRegistrationCreatedDate(IWTimestamp.getTimestampRightNow());
 					member.store();
 				}

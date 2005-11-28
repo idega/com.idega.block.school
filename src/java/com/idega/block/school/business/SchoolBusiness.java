@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolBusiness.java,v 1.110 2005/10/26 16:04:15 palli Exp $
+ * $Id: SchoolBusiness.java,v 1.111 2005/11/28 18:30:06 dainis Exp $
  * Created on Oct 26, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -55,10 +55,10 @@ import com.idega.user.data.User;
 
 /**
  * 
- *  Last modified: $Date: 2005/10/26 16:04:15 $ by $Author: palli $
+ *  Last modified: $Date: 2005/11/28 18:30:06 $ by $Author: dainis $
  * 
  * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.110 $
+ * @version $Revision: 1.111 $
  */
 public interface SchoolBusiness extends IBOService {
 
@@ -897,7 +897,7 @@ public interface SchoolBusiness extends IBOService {
 	 */
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
 			int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes,
-			String language, int studyPathID) throws java.rmi.RemoteException;
+			String language, int studyPathID, int handicraftId) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeNewSchoolClassMember
