@@ -5,16 +5,23 @@ package com.idega.block.school.data;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-
-
 import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOEntity;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
 import com.idega.user.data.User;
 
+
+/**
+ * <p>
+ * TODO Dainis Describe Type SchoolClassMember
+ * </p>
+ *  Last modified: $Date: 2005/11/28 18:05:20 $ by $Author: dainis $
+ * 
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
+ * @version $Revision: 1.48 $
+ */
 public interface SchoolClassMember extends IDOEntity {
-	
 	
 	public final static String FIELD_SCHOOLCLASSMEMBERID = "sch_class_member_id";
 	public final static String FIELD_SCHOOLCLASSMEMBER = "sch_class_member";
@@ -30,7 +37,8 @@ public interface SchoolClassMember extends IDOEntity {
 	//Added for the kompliterings project
 	public final static String FIELD_COMPENSATION_BY_INVOICE = "comp_by_invoice";
 	public final static String FIELD_INVOICE_INTERVAL = "invoice_int";
-	public final static String FIELD_LATEST_INVOICE_DATE = "latest_invoice_date";
+	public final static String FIELD_LATEST_INVOICE_DATE = "latest_invoice_date";	
+
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#setClassMemberId
 	 */
@@ -260,6 +268,26 @@ public interface SchoolClassMember extends IDOEntity {
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#getStudyPathId
 	 */
 	public int getStudyPathId();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#getHandicraft
+	 */
+	public SchoolStudyPath getHandicraft();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#getHandicraftId
+	 */
+	public int getHandicraftId();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#setHandicraft
+	 */
+	public void setHandicraft(SchoolStudyPath path);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#setHandicraftId
+	 */
+	public void setHandicraftId(int schoolStudyPathId);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#getSubGroups
