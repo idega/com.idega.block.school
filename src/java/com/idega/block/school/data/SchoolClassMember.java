@@ -1,11 +1,5 @@
-/*
- * $Id: SchoolClassMember.java,v 1.49 2005/11/29 12:07:53 laddi Exp $
- * Created on Nov 29, 2005
- *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
@@ -20,12 +14,12 @@ import com.idega.user.data.User;
 
 /**
  * <p>
- * TODO laddi Describe Type SchoolClassMember
+ * TODO Marie Thunberg Describe Type SchoolClassMember
  * </p>
- *  Last modified: $Date: 2005/11/29 12:07:53 $ by $Author: laddi $
+ *  Last modified: $Date: 2005/11/29 13:23:55 $ by $Author: dainis $
  * 
- * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.49 $
+ * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
+ * @version $Revision: 1.50 $
  */
 public interface SchoolClassMember extends IDOEntity {
 
@@ -44,7 +38,7 @@ public interface SchoolClassMember extends IDOEntity {
 	public final static String FIELD_COMPENSATION_BY_INVOICE = "comp_by_invoice";
 	public final static String FIELD_INVOICE_INTERVAL = "invoice_int";
 	public final static String FIELD_LATEST_INVOICE_DATE = "latest_invoice_date";	
-
+	
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#setClassMemberId
 	 */

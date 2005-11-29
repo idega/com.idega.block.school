@@ -1,11 +1,5 @@
-/*
- * $Id: SchoolClassMemberHomeImpl.java,v 1.80 2005/11/29 12:07:53 laddi Exp $
- * Created on Nov 29, 2005
- *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
@@ -22,12 +16,12 @@ import com.idega.user.data.User;
 
 /**
  * <p>
- * TODO laddi Describe Type SchoolClassMemberHomeImpl
+ * TODO Marie Thunberg Describe Type SchoolClassMemberHomeImpl
  * </p>
- *  Last modified: $Date: 2005/11/29 12:07:53 $ by $Author: laddi $
+ *  Last modified: $Date: 2005/11/29 13:23:55 $ by $Author: dainis $
  * 
- * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.80 $
+ * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
+ * @version $Revision: 1.81 $
  */
 public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClassMemberHome {
 
@@ -105,8 +99,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason season, SchoolYear year,
 			SchoolStudyPath studyPath) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolAndSeasonAndYearAndStudyPath(school,
-				season, year, studyPath);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolAndSeasonAndYearAndStudyPath(
+				school, season, year, studyPath);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -214,8 +208,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 		return theReturn;
 	}
 
-	public int getNumberOfPlacingsBySeasonAndSchoolCategory(User child, SchoolSeason season, SchoolCategory schoolCategory)
-			throws IDOException {
+	public int getNumberOfPlacingsBySeasonAndSchoolCategory(User child, SchoolSeason season,
+			SchoolCategory schoolCategory) throws IDOException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		int theReturn = ((SchoolClassMemberBMPBean) entity).ejbHomeGetNumberOfPlacingsBySeasonAndSchoolCategory(child,
 				season, schoolCategory);
@@ -292,8 +286,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findActiveByCategorySeasonAndSchools(SchoolCategory cat, SchoolSeason season, String[] schoolIds,
 			boolean notInSchools) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindActiveByCategorySeasonAndSchools(cat, season,
-				schoolIds, notInSchools);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindActiveByCategorySeasonAndSchools(cat,
+				season, schoolIds, notInSchools);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -317,8 +311,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public SchoolClassMember findNotTerminatedByStudentSchoolAndCategory(int studentId, int schoolId,
 			SchoolCategory category) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		Object pk = ((SchoolClassMemberBMPBean) entity).ejbFindNotTerminatedByStudentSchoolAndCategory(studentId, schoolId,
-				category);
+		Object pk = ((SchoolClassMemberBMPBean) entity).ejbFindNotTerminatedByStudentSchoolAndCategory(studentId,
+				schoolId, category);
 		this.idoCheckInPooledEntity(entity);
 		return this.findByPrimaryKey(pk);
 	}
@@ -380,8 +374,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllCurrentInvoiceCompensationBySchoolTypeAndSchools(String operationalField, Collection schools)
-			throws FinderException {
+	public Collection findAllCurrentInvoiceCompensationBySchoolTypeAndSchools(String operationalField,
+			Collection schools) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllCurrentInvoiceCompensationBySchoolTypeAndSchools(
 				operationalField, schools);
@@ -389,7 +383,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public SchoolClassMember findByUserAndSchoolAndSeason(int userID, int schoolID, int seasonID) throws FinderException {
+	public SchoolClassMember findByUserAndSchoolAndSeason(int userID, int schoolID, int seasonID)
+			throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		Object pk = ((SchoolClassMemberBMPBean) entity).ejbFindByUserAndSchoolAndSeason(userID, schoolID, seasonID);
 		this.idoCheckInPooledEntity(entity);
@@ -426,16 +421,16 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public int countByUserAndSchoolAndSeasonAndStudyPath(User user, School school, SchoolSeason season,
 			SchoolStudyPath studyPath) throws IDOException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		int theReturn = ((SchoolClassMemberBMPBean) entity).ejbHomeCountByUserAndSchoolAndSeasonAndStudyPath(user, school,
-				season, studyPath);
+		int theReturn = ((SchoolClassMemberBMPBean) entity).ejbHomeCountByUserAndSchoolAndSeasonAndStudyPath(user,
+				school, season, studyPath);
 		this.idoCheckInPooledEntity(entity);
 		return theReturn;
 	}
 
 	public Collection findBySchoolAndSeasonAndYear(int schoolID, int seasonID, int yearID) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolAndSeasonAndYear(schoolID, seasonID,
-				yearID);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolAndSeasonAndYear(schoolID,
+				seasonID, yearID);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -509,8 +504,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findBySchoolChildcare(int schoolID, int schoolClassID, Date date, boolean showNotYetActive)
 			throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolChildcare(schoolID, schoolClassID,
-				date, showNotYetActive);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolChildcare(schoolID,
+				schoolClassID, date, showNotYetActive);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -518,8 +513,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findBySchoolChildcare(int schoolID, int schoolClassID, String schoolCategory, Date date,
 			boolean showNotYetActive) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolChildcare(schoolID, schoolClassID,
-				schoolCategory, date, showNotYetActive);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindBySchoolChildcare(schoolID,
+				schoolClassID, schoolCategory, date, showNotYetActive);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -533,16 +528,17 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllLastYearStudentsBySeasonAndYear(SchoolSeason season, SchoolYear year) throws FinderException {
+	public Collection findAllLastYearStudentsBySeasonAndYear(SchoolSeason season, SchoolYear year)
+			throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllLastYearStudentsBySeasonAndYear(season,
-				year);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllLastYearStudentsBySeasonAndYear(
+				season, year);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllLastYearStudentsBySeasonAndYearAndMaximumAge(SchoolSeason season, SchoolYear year, int maxAge)
-			throws FinderException {
+	public Collection findAllLastYearStudentsBySeasonAndYearAndMaximumAge(SchoolSeason season, SchoolYear year,
+			int maxAge) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllLastYearStudentsBySeasonAndYearAndMaximumAge(
 				season, year, maxAge);
@@ -552,7 +548,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 
 	public Collection findAllBySeasonAndSchoolYear(SchoolSeason season, SchoolYear schoolYear) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllBySeasonAndSchoolYear(season, schoolYear);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllBySeasonAndSchoolYear(season,
+				schoolYear);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -566,8 +563,9 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 		return theReturn;
 	}
 
-	public int getNumberOfUsersNotAssignedToClassOnGivenDateNew(Group citizenGroup, Date date, SchoolSeason schoolSeason,
-			Date firstDateOfBirth, Date lastDateOfBirth) throws IDOException, IDOLookupException {
+	public int getNumberOfUsersNotAssignedToClassOnGivenDateNew(Group citizenGroup, Date date,
+			SchoolSeason schoolSeason, Date firstDateOfBirth, Date lastDateOfBirth) throws IDOException,
+			IDOLookupException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		int theReturn = ((SchoolClassMemberBMPBean) entity).ejbHomeGetNumberOfUsersNotAssignedToClassOnGivenDateNew(
 				citizenGroup, date, schoolSeason, firstDateOfBirth, lastDateOfBirth);
@@ -578,14 +576,14 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findAllByUserAndPeriodAndSchoolCategory(User child, Date period, SchoolCategory category)
 			throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllByUserAndPeriodAndSchoolCategory(child,
-				period, category);
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllByUserAndPeriodAndSchoolCategory(
+				child, period, category);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findByCategorydManagementCommune(String category, String managementType, int communeId, int seasonId)
-			throws FinderException {
+	public Collection findByCategorydManagementCommune(String category, String managementType, int communeId,
+			int seasonId) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindByCategorydManagementCommune(category,
 				managementType, communeId, seasonId);
@@ -605,8 +603,8 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public int getNumberOfPlacingsAtSchool(School school, SchoolSeason season, SchoolYear department,
 			SchoolStudyPath instrument, String types, Commune commune) throws IDOException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		int theReturn = ((SchoolClassMemberBMPBean) entity).ejbHomeGetNumberOfPlacingsAtSchool(school, season, department,
-				instrument, types, commune);
+		int theReturn = ((SchoolClassMemberBMPBean) entity).ejbHomeGetNumberOfPlacingsAtSchool(school, season,
+				department, instrument, types, commune);
 		this.idoCheckInPooledEntity(entity);
 		return theReturn;
 	}
