@@ -18,10 +18,10 @@ import com.idega.user.data.User;
  * <p>
  * TODO Marie Thunberg Describe Type SchoolClassMemberHomeImpl
  * </p>
- *  Last modified: $Date: 2005/11/29 13:23:55 $ by $Author: dainis $
+ *  Last modified: $Date: 2005/12/01 22:20:07 $ by $Author: dainis $
  * 
  * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
- * @version $Revision: 1.81 $
+ * @version $Revision: 1.82 $
  */
 public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClassMemberHome {
 
@@ -619,13 +619,6 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findSubGroupPlacements() throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindSubGroupPlacements();
-		this.idoCheckInPooledEntity(entity);
-		return this.getEntityCollectionForPrimaryKeys(ids);
-	}
-
-	public Collection findAll() throws FinderException {
-		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAll();
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}

@@ -18,10 +18,10 @@ import com.idega.user.data.User;
  * <p>
  * TODO Marie Thunberg Describe Type SchoolClassMemberHome
  * </p>
- *  Last modified: $Date: 2005/11/29 13:23:55 $ by $Author: dainis $
+ *  Last modified: $Date: 2005/12/01 22:20:08 $ by $Author: dainis $
  * 
  * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
- * @version $Revision: 1.81 $
+ * @version $Revision: 1.82 $
  */
 public interface SchoolClassMemberHome extends IDOHome {
 
@@ -432,9 +432,4 @@ public interface SchoolClassMemberHome extends IDOHome {
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#ejbFindSubGroupPlacements
 	 */
 	public Collection findSubGroupPlacements() throws FinderException;
-
-	/**
-	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#ejbFindAll
-	 */
-	public Collection findAll() throws FinderException;
 }

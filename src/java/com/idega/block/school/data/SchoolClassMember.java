@@ -16,10 +16,10 @@ import com.idega.user.data.User;
  * <p>
  * TODO Marie Thunberg Describe Type SchoolClassMember
  * </p>
- *  Last modified: $Date: 2005/11/29 13:23:55 $ by $Author: dainis $
+ *  Last modified: $Date: 2005/12/01 22:20:07 $ by $Author: dainis $
  * 
  * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
- * @version $Revision: 1.50 $
+ * @version $Revision: 1.51 $
  */
 public interface SchoolClassMember extends IDOEntity {
 

@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2005/11/28 18:05:20 $ by $Author: dainis $
- * @version $Revision: 1.158 $
+ *         Last modified: $Date: 2005/12/01 22:20:07 $ by $Author: dainis $
+ * @version $Revision: 1.159 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -1938,10 +1938,4 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		super.remove();
 	}
 	
-	//XXX: for testing purposes only
-	public Collection ejbFindAll() throws FinderException {
-		IDOQuery query = idoQuery();
-		query.appendSelectAllFrom(this).append(" where rownum < 1000");		
-		return idoFindPKsByQuery(query);
-    }
 }
