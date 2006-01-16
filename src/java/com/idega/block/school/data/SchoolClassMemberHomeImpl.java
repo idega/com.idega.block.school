@@ -12,16 +12,17 @@ import com.idega.data.IDOFactory;
 import com.idega.data.IDOLookupException;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
+import com.idega.util.IWTimestamp;
 
 
 /**
  * <p>
  * TODO Dainis Describe Type SchoolClassMemberHomeImpl
  * </p>
- *  Last modified: $Date: 2006/01/16 09:38:59 $ by $Author: dainis $
+ *  Last modified: $Date: 2006/01/16 16:00:52 $ by $Author: dainis $
  * 
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
- * @version $Revision: 1.83 $
+ * @version $Revision: 1.84 $
  */
 public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClassMemberHome {
 
@@ -628,6 +629,15 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findSubGroupPlacements() throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindSubGroupPlacements();
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	public Collection findPlacementsBySchoolTypeAndRegisterDateAndGradeInPeriod(SchoolType type,
+			IWTimestamp periodFrom, IWTimestamp periodTo) throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindPlacementsBySchoolTypeAndRegisterDateAndGradeInPeriod(
+				type, periodFrom, periodTo);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
