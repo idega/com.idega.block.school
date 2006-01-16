@@ -16,12 +16,12 @@ import com.idega.user.data.User;
 
 /**
  * <p>
- * TODO Marie Thunberg Describe Type SchoolClassMemberHomeImpl
+ * TODO Dainis Describe Type SchoolClassMemberHomeImpl
  * </p>
- *  Last modified: $Date: 2005/12/01 22:20:07 $ by $Author: dainis $
+ *  Last modified: $Date: 2006/01/16 09:38:59 $ by $Author: dainis $
  * 
- * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
- * @version $Revision: 1.82 $
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
+ * @version $Revision: 1.83 $
  */
 public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClassMemberHome {
 
@@ -295,6 +295,15 @@ public class SchoolClassMemberHomeImpl extends IDOFactory implements SchoolClass
 	public Collection findAllByCategory(SchoolCategory category) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllByCategory(category);
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	public Collection findAllByCategoryForPlacementChangesExport(SchoolCategory category, Date startDate, Date endDate)
+			throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		java.util.Collection ids = ((SchoolClassMemberBMPBean) entity).ejbFindAllByCategoryForPlacementChangesExport(
+				category, startDate, endDate);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}

@@ -39,6 +39,7 @@ import com.idega.user.data.GroupRelation;
 import com.idega.user.data.User;
 import com.idega.user.data.UserBMPBean;
 import com.idega.util.IWTimestamp;
+import com.sun.org.apache.xerces.internal.impl.dv.dtd.NOTATIONDatatypeValidator;
 
 /**
  * <p>
@@ -56,8 +57,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2005/12/01 22:20:07 $ by $Author: dainis $
- * @version $Revision: 1.159 $
+ *         Last modified: $Date: 2006/01/16 09:38:59 $ by $Author: dainis $
+ * @version $Revision: 1.160 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -815,6 +816,54 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		
 		return idoFindPKsByQuery(query);
 	}
+
+	
+	public Collection ejbFindAllByCategoryForPlacementChangesExport(SchoolCategory category, Date startDate, Date endDate) throws FinderException {
+		/*
+		Table table = new Table(this);
+		Table type = new Table(SchoolType.class);
+		
+		SelectQuery query = new SelectQuery(table);
+		query.addColumn(new WildCardColumn());
+		try {
+			query.addJoin(table, type);
+		}
+		catch (IDORelationshipException ire) {
+			throw new FinderException(ire.getMessage()); 
+		}
+		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
+		
+		query.addCriteria(new MatchCriteria(table, REGISTER_DATE, MatchCriteria.GREATER, endDate));
+		new MatchCriteria()
+		
+		query.addOrder(table, MEMBER, false);
+		query.addOrder(table, REGISTER_DATE, true);
+		
+		return idoFindPKsByQuery(query);
+		*/
+		StringBuffer query = new StringBuffer();
+		
+		query.append("SELECT * FROM sch_school_type, sch_class_member ");
+		query.append("WHERE ");
+		query.append("sch_class_member.sch_school_type_id = sch_school_type.sch_school_type_id ");
+		query.append("AND sch_school_type.school_category = '" + category.getCategory() + "' ");
+		
+		query.append("and not (sch_class_member.register_date > '"+ endDate +"') ");
+		
+		query.append("and not (sch_class_member.removed_date is not null and sch_class_member.removed_date < '"+ startDate +"') ");
+		
+		// query.append("and not ((sch_class_member.register_date < '"+ startDate +"') and (sch_class_member.removed_date is null or sch_class_member.removed_date > '"+ endDate +"')) ");
+		
+		query.append("ORDER BY ");
+		query.append("sch_class_member.ic_user_id DESC , ");
+		query.append("sch_class_member.register_date ");
+	
+		
+		return idoFindPKsBySQL(query.toString());
+		
+		
+	}
+
 	
 	public Integer ejbFindActiveByStudentSchoolAndCategory(int studentId, int schoolId, SchoolCategory category) throws FinderException {
 		Table table = new Table(this);

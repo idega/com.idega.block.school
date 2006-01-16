@@ -14,15 +14,15 @@ import com.idega.user.data.User;
 
 /**
  * <p>
- * TODO Marie Thunberg Describe Type SchoolClassMember
+ * TODO Dainis Describe Type SchoolClassMember
  * </p>
- *  Last modified: $Date: 2005/12/01 22:20:07 $ by $Author: dainis $
+ *  Last modified: $Date: 2006/01/16 09:38:59 $ by $Author: dainis $
  * 
- * @author <a href="mailto:Marie Thunberg@idega.com">Marie Thunberg</a>
- * @version $Revision: 1.51 $
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
+ * @version $Revision: 1.52 $
  */
 public interface SchoolClassMember extends IDOEntity {
-
+	
 	public final static String FIELD_SCHOOLCLASSMEMBERID = "sch_class_member_id";
 	public final static String FIELD_SCHOOLCLASSMEMBER = "sch_class_member";
 	public final static String FIELD_MEMBER = "ic_user_id";
@@ -38,7 +38,6 @@ public interface SchoolClassMember extends IDOEntity {
 	public final static String FIELD_COMPENSATION_BY_INVOICE = "comp_by_invoice";
 	public final static String FIELD_INVOICE_INTERVAL = "invoice_int";
 	public final static String FIELD_LATEST_INVOICE_DATE = "latest_invoice_date";	
-	
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#setClassMemberId
 	 */
