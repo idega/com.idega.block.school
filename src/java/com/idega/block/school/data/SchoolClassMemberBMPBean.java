@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/01/16 16:00:51 $ by $Author: dainis $
- * @version $Revision: 1.162 $
+ *         Last modified: $Date: 2006/01/19 17:49:47 $ by $Author: laddi $
+ * @version $Revision: 1.163 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -1334,8 +1334,10 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendWhereEquals("m.sch_school_type_id", "t.sch_school_type_id");
 		sql.appendAndEquals("m.sch_school_class_id", "c.sch_school_class_id");
 		sql.appendAndEquals("m.ic_user_id", "u.ic_user_id");
-		sql.appendAndEquals("c.school_id", schoolID).appendAnd();
-		sql.appendLeftParenthesis().appendEqualsQuoted("c.valid", "Y");
+		if (schoolID != -1) {
+			sql.appendAndEquals("c.school_id", schoolID);
+		}
+		sql.appendAnd().appendLeftParenthesis().appendEqualsQuoted("c.valid", "Y");
 		sql.appendOr().append("c.valid is null").appendRightParenthesis();
 		if (schoolCategory != null) {
 			sql.appendAndEqualsQuoted("t.school_category", schoolCategory);
