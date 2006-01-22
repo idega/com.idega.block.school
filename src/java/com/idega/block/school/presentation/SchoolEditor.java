@@ -64,6 +64,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_YEAR_PKS = "prm_year_pks";
 	private static final String PARAMETER_JUNIOR_HIGH_SCHOOL = "prm_junior_high_school_pk";
 	private static final String PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK = "prm_care_provider_pk";
+	private static final String PARAMETER_HAS_REFRESHMENTS = "prm_has_refreshments";
 
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -72,6 +73,8 @@ public class SchoolEditor extends SchoolBlock {
 	private static final int ACTION_DELETE = 5;
 	
 	private String iNewKey = "school.new";
+	
+	private String iEditorID = "schoolEditor";
 	
 	boolean _useProviderStringId = false;
 	String iSchoolCategory = null;
@@ -162,24 +165,23 @@ public class SchoolEditor extends SchoolBlock {
 		
 		Object juniorHighID = iwc.isParameterSet(PARAMETER_JUNIOR_HIGH_SCHOOL) ? iwc.getParameter(PARAMETER_JUNIOR_HIGH_SCHOOL) : null;
 		Object providerID = iwc.isParameterSet(PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK) ? iwc.getParameter(PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK) : null;
-		boolean store = false;
+		boolean hasRefreshments = iwc.isParameterSet(PARAMETER_HAS_REFRESHMENTS) ? new Boolean(iwc.getParameter(PARAMETER_HAS_REFRESHMENTS)).booleanValue() : false;
 		
 		School school = getBusiness().storeSchool(sid, name, info, address, zipcode, ziparea, phone, keycode, lat, lon, areaId, types, years, communePK, providerStringId);
 		if (juniorHighID != null) {
 			school.setJuniorHighSchool(juniorHighID);
-			store = true;
 		}
 		if (providerID != null) {
 			school.setAfterSchoolCareProvider(providerID);
-			store = true;
 		}
-		if (store) {
-			school.store();
-		}
+		school.setHasRefreshments(hasRefreshments);
+		
+		school.store();
 	}
 
 	public void showList(IWContext iwc) throws RemoteException {
 		Form form = new Form();
+		form.setID(iEditorID);
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
 		
 		Table2 table = new Table2();
@@ -289,6 +291,7 @@ public class SchoolEditor extends SchoolBlock {
 
 	public void showEditor(IWContext iwc, Object schoolPK) throws java.rmi.RemoteException {
 		Form form = new Form();
+		form.setID(iEditorID);
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
 		
 		TextInput inputProviderStringId = new TextInput(PARAMETER_PROVIDER_STRING_ID);
@@ -322,6 +325,10 @@ public class SchoolEditor extends SchoolBlock {
 		su.getSelectorFromIDOEntities(providers, schools, "getSchoolName");
 		providers.setMenuElementFirst("", "");
 		
+		DropdownMenu hasRefreshments = new DropdownMenu(PARAMETER_HAS_REFRESHMENTS);
+		hasRefreshments.addMenuElement(Boolean.TRUE.toString(), localize("yes", "Yes"));
+		hasRefreshments.addMenuElement(Boolean.FALSE.toString(), localize("no", "No"));
+		
 		Map schooltypes = null, schoolyears = null;
 		Commune commune = null;
 		if (schoolPK != null) {
@@ -354,6 +361,7 @@ public class SchoolEditor extends SchoolBlock {
 				if (school.getAfterSchoolCareProviderPK() != null) {
 					providers.setSelectedElement(school.getAfterSchoolCareProviderPK().toString());
 				}
+				hasRefreshments.setSelectedElement(String.valueOf(school.hasRefreshments()));
 			}
 			catch (Exception ex) {
 			}
@@ -373,6 +381,7 @@ public class SchoolEditor extends SchoolBlock {
 		Label label;
 		if (_useProviderStringId) {
 			layer = new Layer(Layer.DIV);
+			layer.setID("providerStringID");
 			layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 			label = new Label(localize("provider_id", "Provider ID"), inputProviderStringId);
 			layer.add(label);
@@ -381,6 +390,7 @@ public class SchoolEditor extends SchoolBlock {
 		}
 
 		layer = new Layer(Layer.DIV);
+		layer.setID("name");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("name", "Name"), inputName);
 		layer.add(label);
@@ -388,6 +398,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 
 		layer = new Layer(Layer.DIV);
+		layer.setID("address");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("address", "Address"), inputAddress);
 		layer.add(label);
@@ -395,6 +406,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("postalCode");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("zipcode", "zipcode"), inputZipCode);
 		layer.add(label);
@@ -402,6 +414,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("area");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("ziparea", "Ziparea"), inputZipArea);
 		layer.add(label);
@@ -409,6 +422,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("phone");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("phone", "Phone"), inputPhone);
 		layer.add(label);
@@ -416,6 +430,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("info");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("info", "Info"), inputInfo);
 		layer.add(label);
@@ -423,6 +438,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("keycode");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("keycode", "keycode"), inputKeyCode);
 		layer.add(label);
@@ -430,6 +446,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("latitude");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("inputKeyCode", "Latitude"), inputLAT);
 		layer.add(label);
@@ -437,6 +454,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("longitude");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("longitude", "Longitude"), inputLON);
 		layer.add(label);
@@ -444,6 +462,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("commune");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("commune", "Commune"), communes);
 		layer.add(label);
@@ -451,6 +470,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setID("schoolArea");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("school_area", "SchoolArea"), drpArea);
 		layer.add(label);
@@ -458,6 +478,7 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 
 		layer = new Layer(Layer.DIV);
+		layer.setID("juniorHigh");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("junior_high_school", "Junior high school"), juniorHighs);
 		layer.add(label);
@@ -465,10 +486,19 @@ public class SchoolEditor extends SchoolBlock {
 		form.add(layer);
 
 		layer = new Layer(Layer.DIV);
+		layer.setID("afterSchoolCareProvider");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("after_school_care_provider", "After school care provider"), providers);
 		layer.add(label);
 		layer.add(providers);
+		form.add(layer);
+
+		layer = new Layer(Layer.DIV);
+		layer.setID("hasRefreshments");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("has_refreshments", "Has refreshments"), hasRefreshments);
+		layer.add(label);
+		layer.add(hasRefreshments);
 		form.add(layer);
 
 		form.add(new Break());
@@ -564,5 +594,9 @@ public class SchoolEditor extends SchoolBlock {
 	
 	public void setNewSchoolLocalizedKey(String newSchoolLocalizedKey) {
 		iNewKey = newSchoolLocalizedKey;
+	}
+	
+	public void setEditorID(String ID) {
+		iEditorID = ID;
 	}
 }
