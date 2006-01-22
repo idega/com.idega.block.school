@@ -2,12 +2,16 @@ package com.idega.block.school.data;
 
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.ejb.FinderException;
 
 import com.idega.data.GenericEntity;
+import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDOQuery;
+import com.idega.data.IDORelationshipException;
+import com.idega.data.IDORemoveRelationshipException;
 import com.idega.user.data.User;
 
 /**
@@ -53,7 +57,29 @@ public class SchoolUserBMPBean extends GenericEntity implements SchoolUser{
 		this.addAttribute(COLUMN_NAME_USER_TYPE, "user type", true, true, Integer.class);
 		this.addAttribute(COLUMN_NAME_SHOW_IN_CONTACTS, "show in contacts", true, true, Boolean.class);
 		this.addAttribute(COLUMN_NAME_MAIN_HEADMASTER, "main headmaster", true, true, Boolean.class);	
-		this.addAttribute(COLUMN_NAME_ECONOMY_RESP, "economical responsible", true, true, Boolean.class);	
+		this.addAttribute(COLUMN_NAME_ECONOMY_RESP, "economical responsible", true, true, Boolean.class);
+		
+		this.addManyToManyRelationShip(School.class);
+	}
+	
+	public Collection getSchools() throws IDORelationshipException {
+		return idoGetRelatedEntities(School.class);
+	}
+	
+	public void addSchools(Collection schools) throws IDOAddRelationshipException {
+		Iterator iter = schools.iterator();
+		while (iter.hasNext()) {
+			School school = (School) iter.next();
+			idoAddTo(school);
+		}
+	}
+	
+	public void removeSchool(School school) throws IDORemoveRelationshipException {
+		idoRemoveFrom(school);
+	}
+	
+	public void removeSchools() throws IDORemoveRelationshipException {
+		idoRemoveFrom(School.class);
 	}
 
 	public void setSchoolId(int schoolId) {
@@ -264,6 +290,17 @@ public class SchoolUserBMPBean extends GenericEntity implements SchoolUser{
 		.append(user.getPrimaryKey().toString());	
 		
 		return this.idoFindIDsBySQL(sql.toString());
+	}
+	
+	public Object ejbFindForUser(User user) throws FinderException {
+		IDOQuery sql = idoQuery();
+		sql.appendSelectAllFrom(this)
+		.appendWhere()
+		.append(COLUMN_NAME_USER_ID)
+		.appendEqualSign()
+		.append(user.getPrimaryKey().toString());	
+		
+		return this.idoFindOnePKBySQL(sql.toString());
 	}
 	
 	public Collection ejbFindBySchoolAndUser(School school, User user) throws FinderException {

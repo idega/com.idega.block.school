@@ -1,21 +1,121 @@
+/*
+ * $Id: SchoolUser.java 1.1 Jan 19, 2006 laddi Exp $
+ * Created on Jan 19, 2006
+ *
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
+ *
+ * This software is the proprietary information of Idega hf.
+ * Use is subject to license terms.
+ */
 package com.idega.block.school.data;
 
+import java.rmi.RemoteException;
+import java.util.Collection;
+import com.idega.data.IDOAddRelationshipException;
+import com.idega.data.IDOEntity;
+import com.idega.data.IDORelationshipException;
+import com.idega.data.IDORemoveRelationshipException;
+import com.idega.user.data.User;
 
-public interface SchoolUser extends com.idega.data.IDOEntity
-{
- public com.idega.block.school.data.SchoolUserHome getHome()throws java.rmi.RemoteException;
- public boolean getMainHeadmaster();
- public int getSchoolId();
- public boolean getShowInContact();
- public com.idega.user.data.User getUser();
- public int getUserId();
- public int getUserType();
- public void initializeAttributes();
- public void setMainHeadmaster(boolean p0);
- public void setSchoolId(int p0);
- public void setShowInContact(boolean p0);
- public void setUserId(int p0);
- public void setUserType(int p0);
-	void setIsEconomicalResponsible(boolean b);
-	boolean isEconomicalResponsible();
+
+/**
+ * <p>
+ * TODO laddi Describe Type SchoolUser
+ * </p>
+ *  Last modified: $Date: 2004/06/28 09:09:50 $ by $Author: laddi $
+ * 
+ * @author <a href="mailto:laddi@idega.com">laddi</a>
+ * @version $Revision: 1.1 $
+ */
+public interface SchoolUser extends IDOEntity {
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getSchools
+	 */
+	public Collection getSchools() throws IDORelationshipException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#addSchools
+	 */
+	public void addSchools(Collection schools) throws IDOAddRelationshipException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#removeSchool
+	 */
+	public void removeSchool(School school) throws IDORemoveRelationshipException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#removeSchools
+	 */
+	public void removeSchools() throws IDORemoveRelationshipException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#setSchoolId
+	 */
+	public void setSchoolId(int schoolId);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getSchoolId
+	 */
+	public int getSchoolId();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#setUserId
+	 */
+	public void setUserId(int userId);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getUserId
+	 */
+	public int getUserId();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getUser
+	 */
+	public User getUser();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#setUserType
+	 */
+	public void setUserType(int userType);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getUserType
+	 */
+	public int getUserType();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#setMainHeadmaster
+	 */
+	public void setMainHeadmaster(boolean mainHead);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getMainHeadmaster
+	 */
+	public boolean getMainHeadmaster();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#setIsEconomicalResponsible
+	 */
+	public void setIsEconomicalResponsible(boolean b);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#isEconomicalResponsible
+	 */
+	public boolean isEconomicalResponsible();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#setShowInContact
+	 */
+	public void setShowInContact(boolean showinContacts);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getShowInContact
+	 */
+	public boolean getShowInContact();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolUserBMPBean#getHome
+	 */
+	public SchoolUserHome getHome() throws RemoteException;
 }
