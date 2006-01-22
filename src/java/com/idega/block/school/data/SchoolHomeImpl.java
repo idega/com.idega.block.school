@@ -1,8 +1,8 @@
 /*
- * $Id: SchoolHomeImpl.java,v 1.45 2005/10/07 13:23:39 laddi Exp $
- * Created on Oct 7, 2005
+ * $Id: SchoolHomeImpl.java,v 1.46 2006/01/22 08:37:51 laddi Exp $
+ * Created on Jan 22, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
@@ -19,10 +19,13 @@ import com.idega.user.data.Group;
 
 
 /**
- * Last modified: $Date: 2005/10/07 13:23:39 $ by $Author: laddi $
+ * <p>
+ * TODO laddi Describe Type SchoolHomeImpl
+ * </p>
+ *  Last modified: $Date: 2006/01/22 08:37:51 $ by $Author: laddi $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.45 $
+ * @version $Revision: 1.46 $
  */
 public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 
@@ -59,37 +62,30 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllByAreaTypeManagement(int areaId, int typeId, String managementType)
-			throws javax.ejb.FinderException {
+	public Collection findAllByAreaTypeManagement(int areaId, int typeId, String managementType) throws javax.ejb.FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagement(areaId, typeId, managementType);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, String managementType, int communeId)
-			throws javax.ejb.FinderException {
+	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, String managementType, int communeId) throws javax.ejb.FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagementCommune(areaId, typeId,
-				managementType, communeId);
+		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagementCommune(areaId, typeId, managementType, communeId);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, Collection managementTypes, int communeId)
-			throws javax.ejb.FinderException {
+	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, Collection managementTypes, int communeId) throws javax.ejb.FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagementCommune(areaId, typeId,
-				managementTypes, communeId);
+		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagementCommune(areaId, typeId, managementTypes, communeId);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllByAreaTypeManagementCommune(int areaId, Collection typeIds, Collection managementTypes,
-			int communeId) throws javax.ejb.FinderException {
+	public Collection findAllByAreaTypeManagementCommune(int areaId, Collection typeIds, Collection managementTypes, int communeId) throws javax.ejb.FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagementCommune(areaId, typeIds,
-				managementTypes, communeId);
+		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaTypeManagementCommune(areaId, typeIds, managementTypes, communeId);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -185,8 +181,7 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllByAreaAndTypesAndYear(int area, Collection types, int yearID)
-			throws javax.ejb.FinderException {
+	public Collection findAllByAreaAndTypesAndYear(int area, Collection types, int yearID) throws javax.ejb.FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllByAreaAndTypesAndYear(area, types, yearID);
 		this.idoCheckInPooledEntity(entity);
@@ -207,8 +202,7 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findAllInHomeCommuneByCategory(SchoolCategory schoolCategory) throws IDOLookupException,
-			EJBException, FinderException {
+	public Collection findAllInHomeCommuneByCategory(SchoolCategory schoolCategory) throws IDOLookupException, EJBException, FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolBMPBean) entity).ejbFindAllInHomeCommuneByCategory(schoolCategory);
 		this.idoCheckInPooledEntity(entity);

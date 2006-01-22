@@ -1,8 +1,8 @@
 /*
- * $Id: SchoolHome.java,v 1.44 2005/10/07 13:23:39 laddi Exp $
- * Created on Oct 7, 2005
+ * $Id: SchoolHome.java,v 1.45 2006/01/22 08:37:51 laddi Exp $
+ * Created on Jan 22, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
@@ -19,10 +19,13 @@ import com.idega.user.data.Group;
 
 
 /**
- * Last modified: $Date: 2005/10/07 13:23:39 $ by $Author: laddi $
+ * <p>
+ * TODO laddi Describe Type SchoolHome
+ * </p>
+ *  Last modified: $Date: 2006/01/22 08:37:51 $ by $Author: laddi $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.44 $
+ * @version $Revision: 1.45 $
  */
 public interface SchoolHome extends IDOHome {
 
@@ -48,26 +51,22 @@ public interface SchoolHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllByAreaTypeManagement
 	 */
-	public Collection findAllByAreaTypeManagement(int areaId, int typeId, String managementType)
-			throws javax.ejb.FinderException;
+	public Collection findAllByAreaTypeManagement(int areaId, int typeId, String managementType) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllByAreaTypeManagementCommune
 	 */
-	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, String managementType, int communeId)
-			throws javax.ejb.FinderException;
+	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, String managementType, int communeId) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllByAreaTypeManagementCommune
 	 */
-	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, Collection managementTypes, int communeId)
-			throws javax.ejb.FinderException;
+	public Collection findAllByAreaTypeManagementCommune(int areaId, int typeId, Collection managementTypes, int communeId) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllByAreaTypeManagementCommune
 	 */
-	public Collection findAllByAreaTypeManagementCommune(int areaId, Collection typeIds, Collection managementTypes,
-			int communeId) throws javax.ejb.FinderException;
+	public Collection findAllByAreaTypeManagementCommune(int areaId, Collection typeIds, Collection managementTypes, int communeId) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllByAreaTypeCommune
@@ -137,8 +136,7 @@ public interface SchoolHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllByAreaAndTypesAndYear
 	 */
-	public Collection findAllByAreaAndTypesAndYear(int area, Collection types, int yearID)
-			throws javax.ejb.FinderException;
+	public Collection findAllByAreaAndTypesAndYear(int area, Collection types, int yearID) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllBySubAreaAndTypes
@@ -153,8 +151,7 @@ public interface SchoolHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllInHomeCommuneByCategory
 	 */
-	public Collection findAllInHomeCommuneByCategory(SchoolCategory schoolCategory) throws IDOLookupException,
-			EJBException, FinderException;
+	public Collection findAllInHomeCommuneByCategory(SchoolCategory schoolCategory) throws IDOLookupException, EJBException, FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#ejbFindAllBySchoolGroup

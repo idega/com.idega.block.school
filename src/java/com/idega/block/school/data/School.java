@@ -1,8 +1,8 @@
 /*
- * $Id: School.java,v 1.45 2005/10/07 13:23:39 laddi Exp $
- * Created on Oct 7, 2005
+ * $Id: School.java,v 1.46 2006/01/22 08:37:51 laddi Exp $
+ * Created on Jan 22, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
@@ -28,10 +28,13 @@ import com.idega.user.data.Group;
 
 
 /**
- * Last modified: $Date: 2005/10/07 13:23:39 $ by $Author: laddi $
+ * <p>
+ * TODO laddi Describe Type School
+ * </p>
+ *  Last modified: $Date: 2006/01/22 08:37:51 $ by $Author: laddi $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.45 $
+ * @version $Revision: 1.46 $
  */
 public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 
@@ -74,6 +77,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#getJuniorHighSchoolPK
 	 */
 	public Object getJuniorHighSchoolPK();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#hasRefreshments
+	 */
+	public boolean hasRefreshments();
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#setJuniorHighSchool
@@ -209,6 +217,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolVisitAddress
 	 */
 	public void setSchoolVisitAddress(String visitaddress);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#setHasRefreshments
+	 */
+	public void setHasRefreshments(boolean hasRefreshments);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolZipArea
