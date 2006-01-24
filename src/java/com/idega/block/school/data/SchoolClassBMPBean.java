@@ -256,7 +256,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 
 	public Collection ejbFindBySchoolAndSeason(int schoolID, int schoolSeasonID) throws FinderException {
 		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
-				+ String.valueOf(schoolID) + " and " + SEASON + " = " + String.valueOf(schoolSeasonID) + " and ("
+				+ String.valueOf(schoolID) + (schoolSeasonID > -1 ? " and " + SEASON + " = " + String.valueOf(schoolSeasonID) : "") + " and ("
 				+ COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
