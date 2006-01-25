@@ -1,8 +1,8 @@
 /*
- * $Id: SchoolSeasonHomeImpl.java,v 1.12 2005/10/26 16:03:38 palli Exp $
- * Created on Oct 26, 2005
+ * $Id: SchoolSeasonHomeImpl.java,v 1.13 2006/01/25 00:27:24 gimmi Exp $
+ * Created on Jan 12, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
@@ -11,18 +11,18 @@ package com.idega.block.school.data;
 
 import java.sql.Date;
 import java.util.Collection;
-
 import javax.ejb.FinderException;
-
 import com.idega.data.IDOFactory;
 
 
 /**
+ * <p>
+ * TODO gimmi Describe Type SchoolSeasonHomeImpl
+ * </p>
+ *  Last modified: $Date: 2006/01/25 00:27:24 $ by $Author: gimmi $
  * 
- *  Last modified: $Date: 2005/10/26 16:03:38 $ by $Author: palli $
- * 
- * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.12 $
+ * @author <a href="mailto:gimmi@idega.com">gimmi</a>
+ * @version $Revision: 1.13 $
  */
 public class SchoolSeasonHomeImpl extends IDOFactory implements SchoolSeasonHome {
 
@@ -87,6 +87,13 @@ public class SchoolSeasonHomeImpl extends IDOFactory implements SchoolSeasonHome
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
+	public SchoolSeason findByNameAndCategory(String name, SchoolCategory category) throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		Object pk = ((SchoolSeasonBMPBean) entity).ejbFindByNameAndCategory(name, category);
+		this.idoCheckInPooledEntity(entity);
+		return this.findByPrimaryKey(pk);
+	}
+
 	public SchoolSeason findCurrentSeason(SchoolCategory category) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		Object pk = ((SchoolSeasonBMPBean) entity).ejbFindCurrentSeason(category);
@@ -123,5 +130,4 @@ public class SchoolSeasonHomeImpl extends IDOFactory implements SchoolSeasonHome
 		this.idoCheckInPooledEntity(entity);
 		return this.findByPrimaryKey(pk);
 	}
-
 }

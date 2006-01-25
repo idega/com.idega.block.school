@@ -1,22 +1,28 @@
 /*
- * Created on 2005-sep-09
+ * $Id: SchoolType.java,v 1.16 2006/01/25 00:27:24 gimmi Exp $
+ * Created on Jan 12, 2006
  *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
+ *
+ * This software is the proprietary information of Idega hf.
+ * Use is subject to license terms.
  */
 package com.idega.block.school.data;
 
-
-
 import com.idega.data.IDOEntity;
 
+
 /**
- * @author Malin
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
+ * <p>
+ * TODO gimmi Describe Type SchoolType
+ * </p>
+ *  Last modified: $Date: 2006/01/25 00:27:24 $ by $Author: gimmi $
+ * 
+ * @author <a href="mailto:gimmi@idega.com">gimmi</a>
+ * @version $Revision: 1.16 $
  */
 public interface SchoolType extends IDOEntity {
+
 	/**
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getName
 	 */
@@ -131,5 +137,4 @@ public interface SchoolType extends IDOEntity {
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setTypeStringId
 	 */
 	public void setTypeStringId(String typeStringId);
-
 }

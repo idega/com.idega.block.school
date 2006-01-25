@@ -1,8 +1,8 @@
 /*
- * $Id: SchoolSeasonHome.java,v 1.12 2005/10/26 16:03:38 palli Exp $
- * Created on Oct 26, 2005
+ * $Id: SchoolSeasonHome.java,v 1.13 2006/01/25 00:27:23 gimmi Exp $
+ * Created on Jan 12, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
@@ -11,18 +11,18 @@ package com.idega.block.school.data;
 
 import java.sql.Date;
 import java.util.Collection;
-
 import javax.ejb.FinderException;
-
 import com.idega.data.IDOHome;
 
 
 /**
+ * <p>
+ * TODO gimmi Describe Type SchoolSeasonHome
+ * </p>
+ *  Last modified: $Date: 2006/01/25 00:27:23 $ by $Author: gimmi $
  * 
- *  Last modified: $Date: 2005/10/26 16:03:38 $ by $Author: palli $
- * 
- * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.12 $
+ * @author <a href="mailto:gimmi@idega.com">gimmi</a>
+ * @version $Revision: 1.13 $
  */
 public interface SchoolSeasonHome extends IDOHome {
 
@@ -66,6 +66,11 @@ public interface SchoolSeasonHome extends IDOHome {
 	public Collection findPendingSeasonsByDate(SchoolCategory category, Date date) throws FinderException;
 
 	/**
+	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#ejbFindByNameAndCategory
+	 */
+	public SchoolSeason findByNameAndCategory(String name, SchoolCategory category) throws FinderException;
+
+	/**
 	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#ejbFindCurrentSeason
 	 */
 	public SchoolSeason findCurrentSeason(SchoolCategory category) throws FinderException;
@@ -90,5 +95,4 @@ public interface SchoolSeasonHome extends IDOHome {
 	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#ejbFindNextSeason
 	 */
 	public SchoolSeason findNextSeason(SchoolCategory category, Date date) throws FinderException;
-
 }
