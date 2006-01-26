@@ -1060,7 +1060,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public Group getRootMusicSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
-		String ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP = "music_school_administrators_group_id";
+		String ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP = "music_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP);
 		if (groupId == null) {
 			IWBundle bundle = getCommuneBundle();
