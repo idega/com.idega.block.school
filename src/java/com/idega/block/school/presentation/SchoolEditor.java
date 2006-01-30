@@ -65,7 +65,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_JUNIOR_HIGH_SCHOOL = "prm_junior_high_school_pk";
 	private static final String PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK = "prm_care_provider_pk";
 	private static final String PARAMETER_HAS_REFRESHMENTS = "prm_has_refreshments";
-
+	private static final String PARAMETER_ORGANIZATION_ID = "prm_org_id";
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
 	private static final int ACTION_NEW = 3;
@@ -136,6 +136,7 @@ public class SchoolEditor extends SchoolBlock {
 		String lon = iwc.getParameter(PARAMETER_LONGITUDE);
 		String lat = iwc.getParameter(PARAMETER_LATITUDE);
 		String commune = iwc.getParameter(PARAMETER_COMMUNE);
+		String orgNr = iwc.getParameter(PARAMETER_ORGANIZATION_ID);
 		String[] type_ids = iwc.getParameterValues(PARAMETER_TYPE_PKS);
 		String[] year_ids = iwc.getParameterValues(PARAMETER_YEAR_PKS);
 		int[] types = new int[0];
@@ -173,6 +174,9 @@ public class SchoolEditor extends SchoolBlock {
 		}
 		if (providerID != null) {
 			school.setAfterSchoolCareProvider(providerID);
+		}
+		if (orgNr != null) {
+			school.setOrganizationNumber(orgNr);
 		}
 		school.setHasRefreshments(hasRefreshments);
 		
@@ -308,6 +312,7 @@ public class SchoolEditor extends SchoolBlock {
 		TextInput inputKeyCode = new TextInput(PARAMETER_KEYCODE);
 		TextInput inputLON = new TextInput(PARAMETER_LONGITUDE);
 		TextInput inputLAT = new TextInput(PARAMETER_LATITUDE);
+		TextInput inputOrgID = new TextInput(PARAMETER_ORGANIZATION_ID);
 		
 		DropdownMenu drpArea = new DropdownMenu(getSchoolAreas(), PARAMETER_AREA);
 		drpArea.setMenuElementFirst("-1", "");
@@ -362,6 +367,9 @@ public class SchoolEditor extends SchoolBlock {
 				if (school.getAfterSchoolCareProviderPK() != null) {
 					providers.setSelectedElement(school.getAfterSchoolCareProviderPK().toString());
 				}
+				if (school.getOrganizationNumber() != null) {
+					inputOrgID.setContent(school.getOrganizationNumber());
+				}
 				hasRefreshments.setSelectedElement(String.valueOf(school.hasRefreshments()));
 			}
 			catch (Exception ex) {
@@ -389,6 +397,14 @@ public class SchoolEditor extends SchoolBlock {
 			layer.add(inputProviderStringId);
 			form.add(layer);
 		}
+
+		layer = new Layer(Layer.DIV);
+		layer.setID("orgNr");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("organization_number", "Organization Number"), inputName);
+		layer.add(label);
+		layer.add(inputOrgID);
+		form.add(layer);
 
 		layer = new Layer(Layer.DIV);
 		layer.setID("name");
