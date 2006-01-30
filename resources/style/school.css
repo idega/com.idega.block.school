@@ -42,12 +42,12 @@ div.FormElement {	clear:left;
 }
 div.FormElement label {	width: 120px;
 	float:left;}
-input, textarea, select {
+form.schoolForm input, form.schoolForm textarea, form.schoolForm select {
 	margin: 0;
 	font-size: 10px;
 }
 
-div.FormElement input, textarea, select {	margin-bottom: 6px;
+div.FormElement input, div.FormElement textarea, div.FormElement select {	margin-bottom: 6px;
 	font-size: 9px;
 	border: 1px #CCCCCC solid;
 }
