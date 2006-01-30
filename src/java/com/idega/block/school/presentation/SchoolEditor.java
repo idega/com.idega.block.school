@@ -239,6 +239,7 @@ public class SchoolEditor extends SchoolBlock {
 				Link delete = new Link(getDeleteIcon(localize("delete", "Delete")));
 				delete.addParameter(PARAMETER_SCHOOL_PK, school.getPrimaryKey().toString());
 				delete.addParameter(PARAMETER_ACTION, ACTION_DELETE);
+				delete.setOnClick("return confirm('"+localize("travel.are_you_sure_you_want_to_delete","Are you sure you want to delete")+" "+school.getName()+" ?');");
 
 				area = school.getSchoolArea();
 				commune = school.getCommune();
