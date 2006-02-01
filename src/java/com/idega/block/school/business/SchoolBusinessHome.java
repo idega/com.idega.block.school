@@ -1,28 +1,27 @@
 /*
- * $Id: SchoolBusinessHome.java,v 1.17 2005/10/26 16:04:15 palli Exp $
- * Created on Oct 26, 2005
+ * $Id: SchoolBusinessHome.java,v 1.18 2006/02/01 19:09:59 laddi Exp $
+ * Created on Feb 1, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
  */
 package com.idega.block.school.business;
 
-
-
 import com.idega.business.IBOHome;
 
 
 /**
+ * <p>
+ * TODO laddi Describe Type SchoolBusinessHome
+ * </p>
+ *  Last modified: $Date: 2006/02/01 19:09:59 $ by $Author: laddi $
  * 
- *  Last modified: $Date: 2005/10/26 16:04:15 $ by $Author: palli $
- * 
- * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.17 $
+ * @author <a href="mailto:laddi@idega.com">laddi</a>
+ * @version $Revision: 1.18 $
  */
 public interface SchoolBusinessHome extends IBOHome {
 
 	public SchoolBusiness create() throws javax.ejb.CreateException, java.rmi.RemoteException;
-
 }

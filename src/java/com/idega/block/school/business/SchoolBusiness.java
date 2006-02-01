@@ -1,8 +1,8 @@
 /*
- * $Id: SchoolBusiness.java,v 1.111 2005/11/28 18:30:06 dainis Exp $
- * Created on Oct 26, 2005
+ * $Id: SchoolBusiness.java,v 1.112 2006/02/01 19:09:59 laddi Exp $
+ * Created on Feb 1, 2006
  *
- * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
+ * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
  * This software is the proprietary information of Idega hf.
  * Use is subject to license terms.
@@ -14,11 +14,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
-
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
-
 import com.idega.block.school.data.School;
 import com.idega.block.school.data.SchoolArea;
 import com.idega.block.school.data.SchoolAreaHome;
@@ -54,11 +52,13 @@ import com.idega.user.data.User;
 
 
 /**
+ * <p>
+ * TODO laddi Describe Type SchoolBusiness
+ * </p>
+ *  Last modified: $Date: 2006/02/01 19:09:59 $ by $Author: laddi $
  * 
- *  Last modified: $Date: 2005/11/28 18:30:06 $ by $Author: dainis $
- * 
- * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.111 $
+ * @author <a href="mailto:laddi@idega.com">laddi</a>
+ * @version $Revision: 1.112 $
  */
 public interface SchoolBusiness extends IBOService {
 
@@ -140,8 +140,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#removeSchoolUsr
 	 */
-	public void removeSchoolUsr(int schDep_id, SchoolUser schUser) throws FinderException, RemoteException,
-			IDORemoveRelationshipException;
+	public void removeSchoolUsr(int schDep_id, SchoolUser schUser) throws FinderException, RemoteException, IDORemoveRelationshipException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolCategories
@@ -226,8 +225,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByAreaAndTypeAndYear
 	 */
-	public Collection findAllSchoolsByAreaAndTypeAndYear(int areaID, int typeID, int yearID)
-			throws java.rmi.RemoteException;
+	public Collection findAllSchoolsByAreaAndTypeAndYear(int areaID, int typeID, int yearID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByAreaAndTypes
@@ -247,75 +245,52 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllCentralizedAdministratedByType
 	 */
-	public java.util.Collection findAllCentralizedAdministratedByType(Collection typeIds)
-			throws java.rmi.RemoteException;
+	public java.util.Collection findAllCentralizedAdministratedByType(Collection typeIds) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#createSchool
 	 */
-	public School createSchool(String name, String address, String zipcode, String ziparea, String phone,
-			int school_type, Object communePK) throws RemoteException;
+	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int school_type, Object communePK) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#createSchool
 	 */
-	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int area_id,
-			int[] sch_types, Object communePK) throws RemoteException;
+	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int area_id, int[] sch_types, Object communePK) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#createSchool
 	 */
-	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone,
-			String keycode, String latitude, String longitude, int area_id, int[] type_ids, Object communePK)
-			throws RemoteException;
+	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, Object communePK) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#createSchool
 	 */
-	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone,
-			String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids,
-			Object communePK) throws RemoteException;
+	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchool
 	 */
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids,
-			int[] year_ids, Object communePK) throws RemoteException;
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchool
 	 */
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids,
-			int[] year_ids, Object communePK, String providerStringId) throws RemoteException;
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK, String providerStringId) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchool
 	 */
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id,
-			int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId,
-			java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration,
-			Boolean invisibleForCitizen) throws RemoteException;
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchool
 	 */
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id,
-			int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId,
-			java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration,
-			Boolean invisibleForCitizen, String providerStringId) throws RemoteException;
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen, String providerStringId) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchool
 	 */
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id,
-			int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId,
-			java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration,
-			Boolean invisibleForCitizen, String providerStringId, Boolean sortByBirthdate) throws RemoteException;
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen, String providerStringId, Boolean sortByBirthdate) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolRelatedSchoolTypes
@@ -330,8 +305,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolAndSchoolTypeRelatedSchoolCourses
 	 */
-	public Map getSchoolAndSchoolTypeRelatedSchoolCourses(School school, Object schoolTypeId)
-			throws java.rmi.RemoteException;
+	public Map getSchoolAndSchoolTypeRelatedSchoolCourses(School school, Object schoolTypeId) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getMapOfSchools
@@ -361,8 +335,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClass
 	 */
-	public SchoolClass storeSchoolClass(String schoolClassName, School school, SchoolYear year, SchoolSeason season)
-			throws java.rmi.RemoteException;
+	public SchoolClass storeSchoolClass(String schoolClassName, School school, SchoolYear year, SchoolSeason season) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
@@ -447,14 +420,12 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootHighSchoolOtherCommuneAdministratorGroup
 	 */
-	public Group getRootHighSchoolOtherCommuneAdministratorGroup() throws CreateException, FinderException,
-			RemoteException;
+	public Group getRootHighSchoolOtherCommuneAdministratorGroup() throws CreateException, FinderException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootProviderOtherCommuneAdministratorGroup
 	 */
-	public Group getRootProviderOtherCommuneAdministratorGroup() throws CreateException, FinderException,
-			RemoteException;
+	public Group getRootProviderOtherCommuneAdministratorGroup() throws CreateException, FinderException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getPropertyValue
@@ -504,8 +475,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolYearPlaces
 	 */
-	public void storeSchoolYearPlaces(int id, int school_id, int school_year_id, int places)
-			throws java.rmi.RemoteException;
+	public void storeSchoolYearPlaces(int id, int school_id, int school_year_id, int places) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolYear
@@ -535,8 +505,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolYearsBySchoolCategory
 	 */
-	public Collection findSchoolYearsBySchoolCategory(String schoolCategory) throws FinderException,
-			java.rmi.RemoteException;
+	public Collection findSchoolYearsBySchoolCategory(String schoolCategory) throws FinderException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolYearsByAge
@@ -546,8 +515,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolYear
 	 */
-	public void storeSchoolYear(int pk, String name, int schoolTypeId, String category, String info,
-			String localizedKey, int age) throws java.rmi.RemoteException;
+	public void storeSchoolYear(int pk, String name, int schoolTypeId, String category, String info, String localizedKey, int age) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolYearHome
@@ -562,8 +530,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolTypesForCategory
 	 */
-	public Collection getSchoolTypesForCategory(SchoolCategory category, boolean showFreetimeTypes)
-			throws java.rmi.RemoteException;
+	public Collection getSchoolTypesForCategory(SchoolCategory category, boolean showFreetimeTypes) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#removeSchoolType
@@ -588,8 +555,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategory
 	 */
-	public Collection findAllSchoolTypesInCategory(String Category, boolean showFreetimeTypes)
-			throws java.rmi.RemoteException;
+	public Collection findAllSchoolTypesInCategory(String Category, boolean showFreetimeTypes) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategoryFreeTime
@@ -634,15 +600,12 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolType
 	 */
-	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge,
-			boolean isFreetimeType, boolean isFamilyFreetimeType, int order) throws java.rmi.RemoteException;
+	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge, boolean isFreetimeType, boolean isFamilyFreetimeType, int order) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolType
 	 */
-	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge,
-			boolean isFreetimeType, boolean isFamilyFreetimeType, int order, String typeStringId)
-			throws java.rmi.RemoteException;
+	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge, boolean isFreetimeType, boolean isFamilyFreetimeType, int order, String typeStringId) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolSeason
@@ -652,8 +615,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getCurrentSchoolSeason
 	 */
-	public SchoolSeason getCurrentSchoolSeason(SchoolCategory category) throws FinderException,
-			java.rmi.RemoteException;
+	public SchoolSeason getCurrentSchoolSeason(SchoolCategory category) throws FinderException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#removeSchoolSeason
@@ -703,8 +665,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolSeason
 	 */
-	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate,
-			String category) throws java.rmi.RemoteException;
+	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findClassMemberInClass
@@ -719,8 +680,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findByStudentAndSchoolAndSeason
 	 */
-	public SchoolClassMember findByStudentAndSchoolAndSeason(int userID, int schoolID, int seasonID)
-			throws java.rmi.RemoteException;
+	public SchoolClassMember findByStudentAndSchoolAndSeason(int userID, int schoolID, int seasonID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findByStudentAndSeason
@@ -730,8 +690,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findByStudentAndSeason
 	 */
-	public SchoolClassMember findByStudentAndSeason(SchoolClassMember student, SchoolSeason season)
-			throws java.rmi.RemoteException;
+	public SchoolClassMember findByStudentAndSeason(SchoolClassMember student, SchoolSeason season) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findClassMember
@@ -741,8 +700,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSubGroupPlacements
 	 */
-	public Collection findSubGroupPlacements(int studentID, int schoolID, int seasonID) throws FinderException,
-			java.rmi.RemoteException;
+	public Collection findSubGroupPlacements(int studentID, int schoolID, int seasonID) throws FinderException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findClassMemberInSchool
@@ -777,38 +735,32 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolByDate
 	 */
-	public Collection findSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date)
-			throws java.rmi.RemoteException;
+	public Collection findSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsInSchoolByDate
 	 */
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date,
-			boolean showNotYetActive) throws java.rmi.RemoteException;
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date, boolean showNotYetActive) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsInSchoolByDate
 	 */
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory,
-			java.sql.Date date, boolean showNotYetActive) throws java.rmi.RemoteException;
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date, boolean showNotYetActive) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsInSchoolByDateChildcare
 	 */
-	public Collection findStudentsInSchoolByDateChildcare(int schoolID, int schoolClassID, String schoolCategory,
-			java.sql.Date date, boolean showNotYetActive) throws java.rmi.RemoteException;
+	public Collection findStudentsInSchoolByDateChildcare(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date, boolean showNotYetActive) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsInSchoolByDate
 	 */
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date)
-			throws java.rmi.RemoteException;
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsInSchoolByDate
 	 */
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory,
-			java.sql.Date date) throws java.rmi.RemoteException;
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassMember
@@ -818,8 +770,12 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsBySchoolAndSeasonAndYear
 	 */
-	public Collection findStudentsBySchoolAndSeasonAndYear(int schoolID, int seasonID, int yearID)
-			throws java.rmi.RemoteException;
+	public Collection findStudentsBySchoolAndSeasonAndYear(int schoolID, int seasonID, int yearID) throws java.rmi.RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsBySchoolAndSeasonAndYear
+	 */
+	public Collection findStudentsBySchoolAndSeasonAndYear(School school, SchoolSeason season, SchoolYear year) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findStudentsBySchoolAndSeason
@@ -844,74 +800,57 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMemberCC
 	 */
-	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID,
-			Timestamp registerDate, int registrator) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, int registrator) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMemberCC
 	 */
-	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID,
-			Timestamp registerDate, int registrator, String notes) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, int registrator, String notes) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMemberCC
 	 */
-	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID,
-			Timestamp registerDate, Timestamp removedDate, int registrator, String notes)
-			throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, int registrator) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, int registrator, int studyPathID) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, int studyPathID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, int registrator, String notes) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, String notes) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes)
-			throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes,
-			String language) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClassMember
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes,
-			String language, int studyPathID, int handicraftId) throws java.rmi.RemoteException;
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language, int studyPathID, int handicraftId) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeNewSchoolClassMember
 	 */
-	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, int registrator, String notes, String languageID)
-			throws java.rmi.RemoteException;
+	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, String notes, String languageID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeNewSchoolClassMember
 	 */
-	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes,
-			String sLanguage) throws java.rmi.RemoteException;
+	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String sLanguage) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClass
@@ -926,8 +865,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndCategory
 	 */
-	public Collection findSchoolClassesBySchoolAndCategory(int schoolID, String category)
-			throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndCategory(int schoolID, String category) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findElementarySchoolClassesBySchool
@@ -942,8 +880,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeason
 	 */
-	public Collection findSchoolClassesBySchoolAndSeason(int schoolID, int schoolSeasonID)
-			throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeason(int schoolID, int schoolSeasonID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndYear
@@ -953,38 +890,32 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeasonAndYear
 	 */
-	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			boolean showSubGroups) throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSchoolTypeAndSeason
 	 */
-	public Collection findSchoolClassesBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID,
-			int schoolSeasonID, Boolean showSubGroups, Boolean showNonSeasonGroups) throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int schoolSeasonID, Boolean showSubGroups, Boolean showNonSeasonGroups) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeasonAndYear
 	 */
-	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID)
-			throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeasonAndYearAndStudyPath
 	 */
-	public Collection findSchoolClassesBySchoolAndSeasonAndYearAndStudyPath(int schoolID, int schoolSeasonID,
-			int schoolYearID, int studyPathID) throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeasonAndYearAndStudyPath(int schoolID, int schoolSeasonID, int schoolYearID, int studyPathID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeasonAndYears
 	 */
-	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID,
-			String[] schoolYearIDs) throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeasonAndYears
 	 */
-	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID,
-			String[] schoolYearIDs, boolean showSubGroups) throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs, boolean showSubGroups) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesByTeacher
@@ -1004,8 +935,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findSchoolClassesBySchoolAndSeasonAndTeacher
 	 */
-	public Collection findSchoolClassesBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID)
-			throws java.rmi.RemoteException;
+	public Collection findSchoolClassesBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getNumberOfStudentsInClass
@@ -1025,28 +955,22 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClass
 	 */
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID,
-			int seasonID, String[] schoolYearIDs, String[] teacherIDs) throws java.rmi.RemoteException;
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClass
 	 */
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID,
-			int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs)
-			throws java.rmi.RemoteException;
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClass
 	 */
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID,
-			int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs, String groupStringId)
-			throws java.rmi.RemoteException;
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs, String groupStringId) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClass
 	 */
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolSeasonID,
-			int schoolYearID, int teacherID) throws java.rmi.RemoteException;
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolSeasonID, int schoolYearID, int teacherID) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolArea
@@ -1106,8 +1030,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolDepartment
 	 */
-	public void storeSchoolDepartment(String description, String phone, int schoolID, int schDepID)
-			throws RemoteException;
+	public void storeSchoolDepartment(String description, String phone, int schoolID, int schDepID) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolUserBusiness
@@ -1182,36 +1105,30 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#addToSchoolClassMemberLog
 	 */
-	public void addToSchoolClassMemberLog(SchoolClassMember member, Date endDate, User performer)
-			throws IllegalArgumentException, java.rmi.RemoteException;
+	public void addToSchoolClassMemberLog(SchoolClassMember member, Date endDate, User performer) throws IllegalArgumentException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#addToSchoolClassMemberLog
 	 */
-	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date endDate,
-			User performer) throws IllegalArgumentException, java.rmi.RemoteException;
+	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date endDate, User performer) throws IllegalArgumentException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#addToSchoolClassMemberLog
 	 */
-	public void addToSchoolClassMemberLog(int schoolClassMemberID, int schoolClassID, Date startDate, Date endDate,
-			User performer) throws IllegalArgumentException, java.rmi.RemoteException;
+	public void addToSchoolClassMemberLog(int schoolClassMemberID, int schoolClassID, Date startDate, Date endDate, User performer) throws IllegalArgumentException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#addToSchoolClassMemberLog
 	 */
-	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date startDate,
-			Date endDate, User performer) throws IllegalArgumentException, java.rmi.RemoteException;
+	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date startDate, Date endDate, User performer) throws IllegalArgumentException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#hasActivePlacement
 	 */
-	public boolean hasActivePlacement(int studentId, int schoolId, SchoolCategory category)
-			throws java.rmi.RemoteException;
+	public boolean hasActivePlacement(int studentId, int schoolId, SchoolCategory category) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#alignLogs
 	 */
 	public void alignLogs(SchoolClassMember member) throws java.rmi.RemoteException;
-
 }
