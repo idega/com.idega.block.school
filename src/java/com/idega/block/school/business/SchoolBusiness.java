@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolBusiness.java,v 1.112 2006/02/01 19:09:59 laddi Exp $
+ * $Id: SchoolBusiness.java,v 1.113 2006/02/01 19:23:19 laddi Exp $
  * Created on Feb 1, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -55,10 +55,9 @@ import com.idega.user.data.User;
  * <p>
  * TODO laddi Describe Type SchoolBusiness
  * </p>
- *  Last modified: $Date: 2006/02/01 19:09:59 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/02/01 19:23:19 $ by $Author: laddi $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.112 $
  */
 public interface SchoolBusiness extends IBOService {
 
