@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/01/19 17:49:47 $ by $Author: laddi $
- * @version $Revision: 1.163 $
+ *         Last modified: $Date: 2006/02/08 20:03:32 $ by $Author: laddi $
+ * @version $Revision: 1.164 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -425,11 +425,13 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		Table table = new Table(this);
 		Table group = new Table(SchoolClass.class);
 		Table path = new Table(SchoolStudyPath.class);
+		Table user = new Table(User.class);
 		
 		SelectQuery query = new SelectQuery(table);
 		query.addColumn(new WildCardColumn(table));
 		try {
 			query.addJoin(table, group);
+			query.addJoin(table, user);
 		}
 		catch (IDORelationshipException ire) {
 			throw new FinderException(ire.getMessage());
@@ -455,6 +457,9 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 				throw new FinderException(icpe.getMessage());
 			}
 		}
+		query.addOrder(user, "first_name", true);
+		query.addOrder(user, "middle_name", true);
+		query.addOrder(user, "last_name", true);
 		
 		return idoFindPKsByQuery(query);
 	}
