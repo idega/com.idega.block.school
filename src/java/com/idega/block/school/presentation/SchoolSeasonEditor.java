@@ -223,20 +223,29 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		DropdownMenu drpCategory = (DropdownMenu) util.getSelectorFromIDOEntities(new DropdownMenu(PARAMETER_CATEGORY), getBusiness().getSchoolCategories(), "getLocalizedKey", getResourceBundle());
 		
 		if (seasonPK != null) {
+			form.add(new HiddenInput(PARAMETER_SCHOOL_SEASON_PK, seasonPK.toString()));
+
 			try {
 				SchoolSeason season = getBusiness().getSchoolSeason(seasonPK);
 
-				inputName.setContent(season.getSchoolSeasonName());
-				inputStart.setDate(season.getSchoolSeasonStart());
-				inputEnd.setDate(season.getSchoolSeasonEnd());
+				if (season.getSchoolSeasonName() != null) {
+					inputName.setContent(season.getSchoolSeasonName());
+				}
+				if (season.getSchoolSeasonStart() != null) {
+					inputStart.setDate(season.getSchoolSeasonStart());
+				}
+				if (season.getSchoolSeasonEnd() != null) {
+					inputEnd.setDate(season.getSchoolSeasonEnd());
+				}
 				if (season.getChoiceStartDate() != null) {
 					inputStartDate.setDate(season.getChoiceStartDate());
 				}
-				inputDueDate.setDate(season.getChoiceEndDate());
+				if (season.getChoiceEndDate() != null) {
+					inputDueDate.setDate(season.getChoiceEndDate());
+				}
 				if (season.getSchoolCategoryPK() != null) {
 					drpCategory.setSelectedElement(season.getSchoolCategoryPK());
 				}
-				form.add(new HiddenInput(PARAMETER_SCHOOL_SEASON_PK, seasonPK.toString()));
 			}
 			catch (Exception ex) {
 			}
