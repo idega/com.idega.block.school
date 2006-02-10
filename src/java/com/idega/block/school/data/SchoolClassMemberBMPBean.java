@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/02/08 20:03:32 $ by $Author: laddi $
- * @version $Revision: 1.164 $
+ *         Last modified: $Date: 2006/02/10 09:20:17 $ by $Author: laddi $
+ * @version $Revision: 1.165 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -558,12 +558,14 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		return (Integer) this.idoFindOnePKBySQL(sql.toString());
 	}
 
+	public int ejbHomeGetNumberOfPlacingsAtSchool(User user, School school) throws IDOException {
+		return ejbHomeGetNumberOfPlacingsAtSchool(new Integer(user.getPrimaryKey().toString()).intValue(), new Integer(school.getPrimaryKey().toString()).intValue());
+	}
+	
 	public int ejbHomeGetNumberOfPlacingsAtSchool(int userID, int schoolID) throws IDOException {
 		IDOQuery sql = idoQuery();
 		sql.appendSelectCountFrom(this.getTableName() + " mb" + "," + SchoolClassBMPBean.SCHOOLCLASS + " cl").appendWhere().append(" mb." + MEMBER).appendEqualSign().append(userID).appendAnd().append("cl." + SchoolClassBMPBean.SCHOOL).appendEqualSign().append(schoolID).appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 
-		System.out.println("<ejbHomeGetNumberOfPlacingsAtSchool(int userID, int schoolID)> sql = "+sql.toString());
-		
 		return this.idoGetNumberOfRecords(sql);
 	}
 
