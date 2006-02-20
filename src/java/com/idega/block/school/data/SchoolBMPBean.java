@@ -644,6 +644,22 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		return types;
 	}
 
+	public Collection findRelatedSchoolTypesWithFreetime(SchoolCategory category) throws IDORelationshipException {
+		Collection coll = findRelatedSchoolTypes();
+		Collection types = new ArrayList();
+		if (coll != null) {
+			Iterator iter = coll.iterator();
+			while (iter.hasNext()) {
+				SchoolType type = (SchoolType) iter.next();
+				if (type.getSchoolCategory().equals(category.getCategory())&&type.getIsFamilyFreetimeType()) {
+					types.add(type);
+				}
+			}
+		}
+		return types;
+	}
+
+	
 	public Collection findRelatedSchoolYears() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolYear.class);
 	}

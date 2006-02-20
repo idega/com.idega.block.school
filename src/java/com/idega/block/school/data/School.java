@@ -1,5 +1,5 @@
 /*
- * $Id: School.java,v 1.46 2006/01/22 08:37:51 laddi Exp $
+ * $Id: School.java,v 1.47 2006/02/20 13:27:12 edmunds Exp $
  * Created on Jan 22, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -31,10 +31,10 @@ import com.idega.user.data.Group;
  * <p>
  * TODO laddi Describe Type School
  * </p>
- *  Last modified: $Date: 2006/01/22 08:37:51 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/02/20 13:27:12 $ by $Author: edmunds $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.46 $
+ * @version $Revision: 1.47 $
  */
 public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 
@@ -419,6 +419,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException;
 
 	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolTypesWithFreetime
+	 */
+	public Collection findRelatedSchoolTypesWithFreetime(SchoolCategory category) throws IDORelationshipException;
+	
+	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedStudyPaths
 	 */
 	public java.util.Collection findRelatedStudyPaths() throws com.idega.data.IDORelationshipException;
@@ -583,3 +588,4 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 */
 	public void setSortByBirthdate(boolean arg);
 }
+
