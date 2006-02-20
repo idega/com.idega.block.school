@@ -300,11 +300,6 @@
       <type>java.lang.String</type>
       <value>com.idega.block.school</value>
     </key>
-    <key>
-      <name>root_school_group_id</name>
-      <type>java.lang.String</type>
-      <value>98618</value>
-    </key>
   </map>
 </pxml>
 
