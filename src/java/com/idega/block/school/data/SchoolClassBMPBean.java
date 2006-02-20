@@ -302,7 +302,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		query.appendAndEquals("y.sch_school_year_id", schoolYearID).appendAndEquals(SEASON, schoolSeasonID);
 		query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_VALID, "Y").appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		if (showSubGroups) {
-			query.appendAndEquals(this.COLUMN_SUB_GROUP, true);
+			query.appendAndEquals(SchoolClassBMPBean.COLUMN_SUB_GROUP, true);
 		}
 		else {
 			query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_SUB_GROUP, false).appendOr().append(
@@ -325,7 +325,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		query.appendAndEquals(SEASON, schoolSeason);
 		query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_VALID, "Y").appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		if (showSubGroups) {
-			query.appendAndEquals(this.COLUMN_SUB_GROUP, true);
+			query.appendAndEquals(SchoolClassBMPBean.COLUMN_SUB_GROUP, true);
 		}
 		else {
 			query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_SUB_GROUP, false).appendOr().append(

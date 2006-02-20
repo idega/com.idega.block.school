@@ -58,7 +58,7 @@ public class SchoolStudyPathEditor extends Block {
 	
 	private void init(IWContext iwc) throws RemoteException {
 		iwrb = getResourceBundle(iwc);
-		tFormat = tFormat.getInstance();
+		tFormat = TextFormat.getInstance();
 		sBus = (SchoolBusiness) IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
 		String sSchoolId = iwc.getParameter(PARAMETER_SCHOOL_ID);
 		if (sSchoolId != null) {

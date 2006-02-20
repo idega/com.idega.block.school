@@ -232,7 +232,7 @@ public class SchoolYearPlacesEditor extends Block {
   public void main(IWContext iwc)throws Exception{
     iwb = getBundle(iwc);
     iwrb = getResourceBundle(iwc);
-    tFormat = tFormat.getInstance();
+    tFormat = TextFormat.getInstance();
     control(iwc);
   }
 }

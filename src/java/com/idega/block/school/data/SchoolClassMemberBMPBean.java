@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/02/10 09:20:17 $ by $Author: laddi $
- * @version $Revision: 1.165 $
+ *         Last modified: $Date: 2006/02/20 11:06:13 $ by $Author: laddi $
+ * @version $Revision: 1.166 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -670,7 +670,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendAnd().appendLeftParenthesis().append("cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().append(true).appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		sql.appendAndEquals(" mb." + SCHOOLCLASS, "cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 		if (schoolTypes != null) {
-			sql.appendAnd().append("mb." + this.SCHOOL_TYPE).appendInCollection(schoolTypes);
+			sql.appendAnd().append("mb." + SchoolClassMemberBMPBean.SCHOOL_TYPE).appendInCollection(schoolTypes);
 		}
 
 		sql.appendOrderBy(REGISTER_DATE + " desc");
@@ -1174,7 +1174,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendAnd().append("(cl." + SchoolClassBMPBean.COLUMN_SUB_GROUP).appendEqualSign().appendWithinSingleQuotes("N").appendOr().append("cl." + SchoolClassBMPBean.COLUMN_SUB_GROUP).append(" is null)");
 		sql.appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 		if (schoolTypes != null) {
-			sql.appendAnd().append("mb." + this.SCHOOL_TYPE).appendInCollection(schoolTypes);
+			sql.appendAnd().append("mb." + SchoolClassMemberBMPBean.SCHOOL_TYPE).appendInCollection(schoolTypes);
 		}
 		return (Integer) idoFindOnePKBySQL(sql.toString());
 	}
@@ -1926,7 +1926,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	public Collection ejbFindSubGroupPlacements() throws FinderException {
 		IDOQuery query = idoQuery();
 		query.appendSelectAllFrom(this).append(" m, sch_school_class c");
-		query.appendWhereEquals("m."+this.SCHOOLCLASS, "c.sch_school_class_id");
+		query.appendWhereEquals("m."+SchoolClassMemberBMPBean.SCHOOLCLASS, "c.sch_school_class_id");
 		query.appendAndEquals("c.sub_group", true);
 		return idoFindPKsByQuery(query);
 	}
