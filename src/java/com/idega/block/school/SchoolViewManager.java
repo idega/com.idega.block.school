@@ -24,10 +24,10 @@ import com.idega.workspace.view.WorkspaceClassViewNode;
  * <p>
  * TODO tryggvil Describe Type SchoolViewManager
  * </p>
- *  Last modified: $Date: 2006/02/20 23:27:50 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/02/20 23:29:05 $ by $Author: tryggvil $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class SchoolViewManager {
 
@@ -75,7 +75,7 @@ public class SchoolViewManager {
 		ViewNode workspace = viewManager.getWorkspaceRoot();
 		
 		Collection roles = new ArrayList();
-		roles.add("school_admin");
+		roles.add("schools_admin");
 		
 		DefaultViewNode schoolNode = new WorkspaceApplicationNode("school",workspace,roles);
 		schoolNode.setName("#{localizedStrings['com.idega.block.school']['school']}");
