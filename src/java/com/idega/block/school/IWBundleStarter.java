@@ -1,5 +1,5 @@
 /*
- * $Id: IWBundleStarter.java,v 1.3 2006/02/20 23:27:50 tryggvil Exp $
+ * $Id: IWBundleStarter.java,v 1.4 2006/02/21 16:16:49 laddi Exp $
  * Created on 28.4.2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -9,7 +9,6 @@
  */
 package com.idega.block.school;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import javax.ejb.FinderException;
@@ -17,22 +16,12 @@ import com.idega.block.school.data.SchoolCategoryBMPBean;
 import com.idega.block.school.data.SchoolSeason;
 import com.idega.block.school.data.SchoolSeasonHome;
 import com.idega.block.school.presentation.SchoolBlock;
-import com.idega.block.school.presentation.SchoolSeasonEditor;
-import com.idega.block.school.presentation.SchoolYearEditor;
-import com.idega.core.accesscontrol.business.StandardRoles;
-import com.idega.core.view.ApplicationViewNode;
-import com.idega.core.view.DefaultViewNode;
-import com.idega.core.view.KeyboardShortcut;
-import com.idega.core.view.ViewManager;
-import com.idega.core.view.ViewNode;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWBundleStartable;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.include.GlobalIncludeManager;
-import com.idega.workspace.view.WorkspaceApplicationNode;
-import com.idega.workspace.view.WorkspaceClassViewNode;
 
 
 public class IWBundleStarter implements IWBundleStartable {
