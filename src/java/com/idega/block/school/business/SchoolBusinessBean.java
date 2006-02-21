@@ -1669,6 +1669,10 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public SchoolSeason getCurrentSchoolSeason(SchoolCategory category) throws FinderException {
 		return getSchoolSeasonHome().findCurrentSeason(category);
 	}
+	
+	public SchoolSeason getNextSchoolSeason(SchoolCategory category) throws FinderException {
+		return getSchoolSeasonHome().findNextSeason(category, new IWTimestamp().getDate());
+	}
 
 	public void removeSchoolSeason(int id) {
 		removeSchoolSeason(new Integer(id));
@@ -2914,7 +2918,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * 
 	 * @see com.idega.block.school.business.SchoolBusiness#findAllSchoolSubAreasByArea(java.lang.String)
 	 */
-	public Collection findAllSchoolSubAreasByArea(String area) throws RemoteException {
+	public Collection findAllSchoolSubAreasByArea(String area) {
 		final Collection result = new ArrayList();
 		try {
 			final SchoolArea schoolArea = getSchoolAreaHome().findByPrimaryKey(area);

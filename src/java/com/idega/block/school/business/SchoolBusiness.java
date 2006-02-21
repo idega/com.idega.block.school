@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolBusiness.java,v 1.113 2006/02/01 19:23:19 laddi Exp $
+ * $Id: SchoolBusiness.java,v 1.114 2006/02/21 22:15:43 laddi Exp $
  * Created on Feb 1, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -55,7 +55,7 @@ import com.idega.user.data.User;
  * <p>
  * TODO laddi Describe Type SchoolBusiness
  * </p>
- *  Last modified: $Date: 2006/02/01 19:23:19 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/02/21 22:15:43 $ by $Author: laddi $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
  */
@@ -615,6 +615,11 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getCurrentSchoolSeason
 	 */
 	public SchoolSeason getCurrentSchoolSeason(SchoolCategory category) throws FinderException, java.rmi.RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#getNextSchoolSeason
+	 */
+	public SchoolSeason getNextSchoolSeason(SchoolCategory category) throws FinderException, java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#removeSchoolSeason
