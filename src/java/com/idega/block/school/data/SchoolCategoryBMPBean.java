@@ -77,6 +77,7 @@ public class SchoolCategoryBMPBean extends GenericEntity implements SchoolCatego
 
 		addAttribute(COLUMN_NAME, "Name of category", String.class, 255);
 		addAttribute(COLUMN_LOCALIZED_KEY, "Localized key for category", String.class, 255);
+    getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 	
 	//Setters

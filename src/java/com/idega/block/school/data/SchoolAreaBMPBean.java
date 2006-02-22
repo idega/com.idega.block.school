@@ -27,6 +27,7 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 		this.addAttribute(NAME, "Schoolname", true, true, String.class);
 		this.addAttribute(INFO, "Info", true, true, String.class);
 		this.addAttribute(CITY, "City", true, true, String.class);
+    getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 	public String getEntityName() {
 		return SCHOOL;

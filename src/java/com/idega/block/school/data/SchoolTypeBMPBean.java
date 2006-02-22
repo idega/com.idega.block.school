@@ -47,6 +47,7 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
 		this.addAttribute(TYPE_STRING_ID,"Extra school type ID",true,true,String.class);
     
     addManyToOneRelationship(SCHOOLCATEGORY, SchoolCategory.class);
+    getEntityDefinition().setBeanCachingActiveByDefault(true);
   }
 
   public String getEntityName() {

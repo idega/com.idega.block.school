@@ -57,6 +57,7 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 		addAttribute(DUE_DATE, "Choice end date", Date.class);
 
 		addManyToOneRelationship(SCHOOL_CATEGORY, SchoolCategory.class);
+    getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 
 	public String getName() {

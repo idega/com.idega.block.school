@@ -144,6 +144,8 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
         // Dainis 23 Sep 2005
         this.addAttribute(SORT_BY_BIRTHDATE, "Sorted by date of birth", true, true, Boolean.class);
         addAttribute(HAS_REFRESHMENTS, "Has refreshments", Boolean.class);
+
+        getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 	public String getEntityName() {
 		return SCHOOL;
