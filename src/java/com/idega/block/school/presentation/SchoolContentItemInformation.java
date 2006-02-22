@@ -8,11 +8,6 @@ import com.idega.presentation.PresentationObject;
  * @author gimmi
  */
 public class SchoolContentItemInformation extends SchoolContentItem {
-	private String _width = null;
-	private String _height = null;
-
-	private boolean _showImages = false;
-
 	/**
 	 * @see com.idega.block.school.presentation.SchoolItem#getObject()
 	 */
