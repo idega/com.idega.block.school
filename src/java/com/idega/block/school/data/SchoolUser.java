@@ -1,11 +1,5 @@
-/*
- * $Id: SchoolUser.java 1.1 Jan 19, 2006 laddi Exp $
- * Created on Jan 19, 2006
- *
- * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
@@ -20,11 +14,11 @@ import com.idega.user.data.User;
 
 /**
  * <p>
- * TODO laddi Describe Type SchoolUser
+ * TODO Dainis Describe Type SchoolUser
  * </p>
- *  Last modified: $Date: 2004/06/28 09:09:50 $ by $Author: laddi $
+ *  Last modified: $Date: 2004/06/28 09:09:50 $ by $Author: Dainis $
  * 
- * @author <a href="mailto:laddi@idega.com">laddi</a>
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
  * @version $Revision: 1.1 $
  */
 public interface SchoolUser extends IDOEntity {

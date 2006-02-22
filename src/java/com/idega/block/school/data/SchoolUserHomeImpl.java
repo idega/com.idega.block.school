@@ -1,11 +1,5 @@
-/*
- * $Id: SchoolUserHomeImpl.java 1.1 Jan 19, 2006 laddi Exp $
- * Created on Jan 19, 2006
- *
- * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
@@ -17,11 +11,11 @@ import com.idega.user.data.User;
 
 /**
  * <p>
- * TODO laddi Describe Type SchoolUserHomeImpl
+ * TODO Dainis Describe Type SchoolUserHomeImpl
  * </p>
- *  Last modified: $Date: 2004/06/28 09:09:50 $ by $Author: laddi $
+ *  Last modified: $Date: 2004/06/28 09:09:50 $ by $Author: Dainis $
  * 
- * @author <a href="mailto:laddi@idega.com">laddi</a>
+ * @author <a href="mailto:Dainis@idega.com">Dainis</a>
  * @version $Revision: 1.1 $
  */
 public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome {
@@ -45,6 +39,13 @@ public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
+	public Collection findBySchoolAndTypes(School school, int[] userTypes) throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindBySchoolAndTypes(school, userTypes);
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
 	public Collection findBySchoolAndIsEconomicalResponsible(School school) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindBySchoolAndIsEconomicalResponsible(school);
@@ -52,9 +53,11 @@ public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findBySchoolAndTypeAndDepartment(School school, int userType, int departmentID) throws FinderException {
+	public Collection findBySchoolAndTypeAndDepartment(School school, int userType, int departmentID)
+			throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindBySchoolAndTypeAndDepartment(school, userType, departmentID);
+		java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindBySchoolAndTypeAndDepartment(school, userType,
+				departmentID);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -66,9 +69,11 @@ public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public Collection findBySchoolAndMainHeadmaster(School school, int userType, boolean main_headmaster) throws FinderException {
+	public Collection findBySchoolAndMainHeadmaster(School school, int userType, boolean main_headmaster)
+			throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-		java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindBySchoolAndMainHeadmaster(school, userType, main_headmaster);
+		java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindBySchoolAndMainHeadmaster(school, userType,
+				main_headmaster);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
