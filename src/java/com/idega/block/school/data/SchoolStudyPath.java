@@ -14,10 +14,10 @@ import com.idega.data.IDORemoveRelationshipException;
  * <p>
  * TODO Dainis Describe Type SchoolStudyPath
  * </p>
- *  Last modified: $Date: 2005/11/27 17:11:09 $ by $Author: dainis $
+ *  Last modified: $Date: 2006/03/08 11:51:36 $ by $Author: dainis $
  * 
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public interface SchoolStudyPath extends IDOEntity {
 
