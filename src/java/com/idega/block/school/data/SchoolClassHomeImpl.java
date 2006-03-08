@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolClassHomeImpl.java,v 1.35 2005/10/27 11:03:13 palli Exp $
+ * $Id: SchoolClassHomeImpl.java,v 1.36 2006/03/08 16:06:16 laddi Exp $
  * Created on Oct 26, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -20,10 +20,10 @@ import com.idega.user.data.User;
 
 /**
  * 
- *  Last modified: $Date: 2005/10/27 11:03:13 $ by $Author: palli $
+ *  Last modified: $Date: 2006/03/08 16:06:16 $ by $Author: laddi $
  * 
  * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.35 $
+ * @version $Revision: 1.36 $
  */
 public class SchoolClassHomeImpl extends IDOFactory implements SchoolClassHome {
 
@@ -277,6 +277,20 @@ public class SchoolClassHomeImpl extends IDOFactory implements SchoolClassHome {
 	public SchoolClass findByNameAndSchool(String className, int schoolID) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		Object pk = ((SchoolClassBMPBean) entity).ejbFindByNameAndSchool(className, schoolID);
+		this.idoCheckInPooledEntity(entity);
+		return this.findByPrimaryKey(pk);
+	}
+
+	public SchoolClass findByNameAndSchoolAndSeason(String className, School school, SchoolSeason season) throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		Object pk = ((SchoolClassBMPBean) entity).ejbFindByNameAndSchoolAndSeason(className, school, season);
+		this.idoCheckInPooledEntity(entity);
+		return this.findByPrimaryKey(pk);
+	}
+
+	public SchoolClass findByNameAndSchoolAndSeason(String className, int schoolID, int schoolSeasonID) throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		Object pk = ((SchoolClassBMPBean) entity).ejbFindByNameAndSchoolAndSeason(className, schoolID, schoolSeasonID);
 		this.idoCheckInPooledEntity(entity);
 		return this.findByPrimaryKey(pk);
 	}

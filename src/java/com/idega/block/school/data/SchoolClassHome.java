@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolClassHome.java,v 1.34 2005/10/27 11:03:12 palli Exp $
+ * $Id: SchoolClassHome.java,v 1.35 2006/03/08 16:06:16 laddi Exp $
  * Created on Oct 26, 2005
  *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -20,10 +20,10 @@ import com.idega.user.data.User;
 
 /**
  * 
- *  Last modified: $Date: 2005/10/27 11:03:12 $ by $Author: palli $
+ *  Last modified: $Date: 2006/03/08 16:06:16 $ by $Author: laddi $
  * 
  * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.34 $
+ * @version $Revision: 1.35 $
  */
 public interface SchoolClassHome extends IDOHome {
 
@@ -198,6 +198,16 @@ public interface SchoolClassHome extends IDOHome {
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindByNameAndSchool
 	 */
 	public SchoolClass findByNameAndSchool(String className, int schoolID) throws FinderException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindByNameAndSchool
+	 */
+	public SchoolClass findByNameAndSchoolAndSeason(String className, School school, SchoolSeason season) throws FinderException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindByNameAndSchool
+	 */
+	public SchoolClass findByNameAndSchoolAndSeason(String className, int schoolID, int schoolSeasonID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolClassNameSchoolSchoolYearSchoolSeason

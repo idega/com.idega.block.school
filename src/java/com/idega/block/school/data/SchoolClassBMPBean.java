@@ -542,6 +542,16 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 				+ "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
+	public Integer ejbFindByNameAndSchoolAndSeason(String className, School school, SchoolSeason season) throws FinderException {
+		return ejbFindByNameAndSchoolAndSeason(className, ((Integer) school.getPrimaryKey()).intValue(), ((Integer) season.getPrimaryKey()).intValue());
+	}
+
+	public Integer ejbFindByNameAndSchoolAndSeason(String className, int schoolID, int schoolSeasonID) throws FinderException {
+		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
+				+ String.valueOf(schoolID) + " and " + SEASON + " = '" + schoolSeasonID + "' and " + NAME + " = '" + className + "' and (" + COLUMN_VALID + " = '" + VALID
+				+ "' or " + COLUMN_VALID + " is null) order by " + NAME);
+	}
+
 	public Integer ejbFindBySchoolClassNameSchoolSchoolYearSchoolSeason(String className, School school,
 			SchoolYear schoolYear, SchoolSeason schoolSeason) throws FinderException {
 		IDOQuery query = idoQuery();
