@@ -156,6 +156,29 @@ public class SchoolUserBMPBean extends GenericEntity implements SchoolUser{
 		Collection coll = this.idoFindIDsBySQL(sql.toString());
 		return coll;
 	}
+    
+    /**
+     * Returns a Collection of SchoolUsers
+     * @param school School
+     * @param userType User type
+     * @return Collection
+     * @throws FinderException
+     */
+    public Collection ejbFindByType(int userType) throws FinderException {
+        IDOQuery sql = idoQuery();
+            sql.appendSelect()
+             .append("*")
+             .appendFrom()
+             .append(TABLE_NAME)
+             .appendWhere()
+             .append(COLUMN_NAME_USER_TYPE)
+             .appendEqualSign()
+             .append(userType);
+             
+             /** THARF AD SKILA USERUM ...*/
+        Collection coll = this.idoFindIDsBySQL(sql.toString());
+        return coll;
+    }    
 	
 	public Collection ejbFindBySchoolAndTypes(School school, int[] userTypes) throws FinderException {
 		StringBuffer query = new StringBuffer();
