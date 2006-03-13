@@ -31,9 +31,9 @@ public interface SchoolUserHome extends IDOHome
     public Collection findBySchoolAndType(School school, int userType) throws FinderException;
 
     /**
-     * @see com.idega.block.school.data.SchoolUserBMPBean#ejbFindByType
+     * @see com.idega.block.school.data.SchoolUserBMPBean#ejbFindByTypes
      */
-    public Collection findByType(int userType) throws FinderException;
+    public Collection findByTypes(int[] userTypes) throws FinderException;
 
     /**
      * @see com.idega.block.school.data.SchoolUserBMPBean#ejbFindBySchoolAndTypes

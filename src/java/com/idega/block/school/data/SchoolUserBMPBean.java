@@ -164,20 +164,30 @@ public class SchoolUserBMPBean extends GenericEntity implements SchoolUser{
      * @return Collection
      * @throws FinderException
      */
-    public Collection ejbFindByType(int userType) throws FinderException {
-        IDOQuery sql = idoQuery();
-            sql.appendSelect()
-             .append("*")
-             .appendFrom()
-             .append(TABLE_NAME)
-             .appendWhere()
-             .append(COLUMN_NAME_USER_TYPE)
-             .appendEqualSign()
-             .append(userType);
-             
-             /** THARF AD SKILA USERUM ...*/
-        Collection coll = this.idoFindIDsBySQL(sql.toString());
+    public Collection ejbFindByTypes(int []userTypes) throws FinderException {
+        StringBuffer query = new StringBuffer();
+        query.append("select * ");
+        query.append("from   sch_school_user, ic_user ");
+        query.append("where ");
+        query.append("      ic_user.ic_user_id = sch_school_user.ic_user_id ");        
+        
+        if (userTypes.length > 0) {
+            query.append(" and (");
+            for (int i = 0; i < userTypes.length; i++) {
+                if(i != 0) {
+                    query.append(" or ");                   
+                }
+                query.append(" sch_school_user.user_type = " + userTypes[i]);
+            }
+            query.append(") ");
+        }
+        
+        query.append("order by ");
+        query.append("  ic_user.last_name asc, ic_user.first_name asc ");            
+
+        Collection coll = this.idoFindIDsBySQL(query.toString());       
         return coll;
+
     }    
 	
 	public Collection ejbFindBySchoolAndTypes(School school, int[] userTypes) throws FinderException {

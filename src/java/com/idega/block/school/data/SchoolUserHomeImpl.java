@@ -44,10 +44,10 @@ public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome
         return this.getEntityCollectionForPrimaryKeys(ids);
     }
 
-    public Collection findByType(int userType) throws FinderException
+    public Collection findByTypes(int[] userTypes) throws FinderException
     {
         com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
-        java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindByType(userType);
+        java.util.Collection ids = ((SchoolUserBMPBean) entity).ejbFindByTypes(userTypes);
         this.idoCheckInPooledEntity(entity);
         return this.getEntityCollectionForPrimaryKeys(ids);
     }
