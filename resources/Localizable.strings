@@ -64,6 +64,7 @@ places=Places
 provider_id=Provider ID
 save=Save
 sch_provider_id_not_empty=Provider id must be entered.
+sch_type.school=Grunnsk\u00F3li
 sch_type.school_type_forskoleklass=
 sch_type.school_type_fritidsklubb=
 sch_type.school_type_grundskola=
