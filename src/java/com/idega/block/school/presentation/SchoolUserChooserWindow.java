@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolUserChooserWindow.java,v 1.6 2006/03/20 09:09:54 laddi Exp $ Created on
+ * $Id: SchoolUserChooserWindow.java,v 1.7 2006/03/22 14:15:52 mariso Exp $ Created on
  * 24.2.2005
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -10,7 +10,9 @@
 package com.idega.block.school.presentation;
 
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Vector;
 
 import javax.ejb.FinderException;
 import javax.faces.context.FacesContext;
@@ -41,7 +43,7 @@ import com.idega.user.presentation.UserChooserWindow;
  * Last modified: 24.2.2005 15:06:52 by: anna
  * 
  * @author <a href="mailto:anna@idega.com">anna </a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class SchoolUserChooserWindow extends UserChooserWindow {
 
@@ -205,15 +207,24 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 					SchoolUserBusinessBean.USER_TYPE_EXPEDITION,
 					SchoolUserBusinessBean.USER_TYPE_PROJECT_MANAGER};			
 			
-            if (isAdmin())
+            School prov = getProvider(iwc);
+            
+            if (prov==null)
             {
                 SchoolUserHome userHome;
-                userHome = (SchoolUserHome)IDOLookup.getHome(com.idega.user.data.User.class);
-                users = userHome.findByTypes(userTypes);              
+                userHome = (SchoolUserHome)IDOLookup.getHome(SchoolUser.class);
+                Collection schoolUsers = userHome.findByTypes(userTypes);
                 
+                users = new Vector();
+                Iterator iter = schoolUsers.iterator();
+                while (iter.hasNext()) 
+                {
+                    SchoolUser sUser = (SchoolUser)iter.next();
+                    users.add(sUser.getUser());
+                }                
             } else
             {
-                users = biz.getUsers(getProvider(iwc), userTypes);
+                users = biz.getUsers(prov , userTypes);
             }            			            
 		}
 		catch (FinderException ex) {
