@@ -9,10 +9,10 @@ import javax.ejb.FinderException;
 import com.idega.block.school.business.SchoolUserBusiness;
 import com.idega.block.school.data.SchoolDepartment;
 import com.idega.block.school.data.SchoolManagementType;
+import com.idega.business.IBOLookup;
 import com.idega.core.contact.data.Email;
 import com.idega.core.contact.data.Phone;
 import com.idega.core.contact.data.PhoneType;
-import com.idega.data.IDOLookup;
 import com.idega.data.IDORelationshipException;
 import com.idega.idegaweb.IWApplicationContext;
 import com.idega.presentation.PresentationObject;
@@ -467,6 +467,6 @@ public class HighSchoolContentItemLinks extends SchoolContentItem {
 	*/
 	
 	private SchoolUserBusiness getSchoolUserBusiness(IWApplicationContext iwac) throws RemoteException {
-		return (SchoolUserBusiness) IDOLookup.getServiceInstance(iwac, SchoolUserBusiness.class);	
+		return (SchoolUserBusiness) IBOLookup.getServiceInstance(iwac, SchoolUserBusiness.class);	
 	}
 }
