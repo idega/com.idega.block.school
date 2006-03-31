@@ -1,6 +1,6 @@
 /*
- * $Id: SchoolBusiness.java,v 1.114 2006/02/21 22:15:43 laddi Exp $
- * Created on Feb 1, 2006
+ * $Id: SchoolBusiness.java,v 1.115 2006/03/31 12:25:54 laddi Exp $
+ * Created on Mar 30, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
@@ -14,9 +14,11 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
+
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
+
 import com.idega.block.school.data.School;
 import com.idega.block.school.data.SchoolArea;
 import com.idega.block.school.data.SchoolAreaHome;
@@ -45,6 +47,7 @@ import com.idega.block.school.data.SchoolYear;
 import com.idega.block.school.data.SchoolYearHome;
 import com.idega.block.school.data.SchoolYearPlaces;
 import com.idega.block.school.data.SchoolYearPlacesHome;
+import com.idega.block.school.data.Student;
 import com.idega.business.IBOService;
 import com.idega.data.IDORemoveRelationshipException;
 import com.idega.user.data.Group;
@@ -55,9 +58,10 @@ import com.idega.user.data.User;
  * <p>
  * TODO laddi Describe Type SchoolBusiness
  * </p>
- *  Last modified: $Date: 2006/02/21 22:15:43 $ by $Author: laddi $
+ *  Last modified: $Date: 2006/03/31 12:25:54 $ by $Author: laddi $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
+ * @version $Revision: 1.115 $
  */
 public interface SchoolBusiness extends IBOService {
 
@@ -115,6 +119,11 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolManagementTypeHome
 	 */
 	public SchoolManagementTypeHome getSchoolManagementTypeHome() throws java.rmi.RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#getStudent
+	 */
+	public Student getStudent(User student) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getDepartments
@@ -1094,7 +1103,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolSubAreasByArea
 	 */
-	public Collection findAllSchoolSubAreasByArea(String area) throws RemoteException;
+	public Collection findAllSchoolSubAreasByArea(String area) throws java.rmi.RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolClassMemberLogHome
@@ -1135,4 +1144,5 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#alignLogs
 	 */
 	public void alignLogs(SchoolClassMember member) throws java.rmi.RemoteException;
+
 }

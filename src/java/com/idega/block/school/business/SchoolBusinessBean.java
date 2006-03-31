@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
 import javax.transaction.UserTransaction;
+
 import com.idega.block.school.data.School;
 import com.idega.block.school.data.SchoolArea;
 import com.idega.block.school.data.SchoolAreaHome;
@@ -45,6 +47,8 @@ import com.idega.block.school.data.SchoolYear;
 import com.idega.block.school.data.SchoolYearHome;
 import com.idega.block.school.data.SchoolYearPlaces;
 import com.idega.block.school.data.SchoolYearPlacesHome;
+import com.idega.block.school.data.Student;
+import com.idega.block.school.data.StudentHome;
 import com.idega.block.text.data.LocalizedText;
 import com.idega.block.text.data.TxText;
 import com.idega.business.IBOLookup;
@@ -205,6 +209,24 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		catch (IDOLookupException e) {
 			throw new IBORuntimeException(e.getMessage());
 		}
+	}
+	
+	public Student getStudent(User student) {
+		try {
+			if (student instanceof Student) {
+				return (Student) student;
+			}
+			
+			StudentHome home = (StudentHome) IDOLookup.getHome(Student.class);
+			return home.findByPrimaryKey(student.getPrimaryKey());
+		}
+		catch (IDOLookupException e) {
+			throw new IBORuntimeException(e.getMessage());
+		}
+		catch (FinderException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public Collection getDepartments(School school) throws RemoteException, FinderException {
