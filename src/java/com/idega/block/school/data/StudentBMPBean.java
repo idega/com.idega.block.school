@@ -21,6 +21,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 	public static final String METADATA_CAN_DISPLAY_IMAGE = "can_display_image";
 	
 	public static final String METADATA_AFTER_SCHOOL_CARE_INFORMATION = "after_school_care_information";
+	public static final String METADATA_CHILD_CARE_INFORMATION = "child_care_information";
 	public static final String METADATA_CAN_PARTICIPATE_IN_CHURCH_RECREATION = "can_participate_in_church_recreation";
 	public static final String METADATA_CAN_CONTACT_ELEMENTARY_SCHOOL_FOR_INFORMATION = "can_contact_elementary_school_for_information";
 
@@ -107,6 +108,19 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 		}
 		else {
 			removeMetaData(METADATA_AFTER_SCHOOL_CARE_INFORMATION);
+		}
+	}
+
+	public String getChildCareOtherInformation() {
+		return getMetaData(METADATA_CHILD_CARE_INFORMATION);
+	}
+	
+	public void setChildCareOtherInformation(String information) {
+		if (information != null && information.length() > 0) {
+			setMetaData(METADATA_CHILD_CARE_INFORMATION, information, "java.lang.String");
+		}
+		else {
+			removeMetaData(METADATA_CHILD_CARE_INFORMATION);
 		}
 	}
 }

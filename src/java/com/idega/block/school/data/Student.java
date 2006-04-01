@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Created on Mar 30, 2006
+ * Created on Apr 1, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
@@ -93,5 +93,15 @@ public interface Student extends IDOEntity, User {
 	 * @see com.idega.block.school.data.StudentBMPBean#setAfterSchoolCareOtherInformation
 	 */
 	public void setAfterSchoolCareOtherInformation(String information);
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#getChildCareOtherInformation
+	 */
+	public String getChildCareOtherInformation();
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#setChildCareOtherInformation
+	 */
+	public void setChildCareOtherInformation(String information);
 
 }
