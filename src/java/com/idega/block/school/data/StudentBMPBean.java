@@ -15,15 +15,16 @@ import com.idega.user.data.UserBMPBean;
 
 public class StudentBMPBean extends UserBMPBean implements User, Student {
 
-	public static final String METADATA_LAST_PROVIDER = "last_care_provider";
-	public static final String METADATA_CAN_CONTACT_LAST_PROVIDER = "can_contact_last_provider";
-	public static final String METADATA_CAN_DISPLAY_PARENT_INFORMATION = "can_display_parent_information";
-	public static final String METADATA_CAN_DISPLAY_IMAGE = "can_display_image";
+	private static final String METADATA_LAST_PROVIDER = "last_care_provider";
+	private static final String METADATA_CAN_CONTACT_LAST_PROVIDER = "can_contact_last_provider";
+	private static final String METADATA_CAN_DISPLAY_PARENT_INFORMATION = "can_display_parent_information";
+	private static final String METADATA_CAN_DISPLAY_IMAGE = "can_display_image";
+	private static final String METADATA_HAS_CARETAKER = "has_caretaker";
 	
-	public static final String METADATA_AFTER_SCHOOL_CARE_INFORMATION = "after_school_care_information";
-	public static final String METADATA_CHILD_CARE_INFORMATION = "child_care_information";
-	public static final String METADATA_CAN_PARTICIPATE_IN_CHURCH_RECREATION = "can_participate_in_church_recreation";
-	public static final String METADATA_CAN_CONTACT_ELEMENTARY_SCHOOL_FOR_INFORMATION = "can_contact_elementary_school_for_information";
+	private static final String METADATA_AFTER_SCHOOL_CARE_INFORMATION = "after_school_care_information";
+	private static final String METADATA_CHILD_CARE_INFORMATION = "child_care_information";
+	private static final String METADATA_CAN_PARTICIPATE_IN_CHURCH_RECREATION = "can_participate_in_church_recreation";
+	private static final String METADATA_CAN_CONTACT_ELEMENTARY_SCHOOL_FOR_INFORMATION = "can_contact_elementary_school_for_information";
 
 	public boolean canDisplayImages() {
 		String meta = getMetaData(METADATA_CAN_DISPLAY_IMAGE);
@@ -35,6 +36,18 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 	
 	public void setCanDisplayImages(boolean canDisplayImages) {
 		setMetaData(METADATA_CAN_DISPLAY_IMAGE, String.valueOf(canDisplayImages), "java.lang.Boolean");
+	}
+	
+	public boolean hasCaretaker() {
+		String meta = getMetaData(METADATA_HAS_CARETAKER);
+		if (meta != null) {
+			return new Boolean(meta).booleanValue();
+		}
+		return false;
+	}
+	
+	public void setHasCaretaker(boolean hasCaretaker) {
+		setMetaData(METADATA_HAS_CARETAKER, String.valueOf(hasCaretaker), "java.lang.Boolean");
 	}
 	
 	public String getLastProvider() {

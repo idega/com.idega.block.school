@@ -1,6 +1,6 @@
 /*
  * $Id$
- * Created on Apr 1, 2006
+ * Created on Apr 3, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
  *
@@ -33,6 +33,16 @@ public interface Student extends IDOEntity, User {
 	 * @see com.idega.block.school.data.StudentBMPBean#setCanDisplayImages
 	 */
 	public void setCanDisplayImages(boolean canDisplayImages);
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#hasCaretaker
+	 */
+	public boolean hasCaretaker();
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#setHasCaretaker
+	 */
+	public void setHasCaretaker(boolean hasCaretaker);
 
 	/**
 	 * @see com.idega.block.school.data.StudentBMPBean#getLastProvider
