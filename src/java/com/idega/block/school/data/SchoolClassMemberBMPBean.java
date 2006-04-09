@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/04/07 18:06:10 $ by $Author: igors $
- * @version $Revision: 1.167 $
+ *         Last modified: $Date: 2006/04/09 11:55:54 $ by $Author: laddi $
+ * @version $Revision: 1.168 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -1243,8 +1243,9 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	public Collection ejbFindBySchool(int schoolID, int schoolClassID) throws FinderException {
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this.getTableName() + " mb" + "," + SchoolClassBMPBean.SCHOOLCLASS + " cl, ic_user u").appendWhere().append(" cl." + SchoolClassBMPBean.SCHOOL).appendEqualSign().append(schoolID).appendAndEquals("u.ic_user_id", "mb." + MEMBER).appendAnd().append("(cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().appendWithinSingleQuotes("Y").appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).append(" is null)").appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
-		if (schoolClassID != -1)
+		if (schoolClassID != -1) {
 			sql.appendAndEquals("mb." + SCHOOLCLASS, schoolClassID);
+		}
 		sql.appendOrderBy("u.last_name, u.first_name, u.middle_name");
 		return super.idoFindPKsBySQL(sql.toString());
 	}
@@ -1268,10 +1269,12 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
             query.addColumn(new WildCardColumn(tMember));
             query.addCriteria(new MatchCriteria(tClass,SchoolClassBMPBean.SCHOOL,MatchCriteria.EQUALS,schoolID));
             query.addCriteria(new OR(new MatchCriteria(tClass,SchoolClassBMPBean.COLUMN_VALID,MatchCriteria.EQUALS,true),new MatchCriteria(tClass,SchoolClassBMPBean.COLUMN_VALID,MatchCriteria.IS,MatchCriteria.NULL)));
-            if(schoolCategory!=null)
-                query.addCriteria(new MatchCriteria(tType,SchoolTypeBMPBean.SCHOOLCATEGORY,MatchCriteria.EQUALS,schoolCategory));
-            if(schoolClassID!=-1)
-                query.addCriteria(new MatchCriteria(tMember,SCHOOLCLASS,MatchCriteria.EQUALS,schoolClassID));
+            if(schoolCategory!=null) {
+							query.addCriteria(new MatchCriteria(tType,SchoolTypeBMPBean.SCHOOLCATEGORY,MatchCriteria.EQUALS,schoolCategory));
+						}
+            if(schoolClassID!=-1) {
+							query.addCriteria(new MatchCriteria(tMember,SCHOOLCLASS,MatchCriteria.EQUALS,schoolClassID));
+						}
             query.addCriteria(new OR(new MatchCriteria(tMember,REMOVED_DATE,MatchCriteria.GREATEREQUAL,date),new MatchCriteria(tMember,REMOVED_DATE,MatchCriteria.IS,MatchCriteria.NULL)));
             query.addOrder(tUser,"last_name",true);
             query.addOrder(tUser,"first_name",true);
@@ -1290,10 +1293,12 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this.getTableName() + " mb" + "," + SchoolClassBMPBean.SCHOOLCLASS + " cl, sch_school_type t, ic_user u").appendWhere().append(" cl." + SchoolClassBMPBean.SCHOOL).appendEqualSign().append(schoolID).appendAndEquals("u.ic_user_id", "mb." + MEMBER).appendAnd().append("(cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().appendWithinSingleQuotes("Y").appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).append(" is null)").appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 		sql.appendAndEquals("mb." + SCHOOL_TYPE, "t.sch_school_type_id");
-		if (schoolCategory != null)
+		if (schoolCategory != null) {
 			sql.appendAndEqualsQuoted("t.school_category", schoolCategory);
-		if (schoolClassID != -1)
+		}
+		if (schoolClassID != -1) {
 			sql.appendAndEquals("mb." + SCHOOLCLASS, schoolClassID);
+		}
 		if (showNotYetActive) {
 			sql.appendAnd().append(REGISTER_DATE).appendGreaterThanSign().append(date);
 		}
@@ -1379,10 +1384,12 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.append(" is null)").appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 		sql.appendAndEquals("mb." + SCHOOL_TYPE, "t.sch_school_type_id");
 		sql.appendAndEquals("mb." + SCHOOLCLASSMEMBERID, "cca." + SCHOOLCLASSMEMBERID);
-		if (schoolCategory != null)
+		if (schoolCategory != null) {
 			sql.appendAndEqualsQuoted("t.school_category", schoolCategory);
-		if (schoolClassID != -1)
+		}
+		if (schoolClassID != -1) {
 			sql.appendAndEquals("mb." + SCHOOLCLASS, schoolClassID);
+		}
 		if (showNotYetActive) {
 			//sql.appendAnd().append(REGISTER_DATE).appendGreaterThanSign().append(date);
 			sql.appendAnd().append("cca.VALID_FROM_DATE").appendGreaterThanSign().append(date);

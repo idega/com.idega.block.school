@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolUserChooserWindow.java,v 1.8 2006/03/23 11:47:58 laddi Exp $
+ * $Id: SchoolUserChooserWindow.java,v 1.9 2006/04/09 11:55:53 laddi Exp $
  * Created on 24.2.2005
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
@@ -39,7 +39,7 @@ import com.idega.user.presentation.UserChooserWindow;
  * Last modified: 24.2.2005 15:06:52 by: anna
  * 
  * @author <a href="mailto:anna@idega.com">anna </a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class SchoolUserChooserWindow extends UserChooserWindow {
 
@@ -91,7 +91,7 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 	}
 
 	private String localize(String key, String nullValue) {
-		return iwrb.getLocalizedString(key, nullValue);
+		return this.iwrb.getLocalizedString(key, nullValue);
 	}
 
 	private Text getText(String content) {
@@ -110,7 +110,7 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 	}
 
 	public Table getListTable(IWContext iwc) throws RemoteException {
-		Table table = new Table(3, USERS_PER_PAGE + 1);
+		Table table = new Table(3, this.USERS_PER_PAGE + 1);
 		table.setCellspacing(0);
 		table.setCellpadding(2);
 		table.setWidth("100%");
@@ -124,25 +124,28 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 		table.setRowColor(row, "#74858D");
 		table.setHeight(row, rowHeight);
 
-		if (users != null) {
-			int start = currentPage * USERS_PER_PAGE;
-			Iterator iter = users.iterator();
-			for (int i = 0; i < start; i++)
-				if (iter.hasNext())
+		if (this.users != null) {
+			int start = this.currentPage * this.USERS_PER_PAGE;
+			Iterator iter = this.users.iterator();
+			for (int i = 0; i < start; i++) {
+				if (iter.hasNext()) {
 					iter.next();
+				}
+			}
 
 			String pId;
-			for (int counter = 0; iter.hasNext() && counter < USERS_PER_PAGE; table.add(getText(pId), 3, row)) {
+			for (int counter = 0; iter.hasNext() && counter < this.USERS_PER_PAGE; table.add(getText(pId), 3, row)) {
 				counter++;
 				row++;
 				table.setHeight(row, rowHeight);
 				User user = (User) iter.next();
 				pId = user.getPersonalID();
-				if (pId == null)
+				if (pId == null) {
 					pId = "-";
+				}
 				Link link = getLink(getText(user.getName()), iwc);
 
-				link.addParameter(PARAMETER_USER_ID, user.getPrimaryKey().toString());
+				link.addParameter(this.PARAMETER_USER_ID, user.getPrimaryKey().toString());
 				table.add(link, 1, row);
 
 				table.add(getText(getSchoolName(user)), 2, row);
@@ -169,14 +172,14 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 	}
 
 	protected void init(IWContext iwc) {
-		form = new Form();
-		form.maintainParameter(SchoolUserChooser.PARAMETER_SCHOOL_ID);
+		this.form = new Form();
+		this.form.maintainParameter(SchoolUserChooser.PARAMETER_SCHOOL_ID);
 
-		searchString = iwc.getParameter(PARAMETER_SEARCH);
-		iwrb = iwc.getIWMainApplication().getBundle(BuilderConstants.STANDARD_IW_BUNDLE_IDENTIFIER).getResourceBundle(iwc);
-		showAll = iwc.isParameterSet(PARAMETER_VIEW_ALL);
-		if (iwc.isParameterSet(PARAMETER_CURRENT_PAGE)) {
-			currentPage = Integer.parseInt(iwc.getParameter(PARAMETER_CURRENT_PAGE));
+		this.searchString = iwc.getParameter(this.PARAMETER_SEARCH);
+		this.iwrb = iwc.getIWMainApplication().getBundle(BuilderConstants.STANDARD_IW_BUNDLE_IDENTIFIER).getResourceBundle(iwc);
+		this.showAll = iwc.isParameterSet(this.PARAMETER_VIEW_ALL);
+		if (iwc.isParameterSet(this.PARAMETER_CURRENT_PAGE)) {
+			this.currentPage = Integer.parseInt(iwc.getParameter(this.PARAMETER_CURRENT_PAGE));
 		}
 		try {
 			SchoolUserBusiness biz = getSchoolUserBusiness(iwc);
@@ -189,15 +192,15 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 				userHome = (SchoolUserHome) IDOLookup.getHome(SchoolUser.class);
 				Collection schoolUsers = userHome.findByTypes(userTypes);
 
-				users = new Vector();
+				this.users = new Vector();
 				Iterator iter = schoolUsers.iterator();
 				while (iter.hasNext()) {
 					SchoolUser sUser = (SchoolUser) iter.next();
-					users.add(sUser.getUser());
+					this.users.add(sUser.getUser());
 				}
 			}
 			else {
-				users = biz.getUsers(prov, userTypes);
+				this.users = biz.getUsers(prov, userTypes);
 			}
 		}
 		catch (FinderException ex) {

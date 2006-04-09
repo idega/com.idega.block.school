@@ -95,8 +95,9 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 				type = (SchoolType) it.next();
 				Integer pk = (Integer) type.getPrimaryKey();
 				sql.append(pk);
-				if (it.hasNext())
-					sql.append(",");					
+				if (it.hasNext()) {
+					sql.append(",");
+				}					
 			}
 			sql.append(")");
 		}
@@ -120,8 +121,9 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 			while (it.hasNext()) {
 				type = (String) it.next();
 				sql.append("'").append(type).append("'");
-				if (it.hasNext())
-					sql.append(",");					
+				if (it.hasNext()) {
+					sql.append(",");
+				}					
 			}
 			sql.append(")");
 		}

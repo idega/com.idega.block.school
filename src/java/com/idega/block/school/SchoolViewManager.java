@@ -24,10 +24,10 @@ import com.idega.workspace.view.WorkspaceClassViewNode;
  * <p>
  * TODO tryggvil Describe Type SchoolViewManager
  * </p>
- *  Last modified: $Date: 2006/02/20 23:29:05 $ by $Author: tryggvil $
+ *  Last modified: $Date: 2006/04/09 11:55:53 $ by $Author: laddi $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class SchoolViewManager {
 
@@ -51,16 +51,16 @@ public class SchoolViewManager {
 	}
 	
 	public ViewManager getViewManager(){
-		return ViewManager.getInstance(iwma);
+		return ViewManager.getInstance(this.iwma);
 	}
 	
 	
 	public ViewNode getSchoolViewNode(){
-		IWBundle iwb = iwma.getBundle("com.idega.block.school");
-		if(schoolViewNode==null){
-			schoolViewNode = initalizeSchoolNode(iwb);
+		IWBundle iwb = this.iwma.getBundle("com.idega.block.school");
+		if(this.schoolViewNode==null){
+			this.schoolViewNode = initalizeSchoolNode(iwb);
 		}
-		return schoolViewNode;
+		return this.schoolViewNode;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class SchoolViewManager {
 	 * @return
 	 */
 	private ViewNode initalizeSchoolNode(IWBundle iwb) {
-		ViewManager viewManager = ViewManager.getInstance(iwma);
+		ViewManager viewManager = ViewManager.getInstance(this.iwma);
 		ViewNode workspace = viewManager.getWorkspaceRoot();
 		
 		Collection roles = new ArrayList();

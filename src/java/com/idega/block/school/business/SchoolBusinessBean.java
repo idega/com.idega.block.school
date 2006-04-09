@@ -598,54 +598,77 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		catch (javax.ejb.CreateException ce) {
 			throw new java.rmi.RemoteException(ce.getMessage());
 		}
-		if (area_id > 0)
+		if (area_id > 0) {
 			newSchool.setSchoolAreaId(area_id);
-		if (sub_area_id > 0)
+		}
+		if (sub_area_id > 0) {
 			newSchool.setSchoolSubAreaId(sub_area_id);
-		if (address != null)
+		}
+		if (address != null) {
 			newSchool.setSchoolAddress(address);
-		if (info != null)
+		}
+		if (info != null) {
 			newSchool.setSchoolInfo(info);
-		if (keycode != null)
+		}
+		if (keycode != null) {
 			newSchool.setSchoolKeyCode(keycode);
-		if (latitude != null)
+		}
+		if (latitude != null) {
 			newSchool.setSchoolLatitude(latitude);
-		if (longitude != null)
+		}
+		if (longitude != null) {
 			newSchool.setSchoolLongitude(longitude);
-		if (name != null)
+		}
+		if (name != null) {
 			newSchool.setSchoolName(name);
-		if (phone != null)
+		}
+		if (phone != null) {
 			newSchool.setSchoolPhone(phone);
-		if (ziparea != null)
+		}
+		if (ziparea != null) {
 			newSchool.setSchoolZipArea(ziparea);
-		if (zipcode != null)
+		}
+		if (zipcode != null) {
 			newSchool.setSchoolZipCode(zipcode);
-		if (organizationNumber != null)
+		}
+		if (organizationNumber != null) {
 			newSchool.setOrganizationNumber(organizationNumber);
-		if (extraProviderId != null)
+		}
+		if (extraProviderId != null) {
 			newSchool.setExtraProviderId(extraProviderId);
-		if (managementTypeId != null)
+		}
+		if (managementTypeId != null) {
 			newSchool.setManagementTypeId(managementTypeId);
-		if (terminationDate != null)
+		}
+		if (terminationDate != null) {
 			newSchool.setTerminationDate(terminationDate);
-		if (communePK != null)
+		}
+		if (communePK != null) {
 			newSchool.setCommunePK(communePK);
-		if (countryId > 0)
+		}
+		if (countryId > 0) {
 			newSchool.setCountryId(countryId);
-		if (centralizedAdministration != null)
+		}
+		if (centralizedAdministration != null) {
 			newSchool.setCentralizedAdministration(centralizedAdministration.booleanValue());
-		if (invisibleForCitizen != null)
+		}
+		if (invisibleForCitizen != null) {
 			newSchool.setInvisibleForCitizen(invisibleForCitizen.booleanValue());
-		if (providerStringId != null)
+		}
+		if (providerStringId != null) {
 			newSchool.setProviderStringId(providerStringId);
-        if (sortByBirthdate != null)
-            newSchool.setSortByBirthdate(sortByBirthdate.booleanValue());
+		}
+        if (sortByBirthdate != null) {
+					newSchool.setSortByBirthdate(sortByBirthdate.booleanValue());
+				}
         
 		newSchool.store();
-		if (type_ids != null)
+		if (type_ids != null) {
 			newSchool.addSchoolTypesRemoveOther(type_ids);
-		if (year_ids != null)
+		}
+		if (year_ids != null) {
 			newSchool.addSchoolYearsRemoveOther(year_ids);
+		}
 		return newSchool;
 	}
 
@@ -861,11 +884,13 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	public SchoolClass storeSchoolClass(String schoolClassName, School school, SchoolYear year, SchoolSeason season) {
-		if (year != null && season != null)
+		if (year != null && season != null) {
 			return storeSchoolClass(-1, schoolClassName, ((Integer) school.getPrimaryKey()).intValue(),
 					((Integer) season.getPrimaryKey()).intValue(), ((Integer) year.getPrimaryKey()).intValue(), -1);
-		else
+		}
+		else {
 			return storeSchoolClass(-1, schoolClassName, ((Integer) school.getPrimaryKey()).intValue(), -1, -1, -1);
+		}
 	}
 
 	public SchoolClassMember storeSchoolClassMember(SchoolClass sClass, User user) {
@@ -1594,8 +1619,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 */
 	public String getChildCareSchoolCategory() {
 		SchoolCategory category = getCategoryChildcare();
-		if (category != null)
+		if (category != null) {
 			return category.getCategory();
+		}
 		return null;
 	}
 
@@ -1604,15 +1630,17 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 */
 	public String getElementarySchoolSchoolCategory() {
 		SchoolCategory category = getCategoryElementarySchool();
-		if (category != null)
+		if (category != null) {
 			return category.getCategory();
+		}
 		return null;
 	}
 	
 	public String getAdultEducationSchoolCategory() {
 		SchoolCategory category = getCategoryAdultEducation();
-		if (category != null)
+		if (category != null) {
 			return category.getCategory();
+		}
 		return null;		
 	}
 
@@ -1667,8 +1695,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newType.setSchoolTypeName(name);
 		newType.setSchoolCategory(category);
 		newType.setLocalizationKey(locKey);
-		if (maxAge != -1)
+		if (maxAge != -1) {
 			newType.setMaxSchoolAge(maxAge);
+		}
 		newType.setIsFreetimeType(isFreetimeType);
 		newType.setIsFamilyFreetimeType(isFamilyFreetimeType);
 		newType.setOrder(order);
@@ -2088,8 +2117,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			catch (FinderException e) {
 				e.printStackTrace();
 			}
-			if (group != null)
+			if (group != null) {
 				schoolTypeId = group.getSchoolTypeId();
+			}
 		}
 		return schoolTypeId;
 	}
@@ -2192,23 +2222,31 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 				if (member != null) {
 					member.setClassMemberId(studentID);
 					member.setSchoolClassId(schoolClassID);
-					if (schoolYearID > 0)
+					if (schoolYearID > 0) {
 						member.setSchoolYear(schoolYearID);
-					if (schoolTypeID > 0)
+					}
+					if (schoolTypeID > 0) {
 						member.setSchoolTypeId(schoolTypeID);
-					if (updateStartDate)
+					}
+					if (updateStartDate) {
 						member.setRegisterDate(registerDate);
+					}
 					member.setRemovedDate(removedDate);
-					if (registrator != -1)
+					if (registrator != -1) {
 						member.setRegistratorId(registrator);
-					if (notes != null)
+					}
+					if (notes != null) {
 						member.setNotes(notes);
-					if (language != null)
+					}
+					if (language != null) {
 						member.setLanguage(language);
-					if (studyPathID != -1)
-						member.setStudyPathId(studyPathID);					
-					if (handicraftId > 0) 
-						member.setHandicraftId(handicraftId);					
+					}
+					if (studyPathID != -1) {
+						member.setStudyPathId(studyPathID);
+					}					
+					if (handicraftId > 0) {
+						member.setHandicraftId(handicraftId);
+					}					
 					member.setRegistrationCreatedDate(IWTimestamp.getTimestampRightNow());
 					member.store();
 				}
@@ -2248,20 +2286,27 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			if (member != null) {
 				member.setClassMemberId(studentID);
 				member.setSchoolClassId(schoolClassID);
-				if (schoolYearID > 0)
+				if (schoolYearID > 0) {
 					member.setSchoolYear(schoolYearID);
-				if (schoolTypeID > 0)
+				}
+				if (schoolTypeID > 0) {
 					member.setSchoolTypeId(schoolTypeID);
-				if (registerDate != null)
+				}
+				if (registerDate != null) {
 					member.setRegisterDate(registerDate);
-				if (removedDate != null)
+				}
+				if (removedDate != null) {
 					member.setRemovedDate(removedDate);
-				if (registrator != -1)
+				}
+				if (registrator != -1) {
 					member.setRegistratorId(registrator);
-				if (notes != null)
+				}
+				if (notes != null) {
 					member.setNotes(notes);
-				if (sLanguage != null)
+				}
+				if (sLanguage != null) {
 					member.setLanguage(sLanguage);
+				}
 				member.setRegistrationCreatedDate(IWTimestamp.getTimestampRightNow());
 				member.store();
 			}
@@ -2504,13 +2549,16 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		schoolClass.setSchoolClassName(className);
 		schoolClass.setSchoolId(schoolID);
-		if (schoolTypeID != -1)
+		if (schoolTypeID != -1) {
 			schoolClass.setSchoolTypeId(schoolTypeID);
-		if (seasonID != -1)
+		}
+		if (seasonID != -1) {
 			schoolClass.setSchoolSeasonId(seasonID);
+		}
 		schoolClass.setValid(true);
-		if (groupStringId != null)
+		if (groupStringId != null) {
 			schoolClass.setGroupStringId(groupStringId);
+		}
 		schoolClass.store();
 		if (schoolYearIDs != null) {
 			Collection years = null;
@@ -2541,8 +2589,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			Collection newTeachers = null;
 			try {
 				newTeachers = getUserBusiness().getUsers(teacherIDs);
-				if (newTeachers == null)
+				if (newTeachers == null) {
 					newTeachers = new ArrayList();
+				}
 			}
 			catch (RemoteException e1) {
 				newTeachers = new ArrayList();
@@ -2607,17 +2656,19 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			}
 			schoolClass.setSchoolClassName(className);
 			schoolClass.setSchoolId(schoolID);
-			if (schoolSeasonID != -1)
+			if (schoolSeasonID != -1) {
 				schoolClass.setSchoolSeasonId(schoolSeasonID);
+			}
 			if (schoolYearID != -1) {
 				SchoolYear schoolYear = this.getSchoolYear(new Integer(schoolYearID));
-				if (schoolYear != null)
+				if (schoolYear != null) {
 					try {
 						schoolClass.addSchoolYear(schoolYear);
 					}
 					catch (IDOAddRelationshipException e) {
 						e.printStackTrace();
 					}
+				}
 			}
 			if (teacherID != -1) {
 				User teacher = null;
@@ -2627,13 +2678,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 				catch (RemoteException e1) {
 					teacher = null;
 				}
-				if (teacher != null)
+				if (teacher != null) {
 					try {
 						schoolClass.addTeacher(teacher);
 					}
 					catch (IDOAddRelationshipException e) {
 						e.printStackTrace();
 					}
+				}
 			}
 			schoolClass.setValid(true);
 			schoolClass.store();
@@ -2819,8 +2871,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public boolean hasSchoolRelationToYear(School school, SchoolYear schoolYear) {
 		try {
 			int relations = getSchoolHome().getNumberOfRelations(school, schoolYear);
-			if (relations > 0)
+			if (relations > 0) {
 				return true;
+			}
 			return false;
 		}
 		catch (IDOException ie) {
@@ -2831,8 +2884,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public boolean hasAfterSchoolActivities(int schoolID) {
 		try {
 			int types = getSchoolHome().getNumberOfFreetimeTypes(schoolID);
-			if (types > 0)
+			if (types > 0) {
 				return true;
+			}
 			return false;
 		}
 		catch (IDOException ie) {
