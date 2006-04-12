@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/04/09 11:55:54 $ by $Author: laddi $
- * @version $Revision: 1.168 $
+ *         Last modified: $Date: 2006/04/12 14:39:59 $ by $Author: igors $
+ * @version $Revision: 1.169 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -666,10 +666,27 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this.getTableName() + " mb" + "," + SchoolClassBMPBean.SCHOOLCLASS + " cl");
 		sql.appendWhereEquals(" mb." + MEMBER, userID);
+		sql.appendAndEquals("cl." + SchoolClassBMPBean.SCHOOL, schoolID);
 		sql.appendAnd().appendLeftParenthesis().append("cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().append(true).appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		sql.appendAndEquals(" mb." + SCHOOLCLASS, "cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 		if (schoolTypes != null) {
-			sql.appendAnd().append("mb." + SchoolClassMemberBMPBean.SCHOOL_TYPE).appendInCollection(schoolTypes);
+			sql.appendAnd().append("mb." + this.SCHOOL_TYPE).appendInCollection(schoolTypes);
+		}
+
+		sql.appendOrderBy(REGISTER_DATE + " desc");
+		return (Integer) this.idoFindOnePKBySQL(sql.toString());
+	}
+
+	public Integer ejbFindLatestByUserAndSchoolAndPlacementDate(int userID, int schoolID, Collection schoolTypes,Date placementDate) throws FinderException {
+		IDOQuery sql = idoQuery();
+		sql.appendSelectAllFrom(this.getTableName() + " mb" + "," + SchoolClassBMPBean.SCHOOLCLASS + " cl");
+		sql.appendWhereEquals(" mb." + MEMBER, userID);
+		sql.append(" and mb."+REGISTER_DATE+"<");
+		sql.append(placementDate);
+		sql.appendAnd().appendLeftParenthesis().append("cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().append(true).appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).appendIsNull().appendRightParenthesis();
+		sql.appendAndEquals(" mb." + SCHOOLCLASS, "cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id");
+		if (schoolTypes != null) {
+			sql.appendAnd().append("mb." + this.SCHOOL_TYPE).appendInCollection(schoolTypes);
 		}
 
 		sql.appendOrderBy(REGISTER_DATE + " desc");
