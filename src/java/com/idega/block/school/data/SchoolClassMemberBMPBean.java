@@ -7,12 +7,13 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
+
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
+
 import com.idega.core.location.data.Address;
 import com.idega.core.location.data.AddressBMPBean;
 import com.idega.core.location.data.Commune;
-import com.idega.core.location.data.PostalCode;
 import com.idega.data.GenericEntity;
 import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOCompositePrimaryKeyException;
@@ -56,8 +57,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/04/12 18:52:37 $ by $Author: laddi $
- * @version $Revision: 1.171 $
+ *         Last modified: $Date: 2006/05/09 14:16:49 $ by $Author: laddi $
+ * @version $Revision: 1.172 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -1863,7 +1864,6 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		Table instruments = new Table(SchoolStudyPath.class, "sp");
 		Table user = new Table(User.class, "u");
 		Table address = new Table(Address.class, "a");
-		Table postal = new Table(PostalCode.class, "p");
 		
 		SelectQuery query = new SelectQuery(student);
 		query.addColumn(new CountColumn(student, this.getIDColumnName()));
@@ -1915,14 +1915,8 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 			catch (IDORelationshipException ile) {
 				throw new IDOException("Tables " + user.getName() + " and " + address.getName() + " don't have a relation.");
 			}
-			try {
-				query.addJoin(address, postal);
-			}
-			catch (IDORelationshipException ile) {
-				throw new IDOException("Tables " + address.getName() + " and " + postal.getName() + " don't have a relation.");
-			}
 			query.addCriteria(new MatchCriteria(address, AddressBMPBean.getColumnNameAddressTypeId(), MatchCriteria.EQUALS, 1));
-			query.addCriteria(new MatchCriteria(postal, "ic_commune_id", MatchCriteria.EQUALS, commune));
+			query.addCriteria(new MatchCriteria(address, "ic_commune_id", MatchCriteria.EQUALS, commune));
 		}
 		
 		return idoGetNumberOfRecords(query);
