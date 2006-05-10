@@ -33,7 +33,7 @@ public class SchoolSeasonDropdown extends DropDownMenuInputHandler {
 	}
 	
 	public void main(IWContext iwc) throws Exception {
-		Collection seasons = getSchoolBusiness(iwc).findAllSchoolSeasons();
+		Collection seasons = getSeasons(iwc);
 			
 		if (seasons != null) {
 			Iterator iter = seasons.iterator();
@@ -44,7 +44,11 @@ public class SchoolSeasonDropdown extends DropDownMenuInputHandler {
 		}
 	}
 	
-	private SchoolBusiness getSchoolBusiness(IWContext iwc) throws RemoteException {
+	protected Collection getSeasons(IWContext iwc) throws RemoteException {
+		return getSchoolBusiness(iwc).findAllSchoolSeasons();
+	}
+	
+	protected SchoolBusiness getSchoolBusiness(IWContext iwc) throws RemoteException {
 		return (SchoolBusiness) IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
 	}
 
