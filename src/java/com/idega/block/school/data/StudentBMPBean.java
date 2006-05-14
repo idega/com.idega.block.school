@@ -80,7 +80,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 		if (meta != null && meta.length() > 0) {
 			return new Boolean(meta).booleanValue();
 		}
-		return false;
+		return true;
 	}
 	
 	public void setCanDisplayParentInformation(boolean canDisplayParentInformation) {
