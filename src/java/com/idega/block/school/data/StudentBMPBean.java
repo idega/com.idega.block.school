@@ -31,7 +31,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 		if (meta != null) {
 			return new Boolean(meta).booleanValue();
 		}
-		return false;
+		return true;
 	}
 	
 	public void setCanDisplayImages(boolean canDisplayImages) {
