@@ -151,15 +151,26 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
       SelectQuery query = new SelectQuery(table);
       query.addColumn(new WildCardColumn());
       query.addOrder(table,NAME,true); 
-      return idoFindPKsByQuery(query);
+      return super.idoFindPKsByQuery(query);
   }
 
   public Collection ejbFindAllByCategory(String category) throws javax.ejb.FinderException {
-      Table table = new Table(this);
+	  Table table = new Table(this);
 	  SelectQuery query = new SelectQuery(table);
 	  query.addColumn(new WildCardColumn());
 	  query.addCriteria(new MatchCriteria(table,SCHOOLCATEGORY,MatchCriteria.EQUALS,category,true));
 	  return idoFindPKsByQuery(query);
+  }
+  
+  
+
+  public String ejbFindAllByCategoryTest(String category) throws javax.ejb.FinderException {
+
+	  Table table = new Table(this);
+	  SelectQuery query = new SelectQuery(table);
+	  query.addColumn(new WildCardColumn());
+	  query.addCriteria(new MatchCriteria(table,SCHOOLCATEGORY,MatchCriteria.EQUALS,category,true));
+	  return query.toString();
   }
 
 	public Collection ejbFindAllByCategory(String category, boolean showFreetimeTypes) throws javax.ejb.FinderException {

@@ -1,11 +1,5 @@
-/*
- * $Id: SchoolTypeHomeImpl.java,v 1.10 2006/01/25 00:27:24 gimmi Exp $
- * Created on Jan 12, 2006
- *
- * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
@@ -16,12 +10,12 @@ import com.idega.data.IDOFactory;
 
 /**
  * <p>
- * TODO gimmi Describe Type SchoolTypeHomeImpl
+ * TODO is Describe Type SchoolTypeHomeImpl
  * </p>
- *  Last modified: $Date: 2006/01/25 00:27:24 $ by $Author: gimmi $
+ *  Last modified: $Date: 2006/05/15 09:39:02 $ by $Author: igors $
  * 
- * @author <a href="mailto:gimmi@idega.com">gimmi</a>
- * @version $Revision: 1.10 $
+ * @author <a href="mailto:is@idega.com">is</a>
+ * @version $Revision: 1.11 $
  */
 public class SchoolTypeHomeImpl extends IDOFactory implements SchoolTypeHome {
 
@@ -49,6 +43,12 @@ public class SchoolTypeHomeImpl extends IDOFactory implements SchoolTypeHome {
 		java.util.Collection ids = ((SchoolTypeBMPBean) entity).ejbFindAllByCategory(category);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	public String findAllByCategoryTest(String category) throws javax.ejb.FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		return ((SchoolTypeBMPBean) entity).ejbFindAllByCategoryTest(category);
+
 	}
 
 	public Collection findAllByCategory(String category, boolean showFreetimeTypes) throws javax.ejb.FinderException {

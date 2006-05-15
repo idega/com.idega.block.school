@@ -1,11 +1,5 @@
-/*
- * $Id: SchoolTypeHome.java,v 1.10 2006/01/25 00:27:24 gimmi Exp $
- * Created on Jan 12, 2006
- *
- * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+/**
+ * 
  */
 package com.idega.block.school.data;
 
@@ -16,12 +10,12 @@ import com.idega.data.IDOHome;
 
 /**
  * <p>
- * TODO gimmi Describe Type SchoolTypeHome
+ * TODO is Describe Type SchoolTypeHome
  * </p>
- *  Last modified: $Date: 2006/01/25 00:27:24 $ by $Author: gimmi $
+ *  Last modified: $Date: 2006/05/15 09:39:02 $ by $Author: igors $
  * 
- * @author <a href="mailto:gimmi@idega.com">gimmi</a>
- * @version $Revision: 1.10 $
+ * @author <a href="mailto:is@idega.com">is</a>
+ * @version $Revision: 1.11 $
  */
 public interface SchoolTypeHome extends IDOHome {
 
@@ -38,6 +32,11 @@ public interface SchoolTypeHome extends IDOHome {
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#ejbFindAllByCategory
 	 */
 	public Collection findAllByCategory(String category) throws javax.ejb.FinderException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolTypeBMPBean#ejbFindAllByCategoryTest
+	 */
+	public String findAllByCategoryTest(String category) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#ejbFindAllByCategory
