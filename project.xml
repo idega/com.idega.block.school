@@ -6,7 +6,6 @@
   <name>idegaWeb School Block</name>
   <artifactId>com.idega.block.school</artifactId>
   <currentVersion>3.1.0</currentVersion>
-
   <inceptionYear>2000</inceptionYear>
   <shortDescription>School</shortDescription>
   <versions>
@@ -14,6 +13,11 @@
       <id>1.0.1</id>
       <name>1.0.1</name>
       <tag>SCHOOL_1_0_1</tag>
+    </version>
+    <version>
+      <id>3.1.0</id>
+      <name>3.1.0</name>
+      <tag>SCHOOL_3_1_0</tag>
     </version>
   </versions>
   <branches/>
@@ -76,7 +80,6 @@
       <groupId>bundles</groupId>
       <artifactId>com.idega.builder</artifactId>
       <version>3.1.0</version>
-
       <type>jar</type>
       <url>http://www.idega.com/</url>
       <properties>
@@ -107,7 +110,6 @@
       <groupId>bundles</groupId>
       <artifactId>com.idega.block.media</artifactId>
       <version>3.1.0</version>
-
       <type>jar</type>
       <url>http://www.idega.com/</url>
       <properties>
