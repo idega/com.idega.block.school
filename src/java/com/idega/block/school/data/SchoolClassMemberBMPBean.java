@@ -1,6 +1,5 @@
 package com.idega.block.school.data;
 
-import java.rmi.RemoteException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -57,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/05/09 14:16:49 $ by $Author: laddi $
- * @version $Revision: 1.172 $
+ *         Last modified: $Date: 2006/07/24 10:54:13 $ by $Author: laddi $
+ * @version $Revision: 1.173 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
