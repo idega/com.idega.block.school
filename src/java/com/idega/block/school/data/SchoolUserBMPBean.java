@@ -8,10 +8,14 @@ import javax.ejb.FinderException;
 
 import com.idega.data.GenericEntity;
 import com.idega.data.IDOAddRelationshipException;
+import com.idega.data.IDOCompositePrimaryKeyException;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDOQuery;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
+import com.idega.data.query.MatchCriteria;
+import com.idega.data.query.SelectQuery;
+import com.idega.data.query.Table;
 import com.idega.user.data.User;
 
 /**
@@ -390,6 +394,28 @@ public class SchoolUserBMPBean extends GenericEntity implements SchoolUser{
 			 .appendEqualSign()
 			 .append(school.getPrimaryKey().toString());
 		return this.idoFindIDsBySQL(sql.toString());			
+	}
+	
+	public Collection ejbFindRelatedToSchool(School school) throws FinderException {
+		Table table = new Table(this);
+		Table schoolTable = new Table(School.class);
+		
+		SelectQuery query = new SelectQuery(table);
+		query.addColumn(table, getIDColumnName());
+		try {
+			query.addManyToManyJoin(table, schoolTable);
+		}
+		catch (IDORelationshipException ire) {
+			throw new FinderException(ire.getMessage());
+		}
+		try {
+			query.addCriteria(new MatchCriteria(schoolTable, schoolTable.getPrimaryKeyColumnName(), MatchCriteria.EQUALS, school));
+		}
+		catch (IDOCompositePrimaryKeyException e) {
+			throw new FinderException(e.getMessage());
+		}
+		
+		return idoFindPKsByQuery(query);
 	}
 	
 	public Object ejbHomeGetSchoolUserId(School school, User user, int userType) throws FinderException{

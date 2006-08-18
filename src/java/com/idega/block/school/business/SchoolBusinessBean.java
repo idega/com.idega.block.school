@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.ejb.CreateException;
@@ -942,6 +944,26 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		catch (FinderException fe) {
 			throw new RemoteException(fe.getMessage());
 		}
+	}
+	
+	public Collection getAllSchoolUsers(School school) throws RemoteException {
+		Set users = new TreeSet();
+		
+		try {
+			users.addAll(getSchoolUserBusiness().getSchoolUserHome().findBySchool(school));
+		}
+		catch (FinderException fe) {
+			fe.printStackTrace();
+		}
+		
+		try {
+			users.addAll(getSchoolUserBusiness().getSchoolUserHome().findRelatedToSchool(school));
+		}
+		catch (FinderException fe) {
+			fe.printStackTrace();
+		}
+		
+		return users;
 	}
 
 	public Collection getHeadmasters(School school) throws RemoteException {
