@@ -62,6 +62,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_COMMUNE = "prm_commune";
 	private static final String PARAMETER_TYPE_PKS = "prm_type_pks";
 	private static final String PARAMETER_YEAR_PKS = "prm_year_pks";
+	private static final String PARAMETER_WEB_PAGE = "prm_web_page";
 	private static final String PARAMETER_JUNIOR_HIGH_SCHOOL = "prm_junior_high_school_pk";
 	private static final String PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK = "prm_care_provider_pk";
 	private static final String PARAMETER_HAS_REFRESHMENTS = "prm_has_refreshments";
@@ -139,6 +140,7 @@ public class SchoolEditor extends SchoolBlock {
 		String orgNr = iwc.getParameter(PARAMETER_ORGANIZATION_ID);
 		String[] type_ids = iwc.getParameterValues(PARAMETER_TYPE_PKS);
 		String[] year_ids = iwc.getParameterValues(PARAMETER_YEAR_PKS);
+		String webPage = iwc.getParameter(PARAMETER_WEB_PAGE);
 		int[] types = new int[0];
 		int[] years = new int[0];
 		if (type_ids != null && type_ids.length > 0) {
@@ -182,6 +184,7 @@ public class SchoolEditor extends SchoolBlock {
 		if (orgNr != null) {
 			school.setOrganizationNumber(orgNr);
 		}
+		school.setSchoolWebPage(webPage);
 		school.setHasRefreshments(hasRefreshments);
 		
 		school.store();
@@ -317,6 +320,7 @@ public class SchoolEditor extends SchoolBlock {
 		TextInput inputLON = new TextInput(PARAMETER_LONGITUDE);
 		TextInput inputLAT = new TextInput(PARAMETER_LATITUDE);
 		TextInput inputOrgID = new TextInput(PARAMETER_ORGANIZATION_ID);
+		TextInput inputWebPage = new TextInput(PARAMETER_WEB_PAGE);
 		
 		DropdownMenu drpArea = new DropdownMenu(getSchoolAreas(), PARAMETER_AREA);
 		drpArea.setMenuElementFirst("-1", "");
@@ -361,6 +365,7 @@ public class SchoolEditor extends SchoolBlock {
 				inputKeyCode.setContent(school.getSchoolKeyCode());
 				inputLON.setContent(school.getSchoolLongitude());
 				inputLAT.setContent(school.getSchoolLatitude());
+				inputWebPage.setContent(school.getSchoolWebPage());
 				drpArea.setSelectedElement(String.valueOf(school.getSchoolAreaId()));
 				if (commune != null) {
 					communes.setSelectedElement(commune.getPrimaryKey().toString());
@@ -448,6 +453,14 @@ public class SchoolEditor extends SchoolBlock {
 		label = new Label(localize("phone", "Phone"), inputPhone);
 		layer.add(label);
 		layer.add(inputPhone);
+		form.add(layer);
+		
+		layer = new Layer(Layer.DIV);
+		layer.setID("webpage");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("school.web_page", "Web page"), inputWebPage);
+		layer.add(label);
+		layer.add(inputWebPage);
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);

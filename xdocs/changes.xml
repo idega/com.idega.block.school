@@ -5,6 +5,12 @@
   </properties>
   <body>
   	
+	<release version="3.1.2" date="2006-10-10">
+		<action dev="laddi" type="update">
+		  	Added possibility to set school's web page in SchoolEditor.
+		</action>
+	</release>	
+  
 	<release version="3.1.1" date="2006-08-18">
 		<action dev="laddi" type="update">
 		  	Added method to fetch all users connected to a school.
