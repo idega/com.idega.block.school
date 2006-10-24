@@ -1,27 +1,9 @@
-/*
- * $Id$
- * Created on Apr 3, 2006
- *
- * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
- */
 package com.idega.block.school.data;
 
-import com.idega.data.IDOEntity;
+
 import com.idega.user.data.User;
+import com.idega.data.IDOEntity;
 
-
-/**
- * <p>
- * TODO laddi Describe Type Student
- * </p>
- *  Last modified: $Date$ by $Author$
- * 
- * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision$
- */
 public interface Student extends IDOEntity, User {
 
 	/**
@@ -114,4 +96,33 @@ public interface Student extends IDOEntity, User {
 	 */
 	public void setChildCareOtherInformation(String information);
 
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#hasSiblingInSchool
+	 */
+	public boolean hasSiblingInSchool();
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#setHasSiblingInSchool
+	 */
+	public void setHasSiblingInSchool(boolean hasSiblingInSchool);
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#getSibling
+	 */
+	public String getSibling();
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#setSibling
+	 */
+	public void setSibling(String sibling);
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#getSiblingSchool
+	 */
+	public String getSiblingSchool();
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#setSiblingSchool
+	 */
+	public void setSiblingSchool(String siblingSchool);
 }

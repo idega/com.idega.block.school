@@ -26,6 +26,10 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 	private static final String METADATA_CAN_PARTICIPATE_IN_CHURCH_RECREATION = "can_participate_in_church_recreation";
 	private static final String METADATA_CAN_CONTACT_ELEMENTARY_SCHOOL_FOR_INFORMATION = "can_contact_elementary_school_for_information";
 
+	private static final String METADATA_HAS_SIBLING_IN_SCHOOL = "has_sibling_in_school";
+	private static final String METADATA_SIBLING = "sibling";
+	private static final String METADATA_SIBLING_SCHOOL = "sibling_school";
+
 	public boolean canDisplayImages() {
 		String meta = getMetaData(METADATA_CAN_DISPLAY_IMAGE);
 		if (meta != null) {
@@ -134,6 +138,44 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 		}
 		else {
 			removeMetaData(METADATA_CHILD_CARE_INFORMATION);
+		}
+	}
+	
+	public boolean hasSiblingInSchool() {
+		String meta = getMetaData(METADATA_HAS_SIBLING_IN_SCHOOL);
+		if (meta != null && meta.length() > 0) {
+			return new Boolean(meta).booleanValue();
+		}
+		return true;
+	}
+	
+	public void setHasSiblingInSchool(boolean hasSiblingInSchool) {
+		setMetaData(METADATA_HAS_SIBLING_IN_SCHOOL, String.valueOf(hasSiblingInSchool), "java.lang.Boolean");
+	}
+	
+	public String getSibling() {
+		return getMetaData(METADATA_SIBLING);
+	}
+	
+	public void setSibling(String sibling) {
+		if (sibling != null && sibling.length() > 0) {
+			setMetaData(METADATA_SIBLING, sibling, "java.lang.String");
+		}
+		else {
+			removeMetaData(sibling);
+		}
+	}
+	
+	public String getSiblingSchool() {
+		return getMetaData(METADATA_SIBLING_SCHOOL);
+	}
+	
+	public void setSiblingSchool(String siblingSchool) {
+		if (siblingSchool != null && siblingSchool.length() > 0) {
+			setMetaData(METADATA_SIBLING_SCHOOL, siblingSchool, "java.lang.String");
+		}
+		else {
+			removeMetaData(siblingSchool);
 		}
 	}
 }

@@ -5,6 +5,12 @@
   </properties>
   <body>
   	
+	<release version="3.1.3" date="2006-10-24">
+		<action dev="laddi" type="update">
+		  	Added three new metadata columns to Student.
+		</action>
+	</release>	
+  
 	<release version="3.1.2" date="2006-10-10">
 		<action dev="laddi" type="update">
 		  	Added possibility to set school's web page in SchoolEditor.
