@@ -146,7 +146,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 		if (meta != null && meta.length() > 0) {
 			return new Boolean(meta).booleanValue();
 		}
-		return true;
+		return false;
 	}
 	
 	public void setHasSiblingInSchool(boolean hasSiblingInSchool) {
