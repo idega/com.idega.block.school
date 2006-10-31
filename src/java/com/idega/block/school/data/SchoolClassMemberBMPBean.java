@@ -56,8 +56,8 @@ import com.idega.util.IWTimestamp;
  * 
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
- *         Last modified: $Date: 2006/07/24 10:54:13 $ by $Author: laddi $
- * @version $Revision: 1.173 $
+ *         Last modified: $Date: 2006/10/31 09:53:58 $ by $Author: laddi $
+ * @version $Revision: 1.174 $
  */
 
 public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolClassMember {
@@ -1385,7 +1385,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendAnd().appendLeftParenthesis();
 		sql.append("m.removed_date").appendGreaterThanSign().append(date);
 		sql.appendOr().append("m.removed_date is null").appendRightParenthesis();
-		sql.appendOrderBy("u.last_name, u.first_name, u.middle_name");
+		sql.appendOrderBy("u.first_name, u.middle_name, u.last_name");
 		return super.idoFindPKsByQuery(sql);
 	}
 
