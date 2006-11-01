@@ -42,7 +42,7 @@ import com.idega.user.data.User;
  * @version 1.0
  */
 
-public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEntity, MetaDataCapable{
+public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEntity, MetaDataCapable, Comparable {
 
 	public final static String SCHOOL = "sch_school";
 	public final static String NAME = "SCHOOL_NAME";
@@ -1060,4 +1060,21 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
     public void setSortByBirthdate(boolean arg) {
         setColumn(SORT_BY_BIRTHDATE, arg);
     }
+    
+    public int compareTo(Object o) {
+    	School school = (School) o;
+    	String name1 = getName();
+    	String name2 = school.getName();
+    	int result = name1.compareTo(name2);
+    	// do not confuse others by returning zero if the names are equal but the objects are not!
+    	if (result == 0) {
+    		// only return zero if the objects are equal!
+    		if (! this.equals(school)) {
+    			// change the result!
+    			return 1;
+    		}
+    	}
+    	return result;
+    }
+    
 }

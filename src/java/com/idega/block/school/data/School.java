@@ -1,5 +1,5 @@
 /*
- * $Id: School.java,v 1.47 2006/02/20 13:27:12 edmunds Exp $
+ * $Id: School.java,v 1.48 2006/11/01 15:15:10 thomas Exp $
  * Created on Jan 22, 2006
  *
  * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
@@ -31,12 +31,12 @@ import com.idega.user.data.Group;
  * <p>
  * TODO laddi Describe Type School
  * </p>
- *  Last modified: $Date: 2006/02/20 13:27:12 $ by $Author: edmunds $
+ *  Last modified: $Date: 2006/11/01 15:15:10 $ by $Author: thomas $
  * 
  * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.47 $
+ * @version $Revision: 1.48 $
  */
-public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
+public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Comparable {
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getName
