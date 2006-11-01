@@ -76,12 +76,7 @@ public class SchoolClassMemberComparator implements Comparator {
     try {
     	switch (this.sortBy) {
 				case NAME_SORT :
-					if (this.locale.equals(LocaleUtil.getIcelandicLocale())) {
-						result = firstNameSort(o1,o2);
-					}
-					else {
-						result = lastNameSort(o1,o2);
-					}
+					result = nameSort(o1, o2);
 					break;
 				case GENDER_SORT :
 					result = genderSort(o1,o2);
@@ -105,6 +100,14 @@ public class SchoolClassMemberComparator implements Comparator {
     }
     
     return result;
+	}
+	
+	public int nameSort(Object o1, Object o2) {
+		if (this.locale.equals(LocaleUtil.getIcelandicLocale())) {
+			return firstNameSort(o1,o2);
+		}
+		return lastNameSort(o1,o2);
+		
 	}
 	
 	public int lastNameSort(Object o1, Object o2) {
