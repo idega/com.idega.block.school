@@ -97,7 +97,7 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 	}
 
 	public Date getChoiceStartDate() {
-		return (Date) getColumnValue(DUE_DATE);
+		return (Date) getColumnValue(START_DATE);
 	}
 
 	public void setChoiceStartDate(java.util.Date due) {
