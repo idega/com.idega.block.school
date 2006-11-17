@@ -39,7 +39,6 @@ public class SchoolClassMemberComparator implements Comparator {
   private Collator collator;
   private Map students;
   private int sortBy = NAME_SORT;
-  private int femaleID = -1;
   
   private Comparator genderComparatorForUser = null;
   
@@ -49,23 +48,124 @@ public class SchoolClassMemberComparator implements Comparator {
   static public Comparator getComparatorSortByUseGenderComparator(int sortBy, Comparator genderComparatorForUser, Locale locale, UserBusiness business, Map students) {
   	return new SchoolClassMemberComparator(sortBy, genderComparatorForUser, locale, business, students);
   }  
+
+  /**
+   * Depends on defined gender ids (IC_GENDER table).
+   * If the table IC_GENDER has no entries the simple gender comparator is taken.
+   * AdvancedGenderComparator sorts male first.
+   * 
+   * @param sortBy
+   * @param locale
+   * @param business
+   * @param students
+   * @return
+   */
+  static public Comparator getComparatorWithGenderComparatorSortBy(int sortBy, Locale locale, UserBusiness business, Map students) {
+	  return new SchoolClassMemberComparator(sortBy, getAdvancedGenderComparator(), locale, business, students);
+  }
   
+  /**
+   * Depends NOT on defined gender ids (IC_GENDER table).
+   * Works with simple gender comparator.
+   * 
+   * If genders are defined (that is IC_GENDER has entries) method
+   * <code>getInstanceWithGenderComparatorSortBy()</code> should be used.
+   * 
+   * If genders are not defined use this method.
+   * 
+   * Since in most cases id for male is "1" and id for female is "2" SimpleGenderComparator sorts male first.
+   * 
+   * @param sortBy
+   * @param locale
+   * @param business
+   * @param students
+   * @return
+   */
   static public Comparator getComparatorSortBy(int sortBy, Locale locale, UserBusiness business, Map students) {
-  	return new SchoolClassMemberComparator(sortBy, null, locale, business, students);
+	  return new SchoolClassMemberComparator(sortBy, getSimpleGenderComparator(), locale, business, students);
   }
   
   static public Comparator getComparatorSortByName(Locale locale, UserBusiness business, Map students) {
-  	return new SchoolClassMemberComparator(NAME_SORT, null, locale, business, students);
-  }
+	  return new SchoolClassMemberComparator(NAME_SORT, locale, business, students);
+  }  
   
-  private SchoolClassMemberComparator(int sortBy, Comparator genderComparator, Locale locale, UserBusiness business, Map students) {
-  	this.sortBy = sortBy;
-  	this.genderComparatorForUser = genderComparator;
-  	this.locale = locale;
-  	this.business = business;
-  	this.students = students;
-  }
+  /**
+   * Depends NOT on defined gender ids (IC_GENDER table).
+   * Just compares the gender ids that the users have without 
+   * checking what id represent female or male. 
+   * 
+   * In that way it is not clear if female or male comes first (in most cases male id is "1" and female id is "2". 
+   * Therefore sorts male first.
+   * 
+   * @return
+   */
   
+	static private Comparator getSimpleGenderComparator() {
+		return new Comparator() {
+		 	public int compare(Object o1, Object o2) {
+		 		return ((User) o1).getGenderID() - ((User) o2).getGenderID();
+		 	}
+		 };
+	}
+
+	/**
+	 * Depends on the defined gender ids (IC_GENDER table).
+	 * If such entries are missing the simple comparator is returned.
+	 * 
+	 * @return
+	 */
+	static private Comparator getAdvancedGenderComparator() {
+		try {
+			return new Comparator() {
+				
+				private int femaleID = -1;  
+				
+				{
+					init();
+				}
+					
+				public int compare(Object o1, Object o2) {
+					boolean isFemale1 = (femaleID == (((User)o1).getGenderID()));
+					boolean isFemale2 = (femaleID == ((User)o2).getGenderID());
+
+					if (isFemale1 && !isFemale2) {
+						return 1;
+					}
+					if (!isFemale1 && isFemale2) {
+						return -1;
+					}
+					return 0;
+				}
+						
+				private void init() throws IDOLookupException, FinderException  {
+					Gender female = ((GenderHome) IDOLookup.getHome(Gender.class)).getFemaleGender();
+					femaleID = ((Integer)female.getPrimaryKey()).intValue();
+				}
+			};
+		}
+		catch (IDOLookupException e) {
+			System.err.println("[SchoolClassMemberComparator] Could not look up Gender");
+			e.printStackTrace(System.err);
+		}
+		catch (FinderException e) {
+			System.err.println("[SchoolClassMemberComparator] Could not find Gender");
+			e.printStackTrace(System.err);
+		}
+		return getSimpleGenderComparator();
+	}
+
+	private SchoolClassMemberComparator(int sortBy, Locale locale, UserBusiness business, Map students) {
+	  	this.sortBy = sortBy;
+	  	this.locale = locale;
+	  	this.business = business;
+	  	this.students = students;
+	}
+	
+	private SchoolClassMemberComparator(int sortBy, Comparator genderComparator, Locale locale, UserBusiness business, Map students) {
+		this(sortBy, locale, business, students);
+		this.genderComparatorForUser = (genderComparator == null) ? getAdvancedGenderComparator() : genderComparator;
+	}
+   
 	/**
 	 * @see java.util.Comparator#compare(Object, Object)
 	 */
@@ -161,22 +261,8 @@ public class SchoolClassMemberComparator implements Comparator {
 	public int genderSort(Object o1, Object o2) {
 		User p1 = (User) this.students.get(new Integer(((SchoolClassMember)o1).getClassMemberId()));
 		User p2 = (User) this.students.get(new Integer(((SchoolClassMember)o2).getClassMemberId()));
-		int result = 0;
 		
-		if (this.genderComparatorForUser == null) {
-			boolean isFemale1 = isGenderIDFemale(p1.getGenderID());
-			boolean isFemale2 = isGenderIDFemale(p2.getGenderID());
-		
-			if (isFemale1 && !isFemale2) {
-				result = -1;
-			}
-			if (!isFemale1 && isFemale2) {
-				result = 1;
-			}
-		}
-		else {
-			result = this.genderComparatorForUser.compare(p1, p2);
-		}
+		int result = this.genderComparatorForUser.compare(p1, p2);
 		
 		if (result == 0){
 			if (this.locale.equals(LocaleUtil.getIcelandicLocale())) {
@@ -250,27 +336,4 @@ public class SchoolClassMemberComparator implements Comparator {
 
 		return result;
 	}	
-
-	private boolean isGenderIDFemale(int genderID) {
-		if (this.femaleID < 0) {
-			try {
-				Gender female = ((GenderHome) IDOLookup.getHome(Gender.class)).getFemaleGender();
-				this.femaleID = ((Integer)female.getPrimaryKey()).intValue();
-			} 
-			catch (IDOLookupException e) {
-				System.err.println("[SchoolClassMemberComparator] Could not look up Gender");
-				e.printStackTrace(System.err);
-			}
-			catch (FinderException e) {
-				System.err.println("[SchoolClassMemberComparator] Could not find Gender");
-				e.printStackTrace(System.err);
-			}
-/*			catch (RemoteException e) {
-				System.err.println("[SchoolClassMemberComparator] Could not access Gender");
-				e.printStackTrace(System.err);
-			}*/
-		}
-		return this.femaleID == genderID;
-	}
-
 }
