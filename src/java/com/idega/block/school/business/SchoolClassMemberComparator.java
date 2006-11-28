@@ -214,6 +214,12 @@ public class SchoolClassMemberComparator implements Comparator {
 		User p1 = (User) this.students.get(new Integer(((SchoolClassMember)o1).getClassMemberId()));
 		User p2 = (User) this.students.get(new Integer(((SchoolClassMember)o2).getClassMemberId()));
 		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(p1, p2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
+		
 		String one = p1.getLastName()!=null?p1.getLastName():"";
 		String two = p2.getLastName()!=null?p2.getLastName():"";
 		int result = this.collator.compare(one,two);
@@ -237,6 +243,12 @@ public class SchoolClassMemberComparator implements Comparator {
 	public int firstNameSort(Object o1, Object o2) {
 		User p1 = (User) this.students.get(new Integer(((SchoolClassMember)o1).getClassMemberId()));
 		User p2 = (User) this.students.get(new Integer(((SchoolClassMember)o2).getClassMemberId()));
+		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(p1, p2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
 		
 		String one = p1.getFirstName()!=null?p1.getFirstName():"";
 		String two = p2.getFirstName()!=null?p2.getFirstName():"";
@@ -262,6 +274,12 @@ public class SchoolClassMemberComparator implements Comparator {
 		User p1 = (User) this.students.get(new Integer(((SchoolClassMember)o1).getClassMemberId()));
 		User p2 = (User) this.students.get(new Integer(((SchoolClassMember)o2).getClassMemberId()));
 		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(p1, p2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
+		
 		int result = this.genderComparatorForUser.compare(p1, p2);
 		
 		if (result == 0){
@@ -276,8 +294,17 @@ public class SchoolClassMemberComparator implements Comparator {
 	}	
 
 	public int addressSort(Object o1, Object o2) throws RemoteException {
-		Address p1 = this.business.getUserAddress1(((SchoolClassMember)o1).getClassMemberId());
-		Address p2 = this.business.getUserAddress1(((SchoolClassMember)o2).getClassMemberId());
+		User u1 = (User) this.students.get(new Integer((((SchoolClassMember)o1).getClassMemberId())));
+		User u2 = (User) this.students.get(new Integer((((SchoolClassMember)o2).getClassMemberId())));
+		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(u1, u2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
+		
+		Address p1 = this.business.getUsersMainAddress(u1);
+		Address p2 = this.business.getUsersMainAddress(u2);
 		
 		if (p1 == null || p2 == null) {
 			if (p1 == null && p2 != null) {
@@ -300,6 +327,12 @@ public class SchoolClassMemberComparator implements Comparator {
 		User p1 = (User) this.students.get(new Integer((((SchoolClassMember)o1).getClassMemberId())));
 		User p2 = (User) this.students.get(new Integer((((SchoolClassMember)o2).getClassMemberId())));
 		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(p1, p2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
+		
 		String pID1 = p1.getPersonalID() != null ? p1.getPersonalID() : "";
 		String pID2 = p2.getPersonalID() != null ? p2.getPersonalID() : "";
 		
@@ -309,6 +342,12 @@ public class SchoolClassMemberComparator implements Comparator {
 	public int languageSort(Object o1, Object o2) {
 		SchoolClassMember p1 = (SchoolClassMember) o1;
 		SchoolClassMember p2 = (SchoolClassMember) o2;
+		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(p1, p2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
 		
 		String one = p1.getLanguage()!=null?p1.getLanguage():"";
 		String two = p2.getLanguage()!=null?p2.getLanguage():"";
@@ -325,6 +364,12 @@ public class SchoolClassMemberComparator implements Comparator {
 		User p1 = (User) this.students.get(new Integer(((SchoolClassMember)o1).getClassMemberId()));
 		User p2 = (User) this.students.get(new Integer(((SchoolClassMember)o2).getClassMemberId()));
 		
+		// check null values because of corrupt data: user was deleted but not the student
+		int nullResult = compareNullValues(p1, p2);
+		if (nullResult != 0) {
+			return nullResult;
+		}
+		
 		Age age1 = new Age(p1.getDateOfBirth());
 		Age age2 = new Age(p2.getDateOfBirth());
 		
@@ -336,4 +381,15 @@ public class SchoolClassMemberComparator implements Comparator {
 
 		return result;
 	}	
+	
+	// returns 0 if both values are not null, moves null values up
+	private int compareNullValues(Object p1, Object p2) {
+		if (p1 == null) {
+			return 1;
+		}
+		if (p2 == null) {
+			return -1;
+		}
+		return 0;
+	}
 }
