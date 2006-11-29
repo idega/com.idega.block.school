@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: pom.xml,v 1.1 2006/11/23 13:50:10 civilis Exp $ -->
+<!-- $Id: pom.xml,v 1.2 2006/11/29 11:15:23 civilis Exp $ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <name>idegaWeb School Block</name>
-  <groupId>bundles</groupId>
+  <groupId>com.idega.block.egov</groupId>
   <artifactId>com.idega.block.school</artifactId>
   <packaging>jar</packaging>
   <version>3.5.0</version>
