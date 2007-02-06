@@ -24,6 +24,7 @@ import com.idega.data.IDOLookup;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
 import com.idega.user.business.UserBusiness;
+import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.user.data.UserHome;
 
@@ -513,6 +514,109 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		catch (IDORelationshipException e) {
 			return getSchoolBusiness().getElementarySchoolSchoolCategory();
 		}
+	}
+
+	public School getFirstManagingChildCareForUser(User user) throws FinderException, RemoteException {
+		try {
+			Group rootGroup = getSchoolBusiness().getRootProviderAdministratorGroup();
+			if (user.getPrimaryGroup().equals(rootGroup)) {
+				Collection schoolIds = getSchools(user);
+				if (!schoolIds.isEmpty()) {
+					Iterator iter = schoolIds.iterator();
+					while (iter.hasNext()) {
+						School school = getSchoolHome().findByPrimaryKey(iter.next());
+						return school;
+					}
+				}
+			}
+		}
+		catch (CreateException ce) {
+			ce.printStackTrace();
+		}
+		catch (FinderException e) {
+			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
+			if (!schools.isEmpty()) {
+				Iterator iter = schools.iterator();
+				while (iter.hasNext()) {
+					return (School) iter.next();
+				}
+			}
+		}
+		throw new FinderException("No childcare found that " + user.getName() + " manages");
+	}
+	
+	/**
+	 * Method getFirstManagingSchoolForUser.
+	 * If there is no school that the user manages then the method throws a FinderException.
+	 * @param user a user
+	 * @return School that is the first school that the user is a manager for.
+	 * @throws javax.ejb.FinderException if ther is no school that the user manages.
+	 */
+	public School getFirstManagingMusicSchoolForUser(User user) throws FinderException, RemoteException {
+		try {
+			Group rootGroup = getSchoolBusiness().getRootMusicSchoolAdministratorGroup();
+			if (user.getPrimaryGroupID() != -1 && user.getPrimaryGroup().equals(rootGroup)) {
+				Collection schoolIds = getSchools(user);
+				if (!schoolIds.isEmpty()) {
+					Iterator iter = schoolIds.iterator();
+					while (iter.hasNext()) {
+						School school = getSchoolHome().findByPrimaryKey(iter.next());
+						return school;
+					}
+				}
+			}
+		}
+		catch (CreateException ce) {
+			ce.printStackTrace();
+		}
+		catch (FinderException e) {
+			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
+			if (!schools.isEmpty()) {
+				Iterator iter = schools.iterator();
+				while (iter.hasNext()) {
+					return (School) iter.next();
+				}
+			}
+		}
+		throw new FinderException("No school found that " + user.getName() + " manages");
+	}
+
+	/**
+	 * Method getFirstManagingSchoolForUser.
+	 * If there is no school that the user manages then the method throws a FinderException.
+	 * @param user a user
+	 * @return School that is the first school that the user is a manager for.
+	 * @throws javax.ejb.FinderException if ther is no school that the user manages.
+	 */
+	public School getFirstManagingSchoolForUser(User user) throws FinderException, RemoteException {
+		try {
+			Group rootGroup = getSchoolBusiness().getRootSchoolAdministratorGroup();
+			Group highSchoolRootGroup = getSchoolBusiness().getRootHighSchoolAdministratorGroup();
+			Group adultEducationRootGroup = getSchoolBusiness().getRootAdultEducationAdministratorGroup();
+			if (user.getPrimaryGroup().equals(rootGroup) || user.getPrimaryGroup().equals(highSchoolRootGroup) || user.getPrimaryGroup().equals(adultEducationRootGroup)) {
+				Collection schoolIds = getSchools(user);
+				if (!schoolIds.isEmpty()) {
+					Iterator iter = schoolIds.iterator();
+					while (iter.hasNext()) {
+						School school = getSchoolHome().findByPrimaryKey(iter.next());
+						return school;
+					}
+				}
+			}
+		}
+		catch (CreateException ce) {
+			ce.printStackTrace();
+		}
+		catch (FinderException e) {
+			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
+			if (!schools.isEmpty()) {
+				Iterator iter = schools.iterator();
+				while (iter.hasNext()) {
+					return (School) iter.next();
+				}
+			}
+		}
+		throw new FinderException("No school found that " + user.getName() + " manages");
 	}
 
 

@@ -240,4 +240,20 @@ public interface SchoolUserBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getSchoolBusiness
 	 */
 	public SchoolBusiness getSchoolBusiness() throws RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getFirstManagingSchoolForUser
+	 */
+	public School getFirstManagingSchoolForUser(User user) throws FinderException, RemoteException, RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getFirstManagingMusicSchoolForUser
+	 */
+	public School getFirstManagingMusicSchoolForUser(User user) throws FinderException, RemoteException, RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getFirstManagingChildCareForUser
+	 */
+	public School getFirstManagingChildCareForUser(User user) throws FinderException, RemoteException, RemoteException;
+
 }
