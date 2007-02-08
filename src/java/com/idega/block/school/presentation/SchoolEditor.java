@@ -66,6 +66,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_JUNIOR_HIGH_SCHOOL = "prm_junior_high_school_pk";
 	private static final String PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK = "prm_care_provider_pk";
 	private static final String PARAMETER_HAS_REFRESHMENTS = "prm_has_refreshments";
+	private static final String PARAMETER_HAS_REVIEW = "prm_has_review";
 	private static final String PARAMETER_ORGANIZATION_ID = "prm_org_id";
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -173,6 +174,7 @@ public class SchoolEditor extends SchoolBlock {
 		Object juniorHighID = iwc.isParameterSet(PARAMETER_JUNIOR_HIGH_SCHOOL) ? iwc.getParameter(PARAMETER_JUNIOR_HIGH_SCHOOL) : null;
 		Object providerID = iwc.isParameterSet(PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK) ? iwc.getParameter(PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK) : null;
 		boolean hasRefreshments = iwc.isParameterSet(PARAMETER_HAS_REFRESHMENTS) ? new Boolean(iwc.getParameter(PARAMETER_HAS_REFRESHMENTS)).booleanValue() : false;
+		boolean hasReview = iwc.isParameterSet(PARAMETER_HAS_REVIEW) ? new Boolean(iwc.getParameter(PARAMETER_HAS_REVIEW)).booleanValue() : false;
 		
 		School school = getBusiness().storeSchool(sid, name, info, address, zipcode, ziparea, phone, keycode, lat, lon, areaId, types, years, communePK, providerStringId);
 		if (juniorHighID != null) {
@@ -186,6 +188,7 @@ public class SchoolEditor extends SchoolBlock {
 		}
 		school.setSchoolWebPage(webPage);
 		school.setHasRefreshments(hasRefreshments);
+		school.setHasReview(hasReview);
 		
 		school.store();
 	}
@@ -343,6 +346,10 @@ public class SchoolEditor extends SchoolBlock {
 		hasRefreshments.addMenuElement(Boolean.TRUE.toString(), localize("yes", "Yes"));
 		hasRefreshments.addMenuElement(Boolean.FALSE.toString(), localize("no", "No"));
 		
+		DropdownMenu hasReview = new DropdownMenu(PARAMETER_HAS_REVIEW);
+		hasReview.addMenuElement(Boolean.TRUE.toString(), localize("yes", "Yes"));
+		hasReview.addMenuElement(Boolean.FALSE.toString(), localize("no", "No"));
+		
 		Map schooltypes = null, schoolyears = null;
 		Commune commune = null;
 		if (schoolPK != null) {
@@ -380,6 +387,7 @@ public class SchoolEditor extends SchoolBlock {
 					inputOrgID.setContent(school.getOrganizationNumber());
 				}
 				hasRefreshments.setSelectedElement(String.valueOf(school.hasRefreshments()));
+				hasReview.setSelectedElement(String.valueOf(school.hasReview()));
 			}
 			catch (Exception ex) {
 			}
@@ -533,6 +541,14 @@ public class SchoolEditor extends SchoolBlock {
 		label = new Label(localize("has_refreshments", "Has refreshments"), hasRefreshments);
 		layer.add(label);
 		layer.add(hasRefreshments);
+		form.add(layer);
+
+		layer = new Layer(Layer.DIV);
+		layer.setID("hasReview");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("has_review", "Has review"), hasReview);
+		layer.add(label);
+		layer.add(hasReview);
 		form.add(layer);
 
 		form.add(new Break());

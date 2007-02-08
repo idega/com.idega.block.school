@@ -1,41 +1,23 @@
-/*
- * $Id: School.java,v 1.48 2006/11/01 15:15:10 thomas Exp $
- * Created on Jan 22, 2006
- *
- * Copyright (C) 2006 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
- */
 package com.idega.block.school.data;
 
-import java.rmi.RemoteException;
+
+import com.idega.core.file.data.ICFile;
+import com.idega.data.IDOException;
+import com.idega.core.location.data.Commune;
+import com.idega.data.MetaDataCapable;
 import java.sql.Date;
+import com.idega.data.IDORemoveRelationshipException;
+import java.rmi.RemoteException;
+import com.idega.user.data.Group;
+import com.idega.data.IDOAddRelationshipException;
+import com.idega.data.IDORelationshipException;
 import java.util.Collection;
 import javax.ejb.FinderException;
 import com.idega.block.text.data.LocalizedText;
-import com.idega.core.file.data.ICFile;
-import com.idega.core.location.data.Commune;
-import com.idega.core.location.data.Country;
-import com.idega.data.IDOAddRelationshipException;
-import com.idega.data.IDOEntity;
-import com.idega.data.IDOException;
 import com.idega.data.IDOLegacyEntity;
-import com.idega.data.IDORelationshipException;
-import com.idega.data.IDORemoveRelationshipException;
-import com.idega.data.MetaDataCapable;
-import com.idega.user.data.Group;
+import com.idega.core.location.data.Country;
+import com.idega.data.IDOEntity;
 
-
-/**
- * <p>
- * TODO laddi Describe Type School
- * </p>
- *  Last modified: $Date: 2006/11/01 15:15:10 $ by $Author: thomas $
- * 
- * @author <a href="mailto:laddi@idega.com">laddi</a>
- * @version $Revision: 1.48 $
- */
 public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Comparable {
 
 	/**
@@ -82,6 +64,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	 * @see com.idega.block.school.data.SchoolBMPBean#hasRefreshments
 	 */
 	public boolean hasRefreshments();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#hasReview
+	 */
+	public boolean hasReview();
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#setJuniorHighSchool
@@ -222,6 +209,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	 * @see com.idega.block.school.data.SchoolBMPBean#setHasRefreshments
 	 */
 	public void setHasRefreshments(boolean hasRefreshments);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#setHasReview
+	 */
+	public void setHasReview(boolean hasReview);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolZipArea
@@ -401,7 +393,7 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolTypes
 	 */
-	public Collection findRelatedSchoolTypes() throws com.idega.data.IDORelationshipException;
+	public Collection findRelatedSchoolTypes() throws IDORelationshipException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolTypes
@@ -409,9 +401,14 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	public Collection findRelatedSchoolTypes(SchoolCategory category) throws IDORelationshipException;
 
 	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolTypesWithFreetime
+	 */
+	public Collection findRelatedSchoolTypesWithFreetime(SchoolCategory category) throws IDORelationshipException;
+
+	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolYears
 	 */
-	public Collection findRelatedSchoolYears() throws com.idega.data.IDORelationshipException;
+	public Collection findRelatedSchoolYears() throws IDORelationshipException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolYearsSortedByName
@@ -419,14 +416,9 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException;
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedSchoolTypesWithFreetime
-	 */
-	public Collection findRelatedSchoolTypesWithFreetime(SchoolCategory category) throws IDORelationshipException;
-	
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedStudyPaths
 	 */
-	public java.util.Collection findRelatedStudyPaths() throws com.idega.data.IDORelationshipException;
+	public Collection findRelatedStudyPaths() throws IDORelationshipException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getLocalizedText
@@ -587,5 +579,9 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	 * @see com.idega.block.school.data.SchoolBMPBean#setSortByBirthdate
 	 */
 	public void setSortByBirthdate(boolean arg);
-}
 
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#compareTo
+	 */
+	public int compareTo(Object o);
+}

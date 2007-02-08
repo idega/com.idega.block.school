@@ -91,6 +91,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
     /** Dainis 23 Sep 2005 */
     public final static String SORT_BY_BIRTHDATE = "sort_by_birthdate";
     public static final String HAS_REFRESHMENTS = "has_refreshments";
+    public static final String HAS_REVIEW = "has_review";
 	
 	public void initializeAttributes() {
 		this.addAttribute(getIDColumnName());
@@ -144,6 +145,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
         // Dainis 23 Sep 2005
         this.addAttribute(SORT_BY_BIRTHDATE, "Sorted by date of birth", true, true, Boolean.class);
         addAttribute(HAS_REFRESHMENTS, "Has refreshments", Boolean.class);
+        addAttribute(HAS_REVIEW, "Has review", Boolean.class);
 
         getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
@@ -184,7 +186,11 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	}
 	
 	public boolean hasRefreshments() {
-		return getBooleanColumnValue(HAS_REFRESHMENTS);
+		return getBooleanColumnValue(HAS_REFRESHMENTS, false);
+	}
+	
+	public boolean hasReview() {
+		return getBooleanColumnValue(HAS_REVIEW, false);
 	}
 	
 	public void setJuniorHighSchool(School school) {
@@ -291,6 +297,10 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	
 	public void setHasRefreshments(boolean hasRefreshments) {
 		setColumn(HAS_REFRESHMENTS, hasRefreshments);
+	}
+
+	public void setHasReview(boolean hasReview) {
+		setColumn(HAS_REVIEW, hasReview);
 	}
 
 	public String getSchoolZipArea() {
