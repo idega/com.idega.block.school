@@ -29,6 +29,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 	private static final String METADATA_HAS_SIBLING_IN_SCHOOL = "has_sibling_in_school";
 	private static final String METADATA_SIBLING = "sibling";
 	private static final String METADATA_SIBLING_SCHOOL = "sibling_school";
+	private static final String METADATA_SIBLING_INFORMATION = "sibling_information";
 
 	public boolean canDisplayImages() {
 		String meta = getMetaData(METADATA_CAN_DISPLAY_IMAGE);
@@ -176,6 +177,19 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 		}
 		else {
 			removeMetaData(siblingSchool);
+		}
+	}
+
+	public String getSiblingInformation() {
+		return getMetaData(METADATA_SIBLING_INFORMATION);
+	}
+	
+	public void setSiblingInformation(String siblingInformation) {
+		if (siblingInformation != null && siblingInformation.length() > 0) {
+			setMetaData(METADATA_SIBLING_INFORMATION, siblingInformation, "java.lang.String");
+		}
+		else {
+			removeMetaData(siblingInformation);
 		}
 	}
 }

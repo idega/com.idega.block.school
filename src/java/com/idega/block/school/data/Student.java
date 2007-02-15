@@ -125,4 +125,14 @@ public interface Student extends IDOEntity, User {
 	 * @see com.idega.block.school.data.StudentBMPBean#setSiblingSchool
 	 */
 	public void setSiblingSchool(String siblingSchool);
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#getSiblingInformation
+	 */
+	public String getSiblingInformation();
+
+	/**
+	 * @see com.idega.block.school.data.StudentBMPBean#setSiblingInformation
+	 */
+	public void setSiblingInformation(String siblingInformation);
 }
