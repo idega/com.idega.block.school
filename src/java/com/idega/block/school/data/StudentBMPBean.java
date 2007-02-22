@@ -163,7 +163,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 			setMetaData(METADATA_SIBLING, sibling, "java.lang.String");
 		}
 		else {
-			removeMetaData(sibling);
+			removeMetaData(METADATA_SIBLING);
 		}
 	}
 	
@@ -176,7 +176,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 			setMetaData(METADATA_SIBLING_SCHOOL, siblingSchool, "java.lang.String");
 		}
 		else {
-			removeMetaData(siblingSchool);
+			removeMetaData(METADATA_SIBLING_SCHOOL);
 		}
 	}
 
@@ -189,7 +189,7 @@ public class StudentBMPBean extends UserBMPBean implements User, Student {
 			setMetaData(METADATA_SIBLING_INFORMATION, siblingInformation, "java.lang.String");
 		}
 		else {
-			removeMetaData(siblingInformation);
+			removeMetaData(METADATA_SIBLING_INFORMATION);
 		}
 	}
 }
