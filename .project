@@ -5,17 +5,6 @@
   <comment>
   </comment>
   <projects>
-    <project>com.idega.user</project>
-    <project>com.idega.builder</project>
-    <project>com.idega.core</project>
-    <project>com.idega.block.login</project>
-    <project>com.idega.block.media</project>
-    <project>com.idega.block.text</project>
-    <project>com.idega.block.category</project>
-    <project>com.idega.block.documents</project>
-    <project>com.idega.block.boxoffice</project>
-    <project>com.idega.workspace</project>
-    <project>com.idega.block.web2.0</project>
   </projects>
   <buildSpec>
     <buildCommand>
