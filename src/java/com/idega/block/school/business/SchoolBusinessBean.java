@@ -584,7 +584,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		SchoolHome shome = getSchoolHome();
 		School newSchool;
 		try {
-			if (id > 0) {
+			if (id > -1) {
 				newSchool = shome.findByPrimaryKey(new Integer(id));
 			}
 			else {
