@@ -171,14 +171,32 @@ public class SchoolTypeEditor extends SchoolBlock {
 		TableRow row = group.createRow();
 		TableCell2 cell = row.createHeaderCell();
 		cell.setStyleClass("firstColumn");
+		cell.setId("name");
 		cell.add(new Text(localize("name", "Name")));
-		row.createHeaderCell().add(new Text(localize("info", "Info")));
-		row.createHeaderCell().add(new Text(localize("category", "Category")));
-		row.createHeaderCell().add(new Text(localize("max_school_age", "Max school age")));
-		row.createHeaderCell().add(new Text(localize("order", "Order")));
-		row.createHeaderCell().add(Text.getNonBrakingSpace());
+		
+		cell = row.createHeaderCell();
+		cell.setId("info");
+		cell.add(new Text(localize("info", "Info")));
+		
+		cell = row.createHeaderCell();
+		cell.setId("schoolCategory");
+		cell.add(new Text(localize("category", "Category")));
+
+		cell = row.createHeaderCell();
+		cell.setId("maxAge");
+		cell.add(new Text(localize("max_school_age", "Max school age")));
+
+		cell = row.createHeaderCell();
+		cell.setId("order");
+		cell.add(new Text(localize("order", "Order")));
+
+		cell = row.createHeaderCell();
+		cell.setId("edit");
+		cell.add(Text.getNonBrakingSpace());
+
 		cell = row.createHeaderCell();
 		cell.setStyleClass("lastColumn");
+		cell.setId("delete");
 		cell.add(Text.getNonBrakingSpace());
 
 		group = table.createBodyRowGroup();
@@ -201,12 +219,29 @@ public class SchoolTypeEditor extends SchoolBlock {
 				cell = row.createCell();
 				cell.setStyleClass("firstColumn");
 				cell.add(new Text(sType.getSchoolTypeName()));
-				row.createCell().add(new Text(sType.getSchoolTypeInfo()));
-				row.createCell().add(new Text(localize(category.getLocalizedKey(), category.getName())));
-				row.createCell().add(new Text(sType.getMaxSchoolAge() > 0 ? String.valueOf(sType.getMaxSchoolAge()) : "-"));
-				row.createCell().add(new Text(sType.getOrder() > 0 ? String.valueOf(sType.getOrder()) : "-"));
-				row.createCell().add(edit);
+
 				cell = row.createCell();
+				cell.setId("info");
+				cell.add(new Text(sType.getSchoolTypeInfo()));
+				
+				cell = row.createCell();
+				cell.setId("schoolCategory");
+				cell.add(new Text(localize(category.getLocalizedKey(), category.getName())));
+				
+				cell = row.createCell();
+				cell.setId("maxAge");
+				cell.add(new Text(sType.getMaxSchoolAge() > 0 ? String.valueOf(sType.getMaxSchoolAge()) : "-"));
+				
+				cell = row.createCell();
+				cell.setId("order");
+				cell.add(new Text(sType.getOrder() > 0 ? String.valueOf(sType.getOrder()) : "-"));
+				
+				cell = row.createCell();
+				cell.setId("edit");
+				cell.add(edit);
+				
+				cell = row.createCell();
+				cell.setId("delete");
 				cell.setStyleClass("lastColumn");
 				cell.add(delete);
 
@@ -283,6 +318,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		}
 
 		Layer layer = new Layer(Layer.DIV);
+		layer.setId("name");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		Label label = new Label(localize("name", "Name"), inputName);
 		layer.add(label);
@@ -291,6 +327,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 
 		if (this.iSchoolCategory == null) {
 			layer = new Layer(Layer.DIV);
+			layer.setId("schoolCategory");
 			layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 			label = new Label(localize("category", "Category"), drpCategory);
 			layer.add(label);
@@ -300,6 +337,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		
 		if (this._useTypeStringId) {
 			layer = new Layer(Layer.DIV);
+			layer.setId("typeID");
 			layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 			label = new Label(localize("school_type_string_id", "Type ID"), inputTypeStringId);
 			layer.add(label);
@@ -308,6 +346,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		}
 		
 		layer = new Layer(Layer.DIV);
+		layer.setId("info");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("info", "Info"), inputInfo);
 		layer.add(label);
@@ -315,6 +354,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setId("key");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("localization_key", "Key"), inputKey);
 		layer.add(label);
@@ -322,6 +362,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setId("maxAge");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("maxage", "Max school age"), inputAge);
 		layer.add(label);
@@ -329,6 +370,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setId("order");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("order", "Order"), inputOrder);
 		layer.add(label);
@@ -336,6 +378,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setId("freetime");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("is_freetime_type", "Is freetime type"), isFreetime);
 		layer.add(label);
@@ -343,6 +386,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		form.add(layer);
 		
 		layer = new Layer(Layer.DIV);
+		layer.setId("family_freetime");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("is_family_freetime_type", "Is family freetime type"), isFamilyFreetime);
 		layer.add(label);

@@ -78,8 +78,9 @@ public class SchoolEditor extends SchoolBlock {
 	
 	private String iEditorID = "schoolEditor";
 	
-	boolean _useProviderStringId = false;
+	boolean _useProviderStringId = true;
 	String iSchoolCategory = null;
+	boolean setAllSchoolTypesAsChecked = false;
 	
 	public boolean getUseProviderStringId() {
 		return this._useProviderStringId;
@@ -553,6 +554,7 @@ public class SchoolEditor extends SchoolBlock {
 
 		form.add(new Break());
 		Lists list = new Lists();
+		list.setId("schoolTypes");
 		Collection types = getSchoolTypes();
 		if (types != null && !types.isEmpty()) {
 			Iterator iter = types.iterator();
@@ -564,6 +566,8 @@ public class SchoolEditor extends SchoolBlock {
 
 				CheckBox typeCheck = new CheckBox(PARAMETER_TYPE_PKS, type.getPrimaryKey().toString());
 				if (hasMap && schooltypes.containsKey(type.getPrimaryKey())) {
+					typeCheck.setChecked(true);
+				} if (!hasMap && setAllSchoolTypesAsChecked) {
 					typeCheck.setChecked(true);
 				}
 				
@@ -648,5 +652,9 @@ public class SchoolEditor extends SchoolBlock {
 	
 	public void setEditorID(String ID) {
 		this.iEditorID = ID;
+	}
+
+	public void setAllSchoolTypesAsChecked(boolean setAllSchoolTypesAsChecked) {
+		this.setAllSchoolTypesAsChecked = setAllSchoolTypesAsChecked;
 	}
 }
