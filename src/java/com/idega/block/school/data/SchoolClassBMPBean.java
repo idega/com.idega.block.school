@@ -71,7 +71,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		addManyToManyRelationShip(User.class, SCHOOL_CLASS_TEACHER);
 		addManyToManyRelationShip(SchoolClassMember.class, "sch_sub_group_placements");
 		addManyToManyRelationShip(SchoolStudyPath.class, "sch_group_study_path");
-		
+
 		addAttribute(COLUMN_CODE, "code", String.class, 20);
 	}
 
@@ -82,11 +82,11 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	public String getName() {
 		return getSchoolClassName();
 	}
-	
+
 	public String getCode() {
 		return getStringColumnValue(COLUMN_CODE);
 	}
-	
+
 	public void setCode(String code) {
 		setColumn(COLUMN_CODE, code);
 	}
@@ -252,25 +252,19 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	}
 
 	public Collection ejbFindBySchool(int schoolID) throws FinderException {
-		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
-				+ String.valueOf(schoolID) + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID
-				+ " is null) order by " + NAME);
+		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = " + String.valueOf(schoolID) + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
 	public Collection ejbFindBySchoolAndSeason(School school, SchoolSeason schoolSeason) throws FinderException {
-		return ejbFindBySchoolAndSeason(((Integer) school.getPrimaryKey()).intValue(),
-				schoolSeason != null ? ((Integer) schoolSeason.getPrimaryKey()).intValue() : -1);
+		return ejbFindBySchoolAndSeason(((Integer) school.getPrimaryKey()).intValue(), schoolSeason != null ? ((Integer) schoolSeason.getPrimaryKey()).intValue() : -1);
 	}
 
 	public Collection ejbFindBySchoolAndSeason(int schoolID, int schoolSeasonID) throws FinderException {
-		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
-				+ String.valueOf(schoolID) + (schoolSeasonID > -1 ? " and " + SEASON + " = " + String.valueOf(schoolSeasonID) : "") + " and ("
-				+ COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
+		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = " + String.valueOf(schoolID) + (schoolSeasonID > -1 ? " and " + SEASON + " = " + String.valueOf(schoolSeasonID) : "") + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
 	public Collection ejbFindBySchoolAndYear(School school, SchoolYear schoolYear) throws FinderException {
-		return ejbFindBySchoolAndYear(((Integer) school.getPrimaryKey()).intValue(),
-				((Integer) schoolYear.getPrimaryKey()).intValue());
+		return ejbFindBySchoolAndYear(((Integer) school.getPrimaryKey()).intValue(), ((Integer) schoolYear.getPrimaryKey()).intValue());
 	}
 
 	public Collection ejbFindBySchoolAndYear(int schoolID, int schoolYearID) throws FinderException {
@@ -279,52 +273,41 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 
 	public Collection ejbFindBySchoolAndInYear(int schoolID, int schoolYearID) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(
-				SCHOOL_CLASS_YEAR + " sy");
-		query.appendWhereEquals(SCHOOL, schoolID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals(
-				"sy.sch_school_year_id", "y.sch_school_year_id");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
+		query.appendWhereEquals(SCHOOL, schoolID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals("sy.sch_school_year_id", "y.sch_school_year_id");
 		query.appendAndEquals("y.sch_school_year_id", schoolYearID);
 		query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_VALID, "Y").appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		query.appendOrderBy(NAME);
 		return idoFindPKsByQuery(query);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndYear(School school, SchoolSeason schoolSeason, SchoolYear schoolYear)
-			throws FinderException {
-		return ejbFindBySchoolAndSeasonAndYear(new Integer(school.getPrimaryKey().toString()).intValue(),
-				new Integer(schoolSeason.getPrimaryKey().toString()).intValue(), new Integer(schoolYear.getPrimaryKey().toString()).intValue());
+	public Collection ejbFindBySchoolAndSeasonAndYear(School school, SchoolSeason schoolSeason, SchoolYear schoolYear) throws FinderException {
+		return ejbFindBySchoolAndSeasonAndYear(new Integer(school.getPrimaryKey().toString()).intValue(), new Integer(schoolSeason.getPrimaryKey().toString()).intValue(), new Integer(schoolYear.getPrimaryKey().toString()).intValue());
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			boolean showSubGroups) throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) throws FinderException {
 		return ejbFindBySchoolAndSeasonAndInYear(schoolID, schoolSeasonID, schoolYearID, showSubGroups);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			boolean showSubGroups) throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				"sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
-		query.appendWhereEquals(SCHOOL, schoolID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals(
-				"sy.sch_school_year_id", "y.sch_school_year_id");
+		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
+		query.appendWhereEquals(SCHOOL, schoolID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals("sy.sch_school_year_id", "y.sch_school_year_id");
 		query.appendAndEquals("y.sch_school_year_id", schoolYearID).appendAndEquals(SEASON, schoolSeasonID);
 		query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_VALID, "Y").appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		if (showSubGroups) {
 			query.appendAndEquals(SchoolClassBMPBean.COLUMN_SUB_GROUP, true);
 		}
 		else {
-			query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_SUB_GROUP, false).appendOr().append(
-					COLUMN_SUB_GROUP).appendIsNull().appendRightParenthesis();
+			query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_SUB_GROUP, false).appendOr().append(COLUMN_SUB_GROUP).appendIsNull().appendRightParenthesis();
 		}
 		query.appendOrderBy(NAME);
 		return idoFindPKsByQuery(query);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason schoolSeason,
-			SchoolYear schoolYear, SchoolStudyPath studyPath, boolean showSubGroups) throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason schoolSeason, SchoolYear schoolYear, SchoolStudyPath studyPath, boolean showSubGroups) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				"sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy, ").append("sch_group_study_path gsp");
+		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy, ").append("sch_group_study_path gsp");
 		query.appendWhereEquals(SCHOOL, school);
 		query.appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName());
 		query.appendAndEquals("s." + getIDColumnName(), "gsp." + getIDColumnName());
@@ -336,25 +319,21 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 			query.appendAndEquals(SchoolClassBMPBean.COLUMN_SUB_GROUP, true);
 		}
 		else {
-			query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_SUB_GROUP, false).appendOr().append(
-					COLUMN_SUB_GROUP).appendIsNull().appendRightParenthesis();
+			query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_SUB_GROUP, false).appendOr().append(COLUMN_SUB_GROUP).appendIsNull().appendRightParenthesis();
 		}
 		query.appendOrderBy(NAME);
 		return idoFindPKsByQuery(query);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID)
-			throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID) throws FinderException {
 		return ejbFindBySchoolAndSeasonAndInYear(schoolID, schoolSeasonID, schoolYearID);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID)
-			throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID) throws FinderException {
 		return ejbFindBySchoolAndSeasonAndInYear(schoolID, schoolSeasonID, schoolYearID, -1);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			int studyPathID) throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID, int studyPathID) throws FinderException {
 		IDOQuery query = idoQuery();
 		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s");
 		if (schoolYearID != -1) {
@@ -380,54 +359,47 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		return idoFindPKsByQuery(query);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs)
-			throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs) throws FinderException {
 		return ejbFindBySchoolAndSeasonAndYears(schoolID, schoolSeasonID, schoolYearIDs, true);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs,
-			boolean showSubGroups) throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs, boolean showSubGroups) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				"sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
-		query.appendWhereEquals(SCHOOL, schoolID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals(
-				"sy.sch_school_year_id", "y.sch_school_year_id");
-		
-		if(schoolYearIDs!=null){
-			query.appendAnd().append("y.sch_school_year_id").appendInArray(schoolYearIDs);	
+		query.appendSelect().append("distinct s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
+		query.appendWhereEquals(SCHOOL, schoolID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals("sy.sch_school_year_id", "y.sch_school_year_id");
+
+		if (schoolYearIDs != null) {
+			query.appendAnd().append("y.sch_school_year_id").appendInArray(schoolYearIDs);
 		}
-		
+
 		if (schoolSeasonID != -1) {
 			query.appendAndEquals(SEASON, schoolSeasonID);
 		}
 		query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_VALID, "Y").appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		if (!showSubGroups) {
-			query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_SUB_GROUP, "N").appendOr().append(
-					COLUMN_SUB_GROUP).appendIsNull().appendRightParenthesis();
+			query.appendAnd().appendLeftParenthesis().appendEqualsQuoted(COLUMN_SUB_GROUP, "N").appendOr().append(COLUMN_SUB_GROUP).appendIsNull().appendRightParenthesis();
 		}
 		query.appendOrderBy(NAME);
 		return idoFindPKsByQuery(query);
 	}
-	
+
 	public Collection ejbFindBySchoolAndSeasonAndCode(School school, SchoolSeason season, String code) throws FinderException {
 		Table table = new Table(this);
-		
+
 		SelectQuery query = new SelectQuery(table);
 		query.addColumn(new WildCardColumn());
 		query.addCriteria(new MatchCriteria(table, SCHOOL, MatchCriteria.EQUALS, school));
 		query.addCriteria(new MatchCriteria(table, SEASON, MatchCriteria.EQUALS, season));
 		query.addCriteria(new MatchCriteria(table, COLUMN_CODE, MatchCriteria.EQUALS, code));
-		
+
 		return idoFindPKsByQuery(query);
 	}
 
 	public Collection ejbFindBySeasonAndYear(SchoolSeason schoolSeason, SchoolYear schoolYear) throws FinderException {
-		return ejbFindBySeasonAndYear(((Integer) schoolSeason.getPrimaryKey()).intValue(),
-				((Integer) schoolYear.getPrimaryKey()).intValue());
+		return ejbFindBySeasonAndYear(((Integer) schoolSeason.getPrimaryKey()).intValue(), ((Integer) schoolYear.getPrimaryKey()).intValue());
 	}
 
-	public Collection ejbFindBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int seasonID,
-			Boolean showSubGroups, Boolean showNonSeasonGroups) throws FinderException {
+	public Collection ejbFindBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int seasonID, Boolean showSubGroups, Boolean showNonSeasonGroups) throws FinderException {
 		IDOQuery query = idoQueryGetSelect().appendWhereEquals(SCHOOL, schoolID).appendAndEquals(SCHOOLTYPE, schoolTypeID);
 		if (showNonSeasonGroups != null && showNonSeasonGroups.booleanValue()) {
 			if (seasonID > 0) {
@@ -445,16 +417,14 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 			}
 		}
 		query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_VALID, true).appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
-		
+
 		return super.idoFindPKsByQuery(query);
 	}
 
 	public Collection ejbFindBySeasonAndYear(int schoolSeasonID, int schoolYearID) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(
-				SCHOOL_CLASS_YEAR + " sy");
-		query.appendWhereEquals(SEASON, schoolSeasonID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals(
-				"sy.sch_school_year_id", "y.sch_school_year_id");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
+		query.appendWhereEquals(SEASON, schoolSeasonID).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals("sy.sch_school_year_id", "y.sch_school_year_id");
 		query.appendAndEquals("y.sch_school_year_id", schoolYearID);
 		query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_VALID, true).appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
 		query.appendOrderBy(NAME);
@@ -476,9 +446,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	}
 
 	public Collection ejbFindBySeason(int schoolSeasonID) throws FinderException {
-		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SEASON + " = "
-				+ String.valueOf(schoolSeasonID) + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID
-				+ " is null) order by " + NAME);
+		return super.idoFindPKsBySQL("select * from " + this.getEntityName() + " where " + SEASON + " = " + String.valueOf(schoolSeasonID) + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
 	public Collection ejbFindByTeacher(User teacher) throws FinderException {
@@ -487,8 +455,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 
 	public Collection ejbFindByTeacher(int teacherID) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				SCHOOL_CLASS_TEACHER + " st");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(SCHOOL_CLASS_TEACHER + " st");
 		query.appendWhereEquals("s." + getIDColumnName(), "st." + getIDColumnName());
 		query.appendAndEquals("st.ic_user_id", teacherID);
 		query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_VALID, true).appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
@@ -497,14 +464,12 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	}
 
 	public Collection ejbFindBySchoolAndTeacher(School school, User teacher) throws FinderException {
-		return ejbFindBySchoolAndTeacher(((Integer) school.getPrimaryKey()).intValue(),
-				((Integer) teacher.getPrimaryKey()).intValue());
+		return ejbFindBySchoolAndTeacher(((Integer) school.getPrimaryKey()).intValue(), ((Integer) teacher.getPrimaryKey()).intValue());
 	}
 
 	public Collection ejbFindBySchoolAndTeacher(int schoolID, int teacherID) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				SCHOOL_CLASS_TEACHER + " st");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(SCHOOL_CLASS_TEACHER + " st");
 		query.appendWhereEquals("s." + getIDColumnName(), "st." + getIDColumnName());
 		query.appendAndEquals("st.ic_user_id", teacherID);
 		query.appendAndEquals(SCHOOL, schoolID);
@@ -513,11 +478,9 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		return idoFindPKsByQuery(query);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndTeacher(School school, SchoolSeason schoolSeason, User teacher)
-			throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndTeacher(School school, SchoolSeason schoolSeason, User teacher) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				SCHOOL_CLASS_TEACHER + " st");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(SCHOOL_CLASS_TEACHER + " st");
 		query.appendWhereEquals("s." + getIDColumnName(), "st." + getIDColumnName());
 		query.appendAndEquals("st.ic_user_id", teacher);
 		query.appendAndEquals(SCHOOL, school);
@@ -527,11 +490,9 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		return idoFindPKsByQuery(query);
 	}
 
-	public Collection ejbFindBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID)
-			throws FinderException {
+	public Collection ejbFindBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(
-				SCHOOL_CLASS_TEACHER + " st");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append(SCHOOL_CLASS_TEACHER + " st");
 		query.appendWhereEquals("s." + getIDColumnName(), "st." + getIDColumnName());
 		query.appendAndEquals("st.ic_user_id", teacherID);
 		query.appendAndEquals(SCHOOL, schoolID);
@@ -546,9 +507,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	}
 
 	public Integer ejbFindByNameAndSchool(String className, int schoolID) throws FinderException {
-		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
-				+ String.valueOf(schoolID) + " and " + NAME + " = '" + className + "' and (" + COLUMN_VALID + " = '" + VALID
-				+ "' or " + COLUMN_VALID + " is null) order by " + NAME);
+		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = " + String.valueOf(schoolID) + " and " + NAME + " = '" + className + "' and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
 	public Integer ejbFindByNameAndSchoolAndSeason(String className, School school, SchoolSeason season) throws FinderException {
@@ -556,18 +515,13 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	}
 
 	public Integer ejbFindByNameAndSchoolAndSeason(String className, int schoolID, int schoolSeasonID) throws FinderException {
-		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
-				+ String.valueOf(schoolID) + " and " + SEASON + " = '" + schoolSeasonID + "' and " + NAME + " = '" + className + "' and (" + COLUMN_VALID + " = '" + VALID
-				+ "' or " + COLUMN_VALID + " is null) order by " + NAME);
+		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = " + String.valueOf(schoolID) + " and " + SEASON + " = '" + schoolSeasonID + "' and " + NAME + " = '" + className + "' and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null) order by " + NAME);
 	}
 
-	public Integer ejbFindBySchoolClassNameSchoolSchoolYearSchoolSeason(String className, School school,
-			SchoolYear schoolYear, SchoolSeason schoolSeason) throws FinderException {
+	public Integer ejbFindBySchoolClassNameSchoolSchoolYearSchoolSeason(String className, School school, SchoolYear schoolYear, SchoolSeason schoolSeason) throws FinderException {
 		IDOQuery query = idoQuery();
-		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(
-				SCHOOL_CLASS_YEAR + " sy");
-		query.appendWhereEquals(SCHOOL, school).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals(
-				"sy.sch_school_year_id", "y.sch_school_year_id");
+		query.appendSelect().append("s.*").appendFrom().append(this.getEntityName() + " s, ").append("sch_school_year y, ").append(SCHOOL_CLASS_YEAR + " sy");
+		query.appendWhereEquals(SCHOOL, school).appendAndEquals("s." + getIDColumnName(), "sy." + getIDColumnName()).appendAndEquals("sy.sch_school_year_id", "y.sch_school_year_id");
 		query.appendAndEquals("y.sch_school_year_id", schoolYear).appendAndEquals(SEASON, schoolSeason);
 		query.appendAndEqualsQuoted(NAME, className);
 		query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_VALID, true).appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
@@ -576,16 +530,13 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 
 	public int ejbHomeGetNumberOfStudentsInClass(int schoolClassID) throws IDOException {
 		IDOQuery sql = idoQuery();
-		sql.appendSelect().append("count(*)").appendFrom().append(getEntityName()).append(" sc,").append(
-				SchoolClassMemberBMPBean.SCHOOLCLASSMEMBER).append(" scm");
-		sql.appendWhere().append("sc.").append(getIDColumnName()).appendEqualSign().append(schoolClassID).appendAnd().append(
-				"sc.").append(getIDColumnName()).appendEqualSign().append("scm.").append(getIDColumnName());
+		sql.appendSelect().append("count(*)").appendFrom().append(getEntityName()).append(" sc,").append(SchoolClassMemberBMPBean.SCHOOLCLASSMEMBER).append(" scm");
+		sql.appendWhere().append("sc.").append(getIDColumnName()).appendEqualSign().append(schoolClassID).appendAnd().append("sc.").append(getIDColumnName()).appendEqualSign().append("scm.").append(getIDColumnName());
 		return super.idoGetNumberOfRecords(sql.toString());
 	}
 
 	/**
-	 * Returns a collection of all school classes. Used to create the SchoolClass -
-	 * SchoolType relation
+	 * Returns a collection of all school classes. Used to create the SchoolClass - SchoolType relation
 	 * 
 	 * @return Collection of all schoolClass
 	 * @throws FinderException
@@ -595,6 +546,24 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		sql.appendSelectAllFrom(this);
 		sql.appendOrderBy(NAME);
 		return idoFindPKsByQuery(sql);
+	}
+
+	public Collection ejbFindBySeasonAndCategory(SchoolSeason season, SchoolCategory category) throws FinderException {
+		Table table = new Table(this);
+		Table type = new Table(SchoolType.class);
+
+		SelectQuery query = new SelectQuery(table);
+		query.addColumn(table, getIDColumnName());
+		try {
+			query.addJoin(table, type);
+		}
+		catch (IDORelationshipException e) {
+			throw new FinderException(e.getMessage());
+		}
+		query.addCriteria(new MatchCriteria(table, SEASON, MatchCriteria.EQUALS, season));
+		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
+
+		return idoFindPKsByQuery(query);
 	}
 
 	public Collection findRelatedUsers() throws com.idega.data.IDORelationshipException {
@@ -656,13 +625,11 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	}
 
 	public Integer ejbFindOneBySchool(int schoolID) throws FinderException {
-		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = "
-				+ String.valueOf(schoolID) + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null)");
+		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + SCHOOL + " = " + String.valueOf(schoolID) + " and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null)");
 	}
 
 	public Integer ejbFindOneByCode(String code) throws FinderException {
-		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + COLUMN_CODE + " = '"
-				+ code + "' and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null)");
+		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + COLUMN_CODE + " = '" + code + "' and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null)");
 	}
 
 	public Collection getSubGroupPlacements() throws IDORelationshipException {

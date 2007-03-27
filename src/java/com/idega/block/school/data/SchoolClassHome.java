@@ -1,11 +1,9 @@
 /*
- * $Id: SchoolClassHome.java,v 1.35 2006/03/08 16:06:16 laddi Exp $
- * Created on Oct 26, 2005
- *
+ * $Id: SchoolClassHome.java,v 1.36 2007/03/27 07:53:39 laddi Exp $ Created on Oct 26, 2005
+ * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- *
- * This software is the proprietary information of Idega hf.
- * Use is subject to license terms.
+ * 
+ * This software is the proprietary information of Idega hf. Use is subject to license terms.
  */
 package com.idega.block.school.data;
 
@@ -17,19 +15,23 @@ import com.idega.data.IDOException;
 import com.idega.data.IDOHome;
 import com.idega.user.data.User;
 
-
 /**
  * 
- *  Last modified: $Date: 2006/03/08 16:06:16 $ by $Author: laddi $
+ * Last modified: $Date: 2007/03/27 07:53:39 $ by $Author: laddi $
  * 
  * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
- * @version $Revision: 1.35 $
+ * @version $Revision: 1.36 $
  */
 public interface SchoolClassHome extends IDOHome {
 
 	public SchoolClass create() throws javax.ejb.CreateException;
 
 	public SchoolClass findByPrimaryKey(Object pk) throws javax.ejb.FinderException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySeasonAndCategory
+	 */
+	public Collection findBySeasonAndCategory(SchoolSeason season, SchoolCategory category) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchool
@@ -69,62 +71,52 @@ public interface SchoolClassHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndYear
 	 */
-	public Collection findBySchoolAndSeasonAndYear(School school, SchoolSeason schoolSeason, SchoolYear schoolYear)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndYear(School school, SchoolSeason schoolSeason, SchoolYear schoolYear) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndYear
 	 */
-	public Collection findBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			boolean showSubGroups) throws FinderException;
+	public Collection findBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndInYear
 	 */
-	public Collection findBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			boolean showSubGroups) throws FinderException;
+	public Collection findBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndYearAndStudyPath
 	 */
-	public Collection findBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason schoolSeason,
-			SchoolYear schoolYear, SchoolStudyPath studyPath, boolean showSubGroups) throws FinderException;
+	public Collection findBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason schoolSeason, SchoolYear schoolYear, SchoolStudyPath studyPath, boolean showSubGroups) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndYear
 	 */
-	public Collection findBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndInYear
 	 */
-	public Collection findBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndInYear
 	 */
-	public Collection findBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID, int studyPathID)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndInYear(int schoolID, int schoolSeasonID, int schoolYearID, int studyPathID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndYears
 	 */
-	public Collection findBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndYears
 	 */
-	public Collection findBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs,
-			boolean showSubGroups) throws FinderException;
+	public Collection findBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs, boolean showSubGroups) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndCode
 	 */
-	public Collection findBySchoolAndSeasonAndCode(School school, SchoolSeason season, String code)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndCode(School school, SchoolSeason season, String code) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySeasonAndYear
@@ -134,8 +126,7 @@ public interface SchoolClassHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSchoolTypeAndSeason
 	 */
-	public Collection findBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int seasonID,
-			Boolean showSubGroups, Boolean showNonSeasonGroups) throws FinderException;
+	public Collection findBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int seasonID, Boolean showSubGroups, Boolean showNonSeasonGroups) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySeasonAndYear
@@ -180,14 +171,12 @@ public interface SchoolClassHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndTeacher
 	 */
-	public Collection findBySchoolAndSeasonAndTeacher(School school, SchoolSeason schoolSeason, User teacher)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndTeacher(School school, SchoolSeason schoolSeason, User teacher) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeasonAndTeacher
 	 */
-	public Collection findBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID)
-			throws FinderException;
+	public Collection findBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindByNameAndSchool
@@ -212,8 +201,7 @@ public interface SchoolClassHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolClassNameSchoolSchoolYearSchoolSeason
 	 */
-	public SchoolClass findBySchoolClassNameSchoolSchoolYearSchoolSeason(String className, School school,
-			SchoolYear schoolYear, SchoolSeason schoolSeason) throws FinderException;
+	public SchoolClass findBySchoolClassNameSchoolSchoolYearSchoolSeason(String className, School school, SchoolYear schoolYear, SchoolSeason schoolSeason) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbHomeGetNumberOfStudentsInClass

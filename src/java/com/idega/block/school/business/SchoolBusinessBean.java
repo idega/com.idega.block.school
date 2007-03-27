@@ -17,6 +17,7 @@ import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
 import javax.transaction.UserTransaction;
 
+import com.idega.block.school.SchoolConstants;
 import com.idega.block.school.data.School;
 import com.idega.block.school.data.SchoolArea;
 import com.idega.block.school.data.SchoolAreaHome;
@@ -96,6 +97,8 @@ import com.idega.util.IWTimestamp;
 public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness {
 
 	public static final String GROUP_TYPE_SCHOOL_GROUP = "school_staff_group";
+
+	private static SchoolCategory iSchoolCategoryAfterSchoolCare;
 
 	private static SchoolCategory iSchoolCategoryChildCare;
 
@@ -212,13 +215,13 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			throw new IBORuntimeException(e.getMessage());
 		}
 	}
-	
+
 	public Student getStudent(User student) {
 		try {
 			if (student instanceof Student) {
 				return (Student) student;
 			}
-			
+
 			StudentHome home = (StudentHome) IDOLookup.getHome(Student.class);
 			return home.findByPrimaryKey(student.getPrimaryKey());
 		}
@@ -255,8 +258,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public void removeSchoolUsr(int schDep_id, SchoolUser schUser) throws FinderException, RemoteException,
-			IDORemoveRelationshipException {
+	public void removeSchoolUsr(int schDep_id, SchoolUser schUser) throws FinderException, RemoteException, IDORemoveRelationshipException {
 		SchoolDepartmentHome schDepHome = (SchoolDepartmentHome) IDOLookup.getHome(SchoolDepartment.class);
 		SchoolDepartment schDep = schDepHome.findByPrimaryKey(new Integer(schDep_id));
 		schDep.removeSchoolUser(schUser);
@@ -269,6 +271,28 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		catch (FinderException e) {
 			return null;
 		}
+	}
+
+	public Collection getSchoolCategories(School school) {
+		Collection categories = new ArrayList();
+
+		try {
+			Collection types = school.getSchoolTypes();
+			Iterator iterator = types.iterator();
+			while (iterator.hasNext()) {
+				SchoolType type = (SchoolType) iterator.next();
+				SchoolCategory category = type.getCategory();
+
+				if (!categories.contains(category)) {
+					categories.add(category);
+				}
+			}
+		}
+		catch (IDORelationshipException e) {
+			e.printStackTrace();
+		}
+
+		return categories;
 	}
 
 	public SchoolCategory getCategoryMusicSchool() {
@@ -290,6 +314,18 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			}
 		}
 		return iSchoolCategoryMusicSchool;
+	}
+
+	public SchoolCategory getCategoryAfterSchoolCare() {
+		if (iSchoolCategoryAfterSchoolCare == null) {
+			try {
+				iSchoolCategoryAfterSchoolCare = getSchoolCategoryHome().findAfterSchoolCareCategory();
+			}
+			catch (FinderException e) {
+				iSchoolCategoryAfterSchoolCare = null;
+			}
+		}
+		return iSchoolCategoryAfterSchoolCare;
 	}
 
 	public SchoolCategory getCategoryChildcare() {
@@ -394,7 +430,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public void removeProvider(int id) throws RemoveException {
 		removeProvider(new Integer(id));
 	}
-	
+
 	public void removeProvider(Object primaryKey) throws RemoveException {
 		School school = getSchool(primaryKey);
 		school.addSchoolTypesRemoveOther(new int[0]);
@@ -513,8 +549,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public School createSchool(String name, String address, String zipcode, String ziparea, String phone,
-			int school_type, Object communePK) throws RemoteException {
+	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int school_type, Object communePK) throws RemoteException {
 		/**
 		 * @todo figure out how to implement
 		 */
@@ -523,64 +558,35 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return createSchool(name, null, address, zipcode, ziparea, phone, null, null, null, area_id, sch_types, communePK);
 	}
 
-	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int area_id,
-			int[] sch_types, Object communePK) throws RemoteException {
+	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int area_id, int[] sch_types, Object communePK) throws RemoteException {
 		return createSchool(name, null, address, zipcode, ziparea, phone, null, null, null, area_id, sch_types, communePK);
 	}
 
-	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone,
-			String keycode, String latitude, String longitude, int area_id, int[] type_ids, Object communePK)
-			throws RemoteException {
-		return createSchool(name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, type_ids,
-				null, communePK);
+	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, Object communePK) throws RemoteException {
+		return createSchool(name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, type_ids, null, communePK);
 	}
 
-	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone,
-			String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK)
-			throws RemoteException {
-		return storeSchool(-1, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id,
-				type_ids, year_ids, communePK);
+	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK) throws RemoteException {
+		return storeSchool(-1, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, type_ids, year_ids, communePK);
 	}
 
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids,
-			Object communePK) throws RemoteException {
-		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, -1,
-				type_ids, year_ids, null, null, null, null, communePK, -1, null, null);
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK) throws RemoteException {
+		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, -1, type_ids, year_ids, null, null, null, null, communePK, -1, null, null);
 	}
 
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids,
-			Object communePK, String providerStringId) throws RemoteException {
-		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, -1,
-				type_ids, year_ids, null, null, null, null, communePK, -1, null, null, providerStringId);
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK, String providerStringId) throws RemoteException {
+		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, -1, type_ids, year_ids, null, null, null, null, communePK, -1, null, null, providerStringId);
 	}
 
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids,
-			int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId,
-			java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration,
-			Boolean invisibleForCitizen) throws RemoteException {
-		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id,
-				sub_area_id, type_ids, year_ids, organizationNumber, extraProviderId, managementTypeId, terminationDate,
-				communePK, countryId, centralizedAdministration, invisibleForCitizen, null);
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen) throws RemoteException {
+		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, sub_area_id, type_ids, year_ids, organizationNumber, extraProviderId, managementTypeId, terminationDate, communePK, countryId, centralizedAdministration, invisibleForCitizen, null);
 	}
-    
-    public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-            String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids,
-            int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId,
-            java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration,
-            Boolean invisibleForCitizen, String providerStringId) throws RemoteException {
-        return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id,
-                sub_area_id, type_ids, year_ids, organizationNumber, extraProviderId, managementTypeId, terminationDate,
-                communePK, countryId, centralizedAdministration, invisibleForCitizen, providerStringId, null);
-    }   
 
-	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea,
-			String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids,
-			int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId,
-			java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration,
-			Boolean invisibleForCitizen, String providerStringId, Boolean sortByBirthdate) throws RemoteException {
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen, String providerStringId) throws RemoteException {
+		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, sub_area_id, type_ids, year_ids, organizationNumber, extraProviderId, managementTypeId, terminationDate, communePK, countryId, centralizedAdministration, invisibleForCitizen, providerStringId, null);
+	}
+
+	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen, String providerStringId, Boolean sortByBirthdate) throws RemoteException {
 		SchoolHome shome = getSchoolHome();
 		School newSchool;
 		try {
@@ -660,10 +666,10 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		if (providerStringId != null) {
 			newSchool.setProviderStringId(providerStringId);
 		}
-        if (sortByBirthdate != null) {
-					newSchool.setSortByBirthdate(sortByBirthdate.booleanValue());
-				}
-        
+		if (sortByBirthdate != null) {
+			newSchool.setSortByBirthdate(sortByBirthdate.booleanValue());
+		}
+
 		newSchool.store();
 		if (type_ids != null) {
 			newSchool.addSchoolTypesRemoveOther(type_ids);
@@ -770,23 +776,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Group getRootSchoolGroup() throws RemoteException {
+	private Group getRootSchoolGroup() throws RemoteException {
 		try {
-			String ROOT_SCHOOL_GROUP_ID_PARAMETER = "root_school_group_id";
+			String ROOT_SCHOOL_GROUP_ID_PARAMETER = "root_school_group";
 			Group rootGroup = null;
-			// create the default group
+
 			String groupId = getPropertyValue(ROOT_SCHOOL_GROUP_ID_PARAMETER);
-			if (groupId == null) {
-				IWBundle bundle = this.getIWApplicationContext().getIWMainApplication().getBundle("com.idega.block.school");
-				groupId = bundle.getProperty(ROOT_SCHOOL_GROUP_ID_PARAMETER);
-//				IWBundle bundle = getCommuneBundle();
-//				groupId = bundle.getProperty(ROOT_SCHOOL_GROUP_ID_PARAMETER);
-				if (groupId != null) {
-					setProperty(ROOT_SCHOOL_GROUP_ID_PARAMETER, groupId);
-				}
-			}
-			// String groupId = (String)
-			// this.getIWApplicationContext().getApplicationSettings().getProperty(ROOT_CITIZEN_GROUP_ID_PARAMETER_NAME);
 			if (groupId != null) {
 				rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 			}
@@ -805,6 +800,43 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		catch (FinderException fe) {
 			fe.printStackTrace(System.err);
 			return null;
+		}
+	}
+
+	public Group getRootSchoolCategoryGroup(SchoolCategory category) {
+		try {
+			String ROOT_SCHOOL_CATEGORY_GROUP_ID_PARAMETER = "category." + category.getCategory().toLowerCase();
+			Group rootGroup = null;
+
+			String groupId = getPropertyValue(ROOT_SCHOOL_CATEGORY_GROUP_ID_PARAMETER);
+			if (groupId != null) {
+				rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
+			}
+			else {
+				try {
+					System.err.println("trying to store " + category.getCategory() + " group");
+
+					Group oldGroup = getRootGroup(category);
+					if (oldGroup != null) {
+						rootGroup = getUserBusiness().getGroupBusiness().createGroupUnder(category.getCategory().toLowerCase(), category.getCategory().toLowerCase(), SchoolConstants.GROUP_TYPE_SCHOOL_CATEGORY, oldGroup.getHomePageID(), -1, getRootSchoolGroup());
+					}
+					else {
+						rootGroup = getUserBusiness().getGroupBusiness().createGroupUnder(category.getCategory().toLowerCase(), category.getCategory().toLowerCase(), SchoolConstants.GROUP_TYPE_SCHOOL_CATEGORY, getRootSchoolGroup());
+					}
+					setProperty(ROOT_SCHOOL_CATEGORY_GROUP_ID_PARAMETER, rootGroup.getPrimaryKey().toString());
+				}
+				catch (CreateException ce) {
+					ce.printStackTrace(System.err);
+				}
+			}
+			return rootGroup;
+		}
+		catch (FinderException fe) {
+			fe.printStackTrace(System.err);
+			return null;
+		}
+		catch (RemoteException re) {
+			throw new IBORuntimeException(re);
 		}
 	}
 
@@ -887,8 +919,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 
 	public SchoolClass storeSchoolClass(String schoolClassName, School school, SchoolYear year, SchoolSeason season) {
 		if (year != null && season != null) {
-			return storeSchoolClass(-1, schoolClassName, ((Integer) school.getPrimaryKey()).intValue(),
-					((Integer) season.getPrimaryKey()).intValue(), ((Integer) year.getPrimaryKey()).intValue(), -1);
+			return storeSchoolClass(-1, schoolClassName, ((Integer) school.getPrimaryKey()).intValue(), ((Integer) season.getPrimaryKey()).intValue(), ((Integer) year.getPrimaryKey()).intValue(), -1);
 		}
 		else {
 			return storeSchoolClass(-1, schoolClassName, ((Integer) school.getPrimaryKey()).intValue(), -1, -1, -1);
@@ -896,26 +927,18 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	public SchoolClassMember storeSchoolClassMember(SchoolClass sClass, User user) {
-		return storeSchoolClassMember(((Integer) user.getPrimaryKey()).intValue(),
-				((Integer) sClass.getPrimaryKey()).intValue(), -1, -1, IWTimestamp.getTimestampRightNow(), -1);
+		return storeSchoolClassMember(((Integer) user.getPrimaryKey()).intValue(), ((Integer) sClass.getPrimaryKey()).intValue(), -1, -1, IWTimestamp.getTimestampRightNow(), -1);
 		/*
-		 * try { SchoolClassMemberHome sClassMemberHome = (SchoolClassMemberHome)
-		 * this.getIDOHome(SchoolClassMember.class); SchoolClassMember sClassMember =
-		 * sClassMemberHome.create(); sClassMember.setSchoolClassId(((Integer)
-		 * sClass.getPrimaryKey()).intValue());
-		 * sClassMember.setClassMemberId(((Integer)
-		 * user.getPrimaryKey()).intValue());
-		 * sClassMember.setRegisterDate(IWTimestamp.getTimestampRightNow());
-		 * sClassMember.setRegistrationCreatedDate(IWTimestamp.getTimestampRightNow());
-		 * //NEEDS THE CURRENT USER ID FOR REGISTERING USER return sClassMember; }
-		 * catch (CreateException ce) { ce.printStackTrace(System.err); return null; }
+		 * try { SchoolClassMemberHome sClassMemberHome = (SchoolClassMemberHome) this.getIDOHome(SchoolClassMember.class); SchoolClassMember sClassMember =
+		 * sClassMemberHome.create(); sClassMember.setSchoolClassId(((Integer) sClass.getPrimaryKey()).intValue());
+		 * sClassMember.setClassMemberId(((Integer) user.getPrimaryKey()).intValue()); sClassMember.setRegisterDate(IWTimestamp.getTimestampRightNow());
+		 * sClassMember.setRegistrationCreatedDate(IWTimestamp.getTimestampRightNow()); //NEEDS THE CURRENT USER ID FOR REGISTERING USER return
+		 * sClassMember; } catch (CreateException ce) { ce.printStackTrace(System.err); return null; }
 		 */
 	}
 
 	/**
-	 * Gets the allowed values of the column invoice_int of table
-	 * sch_class_member, as a Collection, from String constants in
-	 * SchoolClassMemberBMPBean.
+	 * Gets the allowed values of the column invoice_int of table sch_class_member, as a Collection, from String constants in SchoolClassMemberBMPBean.
 	 * 
 	 * @return Collection of type values
 	 * @throws RemoteException
@@ -945,24 +968,24 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			throw new RemoteException(fe.getMessage());
 		}
 	}
-	
+
 	public Collection getAllSchoolUsers(School school) throws RemoteException {
 		Set users = new TreeSet();
-		
+
 		try {
 			users.addAll(getSchoolUserBusiness().getSchoolUserHome().findBySchool(school));
 		}
 		catch (FinderException fe) {
 			fe.printStackTrace();
 		}
-		
+
 		try {
 			users.addAll(getSchoolUserBusiness().getSchoolUserHome().findRelatedToSchool(school));
 		}
 		catch (FinderException fe) {
 			fe.printStackTrace();
 		}
-		
+
 		return users;
 	}
 
@@ -1050,8 +1073,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all school
-	 * administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all school administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1075,16 +1097,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("School Administrators",
-					"The Commune Root School Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("School Administrators", "The Commune Root School Administrators Group.");
 			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all high school
-	 * administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all high school administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1093,7 +1113,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 */
 	public Group getRootHighSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
-		
+
 		// create the default group
 		String ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP = "high_school_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP);
@@ -1110,16 +1130,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root high school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("High School Administrators",
-					"The Commune Root High School Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("High School Administrators", "The Commune Root High School Administrators Group.");
 			setProperty(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all school
-	 * administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all school administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1143,16 +1161,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Music School Administrators",
-					"The Commune Root Music School Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Music School Administrators", "The Commune Root Music School Administrators Group.");
 			setProperty(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all
-	 * provider(childcare) administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all provider(childcare) administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1176,16 +1192,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Provider Administrators",
-					"The Commune Root Provider Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Provider Administrators", "The Commune Root Provider Administrators Group.");
 			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all other
-	 * commune school administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all other commune school administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1209,16 +1223,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root school other commune administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("School Administrators Other Commune",
-					"The Commune Root School Other Commune Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("School Administrators Other Commune", "The Commune Root School Other Commune Administrators Group.");
 			setProperty(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all other
-	 * commune high school administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all other commune high school administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1227,7 +1239,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 */
 	public Group getRootHighSchoolOtherCommuneAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
-		
+
 		// create the default group
 		String ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP = "high_school_administrators_other_commune_group_id";
 		String groupId = getPropertyValue(ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
@@ -1243,16 +1255,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root high school other commune administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("High School Other Commune Administrators",
-					"The Commune Root High School Other Commune Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("High School Other Commune Administrators", "The Commune Root High School Other Commune Administrators Group.");
 			setProperty(ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
 
 	/**
-	 * Returns or creates (if not available) the default usergroup all other
-	 * commune provider(childcare) administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all other commune provider(childcare) administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1276,8 +1286,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root provider other commune administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Provider Other Commune Administrators",
-					"The Commune Root Provider Other Commune Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Provider Other Commune Administrators", "The Commune Root Provider Other Commune Administrators Group.");
 			setProperty(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
@@ -1285,41 +1294,47 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 
 	/**
 	 * Gets the groupID for a property name ... replaces the bundle properties that were used previously
+	 * 
 	 * @param propertyName
 	 * @return
 	 */
 	public String getPropertyValue(String propertyName) {
 		try {
 			// TODO fix ugly hack
-			if (propertyName != null && propertyName.length()>30) {
-				propertyName = propertyName.substring(propertyName.length()-30);
+			if (propertyName != null && propertyName.length() > 30) {
+				propertyName = propertyName.substring(propertyName.length() - 30);
 			}
 			ICApplicationBindingHome abHome = (ICApplicationBindingHome) IDOLookup.getHome(ICApplicationBinding.class);
 			ICApplicationBinding ab = abHome.findByPrimaryKey(propertyName);
 			if (ab != null) {
 				return ab.getValue();
 			}
-		} catch (FinderException f) {
-		} catch (IDOLookupException e) {
+		}
+		catch (FinderException f) {
+		}
+		catch (IDOLookupException e) {
 		}
 		return null;
 	}
+
 	/**
 	 * sets a propertyName and value...
+	 * 
 	 * @param propertyName
 	 * @param propertyValue
 	 */
 	public void setProperty(String propertyName, String propertyValue) {
 		try {
 			// TODO fix ugly hack
-			if (propertyName != null && propertyName.length()>30) {
-				propertyName = propertyName.substring(propertyName.length()-30);
+			if (propertyName != null && propertyName.length() > 30) {
+				propertyName = propertyName.substring(propertyName.length() - 30);
 			}
 			ICApplicationBindingHome abHome = (ICApplicationBindingHome) IDOLookup.getHome(ICApplicationBinding.class);
 			ICApplicationBinding ab = null;
 			try {
 				ab = abHome.findByPrimaryKey(propertyName);
-			} catch (FinderException f) {
+			}
+			catch (FinderException f) {
 				ab = abHome.create();
 				ab.setKey(propertyName);
 			}
@@ -1329,14 +1344,46 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 				ab.store();
 			}
 
-		} catch (IDOLookupException e) {
-		} catch (CreateException e) {
+		}
+		catch (IDOLookupException e) {
+		}
+		catch (CreateException e) {
 		}
 	}
-	
+
+	private Group getRootGroup(SchoolCategory category) {
+		try {
+			if (category.equals(getCategoryAdultEducation())) {
+				return getRootAdultEducationAdministratorGroup();
+			}
+			else if (category.equals(getCategoryAfterSchoolCare()) || category.equals(getCategoryChildcare())) {
+				return getRootProviderAdministratorGroup();
+			}
+			else if (category.equals(getCategoryElementarySchool())) {
+				return getRootSchoolAdministratorGroup();
+			}
+			else if (category.equals(getCategoryMusicSchool())) {
+				return getRootMusicSchoolAdministratorGroup();
+			}
+			else if (category.equals(getCategoryHighSchool())) {
+				return getRootHighSchoolAdministratorGroup();
+			}
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+		}
+		catch (CreateException e) {
+			e.printStackTrace();
+		}
+		catch (FinderException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	/**
-	 * Returns or creates (if not available) the default usergroup all adult
-	 * education administors have as their primary group.
+	 * Returns or creates (if not available) the default usergroup all adult education administors have as their primary group.
 	 * 
 	 * @throws CreateException
 	 *           if it failed to create the group.
@@ -1345,7 +1392,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 */
 	public Group getRootAdultEducationAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
-		
+
 		// create the default group
 		String ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP = "adult_education_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP);
@@ -1361,8 +1408,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		else {
 			System.err.println("trying to store Commune Root Adult Education administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Adult Education Administrators",
-					"The Commune Root Adult Educaiton Administrators Group.");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Adult Education Administrators", "The Commune Root Adult Educaiton Administrators Group.");
 			setProperty(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
@@ -1370,15 +1416,13 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 
 	public void addSchoolAdministrator(User user) throws RemoteException {
 		try {
-			getUserBusiness().getGroupBusiness().addUser(
-					((Integer) getRootSchoolAdministratorGroup().getPrimaryKey()).intValue(), user);
+			getUserBusiness().getGroupBusiness().addUser(((Integer) getRootSchoolAdministratorGroup().getPrimaryKey()).intValue(), user);
 		}
 		catch (FinderException fe) {
 			throw new RemoteException("No root school administrator group found: " + fe.getMessage());
 		}
 		catch (CreateException ce) {
-			throw new RemoteException("Could not set user with ID = " + user.getPrimaryKey().toString()
-					+ " as school administrator: " + ce.getMessage());
+			throw new RemoteException("Could not set user with ID = " + user.getPrimaryKey().toString() + " as school administrator: " + ce.getMessage());
 		}
 	}
 
@@ -1437,8 +1481,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public void storeSchoolYearPlaces(int id, int school_id, int school_year_id, int places)
-			throws java.rmi.RemoteException {
+	public void storeSchoolYearPlaces(int id, int school_id, int school_year_id, int places) throws java.rmi.RemoteException {
 		SchoolYearPlacesHome shome = getSchoolYearPlacesHome();
 		SchoolYearPlaces newSchoolYearPlaces;
 		try {
@@ -1470,7 +1513,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			return null;
 		}
 	}
-	
+
 	public void removeSchoolYear(int id) {
 		removeSchoolYear(new Integer(id));
 	}
@@ -1523,8 +1566,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public void storeSchoolYear(int pk, String name, int schoolTypeId, String category, String info, String localizedKey,
-			int age) throws java.rmi.RemoteException {
+	public void storeSchoolYear(int pk, String name, int schoolTypeId, String category, String info, String localizedKey, int age) throws java.rmi.RemoteException {
 		SchoolYearHome shome = getSchoolYearHome();
 		SchoolYear newYear;
 		try {
@@ -1588,7 +1630,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public void removeSchoolType(int id) {
 		removeSchoolType(new Integer(id));
 	}
-	
+
 	public void removeSchoolType(Object schoolTypePK) {
 		try {
 			SchoolType type = getSchoolType(schoolTypePK);
@@ -1637,6 +1679,17 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	/**
+	 * @return The School type key registered for after school care school types.
+	 */
+	public String getAfterSchoolCareSchoolCategory() {
+		SchoolCategory category = getCategoryAfterSchoolCare();
+		if (category != null) {
+			return category.getCategory();
+		}
+		return null;
+	}
+
+	/**
 	 * @return The School type key registered for Childcare school types.
 	 */
 	public String getChildCareSchoolCategory() {
@@ -1657,13 +1710,13 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		return null;
 	}
-	
+
 	public String getAdultEducationSchoolCategory() {
 		SchoolCategory category = getCategoryAdultEducation();
 		if (category != null) {
 			return category.getCategory();
 		}
-		return null;		
+		return null;
 	}
 
 	/**
@@ -1689,14 +1742,11 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return findAllSchoolTypesInCategory(getAdultEducationSchoolCategory());
 	}
 
-	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge,
-			boolean isFreetimeType, boolean isFamilyFreetimeType, int order) throws java.rmi.RemoteException {
+	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge, boolean isFreetimeType, boolean isFamilyFreetimeType, int order) throws java.rmi.RemoteException {
 		storeSchoolType(id, name, info, category, locKey, maxAge, isFreetimeType, isFamilyFreetimeType, order, null);
 	}
 
-	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge,
-			boolean isFreetimeType, boolean isFamilyFreetimeType, int order, String typeStringId)
-			throws java.rmi.RemoteException {
+	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge, boolean isFreetimeType, boolean isFamilyFreetimeType, int order, String typeStringId) throws java.rmi.RemoteException {
 		SchoolTypeHome shome = (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
 		SchoolType newType;
 		try {
@@ -1742,7 +1792,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public SchoolSeason getCurrentSchoolSeason(SchoolCategory category) throws FinderException {
 		return getSchoolSeasonHome().findCurrentSeason(category);
 	}
-	
+
 	public SchoolSeason getNextSchoolSeason(SchoolCategory category) throws FinderException {
 		return getSchoolSeasonHome().findNextSeason(category, new IWTimestamp().getDate());
 	}
@@ -1750,7 +1800,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public void removeSchoolSeason(int id) {
 		removeSchoolSeason(new Integer(id));
 	}
-	
+
 	public void removeSchoolSeason(Object schoolSeasonPK) {
 		try {
 			SchoolSeason season = getSchoolSeason(schoolSeasonPK);
@@ -1764,7 +1814,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public Collection findAllSchoolSeasons() {
 		return findAllSchoolSeasons((SchoolCategory) null);
 	}
-	
+
 	public Collection findAllSchoolSeasons(String schoolCategory) {
 		try {
 			return findAllSchoolSeasons(getSchoolCategoryHome().findByPrimaryKey(schoolCategory));
@@ -1785,7 +1835,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			return new java.util.Vector();
 		}
 	}
-	
+
 	/**
 	 * Returns all season where the due_date >= TODAY and start_date <= TODAY.
 	 * 
@@ -1834,8 +1884,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate,
-			String category) throws java.rmi.RemoteException {
+	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category) throws java.rmi.RemoteException {
 		SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
 		SchoolSeason newSeason;
 		try {
@@ -1899,8 +1948,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 
 	public SchoolClassMember findByStudentAndSeason(SchoolClassMember student, SchoolSeason season) {
 		try {
-			return getSchoolClassMemberHome().findByUserAndSeason(student.getClassMemberId(),
-					((Integer) season.getPrimaryKey()).intValue());
+			return getSchoolClassMemberHome().findByUserAndSeason(student.getClassMemberId(), ((Integer) season.getPrimaryKey()).intValue());
 		}
 		catch (FinderException fe) {
 			return null;
@@ -1939,7 +1987,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			return new Vector();
 		}
 	}
-	
+
 	public Collection findClassMemberInChildCare(int studentID, int schoolID) {
 		try {
 			Collection types = findAllSchoolTypesForChildCare();
@@ -1986,27 +2034,22 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date,
-			boolean showNotYetActive) {
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date, boolean showNotYetActive) {
 		return findStudentsInSchoolByDate(schoolID, schoolClassID, null, date, showNotYetActive);
 	}
 
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory,
-			java.sql.Date date, boolean showNotYetActive) {
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date, boolean showNotYetActive) {
 		try {
-			return getSchoolClassMemberHome().findBySchoolAndLog(schoolID, schoolClassID, schoolCategory, date,
-					showNotYetActive);
+			return getSchoolClassMemberHome().findBySchoolAndLog(schoolID, schoolClassID, schoolCategory, date, showNotYetActive);
 		}
 		catch (FinderException e) {
 			return new Vector();
 		}
 	}
 
-	public Collection findStudentsInSchoolByDateChildcare(int schoolID, int schoolClassID, String schoolCategory,
-			java.sql.Date date, boolean showNotYetActive) {
+	public Collection findStudentsInSchoolByDateChildcare(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date, boolean showNotYetActive) {
 		try {
-			return getSchoolClassMemberHome().findBySchoolChildcare(schoolID, schoolClassID, schoolCategory, date,
-					showNotYetActive);
+			return getSchoolClassMemberHome().findBySchoolChildcare(schoolID, schoolClassID, schoolCategory, date, showNotYetActive);
 		}
 		catch (FinderException e) {
 			return new Vector();
@@ -2017,8 +2060,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return findStudentsInSchoolByDate(schoolID, schoolClassID, null, date);
 	}
 
-	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory,
-			java.sql.Date date) {
+	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolAndLog(schoolID, schoolClassID, schoolCategory, date);
 		}
@@ -2068,9 +2110,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			SchoolClass group = this.findSchoolClass(new Integer(schoolClassID));
 			if (group.getIsSubGroup()) {
 				try {
-					SchoolClassMember member = getSchoolClassMemberHome().findByUserAndSchoolAndSeason(studentID,
-							group.getSchoolId(), group.getSchoolSeasonId(),
-							getSchoolTypesForCategory(getCategoryElementarySchool(), false));
+					SchoolClassMember member = getSchoolClassMemberHome().findByUserAndSchoolAndSeason(studentID, group.getSchoolId(), group.getSchoolSeasonId(), getSchoolTypesForCategory(getCategoryElementarySchool(), false));
 					member.removeFromGroup(group);
 				}
 				catch (FinderException fe) {
@@ -2122,8 +2162,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	/**
-	 * This method is used primarily to get the SchoolTypeId when using
-	 * storeSchoolClassMember() below:
+	 * This method is used primarily to get the SchoolTypeId when using storeSchoolClassMember() below:
 	 * 
 	 * @param schoolClassID
 	 * @return returns -1 if typeId is not found
@@ -2149,69 +2188,54 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * Used by ChildCare placements that don't store school year
 	 */
-	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID,
-			Timestamp registerDate, int registrator) {
+	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, int registrator) {
 		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, registrator, null);
 	}
 
 	/**
 	 * Used by ChildCare placements that don't store school year
 	 */
-	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID,
-			Timestamp registerDate, int registrator, String notes) {
+	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, int registrator, String notes) {
 		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, null, registrator, notes);
 	}
 
 	/**
 	 * Used by ChildCare placements that don't store school year
 	 */
-	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID,
-			Timestamp registerDate, Timestamp removedDate, int registrator, String notes) {
-		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, removedDate, registrator,
-				notes);
+	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes) {
+		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, removedDate, registrator, notes);
 	}
 
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, int registrator) {
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, registrator, null);
 	}
-	//ny
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, int registrator, int studyPathID) {
+
+	// ny
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, int studyPathID) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, null, null, studyPathID, -1);
 	}
 
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, int registrator, String notes) {
-		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null,
-				registrator, notes);
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, String notes) {
+		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, notes);
 	}
 
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, Timestamp removedDate, int registrator, String notes) {
-		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate,
-				registrator, notes, null);
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes) {
+		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate, registrator, notes, null);
 	}
 
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language) {
-		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate,
-				registrator, notes, language, -1, -1);
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language) {
+		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate, registrator, notes, language, -1, -1);
 	}
-	
+
 	/**
-	 * Stores placement. If placement for student and schoolgroup exist placement
-	 * is updated
+	 * Stores placement. If placement for student and schoolgroup exist placement is updated
 	 */
-	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID,
-			Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language, int studyPathID, int handicraftId) {
+	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language, int studyPathID, int handicraftId) {
 		try {
 			SchoolClass group = this.findSchoolClass(new Integer(schoolClassID));
 			if (group.getIsSubGroup()) {
 				try {
-					SchoolClassMember member = getSchoolClassMemberHome().findByUserAndSchoolAndSeason(studentID,
-							group.getSchoolId(), group.getSchoolSeasonId(),
-							getSchoolTypesForCategory(getCategoryElementarySchool(), false));
+					SchoolClassMember member = getSchoolClassMemberHome().findByUserAndSchoolAndSeason(studentID, group.getSchoolId(), group.getSchoolSeasonId(), getSchoolTypesForCategory(getCategoryElementarySchool(), false));
 					member.addToGroup(group);
 					return member;
 				}
@@ -2265,10 +2289,10 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 					}
 					if (studyPathID != -1) {
 						member.setStudyPathId(studyPathID);
-					}					
+					}
 					if (handicraftId > 0) {
 						member.setHandicraftId(handicraftId);
-					}					
+					}
 					member.setRegistrationCreatedDate(IWTimestamp.getTimestampRightNow());
 					member.store();
 				}
@@ -2281,10 +2305,8 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, int registrator, String notes, String languageID) {
-		return storeNewSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null,
-				registrator, notes, languageID);
+	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, String notes, String languageID) {
+		return storeNewSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, notes, languageID);
 	}
 
 	/**
@@ -2301,8 +2323,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @return
 	 * @throws RemoteException
 	 */
-	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID,
-			int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String sLanguage) {
+	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String sLanguage) {
 		try {
 			SchoolClassMember member = getSchoolClassMemberHome().create();
 			if (member != null) {
@@ -2394,8 +2415,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID,
-			boolean showSubGroups) {
+	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndYear(schoolID, schoolSeasonID, schoolYearID, showSubGroups);
 		}
@@ -2405,11 +2425,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findSchoolClassesBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int schoolSeasonID,
-			Boolean showSubGroups, Boolean showNonSeasonGroups) {
+	public Collection findSchoolClassesBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int schoolSeasonID, Boolean showSubGroups, Boolean showNonSeasonGroups) {
 		try {
-			return getSchoolClassHome().findBySchoolAndSchoolTypeAndSeason(schoolID, schoolTypeID, schoolSeasonID,
-					showSubGroups, showNonSeasonGroups);
+			return getSchoolClassHome().findBySchoolAndSchoolTypeAndSeason(schoolID, schoolTypeID, schoolSeasonID, showSubGroups, showNonSeasonGroups);
 		}
 		catch (FinderException fe) {
 			fe.printStackTrace();
@@ -2427,8 +2445,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findSchoolClassesBySchoolAndSeasonAndYearAndStudyPath(int schoolID, int schoolSeasonID,
-			int schoolYearID, int studyPathID) {
+	public Collection findSchoolClassesBySchoolAndSeasonAndYearAndStudyPath(int schoolID, int schoolSeasonID, int schoolYearID, int studyPathID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndInYear(schoolID, schoolSeasonID, schoolYearID, studyPathID);
 		}
@@ -2447,8 +2464,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID,
-			String[] schoolYearIDs, boolean showSubGroups) {
+	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs, boolean showSubGroups) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndYears(schoolID, schoolSeasonID, schoolYearIDs, showSubGroups);
 		}
@@ -2543,19 +2559,15 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID,
-			int seasonID, String[] schoolYearIDs, String[] teacherIDs) {
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs) {
 		return storeSchoolClass(schoolClassID, className, schoolID, schoolTypeID, seasonID, schoolYearIDs, teacherIDs, null);
 	}
 
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID,
-			int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs) {
-		return storeSchoolClass(schoolClassID, className, schoolID, schoolTypeID, seasonID, schoolYearIDs, teacherIDs,
-				studyPathIDs, null);
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs) {
+		return storeSchoolClass(schoolClassID, className, schoolID, schoolTypeID, seasonID, schoolYearIDs, teacherIDs, studyPathIDs, null);
 	}
 
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID,
-			int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs, String groupStringId) {
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs, String groupStringId) {
 		SchoolClass schoolClass = null;
 		try {
 			schoolClass = getSchoolClassHome().findByPrimaryKey(new Integer(schoolClassID));
@@ -2663,8 +2675,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return schoolClass;
 	}
 
-	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolSeasonID,
-			int schoolYearID, int teacherID) {
+	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolSeasonID, int schoolYearID, int teacherID) {
 		try {
 			SchoolClass schoolClass;
 			if (schoolClassID != -1) {
@@ -2673,7 +2684,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			else {
 				schoolClass = getSchoolClassHome().create();
 				schoolClass.store(); // so it gets a primary key, otherwise an
-															// exception
+				// exception
 				// is thrown when school year is added
 			}
 			schoolClass.setSchoolClassName(className);
@@ -2746,7 +2757,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public void removeSchoolArea(int id) {
 		removeSchoolArea(new Integer(id));
 	}
-	
+
 	public void removeSchoolArea(Object schoolAreaPK) {
 		try {
 			SchoolArea area = getSchoolArea(schoolAreaPK);
@@ -2856,8 +2867,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newSubArea.store();
 	}
 
-	public void storeSchoolDepartment(String description, String phone, int schoolID, int schDepID)
-			throws RemoteException {
+	public void storeSchoolDepartment(String description, String phone, int schoolID, int schDepID) throws RemoteException {
 		/**
 		 * @todo figure out how to implement
 		 */
@@ -2951,8 +2961,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	/**
-	 * Filters out all schools from the specified collection which do not belong
-	 * the the home (default) commune.
+	 * Filters out all schools from the specified collection which do not belong the the home (default) commune.
 	 * 
 	 * @param schools
 	 *          the collection of schools
@@ -3046,34 +3055,27 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public void addToSchoolClassMemberLog(SchoolClassMember member, Date endDate, User performer)
-			throws IllegalArgumentException {
+	public void addToSchoolClassMemberLog(SchoolClassMember member, Date endDate, User performer) throws IllegalArgumentException {
 		addToSchoolClassMemberLog(member, null, null, endDate, performer);
 	}
 
-	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date endDate, User performer)
-			throws IllegalArgumentException {
+	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date endDate, User performer) throws IllegalArgumentException {
 		addToSchoolClassMemberLog(member, schoolClass, null, endDate, performer);
 	}
 
-	public void addToSchoolClassMemberLog(int schoolClassMemberID, int schoolClassID, Date startDate, Date endDate,
-			User performer) throws IllegalArgumentException {
+	public void addToSchoolClassMemberLog(int schoolClassMemberID, int schoolClassID, Date startDate, Date endDate, User performer) throws IllegalArgumentException {
 		try {
-			addToSchoolClassMemberLog(getSchoolClassMemberHome().findByPrimaryKey(new Integer(schoolClassMemberID)),
-					getSchoolClassHome().findByPrimaryKey(new Integer(schoolClassID)), startDate, endDate, performer);
+			addToSchoolClassMemberLog(getSchoolClassMemberHome().findByPrimaryKey(new Integer(schoolClassMemberID)), getSchoolClassHome().findByPrimaryKey(new Integer(schoolClassID)), startDate, endDate, performer);
 		}
 		catch (FinderException fe) {
 			log(fe);
 		}
 	}
 
-	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date startDate,
-			Date endDate, User performer) throws IllegalArgumentException {
+	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date startDate, Date endDate, User performer) throws IllegalArgumentException {
 		boolean logPlacements = false;
 		try {
-			logPlacements = new Boolean(
-					getIWApplicationContext().getIWMainApplication().getBundle("com.idega.block.school").getProperty(
-							PROPERTY_NAME_USE_PLACEMENT_LOGGING, Boolean.FALSE.toString())).booleanValue();
+			logPlacements = new Boolean(getIWApplicationContext().getIWMainApplication().getBundle("com.idega.block.school").getProperty(PROPERTY_NAME_USE_PLACEMENT_LOGGING, Boolean.FALSE.toString())).booleanValue();
 		}
 		catch (Exception e) {
 			logPlacements = false;
@@ -3093,8 +3095,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			}
 			catch (FinderException fe) {
 				try {
-					SchoolClassMemberLog log = getSchoolClassMemberLogHome().findClosedLogByUserAndSchoolClass(member,
-							schoolClass);
+					SchoolClassMemberLog log = getSchoolClassMemberLogHome().findClosedLogByUserAndSchoolClass(member, schoolClass);
 					log.setUserTerminating(performer);
 					log.setEndDate(endDate);
 					log.store();
@@ -3125,8 +3126,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 					oldEndDate.addDays(-1);
 					IWTimestamp newEndDate = new IWTimestamp(startDate);
 					newEndDate.addDays(-1);
-					SchoolClassMemberLog previousLog = getSchoolClassMemberLogHome().findByPlacementAndEndDate(member,
-							oldEndDate.getDate());
+					SchoolClassMemberLog previousLog = getSchoolClassMemberLogHome().findByPlacementAndEndDate(member, oldEndDate.getDate());
 					previousLog.setEndDate(newEndDate.getDate());
 					previousLog.store();
 				}
@@ -3167,8 +3167,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 
 	public void alignLogs(SchoolClassMember member) {
 		try {
-			Date placementEndDate = member.getRemovedDate() != null ? new IWTimestamp(member.getRemovedDate()).getDate()
-					: null;
+			Date placementEndDate = member.getRemovedDate() != null ? new IWTimestamp(member.getRemovedDate()).getDate() : null;
 			Collection logs = getSchoolClassMemberLogHome().findAllByPlacement(member, placementEndDate);
 			SchoolClassMemberLog oldLog = null;
 			Date endDate = null;
@@ -3201,8 +3200,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 				}
 			}
 			if (placementEndDate != null) {
-				Collection futureLogs = getSchoolClassMemberLogHome().findAllByPlacementWithStartDateLaterThanOrEqualToDate(
-						member, placementEndDate);
+				Collection futureLogs = getSchoolClassMemberLogHome().findAllByPlacementWithStartDateLaterThanOrEqualToDate(member, placementEndDate);
 				Iterator iterator = futureLogs.iterator();
 				while (iterator.hasNext()) {
 					SchoolClassMemberLog element = (SchoolClassMemberLog) iterator.next();

@@ -1,6 +1,5 @@
 package com.idega.block.school.business;
 
-
 import com.idega.block.school.data.SchoolSubAreaHome;
 import com.idega.block.school.data.SchoolDepartmentHome;
 import com.idega.block.school.data.SchoolAreaHome;
@@ -136,9 +135,19 @@ public interface SchoolBusiness extends IBOService {
 	public Collection getSchoolCategories() throws RemoteException;
 
 	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolCategories
+	 */
+	public Collection getSchoolCategories(School school) throws RemoteException;
+
+	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getCategoryMusicSchool
 	 */
 	public SchoolCategory getCategoryMusicSchool() throws RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#getCategoryAfterSchoolCare
+	 */
+	public SchoolCategory getCategoryAfterSchoolCare() throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getCategoryChildcare
@@ -306,9 +315,9 @@ public interface SchoolBusiness extends IBOService {
 	public Group getNewSchoolGroup(String name, String info) throws RemoteException, RemoteException;
 
 	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootSchoolGroup
+	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootSchoolCategoryGroup
 	 */
-	public Group getRootSchoolGroup() throws RemoteException, RemoteException;
+	public Group getRootSchoolCategoryGroup(SchoolCategory category) throws RemoteException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#hasEditPermission
@@ -554,6 +563,11 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategoryFreeTime
 	 */
 	public Collection findAllSchoolTypesInCategoryFreeTime(String Category) throws RemoteException;
+
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#getAfterSchoolCareSchoolCategory
+	 */
+	public String getAfterSchoolCareSchoolCategory() throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getChildCareSchoolCategory

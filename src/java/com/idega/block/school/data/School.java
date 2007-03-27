@@ -21,6 +21,16 @@ import com.idega.data.IDOEntity;
 public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Comparable {
 
 	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#getPrimaryGroup
+	 */
+	public Group getPrimaryGroup();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#setPrimaryGroup
+	 */
+	public void setPrimaryGroup(Group group);
+
+	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getName
 	 */
 	public String getName();

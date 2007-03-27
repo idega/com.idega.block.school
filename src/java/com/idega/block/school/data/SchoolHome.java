@@ -71,4 +71,6 @@ public interface SchoolHome extends IDOHome {
 	public int getNumberOfFreetimeTypes(int schoolID) throws IDOException;
 
 	public Collection findAllPrivate() throws IDOLookupException, EJBException, FinderException;
+
+	public Collection findAllWithNoPrimaryGroup() throws FinderException;
 }

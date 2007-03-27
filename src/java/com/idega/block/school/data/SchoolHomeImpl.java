@@ -220,4 +220,11 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
+
+	public Collection findAllWithNoPrimaryGroup() throws FinderException {
+		IDOEntity entity = this.idoCheckOutPooledEntity();
+		Collection ids = ((SchoolBMPBean) entity).ejbFindAllWithNoPrimaryGroup();
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
 }

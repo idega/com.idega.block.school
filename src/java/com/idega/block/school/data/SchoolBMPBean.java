@@ -29,20 +29,33 @@ import com.idega.data.IDOQuery;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
 import com.idega.data.MetaDataCapable;
+import com.idega.data.query.MatchCriteria;
+import com.idega.data.query.SelectQuery;
+import com.idega.data.query.Table;
 import com.idega.user.data.Group;
 import com.idega.user.data.GroupHome;
 import com.idega.user.data.User;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
- * @author <br><a href="mailto:aron@idega.is">Aron Birkir</a><br>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
+ * @author <br>
+ *         <a href="mailto:aron@idega.is">Aron Birkir</a><br>
  * @version 1.0
  */
 
-public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEntity, MetaDataCapable, Comparable {
+public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEntity, MetaDataCapable, Comparable {
 
 	public final static String SCHOOL = "sch_school";
 	public final static String NAME = "SCHOOL_NAME";
@@ -62,7 +75,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	/** Gimmi 4-5 Nov 2002 */
 	public final static String FAX = "fax_nr";
 	public final static String WEB_PAGE = "web_page";
-	//public final static String MANAGEMENT_TYPE_ID = "managment_type";
+	// public final static String MANAGEMENT_TYPE_ID = "managment_type";
 	public final static String MANAGEMENT_TYPE = "management_type";
 	public final static String HEADMASTER_USER_ID = "headmaster_user_id";
 	public final static String ASSISTANT_HEADMASTER_GROUP_ID = "assistant_hm_grp_id";
@@ -70,7 +83,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	/** Kelly 13-14 May 2003 */
 	public final static String ACTIVITY = "activity";
 	public final static String OPEN_HOURS = "open_hours";
-		/** Laddi 3 Sep 2003 */
+	/** Laddi 3 Sep 2003 */
 	public final static String COMMUNE = "commune";
 	/** Anders 15 Sep 2003 */
 	public final static String ORGANIZATION_NUMBER = "organization_number";
@@ -78,24 +91,26 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public final static String TERMINATION_DATE = "termination_date";
 	public final static String COUNTRY = "country"; // Not connected to commune
 	public final static String CENTRALIZED_ADMINISTRATION = "centralized_administration";
-	/** Malin 10 Dec 2003 **/
+	/** Malin 10 Dec 2003 * */
 	public final static String VISITADDRESS = "school_visit_address";
-	//MANY TO MANY RELATIONSHIP TABLES
-	public final static String M2M_TX_TEXT_SCH_SCHOOL="TX_TEXT_SCH_SCHOOL";
-	public final static String M2M_TX_LOCALIZED_TEXT_SCH_SCHOOL="TX_LOCALIZED_TEXT_SCH_SCHOOL";
+	// MANY TO MANY RELATIONSHIP TABLES
+	public final static String M2M_TX_TEXT_SCH_SCHOOL = "TX_TEXT_SCH_SCHOOL";
+	public final static String M2M_TX_LOCALIZED_TEXT_SCH_SCHOOL = "TX_LOCALIZED_TEXT_SCH_SCHOOL";
 	public final static String INVISIBLE_FOR_CITIZEN = "invisible_for_citizen";
 	/** Anders 10 Jan 2005 */
 	public final static String PROVIDER_STRING_ID = "provider_string_id";
-	public final static String JUNIOR_HIGH_SCHOOL = "junior_high_school_id";    
-	public final static String AFTER_SCHOOL_CARE_PROVIDER = "after_school_care_id";    
-    /** Dainis 23 Sep 2005 */
-    public final static String SORT_BY_BIRTHDATE = "sort_by_birthdate";
-    public static final String HAS_REFRESHMENTS = "has_refreshments";
-    public static final String HAS_REVIEW = "has_review";
-	
+	public final static String JUNIOR_HIGH_SCHOOL = "junior_high_school_id";
+	public final static String AFTER_SCHOOL_CARE_PROVIDER = "after_school_care_id";
+	/** Dainis 23 Sep 2005 */
+	public final static String SORT_BY_BIRTHDATE = "sort_by_birthdate";
+	public static final String HAS_REFRESHMENTS = "has_refreshments";
+	public static final String HAS_REVIEW = "has_review";
+
+	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
+
 	public void initializeAttributes() {
 		this.addAttribute(getIDColumnName());
-		//this.addAttribute(SCHOOLTYPE,"Schooltype",true,true,Integer.class,this.MANY_TO_ONE,SchoolType.class);
+		// this.addAttribute(SCHOOLTYPE,"Schooltype",true,true,Integer.class,this.MANY_TO_ONE,SchoolType.class);
 		this.addAttribute(SCHOOLAREA, "Schoolarea", true, true, Integer.class, MANY_TO_ONE, SchoolArea.class);
 		this.addAttribute(SCHOOLSUBAREA, "Schoolsubarea", true, true, Integer.class, MANY_TO_ONE, SchoolSubArea.class);
 		this.addAttribute(NAME, "Schoolname", true, true, String.class);
@@ -114,22 +129,22 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		this.addAttribute(FAX, "fax", true, true, String.class, 50);
 		this.addAttribute(WEB_PAGE, "web_page", true, true, String.class, 500);
 		/** Laddi 3 Sep 2003 */
-		//this.addAttribute(MANAGEMENT_TYPE_ID, "management_type", true, true, Integer.class);
-		addManyToOneRelationship(MANAGEMENT_TYPE, SchoolManagementType.class);		
+		// this.addAttribute(MANAGEMENT_TYPE_ID, "management_type", true, true, Integer.class);
+		addManyToOneRelationship(MANAGEMENT_TYPE, SchoolManagementType.class);
 		this.addAttribute(HEADMASTER_USER_ID, "headmaster user id", true, true, Integer.class, MANY_TO_ONE, User.class);
 		this.addAttribute(ASSISTANT_HEADMASTER_GROUP_ID, "assistant headmaster group id", true, true, Integer.class, MANY_TO_ONE, Group.class);
-		this.addAttribute(MAP_URL, "url to map", true, true, String.class,500);
+		this.addAttribute(MAP_URL, "url to map", true, true, String.class, 500);
 		/** Kelly 13-14 May 2003 */
 		this.addAttribute(ACTIVITY, "The schools activity", true, true, String.class, 256);
 		this.addAttribute(OPEN_HOURS, "The school open hours", true, true, String.class, 256);
 		this.addManyToManyRelationShip(SchoolType.class);
 		this.addManyToManyRelationShip(SchoolYear.class, "sch_school_sch_school_year");
 		// Grimur 16.10.2002
-		this.addManyToManyRelationShip(LocalizedText.class,M2M_TX_LOCALIZED_TEXT_SCH_SCHOOL); // in for backwards compatability
+		this.addManyToManyRelationShip(LocalizedText.class, M2M_TX_LOCALIZED_TEXT_SCH_SCHOOL); // in for backwards compatability
 		this.addManyToManyRelationShip(ICFile.class);
 		// Gimmi 27.12.2002
-		this.addManyToManyRelationShip(TxText.class,M2M_TX_TEXT_SCH_SCHOOL);		
-		addManyToOneRelationship(COMMUNE, Commune.class);		
+		this.addManyToManyRelationShip(TxText.class, M2M_TX_TEXT_SCH_SCHOOL);
+		addManyToOneRelationship(COMMUNE, Commune.class);
 		// Anders 15 Sep 2003
 		this.addAttribute(ORGANIZATION_NUMBER, "organisationsnummer", true, true, String.class, 20);
 		this.addAttribute(EXTRA_PROVIDER_ID, "user supplied provider id", true, true, String.class, 20);
@@ -142,37 +157,48 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		this.addAttribute(PROVIDER_STRING_ID, "Extra provider id", true, true, String.class, 40);
 		addManyToOneRelationship(AFTER_SCHOOL_CARE_PROVIDER, School.class);
 		addManyToOneRelationship(JUNIOR_HIGH_SCHOOL, School.class);
-        // Dainis 23 Sep 2005
-        this.addAttribute(SORT_BY_BIRTHDATE, "Sorted by date of birth", true, true, Boolean.class);
-        addAttribute(HAS_REFRESHMENTS, "Has refreshments", Boolean.class);
-        addAttribute(HAS_REVIEW, "Has review", Boolean.class);
+		// Dainis 23 Sep 2005
+		this.addAttribute(SORT_BY_BIRTHDATE, "Sorted by date of birth", true, true, Boolean.class);
+		addAttribute(HAS_REFRESHMENTS, "Has refreshments", Boolean.class);
+		addAttribute(HAS_REVIEW, "Has review", Boolean.class);
 
-        getEntityDefinition().setBeanCachingActiveByDefault(true);
+		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
+
+		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
+
 	public String getEntityName() {
 		return SCHOOL;
+	}
+
+	public Group getPrimaryGroup() {
+		return (Group) getColumnValue(COLUMN_PRIMARY_GROUP);
+	}
+
+	public void setPrimaryGroup(Group group) {
+		setColumn(COLUMN_PRIMARY_GROUP, group);
 	}
 
 	public String getName() {
 		return getSchoolName();
 	}
-    
-    public String getNameWithStarIfQueueSortedByBirthdate(){
-        return (this.getSortByBirthdate() ? "*" : "") + getSchoolName();
-    }
-	
+
+	public String getNameWithStarIfQueueSortedByBirthdate() {
+		return (this.getSortByBirthdate() ? "*" : "") + getSchoolName();
+	}
+
 	public School getAfterSchoolCareProvider() {
 		return (School) getColumnValue(AFTER_SCHOOL_CARE_PROVIDER);
 	}
-	
+
 	public Object getAfterSchoolCareProviderPK() {
 		return getIntegerColumnValue(AFTER_SCHOOL_CARE_PROVIDER);
 	}
-	
+
 	public void setAfterSchoolCareProvider(School provider) {
 		setColumn(AFTER_SCHOOL_CARE_PROVIDER, provider);
 	}
-	
+
 	public void setAfterSchoolCareProvider(Object providerPK) {
 		setColumn(AFTER_SCHOOL_CARE_PROVIDER, providerPK);
 	}
@@ -180,23 +206,23 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public School getJuniorHighSchool() {
 		return (School) getColumnValue(JUNIOR_HIGH_SCHOOL);
 	}
-	
+
 	public Object getJuniorHighSchoolPK() {
 		return getIntegerColumnValue(JUNIOR_HIGH_SCHOOL);
 	}
-	
+
 	public boolean hasRefreshments() {
 		return getBooleanColumnValue(HAS_REFRESHMENTS, false);
 	}
-	
+
 	public boolean hasReview() {
 		return getBooleanColumnValue(HAS_REVIEW, false);
 	}
-	
+
 	public void setJuniorHighSchool(School school) {
 		setColumn(JUNIOR_HIGH_SCHOOL, school);
 	}
-	
+
 	public void setJuniorHighSchool(Object schoolPK) {
 		setColumn(JUNIOR_HIGH_SCHOOL, schoolPK);
 	}
@@ -204,24 +230,31 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public int getSchoolAreaId() {
 		return this.getIntColumnValue(SCHOOLAREA);
 	}
+
 	public int getSchoolSubAreaId() {
 		return this.getIntColumnValue(SCHOOLSUBAREA);
-	}	
+	}
+
 	public SchoolArea getSchoolArea() {
 		return (SchoolArea) getColumnValue(SCHOOLAREA);
 	}
+
 	public SchoolSubArea getSchoolSubArea() {
 		return (SchoolSubArea) getColumnValue(SCHOOLSUBAREA);
-	}	
+	}
+
 	public void setSchoolAreaId(int id) {
 		this.setColumn(SCHOOLAREA, id);
 	}
+
 	public void setSchoolArea(SchoolArea area) {
 		this.setColumn(SCHOOLAREA, area);
 	}
+
 	public void setSchoolSubAreaId(int id) {
 		this.setColumn(SCHOOLSUBAREA, id);
 	}
+
 	public Object getCommunePK() {
 		Object communeId = getColumnValue(COMMUNE);
 		if (communeId == null) {
@@ -232,7 +265,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 				if (comm != null) {
 					this.setCommunePK(comm.getPrimaryKey());
 					this.store();
-					System.out.print("set as defaul (pk="+comm.getPrimaryKey()+")");
+					System.out.print("set as defaul (pk=" + comm.getPrimaryKey() + ")");
 					return comm.getPrimaryKey();
 				}
 				System.out.print("NOT set. (Default not found)");
@@ -243,58 +276,75 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		}
 		return communeId;
 	}
+
 	public Commune getCommune() {
 		return (Commune) getColumnValue(COMMUNE);
 	}
+
 	public int getCommuneId() {
 		return this.getIntColumnValue(COMMUNE);
 	}
+
 	public void setCommunePK(Object pk) {
 		this.setColumn(COMMUNE, pk);
 	}
+
 	public int getCountryId() {
 		return this.getIntColumnValue(COUNTRY);
 	}
+
 	public Country getCountry() {
 		return (Country) getColumnValue(COUNTRY);
 	}
+
 	public void setCountryId(int id) {
 		this.setColumn(COUNTRY, id);
 	}
+
 	public String getManagementTypeId() {
 		return this.getStringColumnValue(MANAGEMENT_TYPE);
 	}
+
 	public SchoolManagementType getManagementType() {
 		return (SchoolManagementType) getColumnValue(MANAGEMENT_TYPE);
 	}
+
 	public void setManagementTypeId(String id) {
 		this.setColumn(MANAGEMENT_TYPE, id);
 	}
+
 	public String getSchoolName() {
 		return this.getStringColumnValue(NAME);
 	}
+
 	public void setSchoolName(String name) {
 		this.setColumn(NAME, name);
 	}
+
 	public String getSchoolInfo() {
 		return this.getStringColumnValue(INFO);
 	}
+
 	public void setSchoolInfo(String info) {
 		this.setColumn(INFO, info);
 	}
+
 	public String getSchoolAddress() {
 		return this.getStringColumnValue(ADDRESS);
 	}
+
 	public void setSchoolAddress(String address) {
 		this.setColumn(ADDRESS, address);
 	}
+
 	public String getSchoolVisitAddress() {
 		return this.getStringColumnValue(VISITADDRESS);
 	}
+
 	public void setSchoolVisitAddress(String visitaddress) {
 		this.setColumn(VISITADDRESS, visitaddress);
 	}
-	
+
 	public void setHasRefreshments(boolean hasRefreshments) {
 		setColumn(HAS_REFRESHMENTS, hasRefreshments);
 	}
@@ -306,6 +356,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public String getSchoolZipArea() {
 		return this.getStringColumnValue(ZIPAREA);
 	}
+
 	public void setSchoolZipArea(String ziparea) {
 		this.setColumn(ZIPAREA, ziparea);
 	}
@@ -313,6 +364,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public String getSchoolZipCode() {
 		return this.getStringColumnValue(ZIPCODE);
 	}
+
 	public void setSchoolZipCode(String zipcode) {
 		this.setColumn(ZIPCODE, zipcode);
 	}
@@ -320,6 +372,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public String getSchoolPhone() {
 		return this.getStringColumnValue(PHONE);
 	}
+
 	public void setSchoolPhone(String phone) {
 		this.setColumn(PHONE, phone);
 	}
@@ -327,7 +380,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public String getSchoolEmail() {
 		return this.getStringColumnValue(EMAIL);
 	}
- 	
+
 	public void setSchoolEmail(String email) {
 		this.setColumn(EMAIL, email);
 	}
@@ -347,39 +400,51 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public String getSchoolKeyCode() {
 		return this.getStringColumnValue(KEYCODE);
 	}
+
 	public void setSchoolKeyCode(String code) {
 		this.setColumn(KEYCODE, code);
 	}
+
 	public String getSchoolLatitude() {
 		return this.getStringColumnValue(LATITUDE);
 	}
+
 	public void setSchoolLatitude(String lat) {
 		this.setColumn(LATITUDE, lat);
 	}
+
 	public String getSchoolLongitude() {
 		return this.getStringColumnValue(LONGITUDE);
 	}
+
 	public void setSchoolLongitude(String lon) {
 		this.setColumn(LONGITUDE, lon);
 	}
+
 	public String getOrganizationNumber() {
 		return this.getStringColumnValue(ORGANIZATION_NUMBER);
 	}
+
 	public void setOrganizationNumber(String orgNo) {
 		this.setColumn(ORGANIZATION_NUMBER, orgNo);
 	}
+
 	public String getExtraProviderId() {
 		return this.getStringColumnValue(EXTRA_PROVIDER_ID);
 	}
+
 	public void setExtraProviderId(String id) {
 		this.setColumn(EXTRA_PROVIDER_ID, id);
 	}
+
 	public Date getTerminationDate() {
 		return (Date) this.getColumnValue(TERMINATION_DATE);
 	}
+
 	public void setTerminationDate(Date date) {
 		this.setColumn(TERMINATION_DATE, date);
 	}
+
 	public boolean getCentralizedAdministration() {
 		boolean isCA = false;
 		Boolean b = (Boolean) this.getColumnValue(CENTRALIZED_ADMINISTRATION);
@@ -388,14 +453,15 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		}
 		return isCA;
 	}
+
 	public void setCentralizedAdministration(boolean b) {
 		this.setColumn(CENTRALIZED_ADMINISTRATION, b);
 	}
-	
+
 	public boolean getInvisibleForCitizen() {
 		return getBooleanColumnValue(INVISIBLE_FOR_CITIZEN, false);
 	}
-	
+
 	public void setInvisibleForCitizen(boolean b) {
 		setColumn(INVISIBLE_FOR_CITIZEN, b);
 	}
@@ -403,15 +469,15 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public String getProviderStringId() {
 		return this.getStringColumnValue(PROVIDER_STRING_ID);
 	}
-	
+
 	public void setProviderStringId(String id) {
 		this.setColumn(PROVIDER_STRING_ID, id);
 	}
-	
+
 	private Date getCurrentDate() {
 		return new Date(System.currentTimeMillis());
 	}
-	
+
 	public Collection ejbFindAllBySchoolType(Collection typeIds) throws javax.ejb.FinderException {
 		if (typeIds == null || typeIds.size() < 1) {
 			return null;
@@ -427,43 +493,27 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	}
 
 	public Collection ejbFindAllBySchoolType(int typeId) throws javax.ejb.FinderException {
-		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " +
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-				" order by s."+NAME;
+		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')" + " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllBySchoolType(SchoolType type) throws javax.ejb.FinderException {
-		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + type.getPrimaryKey().toString() + " and m.sch_school_id = s.sch_school_id " +
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-				" order by s."+NAME;
+		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + type.getPrimaryKey().toString() + " and m.sch_school_id = s.sch_school_id " + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')" + " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllByAreaTypeManagement(int areaId, int typeId, String managementType) throws javax.ejb.FinderException {
-		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " +
-				" and " + SCHOOLAREA + " = " + areaId + 
-				" and " + MANAGEMENT_TYPE + " = '" + managementType + "'" + 
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-				" order by s."+NAME;
+		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " + " and " + SCHOOLAREA + " = " + areaId + " and " + MANAGEMENT_TYPE + " = '" + managementType + "'" + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')" + " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllByAreaTypeManagementCommune(int areaId, int typeId, String managementType, int communeId) throws javax.ejb.FinderException {
-		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " +
-				" and " + SCHOOLAREA + " = " + areaId + 
-				" and " + MANAGEMENT_TYPE + " = '" + managementType + "'" +
-				" and " + COMMUNE + " = " + communeId + 
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-				" order by s."+NAME;
+		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " + " and " + SCHOOLAREA + " = " + areaId + " and " + MANAGEMENT_TYPE + " = '" + managementType + "'" + " and " + COMMUNE + " = " + communeId + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')" + " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllByAreaTypeManagementCommune(int areaId, int typeId, Collection managementTypes, int communeId) throws javax.ejb.FinderException {
-		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " +
-				" and " + SCHOOLAREA + " = " + areaId + 
-				" and " + COMMUNE + " = " + communeId + 
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
+		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " + " and " + SCHOOLAREA + " = " + areaId + " and " + COMMUNE + " = " + communeId + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
 		if (managementTypes != null && !managementTypes.isEmpty()) {
 			select += (" and s." + MANAGEMENT_TYPE + " in (");
 			Iterator it = managementTypes.iterator();
@@ -473,19 +523,16 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 				select += "'" + type + "'";
 				if (it.hasNext()) {
 					select += ",";
-				}					
+				}
 			}
 			select += ")";
 		}
-		select += " order by s."+NAME;
+		select += " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllByAreaTypeManagementCommune(int areaId, Collection typeIds, Collection managementTypes, int communeId) throws javax.ejb.FinderException {
-		String select = "select distinct s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_id = s.sch_school_id " +
-				" and " + SCHOOLAREA + " = " + areaId + 
-				" and " + COMMUNE + " = " + communeId + 
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
+		String select = "select distinct s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_id = s.sch_school_id " + " and " + SCHOOLAREA + " = " + areaId + " and " + COMMUNE + " = " + communeId + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
 		if (typeIds != null && !typeIds.isEmpty()) {
 			select += (" and m.sch_school_type_id in (");
 			Iterator it = typeIds.iterator();
@@ -495,7 +542,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 				select += "'" + type + "'";
 				if (it.hasNext()) {
 					select += ",";
-				}					
+				}
 			}
 			select += ")";
 		}
@@ -508,34 +555,28 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 				select += "'" + type + "'";
 				if (it.hasNext()) {
 					select += ",";
-				}					
+				}
 			}
 			select += ")";
 		}
-		select += " order by s."+NAME;
+		select += " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllByAreaTypeCommune(int areaId, int typeId, int communeId) throws javax.ejb.FinderException {
-		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " +
-				" and " + SCHOOLAREA + " = " + areaId + 
-				" and " + COMMUNE + " = " + communeId + 
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-				" order by s."+NAME;
+		String select = "select s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id = " + typeId + " and m.sch_school_id = s.sch_school_id " + " and " + SCHOOLAREA + " = " + areaId + " and " + COMMUNE + " = " + communeId + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')" + " order by s." + NAME;
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Collection ejbFindAllBySchoolName(String schoolName) throws javax.ejb.FinderException {
-		String select = "select * from " + SCHOOL + " where " + NAME + " = '" + schoolName + "'" +
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
+		String select = "select * from " + SCHOOL + " where " + NAME + " = '" + schoolName + "'" + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
 		return super.idoFindPKsBySQL(select);
 	}
 
 	public Integer ejbFindBySchoolName(String schoolName) throws javax.ejb.FinderException {
-		String select = "select * from " + SCHOOL + " where " + NAME + " = '" + schoolName + "'" +
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
-		
-		return (Integer)super.idoFindOnePKBySQL(select);
+		String select = "select * from " + SCHOOL + " where " + NAME + " = '" + schoolName + "'" + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
+
+		return (Integer) super.idoFindOnePKBySQL(select);
 	}
 
 	public Collection ejbFindAllCentralizedAdministrated() throws javax.ejb.FinderException {
@@ -544,7 +585,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		sql.append(" and (termination_date is null or termination_date > '" + getCurrentDate() + "')");
 		return super.idoFindPKsByQuery(sql);
 	}
-	
+
 	public Collection ejbFindAllCentralizedAdministratedByType(Collection typeIds) throws javax.ejb.FinderException {
 		if (typeIds == null || typeIds.size() < 1) {
 			return null;
@@ -553,7 +594,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 			StringBuffer select = new StringBuffer("select distinct s.* from " + SCHOOL + " s,sch_school_sch_school_type m where m.sch_school_type_id in (");
 			select.append(getIDOUtil().convertListToCommaseparatedString(typeIds));
 			select.append(") and m.sch_school_id = s.sch_school_id");
-			select.append(" and s."+CENTRALIZED_ADMINISTRATION+" like 'Y'");			
+			select.append(" and s." + CENTRALIZED_ADMINISTRATION + " like 'Y'");
 			select.append(" and (termination_date is null or termination_date > '" + getCurrentDate() + "')");
 			select.append(" order by s.").append(NAME);
 			return super.idoFindPKsBySQL(select.toString());
@@ -561,38 +602,32 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	}
 
 	public Collection ejbFindAllBySchoolArea(int areaId) throws javax.ejb.FinderException {
-		String sql = "select * from " + SCHOOL + " where " + SCHOOLAREA + " = " + areaId + 
-				" and (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-				" order by " + NAME;
+		String sql = "select * from " + SCHOOL + " where " + SCHOOLAREA + " = " + areaId + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')" + " order by " + NAME;
 		return super.idoFindPKsBySQL(sql);
 	}
 
 	public Collection ejbFindAllSchools() throws javax.ejb.FinderException {
-//		String sql = "select * from " + SCHOOL + " where " + 
-//				" (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
-//				" order by upper(" + NAME + ")";
-		try{
-			return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by upper("+NAME+")");
-		}catch (IDOFinderException ex){
-			//some databases doesn't understand UPPER
-			return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by "+NAME);
+		// String sql = "select * from " + SCHOOL + " where " +
+		// " (termination_date is null or termination_date > '" + getCurrentDate() + "')" +
+		// " order by upper(" + NAME + ")";
+		try {
+			return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by upper(" + NAME + ")");
+		}
+		catch (IDOFinderException ex) {
+			// some databases doesn't understand UPPER
+			return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by " + NAME);
 		}
 	}
 
 	public Collection ejbFindAllSchoolsIncludingTerminated() throws javax.ejb.FinderException {
-//		String sql = "select * from " + SCHOOL + " where " + 
-//				" order by upper(" + NAME + ")";
-		return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by upper("+NAME+")");
+		// String sql = "select * from " + SCHOOL + " where " +
+		// " order by upper(" + NAME + ")";
+		return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by upper(" + NAME + ")");
 	}
 
 	public Collection ejbFindAllSchoolsByCategoryIncludingTerminated(String category) throws javax.ejb.FinderException {
-		String sql = "select unique s.* from " + SCHOOL + " s, " + 
-				"sch_school_type t, sch_school_sch_school_type st " +
-				"where st.sch_school_type_id = t.sch_school_type_id " + 
-				"and st.sch_school_id = s.sch_school_id " +
-				"and t.school_category = '" + category + "' " +
-				"order by upper(s." + NAME + ")";		
-				
+		String sql = "select unique s.* from " + SCHOOL + " s, " + "sch_school_type t, sch_school_sch_school_type st " + "where st.sch_school_type_id = t.sch_school_type_id " + "and st.sch_school_id = s.sch_school_id " + "and t.school_category = '" + category + "' " + "order by upper(s." + NAME + ")";
+
 		return super.idoFindPKsBySQL(sql);
 	}
 
@@ -621,7 +656,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public void addSchoolType(SchoolType type) throws IDOAddRelationshipException {
 		super.idoAddTo(type);
 	}
-	
+
 	public void addSchoolYearsRemoveOther(int[] ids) {
 		try {
 			super.removeFrom(SchoolYear.class);
@@ -643,7 +678,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public Collection findRelatedSchoolTypes() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolType.class);
 	}
-	
+
 	public Collection findRelatedSchoolTypes(SchoolCategory category) throws IDORelationshipException {
 		Collection coll = findRelatedSchoolTypes();
 		Collection types = new ArrayList();
@@ -666,7 +701,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 			Iterator iter = coll.iterator();
 			while (iter.hasNext()) {
 				SchoolType type = (SchoolType) iter.next();
-				if (type.getSchoolCategory().equals(category.getCategory())&&type.getIsFamilyFreetimeType()) {
+				if (type.getSchoolCategory().equals(category.getCategory()) && type.getIsFamilyFreetimeType()) {
 					types.add(type);
 				}
 			}
@@ -674,15 +709,15 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		return types;
 	}
 
-	
 	public Collection findRelatedSchoolYears() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolYear.class);
 	}
-	
+
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException {
 		return this.idoGetRelatedEntitiesOrderedByColumn(SchoolYear.class, SchoolYearBMPBean.NAME);
 	}
-	public java.util.Collection findRelatedStudyPaths()throws com.idega.data.IDORelationshipException{
+
+	public java.util.Collection findRelatedStudyPaths() throws com.idega.data.IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
 
@@ -702,14 +737,14 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		return super.idoFindPKsBySQL(sql.toString());
 
 	}
-	
+
 	public Collection ejbFindAllByInQuery(String inQuery) throws FinderException {
 		StringBuffer sql = new StringBuffer("select * from sch_school where sch_school_id in (");
 		sql.append(inQuery).append(") order by ").append(NAME);
-		
+
 		return idoFindPKsBySQL(sql.toString());
 	}
-	
+
 	public Collection ejbFindAllByAreaAndTypeAndYear(int areaID, int typeID, int yearID) throws javax.ejb.FinderException {
 		StringBuffer sql = new StringBuffer("select s.* ");
 		sql.append(" from sch_school_sch_school_year ssy,sch_school_area a, sch_school s, sch_school_type t, sch_school_sch_school_type m ");
@@ -726,13 +761,13 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		sql.append(" order by s.").append(NAME);
 
 		return super.idoFindPKsBySQL(sql.toString());
-		
+
 	}
 
 	public Collection ejbFindAllByAreaAndTypes(int area, Collection types) throws javax.ejb.FinderException {
 		return ejbFindAllByAreaAndTypesAndYear(area, types, -1);
 	}
-	
+
 	public Collection ejbFindAllByAreaAndTypesAndYear(int area, Collection types, int yearID) throws javax.ejb.FinderException {
 		StringBuffer sql = new StringBuffer("select distinct s.* ");
 		sql.append(" from sch_school_area a, sch_school s, sch_school_type t, sch_school_sch_school_type m");
@@ -756,11 +791,11 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 			sql.append(yearID);
 		}
 		sql.append(" order by s.").append(NAME);
-		this.getLogger().info(sql.toString() +" :::: "+area+", "+yearID);
+		this.getLogger().info(sql.toString() + " :::: " + area + ", " + yearID);
 		return super.idoFindPKsBySQL(sql.toString());
 
 	}
-	
+
 	public Collection ejbFindAllBySubAreaAndTypes(int subarea, Collection types) throws javax.ejb.FinderException {
 		StringBuffer sql = new StringBuffer("select distinct s.* ");
 		sql.append(" from sch_school_sub_area a, sch_school s, sch_school_type t, sch_school_sch_school_type m ");
@@ -779,34 +814,29 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 
 		return super.idoFindPKsBySQL(sql.toString());
 
-	}	
+	}
 
 	/**
 	 * Finds all providers that is "part of" a category
+	 * 
 	 * @param schoolCategory
 	 * @return Collection of School
 	 * @throws javax.ejb.FinderException
 	 */
 	public Collection ejbFindAllByCategory(SchoolCategory schoolCategory) throws javax.ejb.FinderException {
-		//String constants is concatenated at compile time...
-		return super.idoFindPKsBySQL(
-			"SELECT distinct s.* " +
-			"FROM sch_school s, sch_school_type t, sch_school_sch_school_type m, sch_school_category c " +
-			"WHERE s.sch_school_id = m.sch_school_id " +
-			"AND m.sch_school_type_id = t.sch_school_type_id " +
-			"AND t.school_category LIKE c.category " +
-			"AND c.category LIKE '" + schoolCategory.getPrimaryKey() + "' order by s.school_name");
+		// String constants is concatenated at compile time...
+		return super.idoFindPKsBySQL("SELECT distinct s.* " + "FROM sch_school s, sch_school_type t, sch_school_sch_school_type m, sch_school_category c " + "WHERE s.sch_school_id = m.sch_school_id " + "AND m.sch_school_type_id = t.sch_school_type_id " + "AND t.school_category LIKE c.category " + "AND c.category LIKE '" + schoolCategory.getPrimaryKey() + "' order by s.school_name");
 	}
 
 	public Collection ejbFindAllInHomeCommuneByCategory(SchoolCategory schoolCategory) throws IDOLookupException, EJBException, FinderException {
-		int homeCommunePK = ((Integer)((CommuneHome) IDOLookup.getHome(Commune.class)).findDefaultCommune().getPrimaryKey()).intValue();
+		int homeCommunePK = ((Integer) ((CommuneHome) IDOLookup.getHome(Commune.class)).findDefaultCommune().getPrimaryKey()).intValue();
 		StringBuffer sql = new StringBuffer("select distinct s.* ");
 		sql.append(" from sch_school s, sch_school_type t, sch_school_sch_school_type m, sch_school_category c ");
 		sql.append(" where s.sch_school_id = m.sch_school_id ");
 		sql.append(" and m.sch_school_type_id = t.sch_school_type_id");
 		sql.append(" and t.school_category = c.category");
-		sql.append(" and c.category = '"+schoolCategory.getPrimaryKey().toString()+"'");
-		sql.append(" and s.commune = "+homeCommunePK);
+		sql.append(" and c.category = '" + schoolCategory.getPrimaryKey().toString() + "'");
+		sql.append(" and s.commune = " + homeCommunePK);
 
 		return super.idoFindPKsBySQL(sql.toString());
 	}
@@ -824,7 +854,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		sql.append(" order by s.").append(NAME);
 		return super.idoFindPKsBySQL(sql.toString());
 	}
-	
+
 	public int ejbHomeGetNumberOfRelations(School school, SchoolYear year) throws IDOException {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select count(*) from sch_school s, sch_school_sch_school_year middle");
@@ -834,48 +864,47 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 		sql.append(" and (termination_date is null or termination_date > '" + getCurrentDate() + "')");
 		return super.idoGetNumberOfRecords(sql.toString());
 	}
-	
+
 	public int ejbHomeGetNumberOfFreetimeTypes(int schoolID) throws IDOException {
 		IDOQuery query = idoQuery();
 		query.appendSelectCountFrom("sch_school_sch_school_type m, sch_school_type t");
 		query.appendWhereEquals("m.sch_school_type_id", "t.sch_school_type_id");
 		query.appendAndEquals("m.sch_school_id", schoolID);
 		query.appendAndEquals("t.is_freetime_type", true);
-		
+
 		return idoGetNumberOfRecords(query);
 	}
 
-	public Collection ejbFindAllPrivate() throws IDOLookupException, EJBException, FinderException{
-		Integer managementType = (Integer)((SchoolManagementTypeHome) IDOLookup.getHome(SchoolManagementType.class)).findPrivateManagementType().getPrimaryKey();
+	public Collection ejbFindAllPrivate() throws IDOLookupException, EJBException, FinderException {
+		Integer managementType = (Integer) ((SchoolManagementTypeHome) IDOLookup.getHome(SchoolManagementType.class)).findPrivateManagementType().getPrimaryKey();
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this);
-		sql.appendWhereEquals(MANAGEMENT_TYPE,managementType.intValue());
+		sql.appendWhereEquals(MANAGEMENT_TYPE, managementType.intValue());
 		return idoFindPKsBySQL(sql.toString());
 
 	}
 
-	public LocalizedText getLocalizedText(int localeId) throws IDORelationshipException{
+	public LocalizedText getLocalizedText(int localeId) throws IDORelationshipException {
 		Collection coll = getText();
-		//TxTextHome textHome = (TxTextHome) IDOLookup.getHome(TxText.class);
+		// TxTextHome textHome = (TxTextHome) IDOLookup.getHome(TxText.class);
 		if (coll != null && !coll.isEmpty()) {
 			Iterator iter = coll.iterator();
 			TxText text;
-			//try {
-				text = (TxText) iter.next();
-				//text = textHome.findByPrimaryKey(iter.next());
-				/* May want to use this...
-				if (iter.hasNext()) {
-					System.out.println("[SchoolBMPBean] Found too many localizedTexts, removing this one ("+text.getID()+") and trying again..");
-					TextBusiness.deleteText(text.getID());
-					return getLocalizedText(localeId);
-				}*/
-			//} catch (ClassCastException e) {
-			//	e.printStackTrace(System.err);
-			//	return null;
-			//}
+			// try {
+			text = (TxText) iter.next();
+			// text = textHome.findByPrimaryKey(iter.next());
+			/*
+			 * May want to use this... if (iter.hasNext()) { System.out.println("[SchoolBMPBean] Found too many localizedTexts, removing this one
+			 * ("+text.getID()+") and trying again.."); TextBusiness.deleteText(text.getID()); return getLocalizedText(localeId); }
+			 */
+			// } catch (ClassCastException e) {
+			// e.printStackTrace(System.err);
+			// return null;
+			// }
 			LocalizedText lText = TextFinder.getContentHelper(text.getID(), localeId).getLocalizedText();
 			return lText;
-		}else {
+		}
+		else {
 			/** trying backwards compatability */
 			try {
 				LocalizedText text = TextFinder.getLocalizedText(this, localeId);
@@ -883,31 +912,33 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 					int lTextId = text.getID();
 					TxText txText = TextBusiness.saveText(-1, lTextId, localeId, -1, -1, null, null, text.getHeadline(), text.getTitle(), text.getBody(), null, null);
 					setText(txText);
-					System.out.println("[SchoolBMPBean] : Backwards compatability for localized text (School = '"+getSchoolName()+"')");
+					System.out.println("[SchoolBMPBean] : Backwards compatability for localized text (School = '" + getSchoolName() + "')");
 					return TextFinder.getContentHelper(txText.getID(), localeId).getLocalizedText();
-				}else {
+				}
+				else {
 					return TextFinder.getLocalizedText(this, localeId);
 				}
-//				return TextFinder.getLocalizedText(text, localeId);
-			} catch (Exception e) {
-				System.out.println("[SchoolBMPBean] : Backwards compatability for localized text (School = '"+getSchoolName()+"') - FAILED !!");
+				// return TextFinder.getLocalizedText(text, localeId);
+			}
+			catch (Exception e) {
+				System.out.println("[SchoolBMPBean] : Backwards compatability for localized text (School = '" + getSchoolName() + "') - FAILED !!");
 				e.printStackTrace(System.err);
 				return TextFinder.getLocalizedText(this, localeId);
 			}
 		}
 
 	}
-	
+
 	private Collection getText() throws IDORelationshipException {
-		return this.idoGetRelatedEntities(TxText.class);	
+		return this.idoGetRelatedEntities(TxText.class);
 	}
-	
+
 	private void setText(TxText text) throws IDOAddRelationshipException {
-		this.idoAddTo(text);	
+		this.idoAddTo(text);
 	}
 
 	public void setLocalizedText(String text, int localeId) throws IDORelationshipException {
-		Collection coll= getText();
+		Collection coll = getText();
 		if (coll != null && !coll.isEmpty()) {
 			try {
 				Iterator iter = coll.iterator();
@@ -915,20 +946,22 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 				LocalizedText lText = TextFinder.getContentHelper(txText.getID(), localeId).getLocalizedText();
 				int lTextId = -1;
 				if (lText != null) {
-					lTextId = lText.getID();	
+					lTextId = lText.getID();
 				}
-//				boolean added = com.idega.block.text.business.TextBusiness.addLocalizedTextToTxText(text, txText);
+				// boolean added = com.idega.block.text.business.TextBusiness.addLocalizedTextToTxText(text, txText);
 				TextBusiness.saveText(txText.getID(), lTextId, localeId, -1, -1, null, null, null, null, text, null, null);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace(System.err);
 			}
-		}else {
+		}
+		else {
 			System.out.println("[SchoolBMPBean] : setLocalizedText : backwards compatability");
 			TxText txText = TextBusiness.saveText(-1, -1, localeId, -1, -1, null, null, null, null, text, null, null);
 			idoAddTo(txText);
 			this.idoRemoveFrom(LocalizedText.class);
 		}
-		//this.idoAddTo(text);
+		// this.idoAddTo(text);
 	}
 
 	public String getSchoolFax() {
@@ -982,11 +1015,11 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public void setSchoolManagementType(String managementType) {
 		setColumn(MANAGEMENT_TYPE, managementType);
 	}
-	
+
 	public Collection getImages() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(ICFile.class);
 	}
-	
+
 	public Collection getSchoolTypes() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolType.class);
 	}
@@ -1003,7 +1036,7 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public void addImage(ICFile image) throws IDORelationshipException {
 		this.idoAddTo(image);
 	}
-	
+
 	public void setImages(Collection images) throws IDORelationshipException, RemoteException {
 		this.idoRemoveFrom(ICFile.class);
 		if (images != null) {
@@ -1042,49 +1075,58 @@ public class SchoolBMPBean extends GenericEntity  implements School, IDOLegacyEn
 	public static void main(String[] args) {
 		System.out.println("hellu there");
 	}
-	
+
 	public void removeFromClass(Class entityInterfaceClass) throws IDORemoveRelationshipException {
-		this.idoRemoveFrom(entityInterfaceClass);	
+		this.idoRemoveFrom(entityInterfaceClass);
 	}
 
 	public void addStudyPath(SchoolStudyPath studyPath) throws IDOAddRelationshipException {
 		this.idoAddTo(studyPath);
 	}
-	
+
 	public void removeStudyPath(SchoolStudyPath studyPath) throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(studyPath);
 	}
-	
+
 	public Collection getStudyPaths() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
-	
+
 	public void removeAllStudyPaths() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolStudyPath.class);
 	}
-    
-    public boolean getSortByBirthdate() {
-        return getBooleanColumnValue(SORT_BY_BIRTHDATE);
-    }
-    
-    public void setSortByBirthdate(boolean arg) {
-        setColumn(SORT_BY_BIRTHDATE, arg);
-    }
-    
-    public int compareTo(Object o) {
-    	School school = (School) o;
-    	String name1 = getName();
-    	String name2 = school.getName();
-    	int result = name1.compareTo(name2);
-    	// do not confuse others by returning zero if the names are equal but the objects are not!
-    	if (result == 0) {
-    		// only return zero if the objects are equal!
-    		if (! this.equals(school)) {
-    			// change the result!
-    			return 1;
-    		}
-    	}
-    	return result;
-    }
-    
+
+	public boolean getSortByBirthdate() {
+		return getBooleanColumnValue(SORT_BY_BIRTHDATE);
+	}
+
+	public void setSortByBirthdate(boolean arg) {
+		setColumn(SORT_BY_BIRTHDATE, arg);
+	}
+
+	public int compareTo(Object o) {
+		School school = (School) o;
+		String name1 = getName();
+		String name2 = school.getName();
+		int result = name1.compareTo(name2);
+		// do not confuse others by returning zero if the names are equal but the objects are not!
+		if (result == 0) {
+			// only return zero if the objects are equal!
+			if (!this.equals(school)) {
+				// change the result!
+				return 1;
+			}
+		}
+		return result;
+	}
+
+	public Collection ejbFindAllWithNoPrimaryGroup() throws FinderException {
+		Table table = new Table(this);
+
+		SelectQuery query = new SelectQuery(table);
+		query.addColumn(table.getColumn(getIDColumnName()));
+		query.addCriteria(new MatchCriteria(table.getColumn(COLUMN_PRIMARY_GROUP), false));
+
+		return idoFindPKsByQuery(query);
+	}
 }
