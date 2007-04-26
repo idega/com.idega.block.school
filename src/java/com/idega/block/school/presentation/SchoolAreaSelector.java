@@ -23,6 +23,7 @@ import com.idega.presentation.text.Text;
  * @author gimmi
  */
 public class SchoolAreaSelector extends Block {
+
 	public static final String IW_BUNDLE_IDENTIFIER = "com.idega.block.school";
 
 	private String PARAMETER_SCHOOL_TYPE_ID = SchoolTypeSelector.PARAMETER_SCHOOL_TYPE_ID;
@@ -81,41 +82,41 @@ public class SchoolAreaSelector extends Block {
 
 		if (!this._displayWithoutTypeId && this._schoolTypeId == -1) {
 			/** Does Nothing */
-		} else {
+		}
+		else {
 			if (!getShowSchoolArea()) {
 				drawNoSchoolAreaList(iwc);
-			} else {
+			}
+			else {
 				drawList(iwc);
 			}
 		}
 	}
 
 	private void init(IWContext iwc) throws RemoteException {
-		this.PARAMETER_SCHOOL_ID = ((SchoolContentBusiness) IBOLookup
-				.getSessionInstance(iwc, SchoolContentBusiness.class))
-				.getParameterSchoolId();
+		this.PARAMETER_SCHOOL_ID = ((SchoolContentBusiness) IBOLookup.getSessionInstance(iwc, SchoolContentBusiness.class)).getParameterSchoolId();
 		if (iwc.isParameterSet(PARAMETER_SCHOOL_AREA_ID)) {
 			try {
-				this._schoolAreaId = Integer.parseInt(iwc
-						.getParameter(PARAMETER_SCHOOL_AREA_ID));
-			} catch (NumberFormatException n) {
+				this._schoolAreaId = Integer.parseInt(iwc.getParameter(PARAMETER_SCHOOL_AREA_ID));
+			}
+			catch (NumberFormatException n) {
 				n.printStackTrace(System.err);
 			}
 		}
 
 		if (iwc.isParameterSet(this.PARAMETER_SCHOOL_TYPE_ID)) {
 			try {
-				this._schoolTypeId = Integer.parseInt(iwc
-						.getParameter(this.PARAMETER_SCHOOL_TYPE_ID));
-			} catch (NumberFormatException n) {
+				this._schoolTypeId = Integer.parseInt(iwc.getParameter(this.PARAMETER_SCHOOL_TYPE_ID));
+			}
+			catch (NumberFormatException n) {
 				n.printStackTrace(System.err);
 			}
 		}
 		if (iwc.isParameterSet(this.PARAMETER_SCHOOL_ID)) {
 			try {
-				this._schoolId = Integer.parseInt(iwc
-						.getParameter(this.PARAMETER_SCHOOL_ID));
-			} catch (NumberFormatException n) {
+				this._schoolId = Integer.parseInt(iwc.getParameter(this.PARAMETER_SCHOOL_ID));
+			}
+			catch (NumberFormatException n) {
 				n.printStackTrace(System.err);
 			}
 		}
@@ -126,23 +127,21 @@ public class SchoolAreaSelector extends Block {
 	}
 
 	private void drawNoSchoolAreaList(IWContext iwc) throws RemoteException {
-		SchoolBusiness sb = (SchoolBusiness) IBOLookup.getServiceInstance(iwc,
-				SchoolBusiness.class);
-		//SchoolArea sArea;
-		//int iAreaId;
+		SchoolBusiness sb = (SchoolBusiness) IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
+		// SchoolArea sArea;
+		// int iAreaId;
 
 		Collection coll;
 		SchoolCategory highSchoolCategory = sb.getCategoryHighSchool();
-		SchoolCategory elementarySchoolCategory = sb
-				.getCategoryElementarySchool();
+		SchoolCategory elementarySchoolCategory = sb.getCategoryElementarySchool();
 
 		if (this._isHighSchool) {
-			coll = sb
-					.findAllSchoolsByCategory(highSchoolCategory.getCategory());
-		} else if (this._schoolTypeId == -1) {
-			coll = sb.findAllSchoolsByCategory(elementarySchoolCategory
-					.getCategory());
-		} else {
+			coll = sb.findAllSchoolsByCategory(highSchoolCategory.getCategory());
+		}
+		else if (this._schoolTypeId == -1) {
+			coll = sb.findAllSchoolsByCategory(elementarySchoolCategory.getCategory());
+		}
+		else {
 			coll = sb.findAllSchoolsByType(this._schoolTypeId);
 		}
 
@@ -162,9 +161,9 @@ public class SchoolAreaSelector extends Block {
 		else {
 			collSchools = coll;
 		}
-		Iterator iter = collSchools.iterator(); //collSchools = collection with
-												// all schools for a specific
-												// category and the home commune
+		Iterator iter = collSchools.iterator(); // collSchools = collection with
+		// all schools for a specific
+		// category and the home commune
 		Hashtable hash = new Hashtable();
 		while (iter.hasNext()) {
 			++row;
@@ -175,14 +174,12 @@ public class SchoolAreaSelector extends Block {
 			if (coll != null) {
 				school = (School) iter.next();
 				String pk = school.getPrimaryKey().toString();
-				//System.err.println("checking school "+pk.toString());
+				// System.err.println("checking school "+pk.toString());
 				boolean invisibleForCitizen = false;
 				invisibleForCitizen = school.getInvisibleForCitizen();
 				if (!hash.containsKey(pk) && !invisibleForCitizen) {
 					iSchoolId = ((Integer) school.getPrimaryKey()).intValue();
-					table.add(getExpandedLink(school.getName(), Integer
-							.toString(school.getSchoolAreaId()), Integer
-							.toString(iSchoolId)), col, row);
+					table.add(getExpandedLink(school.getName(), Integer.toString(school.getSchoolAreaId()), Integer.toString(iSchoolId)), col, row);
 				}
 
 			}
@@ -191,15 +188,14 @@ public class SchoolAreaSelector extends Block {
 	}
 
 	private void drawList(IWContext iwc) throws RemoteException {
-		SchoolBusiness sb = (SchoolBusiness) IBOLookup.getServiceInstance(iwc,
-				SchoolBusiness.class);
+		SchoolBusiness sb = (SchoolBusiness) IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
 
 		Collection coll = null;
-		if (this._schoolTypeId != -1) {
-			coll = sb.findAllSchoolAreasByType(this._schoolTypeId);
-		} else {
-			coll = sb.findAllSchoolAreas();
-		}
+		// if (this._schoolTypeId != -1) {
+		// coll = sb.findAllSchoolAreasByType(this._schoolTypeId);
+		// } else {
+		coll = sb.findAllSchoolAreas(sb.getCategoryElementarySchool());
+		// }
 
 		if (coll != null) {
 			SchoolArea sArea;
@@ -222,73 +218,57 @@ public class SchoolAreaSelector extends Block {
 
 				sArea = (SchoolArea) iter.next();
 				iAreaId = ((Integer) sArea.getPrimaryKey()).intValue();
-				if (iAreaId != this._outsideSchoolAreaID){
-				if (iAreaId == this._schoolAreaId) {
-					table.add(getText(sArea.getName(), true), col, row);
-					if (this._expandSchools && this._schoolTypeId != -1) {
-						Collection schools = sb.findAllSchoolsByAreaAndType(
-								this._schoolAreaId, this._schoolTypeId);
-						schools = sb.getHomeCommuneSchools(schools);
-						if (schools != null) {
-							String indent = "";
-							for (int i = 0; i < this._spaceBeforeExpanded; i++) {
-								indent = indent + Text.NON_BREAKING_SPACE;
-							}
-
-							Iterator sIter = schools.iterator();
-							while (sIter.hasNext()) {
-								++row;
-								school = (School) sIter.next();
-								iSchoolId = ((Integer) school.getPrimaryKey())
-										.intValue();
-								String pk = school.getPrimaryKey().toString();
-								//System.err.println("checking school
-								// "+pk.toString());
-								boolean invisibleForCitizen = false;
-								invisibleForCitizen = school
-										.getInvisibleForCitizen();
-								if (!hash.containsKey(pk)
-										&& !invisibleForCitizen) {
-									if (iSchoolId == this._schoolId) {
-										table.add(getExpandedText(indent
-												+ school.getName(), true), col,
-												row);
-									} else {
-										table.add(
-												getExpandedText(indent, false),
-												col, row);
-										table
-												.add(
-														getExpandedLink(
-																school
-																		.getName(),
-																Integer
-																		.toString(iAreaId),
-																Integer
-																		.toString(iSchoolId)),
-														col, row);
-									}
+				if (iAreaId != this._outsideSchoolAreaID) {
+					if (iAreaId == this._schoolAreaId) {
+						table.add(getText(sArea.getName(), true), col, row);
+						if (this._expandSchools && this._schoolTypeId != -1) {
+							Collection schools = sb.findAllSchoolsByAreaAndType(this._schoolAreaId, this._schoolTypeId);
+							schools = sb.getHomeCommuneSchools(schools);
+							if (schools != null) {
+								String indent = "";
+								for (int i = 0; i < this._spaceBeforeExpanded; i++) {
+									indent = indent + Text.NON_BREAKING_SPACE;
 								}
-								//								table.add(getText(school.getName(), false),
-								// col, row);
+
+								Iterator sIter = schools.iterator();
+								while (sIter.hasNext()) {
+									++row;
+									school = (School) sIter.next();
+									iSchoolId = ((Integer) school.getPrimaryKey()).intValue();
+									String pk = school.getPrimaryKey().toString();
+									// System.err.println("checking school
+									// "+pk.toString());
+									boolean invisibleForCitizen = false;
+									invisibleForCitizen = school.getInvisibleForCitizen();
+									if (!hash.containsKey(pk) && !invisibleForCitizen) {
+										if (iSchoolId == this._schoolId) {
+											table.add(getExpandedText(indent + school.getName(), true), col, row);
+										}
+										else {
+											table.add(getExpandedText(indent, false), col, row);
+											table.add(getExpandedLink(school.getName(), Integer.toString(iAreaId), Integer.toString(iSchoolId)), col, row);
+										}
+									}
+									// table.add(getText(school.getName(), false),
+									// col, row);
+								}
 							}
 						}
-					} else if (this._expandSchools && this._schoolTypeId == -1) {
-						++row;
-						table.add(getText(this.iwrb.getLocalizedString(
-								"school.school_type_not_defined",
-								"Choose school type."), false), col, row);
+						else if (this._expandSchools && this._schoolTypeId == -1) {
+							++row;
+							table.add(getText(this.iwrb.getLocalizedString("school.school_type_not_defined", "Choose school type."), false), col, row);
+						}
 					}
-				} else {
-					table.add(getLink(sArea.getName(), sArea.getPrimaryKey()
-							.toString()), col, row);
-				}
-				
-				} //end if _outsideSchoolAreaID
+					else {
+						table.add(getLink(sArea.getName(), sArea.getPrimaryKey().toString()), col, row);
+					}
+
+				} // end if _outsideSchoolAreaID
 			}
 
 			add(table);
-		} else {
+		}
+		else {
 			add("No areas found");
 		}
 
@@ -306,8 +286,7 @@ public class SchoolAreaSelector extends Block {
 		return link;
 	}
 
-	private Link getExpandedLink(String content, String schoolAreaId,
-			String schoolId) {
+	private Link getExpandedLink(String content, String schoolAreaId, String schoolId) {
 		Link link = new Link(getExpandedText(content, false));
 		link.addParameter(PARAMETER_SCHOOL_AREA_ID, schoolAreaId);
 		if (this._maintainSchoolTypeId) {
@@ -329,7 +308,8 @@ public class SchoolAreaSelector extends Block {
 			if (this._expandedSelStyle != null) {
 				text.setFontStyle(this._expandedSelStyle);
 			}
-		} else {
+		}
+		else {
 			if (this._expandedFontColor != null) {
 				text.setFontColor(this._expandedFontColor);
 			}
@@ -349,7 +329,8 @@ public class SchoolAreaSelector extends Block {
 			if (this._selStyle != null) {
 				text.setFontStyle(this._selStyle);
 			}
-		} else {
+		}
+		else {
 			if (this._fontColor != null) {
 				text.setFontColor(this._fontColor);
 			}
@@ -363,8 +344,7 @@ public class SchoolAreaSelector extends Block {
 	/** Setters */
 
 	/*
-	 * public void setHorizontalView(boolean horizontal) { _horizontal =
-	 * horizontal; }
+	 * public void setHorizontalView(boolean horizontal) { _horizontal = horizontal; }
 	 * 
 	 * public void setVerticalView(boolean vertical) { _horizontal = !vertical; }
 	 */

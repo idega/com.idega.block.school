@@ -2,6 +2,10 @@ form.schoolForm {
 	font-size: 10px;
 }
 
+form.schoolForm div.FormSection {
+	margin: 12px;
+}
+
 form.schoolForm .listTable td, th {
 	font-size: 10px;
 	empty-cells: show;
@@ -36,18 +40,23 @@ form.schoolForm .listTable .listTable_evenRow {
 	background-color: #FFFFFF;	
 }
 
-div.FormElement {	clear:left;
+div.FormElement {
+	clear:left;
 	height: auto;
-	margin-left: 12px;
 }
-div.FormElement label {	width: 120px;
-	float:left;}
-form.schoolForm input, form.schoolForm textarea, form.schoolForm select {
+
+div.FormElement label {
+	width: 120px;
+	float:left;
+}
+
+form.schoolForm input, form.schoolForm textarea, form.schoolForm select {
 	margin: 0;
 	font-size: 10px;
 }
 
-div.FormElement input, div.FormElement textarea, div.FormElement select {	margin-bottom: 6px;
+div.FormElement input, div.FormElement textarea, div.FormElement select {
+	margin-bottom: 6px;
 	font-size: 9px;
 	border: 1px #CCCCCC solid;
 }

@@ -1,5 +1,5 @@
 /*
- * $Id: IWBundleStarter.java,v 1.5 2007/03/27 07:53:39 laddi Exp $ Created on 28.4.2005
+ * $Id: IWBundleStarter.java,v 1.6 2007/04/26 09:29:16 laddi Exp $ Created on 28.4.2005
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
  * 
@@ -16,6 +16,7 @@ import javax.ejb.FinderException;
 
 import com.idega.block.school.business.SchoolBusiness;
 import com.idega.block.school.data.School;
+import com.idega.block.school.data.SchoolArea;
 import com.idega.block.school.data.SchoolCategory;
 import com.idega.block.school.data.SchoolCategoryHome;
 import com.idega.block.school.data.SchoolClass;
@@ -55,6 +56,19 @@ public class IWBundleStarter implements IWBundleStartable {
 
 		try {
 			SchoolBusiness business = (SchoolBusiness) IBOLookup.getServiceInstance(iwac, SchoolBusiness.class);
+
+			try {
+				Collection areas = business.getSchoolAreaHome().findAllSchoolAreas(null);
+				Iterator iterator = areas.iterator();
+				while (iterator.hasNext()) {
+					SchoolArea area = (SchoolArea) iterator.next();
+					area.setCategory(business.getCategoryElementarySchool());
+					area.store();
+				}
+			}
+			catch (FinderException e1) {
+				e1.printStackTrace();
+			}
 
 			SchoolCategory afterSchoolCareCategory = business.getCategoryAfterSchoolCare();
 			if (afterSchoolCareCategory == null) {

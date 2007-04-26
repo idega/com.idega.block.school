@@ -105,6 +105,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	public final static String SORT_BY_BIRTHDATE = "sort_by_birthdate";
 	public static final String HAS_REFRESHMENTS = "has_refreshments";
 	public static final String HAS_REVIEW = "has_review";
+	public static final String HAS_PRE_CARE = "has_pre_care";
+	public static final String HAS_POST_CARE = "has_post_care";
 
 	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
 
@@ -161,6 +163,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		this.addAttribute(SORT_BY_BIRTHDATE, "Sorted by date of birth", true, true, Boolean.class);
 		addAttribute(HAS_REFRESHMENTS, "Has refreshments", Boolean.class);
 		addAttribute(HAS_REVIEW, "Has review", Boolean.class);
+		addAttribute(HAS_PRE_CARE, "Has pre care", Boolean.class);
+		addAttribute(HAS_POST_CARE, "Has post care", Boolean.class);
 
 		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
 
@@ -217,6 +221,14 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	public boolean hasReview() {
 		return getBooleanColumnValue(HAS_REVIEW, false);
+	}
+
+	public boolean hasPreCare() {
+		return getBooleanColumnValue(HAS_PRE_CARE, false);
+	}
+
+	public boolean hasPostCare() {
+		return getBooleanColumnValue(HAS_POST_CARE, false);
 	}
 
 	public void setJuniorHighSchool(School school) {
@@ -351,6 +363,14 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	public void setHasReview(boolean hasReview) {
 		setColumn(HAS_REVIEW, hasReview);
+	}
+
+	public void setHasPreCare(boolean hasPreCare) {
+		setColumn(HAS_PRE_CARE, hasPreCare);
+	}
+
+	public void setHasPostCare(boolean hasPostCare) {
+		setColumn(HAS_POST_CARE, hasPostCare);
 	}
 
 	public String getSchoolZipArea() {

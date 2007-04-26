@@ -76,7 +76,7 @@ public class SchoolSubAreaEditor extends SchoolBlock {
 			String id = iwc.getParameter("sch_school_subarea_id");
 			String name = iwc.getParameter("sch_subarea_name");
 			String area = iwc.getParameter("sch_area");
-			
+
 			int aid = -1;
 			if (id != null) {
 				aid = Integer.parseInt(id);
@@ -101,7 +101,7 @@ public class SchoolSubAreaEditor extends SchoolBlock {
 		catch (RemoteException rex) {
 			schoolSubAreas = new ArrayList();
 		}
-		
+
 		table.setCellpaddingLeft(1, row, 12);
 		table.add(getSmallHeader(localize("name", "Name")), 1, row);
 		table.add(getSmallHeader(localize("area", "Area")), 2, row);
@@ -154,13 +154,15 @@ public class SchoolSubAreaEditor extends SchoolBlock {
 
 		Collection schoolAreas = null;
 		TextInput inputName = (TextInput) getStyledInterface(new TextInput("sch_subarea_name"));
-		try{
-			schoolAreas = getBusiness().getSchoolAreaHome().findAllSchoolAreas();
-		}catch(FinderException ex){
+		try {
+			schoolAreas = getBusiness().getSchoolAreaHome().findAllSchoolAreas(null);
+		}
+		catch (FinderException ex) {
 			ex.printStackTrace();
-		}catch(RemoteException ex){
+		}
+		catch (RemoteException ex) {
 			ex.printStackTrace();
-		}		
+		}
 		DropdownMenu dropdownAreas = (DropdownMenu) getStyledInterface(new DropdownMenu(schoolAreas, "sch_area"));
 		int subareaId = -1;
 		if (subarea != null) {

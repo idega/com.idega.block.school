@@ -20,25 +20,27 @@ public class SchoolAreaDropdown extends DropdownMenu {
 
 	/**
 	 * Creates a new <code>SchoolAreaDropdown</code> with all school areas.
-	 * @param name	The name of the <code>SchoolAreaDropdown</code>
+	 * 
+	 * @param name
+	 *          The name of the <code>SchoolAreaDropdown</code>
 	 */
 	public SchoolAreaDropdown(String name) {
 		super(name);
 	}
-	
+
 	public void main(IWContext iwc) throws Exception {
-		List areas = new Vector(getSchoolBusiness(iwc).findAllSchoolAreas());
-			
+		List areas = new Vector(getSchoolBusiness(iwc).findAllSchoolAreas(null));
+
 		if (areas != null) {
 			Collections.sort(areas, new SchoolAreaComparator(iwc.getCurrentLocale()));
 			Iterator iter = areas.iterator();
 			while (iter.hasNext()) {
 				SchoolArea area = (SchoolArea) iter.next();
 				addMenuElement(area.getPrimaryKey().toString(), area.getSchoolAreaName());
-			}	
+			}
 		}
 	}
-	
+
 	private SchoolBusiness getSchoolBusiness(IWContext iwc) throws RemoteException {
 		return (SchoolBusiness) IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
 	}

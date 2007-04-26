@@ -81,6 +81,16 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	public boolean hasReview();
 
 	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#hasPreCare
+	 */
+	public boolean hasPreCare();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#hasPostCare
+	 */
+	public boolean hasPostCare();
+
+	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#setJuniorHighSchool
 	 */
 	public void setJuniorHighSchool(School school);
@@ -224,6 +234,16 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	 * @see com.idega.block.school.data.SchoolBMPBean#setHasReview
 	 */
 	public void setHasReview(boolean hasReview);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#setHasPreCare
+	 */
+	public void setHasPreCare(boolean hasPreCare);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#setHasPostCare
+	 */
+	public void setHasPostCare(boolean hasPostCare);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolZipArea

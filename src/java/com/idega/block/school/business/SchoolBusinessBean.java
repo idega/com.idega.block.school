@@ -68,7 +68,6 @@ import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
-import com.idega.idegaweb.IWBundle;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
@@ -1066,13 +1065,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	/**
-	 * @deprecated SHOULD NOT BE HERE
-	 */
-	private IWBundle getCommuneBundle() {
-		return this.getIWApplicationContext().getIWMainApplication().getBundle("se.idega.idegaweb.commune");
-	}
-
-	/**
 	 * Returns or creates (if not available) the default usergroup all school administors have as their primary group.
 	 * 
 	 * @throws CreateException
@@ -1085,13 +1077,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_SCHOOL_ADMINISTRATORS_GROUP = "school_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1117,14 +1102,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP = "high_school_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
-
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1149,13 +1126,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP = "music_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1180,13 +1150,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_SCHOOL_ADMINISTRATORS_GROUP = "provider_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1211,13 +1174,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP = "school_administrators_other_commune_group_id";
 		String groupId = getPropertyValue(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1243,13 +1199,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP = "high_school_administrators_other_commune_group_id";
 		String groupId = getPropertyValue(ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_HIGH_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1274,13 +1223,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP = "provider_other_commune_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_SCHOOL_OTHER_COMMUNE_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -1396,13 +1338,6 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// create the default group
 		String ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP = "adult_education_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP);
-		if (groupId == null) {
-			IWBundle bundle = getCommuneBundle();
-			groupId = bundle.getProperty(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP);
-			if (groupId != null) {
-				setProperty(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP, groupId);
-			}
-		}
 		if (groupId != null) {
 			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
@@ -2778,10 +2713,10 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findAllSchoolAreas() {
+	public Collection findAllSchoolAreas(SchoolCategory category) {
 		try {
 			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
-			return shome.findAllSchoolAreas();
+			return shome.findAllSchoolAreas(category);
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -2800,29 +2735,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public Collection findAllSchoolAreasByType(int type_id) {
-		try {
-			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
-			return shome.findAllBySchoolType(type_id);
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			return new java.util.Vector();
-		}
-	}
-
-	public Collection findAllSchoolAreasByTypes(Collection types) {
-		try {
-			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
-			return shome.findAllBySchoolTypes(types);
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			return new java.util.Vector();
-		}
-	}
-
-	public void storeSchoolArea(int id, String name, String info, String city) throws java.rmi.RemoteException {
+	public void storeSchoolArea(int id, String name, String info, String city, SchoolCategory category) throws java.rmi.RemoteException {
 		SchoolAreaHome shome = getSchoolAreaHome();
 		SchoolArea newArea;
 		try {
@@ -2842,6 +2755,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newArea.setSchoolAreaCity(city);
 		newArea.setSchoolAreaInfo(info);
 		newArea.setSchoolAreaName(name);
+		newArea.setCategory(category);
 		newArea.store();
 	}
 

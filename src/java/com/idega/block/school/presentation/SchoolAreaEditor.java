@@ -3,7 +3,11 @@ package com.idega.block.school.presentation;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.ejb.FinderException;
+
 import com.idega.block.school.data.SchoolArea;
+import com.idega.block.school.data.SchoolCategory;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Layer;
 import com.idega.presentation.Table2;
@@ -15,18 +19,17 @@ import com.idega.presentation.TableRowGroup;
 import com.idega.presentation.text.Break;
 import com.idega.presentation.text.Link;
 import com.idega.presentation.text.Text;
+import com.idega.presentation.ui.DropdownMenu;
 import com.idega.presentation.ui.Form;
 import com.idega.presentation.ui.HiddenInput;
 import com.idega.presentation.ui.Label;
 import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextArea;
 import com.idega.presentation.ui.TextInput;
+import com.idega.presentation.ui.util.SelectorUtility;
 
 /**
- * Title:
- * Description:
- * Copyright: Copyright (c) 2002
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2002 Company:
  * 
  * @author <a href="mailto:aron@idega.is">Aron Birkir</a>
  * @version 1.0
@@ -39,12 +42,15 @@ public class SchoolAreaEditor extends SchoolBlock {
 	private static final String PARAMETER_NAME = "prm_name";
 	private static final String PARAMETER_CITY = "prm_city";
 	private static final String PARAMETER_INFO = "prm_info";
+	private static final String PARAMETER_CATEGORY = "prm_category";
 
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
 	private static final int ACTION_NEW = 3;
 	private static final int ACTION_SAVE = 4;
 	private static final int ACTION_DELETE = 5;
+
+	String iSchoolCategory = null;
 
 	protected void init(IWContext iwc) throws Exception {
 		switch (parseAction(iwc)) {
@@ -89,19 +95,35 @@ public class SchoolAreaEditor extends SchoolBlock {
 		if (id != null) {
 			aid = Integer.parseInt(id);
 		}
-		getBusiness().storeSchoolArea(aid, name, info, city);
+
+		String cat = null;
+		if (this.iSchoolCategory != null) {
+			cat = this.iSchoolCategory;
+		}
+		else {
+			cat = iwc.getParameter(PARAMETER_CATEGORY);
+		}
+		SchoolCategory category = null;
+		try {
+			category = getBusiness().getSchoolCategoryHome().findByPrimaryKey(cat);
+		}
+		catch (FinderException e) {
+			e.printStackTrace();
+		}
+
+		getBusiness().storeSchoolArea(aid, name, info, city, category);
 	}
 
 	public void showList(IWContext iwc) {
 		Form form = new Form();
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
-		
+
 		Table2 table = new Table2();
 		table.setCellpadding(0);
 		table.setCellspacing(0);
 		table.setWidth("100%");
 		table.setStyleClass(STYLENAME_LIST_TABLE);
-		
+
 		TableColumnGroup columnGroup = table.createColumnGroup();
 		TableColumn column = columnGroup.createColumn();
 		column.setSpan(3);
@@ -111,12 +133,24 @@ public class SchoolAreaEditor extends SchoolBlock {
 
 		Collection schoolAreas = null;
 		try {
-			schoolAreas = getBusiness().findAllSchoolAreas();
+			SchoolCategory category = null;
+			if (iSchoolCategory != null) {
+				try {
+					category = getBusiness().getSchoolCategoryHome().findByPrimaryKey(iSchoolCategory);
+					schoolAreas = getBusiness().findAllSchoolAreas(category);
+				}
+				catch (FinderException e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				schoolAreas = getBusiness().findAllSchoolAreas(null);
+			}
 		}
 		catch (RemoteException rex) {
 			schoolAreas = new ArrayList();
 		}
-		
+
 		TableRowGroup group = table.createHeaderRowGroup();
 		TableRow row = group.createRow();
 		TableCell2 cell = row.createHeaderCell();
@@ -177,9 +211,12 @@ public class SchoolAreaEditor extends SchoolBlock {
 		add(form);
 	}
 
-	public void showEditor(IWContext iwc, Object areaPK) {
+	public void showEditor(IWContext iwc, Object areaPK) throws RemoteException {
 		Form form = new Form();
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
+
+		SelectorUtility util = new SelectorUtility();
+		DropdownMenu drpCategory = (DropdownMenu) util.getSelectorFromIDOEntities(new DropdownMenu(PARAMETER_CATEGORY), getBusiness().getSchoolCategories(), "getLocalizedKey", getResourceBundle());
 
 		TextInput inputName = new TextInput(PARAMETER_NAME);
 		TextInput inputCity = new TextInput(PARAMETER_CITY);
@@ -187,9 +224,13 @@ public class SchoolAreaEditor extends SchoolBlock {
 		if (areaPK != null) {
 			try {
 				SchoolArea area = getBusiness().getSchoolArea(areaPK);
+				SchoolCategory category = area.getCategory();
 				inputName.setContent(area.getSchoolAreaName());
 				inputCity.setContent(area.getSchoolAreaCity());
 				inputInfo.setContent(area.getSchoolAreaInfo());
+				if (category != null) {
+					drpCategory.setSelectedElement(category.getPrimaryKey().toString());
+				}
 				form.add(new HiddenInput(PARAMETER_SCHOOL_AREA_PK, areaPK.toString()));
 			}
 			catch (Exception ex) {
@@ -217,6 +258,15 @@ public class SchoolAreaEditor extends SchoolBlock {
 		layer.add(inputInfo);
 		form.add(layer);
 
+		if (iSchoolCategory == null) {
+			layer = new Layer(Layer.DIV);
+			layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+			label = new Label(localize("school_category", "School category"), drpCategory);
+			layer.add(label);
+			layer.add(drpCategory);
+			form.add(layer);
+		}
+
 		form.add(new Break());
 
 		SubmitButton save = (SubmitButton) getButton(new SubmitButton(localize("save", "Save"), PARAMETER_ACTION, String.valueOf(ACTION_SAVE)));
@@ -226,5 +276,9 @@ public class SchoolAreaEditor extends SchoolBlock {
 		form.add(save);
 
 		add(form);
+	}
+
+	public void setSchoolCategory(String typeCategory) {
+		this.iSchoolCategory = typeCategory;
 	}
 }

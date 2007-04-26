@@ -1,14 +1,52 @@
 package com.idega.block.school.data;
 
 
-public interface SchoolArea extends com.idega.data.IDOEntity
-{
- public java.lang.String getName();
- public java.lang.String getSchoolAreaCity();
- public java.lang.String getSchoolAreaInfo();
- public java.lang.String getSchoolAreaName();
- public void initializeAttributes();
- public void setSchoolAreaCity(java.lang.String p0);
- public void setSchoolAreaInfo(java.lang.String p0);
- public void setSchoolAreaName(java.lang.String p0);
+import com.idega.data.IDOEntity;
+
+public interface SchoolArea extends IDOEntity {
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getName
+	 */
+	public String getName();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getSchoolAreaName
+	 */
+	public String getSchoolAreaName();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getSchoolAreaInfo
+	 */
+	public String getSchoolAreaInfo();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getSchoolAreaCity
+	 */
+	public String getSchoolAreaCity();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getCategory
+	 */
+	public SchoolCategory getCategory();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setSchoolAreaName
+	 */
+	public void setSchoolAreaName(String name);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setSchoolAreaInfo
+	 */
+	public void setSchoolAreaInfo(String info);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setSchoolAreaCity
+	 */
+	public void setSchoolAreaCity(String city);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setCategory
+	 */
+	public void setCategory(SchoolCategory category);
 }

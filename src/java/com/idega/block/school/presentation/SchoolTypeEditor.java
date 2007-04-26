@@ -3,6 +3,7 @@ package com.idega.block.school.presentation;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import com.idega.block.school.data.SchoolCategory;
 import com.idega.block.school.data.SchoolType;
 import com.idega.presentation.IWContext;
@@ -16,7 +17,6 @@ import com.idega.presentation.TableRowGroup;
 import com.idega.presentation.text.Break;
 import com.idega.presentation.text.Link;
 import com.idega.presentation.text.Text;
-import com.idega.presentation.ui.BooleanInput;
 import com.idega.presentation.ui.DropdownMenu;
 import com.idega.presentation.ui.Form;
 import com.idega.presentation.ui.HiddenInput;
@@ -27,7 +27,8 @@ import com.idega.presentation.ui.TextInput;
 import com.idega.presentation.ui.util.SelectorUtility;
 
 /**
- * @author <br><a href="mailto:aron@idega.is">Aron Birkir</a><br>
+ * @author <br>
+ *         <a href="mailto:aron@idega.is">Aron Birkir</a><br>
  * @version 1.0
  */
 public class SchoolTypeEditor extends SchoolBlock {
@@ -39,28 +40,26 @@ public class SchoolTypeEditor extends SchoolBlock {
 	private static final String PARAMETER_INFO = "prm_info";
 	private static final String PARAMETER_CATEGORY = "prm_category";
 	private static final String PARAMETER_LOCALIZED_KEY = "prm_localized_key";
-	private static final String PARAMETER_IS_FREETIME_TYPE = "prm_freetime";
-	private static final String PARAMETER_IS_FAMILY_FREETIME_TYPE = "prm_family_freetime";
 	private static final String PARAMETER_MAX_AGE = "prm_max_age";
 	private static final String PARAMETER_ORDER = "prm_order";
-	
+
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
 	private static final int ACTION_NEW = 3;
 	private static final int ACTION_SAVE = 4;
 	private static final int ACTION_DELETE = 5;
-	
+
 	private boolean _useTypeStringId = false;
 	private String iSchoolCategory;
-	
+
 	public boolean getUseTypeStringId() {
 		return this._useTypeStringId;
 	}
-	
+
 	public void setUseTypeStringId(boolean b) {
 		this._useTypeStringId = b;
 	}
-	
+
 	protected void init(IWContext iwc) throws Exception {
 		switch (parseAction(iwc)) {
 			case ACTION_VIEW:
@@ -121,8 +120,6 @@ public class SchoolTypeEditor extends SchoolBlock {
 		if (id != null) {
 			aid = Integer.parseInt(id);
 		}
-		boolean isFreetimeType = BooleanInput.getBooleanReturnValue(iwc.getParameter(PARAMETER_IS_FREETIME_TYPE));
-		boolean isFamilyFreetimeType = BooleanInput.getBooleanReturnValue(iwc.getParameter(PARAMETER_IS_FAMILY_FREETIME_TYPE));
 
 		int order = -1;
 		if (iwc.isParameterSet(PARAMETER_ORDER)) {
@@ -133,14 +130,14 @@ public class SchoolTypeEditor extends SchoolBlock {
 				order = -1;
 			}
 		}
-		
-		getBusiness().storeSchoolType(aid, name, info, cat, locKey, maxAge, isFreetimeType, isFamilyFreetimeType, order, typeStringId);
+
+		getBusiness().storeSchoolType(aid, name, info, cat, locKey, maxAge, false, false, order, typeStringId);
 	}
 
 	public void showList(IWContext iwc) {
 		Form form = new Form();
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
-		
+
 		Table2 table = new Table2();
 		table.setCellpadding(0);
 		table.setCellspacing(0);
@@ -166,18 +163,18 @@ public class SchoolTypeEditor extends SchoolBlock {
 		catch (RemoteException rex) {
 			schoolTypes = new ArrayList();
 		}
-		
+
 		TableRowGroup group = table.createHeaderRowGroup();
 		TableRow row = group.createRow();
 		TableCell2 cell = row.createHeaderCell();
 		cell.setStyleClass("firstColumn");
 		cell.setId("name");
 		cell.add(new Text(localize("name", "Name")));
-		
+
 		cell = row.createHeaderCell();
 		cell.setId("info");
 		cell.add(new Text(localize("info", "Info")));
-		
+
 		cell = row.createHeaderCell();
 		cell.setId("schoolCategory");
 		cell.add(new Text(localize("category", "Category")));
@@ -206,7 +203,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 			SchoolType sType = (SchoolType) iter.next();
 			SchoolCategory category = sType.getCategory();
 			row = group.createRow();
-			
+
 			try {
 				Link edit = new Link(getEditIcon(localize("edit", "Edit")));
 				edit.addParameter(PARAMETER_SCHOOL_TYPE_PK, sType.getPrimaryKey().toString());
@@ -223,23 +220,23 @@ public class SchoolTypeEditor extends SchoolBlock {
 				cell = row.createCell();
 				cell.setId("info");
 				cell.add(new Text(sType.getSchoolTypeInfo()));
-				
+
 				cell = row.createCell();
 				cell.setId("schoolCategory");
 				cell.add(new Text(localize(category.getLocalizedKey(), category.getName())));
-				
+
 				cell = row.createCell();
 				cell.setId("maxAge");
 				cell.add(new Text(sType.getMaxSchoolAge() > 0 ? String.valueOf(sType.getMaxSchoolAge()) : "-"));
-				
+
 				cell = row.createCell();
 				cell.setId("order");
 				cell.add(new Text(sType.getOrder() > 0 ? String.valueOf(sType.getOrder()) : "-"));
-				
+
 				cell = row.createCell();
 				cell.setId("edit");
 				cell.add(edit);
-				
+
 				cell = row.createCell();
 				cell.setId("delete");
 				cell.setStyleClass("lastColumn");
@@ -275,25 +272,22 @@ public class SchoolTypeEditor extends SchoolBlock {
 
 		TextInput inputTypeStringId = new TextInput(PARAMETER_TYPE_STRING_ID);
 		inputTypeStringId.setAsNotEmpty(localize("type_string_id_not_empty", "Type ID must be entered."));
-		
+
 		TextInput inputName = new TextInput(PARAMETER_NAME);
 		TextInput inputKey = new TextInput(PARAMETER_LOCALIZED_KEY);
 		TextArea inputInfo = new TextArea(PARAMETER_INFO);
 
 		TextInput inputAge = new TextInput(PARAMETER_MAX_AGE);
 		inputAge.setLength(4);
-		
+
 		TextInput inputOrder = new TextInput(PARAMETER_ORDER);
 		inputOrder.setLength(4);
-		
-		BooleanInput isFreetime = new BooleanInput(PARAMETER_IS_FREETIME_TYPE);
-		BooleanInput isFamilyFreetime = new BooleanInput(PARAMETER_IS_FAMILY_FREETIME_TYPE);
 
 		if (typePK != null) {
 			try {
 				SchoolType type = getBusiness().getSchoolType(typePK);
 				form.add(new HiddenInput(PARAMETER_SCHOOL_TYPE_PK, String.valueOf(typePK)));
-				
+
 				if (this._useTypeStringId) {
 					inputTypeStringId.setContent(type.getTypeStringId());
 				}
@@ -308,9 +302,6 @@ public class SchoolTypeEditor extends SchoolBlock {
 				if (type.getOrder() != -1) {
 					inputOrder.setContent(String.valueOf(type.getOrder()));
 				}
-
-				isFreetime.setSelected(type.getIsFreetimeType());
-				isFamilyFreetime.setSelected(type.getIsFamilyFreetimeType());
 			}
 			catch (Exception ex) {
 				ex.printStackTrace();
@@ -334,7 +325,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 			layer.add(drpCategory);
 			form.add(layer);
 		}
-		
+
 		if (this._useTypeStringId) {
 			layer = new Layer(Layer.DIV);
 			layer.setId("typeID");
@@ -344,7 +335,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 			layer.add(inputTypeStringId);
 			form.add(layer);
 		}
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setId("info");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
@@ -352,7 +343,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		layer.add(label);
 		layer.add(inputInfo);
 		form.add(layer);
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setId("key");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
@@ -360,7 +351,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		layer.add(label);
 		layer.add(inputKey);
 		form.add(layer);
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setId("maxAge");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
@@ -368,7 +359,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		layer.add(label);
 		layer.add(inputAge);
 		form.add(layer);
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setId("order");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
@@ -376,23 +367,7 @@ public class SchoolTypeEditor extends SchoolBlock {
 		layer.add(label);
 		layer.add(inputOrder);
 		form.add(layer);
-		
-		layer = new Layer(Layer.DIV);
-		layer.setId("freetime");
-		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
-		label = new Label(localize("is_freetime_type", "Is freetime type"), isFreetime);
-		layer.add(label);
-		layer.add(isFreetime);
-		form.add(layer);
-		
-		layer = new Layer(Layer.DIV);
-		layer.setId("family_freetime");
-		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
-		label = new Label(localize("is_family_freetime_type", "Is family freetime type"), isFamilyFreetime);
-		layer.add(label);
-		layer.add(isFamilyFreetime);
-		form.add(layer);
-		
+
 		form.add(new Break());
 
 		SubmitButton save = (SubmitButton) getButton(new SubmitButton(localize("save", "Save"), PARAMETER_ACTION, String.valueOf(ACTION_SAVE)));

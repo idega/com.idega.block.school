@@ -1,5 +1,6 @@
 package com.idega.block.school.business;
 
+
 import com.idega.block.school.data.SchoolSubAreaHome;
 import com.idega.block.school.data.SchoolDepartmentHome;
 import com.idega.block.school.data.SchoolAreaHome;
@@ -317,7 +318,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootSchoolCategoryGroup
 	 */
-	public Group getRootSchoolCategoryGroup(SchoolCategory category) throws RemoteException, RemoteException;
+	public Group getRootSchoolCategoryGroup(SchoolCategory category) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#hasEditPermission
@@ -1012,7 +1013,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolAreas
 	 */
-	public Collection findAllSchoolAreas() throws RemoteException;
+	public Collection findAllSchoolAreas(SchoolCategory category) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolSubAreas
@@ -1020,19 +1021,9 @@ public interface SchoolBusiness extends IBOService {
 	public Collection findAllSchoolSubAreas() throws RemoteException;
 
 	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolAreasByType
-	 */
-	public Collection findAllSchoolAreasByType(int type_id) throws RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolAreasByTypes
-	 */
-	public Collection findAllSchoolAreasByTypes(Collection types) throws RemoteException;
-
-	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolArea
 	 */
-	public void storeSchoolArea(int id, String name, String info, String city) throws RemoteException, RemoteException;
+	public void storeSchoolArea(int id, String name, String info, String city, SchoolCategory category) throws RemoteException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolSubArea
