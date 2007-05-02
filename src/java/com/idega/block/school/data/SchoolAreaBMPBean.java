@@ -85,10 +85,17 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 	}
 
 	public Collection ejbFindAllSchoolAreas(SchoolCategory category) throws javax.ejb.FinderException {
+		return ejbFindAllSchoolAreas(category, false);
+	}
+
+	public Collection ejbFindAllSchoolAreas(SchoolCategory category, boolean useNullValue) throws javax.ejb.FinderException {
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this.getEntityName());
 		if (category != null) {
 			sql.appendWhereEquals(SCHOOL_CATEGORY, category);
+		}
+		else if (useNullValue) {
+			sql.appendWhereIsNull(SCHOOL_CATEGORY);
 		}
 		sql.appendOrderBy(NAME);
 

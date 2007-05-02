@@ -14,5 +14,7 @@ public interface SchoolAreaHome extends IDOHome {
 
 	public Collection findAllSchoolAreas(SchoolCategory category) throws FinderException;
 
+	public Collection findAllSchoolAreas(SchoolCategory category, boolean useNullValue) throws FinderException;
+
 	public SchoolArea findSchoolAreaByAreaName(SchoolCategory category, String name) throws FinderException;
 }

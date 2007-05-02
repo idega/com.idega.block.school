@@ -1,5 +1,5 @@
 /*
- * $Id: IWBundleStarter.java,v 1.6 2007/04/26 09:29:16 laddi Exp $ Created on 28.4.2005
+ * $Id: IWBundleStarter.java,v 1.7 2007/05/02 08:00:20 laddi Exp $ Created on 28.4.2005
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
  * 
@@ -58,7 +58,7 @@ public class IWBundleStarter implements IWBundleStartable {
 			SchoolBusiness business = (SchoolBusiness) IBOLookup.getServiceInstance(iwac, SchoolBusiness.class);
 
 			try {
-				Collection areas = business.getSchoolAreaHome().findAllSchoolAreas(null);
+				Collection areas = business.getSchoolAreaHome().findAllSchoolAreas(null, true);
 				Iterator iterator = areas.iterator();
 				while (iterator.hasNext()) {
 					SchoolArea area = (SchoolArea) iterator.next();

@@ -28,6 +28,13 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
+	public Collection findAllSchoolAreas(SchoolCategory category, boolean useNullValue) throws FinderException {
+		IDOEntity entity = this.idoCheckOutPooledEntity();
+		Collection ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(category, useNullValue);
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
 	public SchoolArea findSchoolAreaByAreaName(SchoolCategory category, String name) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Object pk = ((SchoolAreaBMPBean) entity).ejbFindSchoolAreaByAreaName(category, name);
