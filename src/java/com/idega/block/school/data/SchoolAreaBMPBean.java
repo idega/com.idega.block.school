@@ -30,6 +30,7 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 	public final static String NAME = "AREA_NAME";
 	public final static String INFO = "AREA_INFO";
 	public final static String CITY = "AREA_CITY";
+	public final static String ACCOUNTING_KEY = "ACCOUNTING_KEY";
 	public final static String SCHOOL_CATEGORY = "SCHOOL_CATEGORY";
 
 	public void initializeAttributes() {
@@ -37,6 +38,7 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 		this.addAttribute(NAME, "Schoolname", true, true, String.class);
 		this.addAttribute(INFO, "Info", true, true, String.class);
 		this.addAttribute(CITY, "City", true, true, String.class);
+		this.addAttribute(ACCOUNTING_KEY, "Accounting key", true, true, String.class);
 
 		addManyToOneRelationship(SCHOOL_CATEGORY, SchoolCategory.class);
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
@@ -63,6 +65,10 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 		return this.getStringColumnValue(CITY);
 	}
 
+	public String getAccountingKey() {
+		return this.getStringColumnValue(ACCOUNTING_KEY);
+	}
+
 	public SchoolCategory getCategory() {
 		return (SchoolCategory) getColumnValue(SCHOOL_CATEGORY);
 	}
@@ -78,6 +84,10 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 
 	public void setSchoolAreaCity(String city) {
 		this.setColumn(CITY, city);
+	}
+
+	public void setAccountingKey(String accountingKey) {
+		this.setColumn(ACCOUNTING_KEY, accountingKey);
 	}
 
 	public void setCategory(SchoolCategory category) {

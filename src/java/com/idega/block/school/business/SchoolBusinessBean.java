@@ -2739,7 +2739,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	public void storeSchoolArea(int id, String name, String info, String city, SchoolCategory category) throws java.rmi.RemoteException {
+	public void storeSchoolArea(int id, String name, String info, String city, String accountingKey, SchoolCategory category) throws java.rmi.RemoteException {
 		SchoolAreaHome shome = getSchoolAreaHome();
 		SchoolArea newArea;
 		try {
@@ -2759,6 +2759,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newArea.setSchoolAreaCity(city);
 		newArea.setSchoolAreaInfo(info);
 		newArea.setSchoolAreaName(name);
+		newArea.setAccountingKey(accountingKey);
 		newArea.setCategory(category);
 		newArea.store();
 	}

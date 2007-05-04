@@ -5,6 +5,12 @@
   </properties>
   <body>
 
+	<release version="3.1.14" date="2007-05-04">
+		<action dev="laddi" type="update">
+			Added accounting key to areas.
+		</action>
+	</release>
+
 	<release version="3.1.13" date="2007-04-27">
 		<action dev="laddi" type="update">
 			Added a school category to areas.

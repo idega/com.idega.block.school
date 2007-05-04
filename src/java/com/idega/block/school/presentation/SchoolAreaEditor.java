@@ -43,6 +43,7 @@ public class SchoolAreaEditor extends SchoolBlock {
 	private static final String PARAMETER_CITY = "prm_city";
 	private static final String PARAMETER_INFO = "prm_info";
 	private static final String PARAMETER_CATEGORY = "prm_category";
+	private static final String PARAMETER_ACCOUNTING_KEY = "prm_accounting_key";
 
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -91,6 +92,7 @@ public class SchoolAreaEditor extends SchoolBlock {
 		String name = iwc.getParameter(PARAMETER_NAME);
 		String city = iwc.getParameter(PARAMETER_CITY);
 		String info = iwc.getParameter(PARAMETER_INFO);
+		String accountingKey = iwc.getParameter(PARAMETER_ACCOUNTING_KEY);
 		int aid = -1;
 		if (id != null) {
 			aid = Integer.parseInt(id);
@@ -111,7 +113,7 @@ public class SchoolAreaEditor extends SchoolBlock {
 			e.printStackTrace();
 		}
 
-		getBusiness().storeSchoolArea(aid, name, info, city, category);
+		getBusiness().storeSchoolArea(aid, name, info, city, accountingKey, category);
 	}
 
 	public void showList(IWContext iwc) {
@@ -158,6 +160,7 @@ public class SchoolAreaEditor extends SchoolBlock {
 		cell.add(new Text(localize("name", "Name")));
 		row.createHeaderCell().add(new Text(localize("city", "City")));
 		row.createHeaderCell().add(new Text(localize("info", "Info")));
+		row.createHeaderCell().add(new Text(localize("accounting_key", "Accounting key")));
 		row.createHeaderCell().add(Text.getNonBrakingSpace());
 		cell = row.createHeaderCell();
 		cell.setStyleClass("lastColumn");
@@ -184,6 +187,12 @@ public class SchoolAreaEditor extends SchoolBlock {
 				cell.add(new Text(area.getSchoolAreaName()));
 				row.createCell().add(new Text(area.getSchoolAreaCity()));
 				row.createCell().add(new Text(area.getSchoolAreaInfo()));
+				if (area.getAccountingKey() != null) {
+					row.createCell().add(new Text(area.getAccountingKey()));
+				}
+				else {
+					row.createCell().add(Text.getNonBrakingSpace());
+				}
 				row.createCell().add(edit);
 				cell = row.createCell();
 				cell.setStyleClass("lastColumn");
@@ -220,6 +229,7 @@ public class SchoolAreaEditor extends SchoolBlock {
 
 		TextInput inputName = new TextInput(PARAMETER_NAME);
 		TextInput inputCity = new TextInput(PARAMETER_CITY);
+		TextInput inputAccounting = new TextInput(PARAMETER_ACCOUNTING_KEY);
 		TextArea inputInfo = new TextArea(PARAMETER_INFO);
 		if (areaPK != null) {
 			try {
@@ -230,6 +240,9 @@ public class SchoolAreaEditor extends SchoolBlock {
 				inputInfo.setContent(area.getSchoolAreaInfo());
 				if (category != null) {
 					drpCategory.setSelectedElement(category.getPrimaryKey().toString());
+				}
+				if (area.getAccountingKey() != null) {
+					inputAccounting.setContent(area.getAccountingKey());
 				}
 				form.add(new HiddenInput(PARAMETER_SCHOOL_AREA_PK, areaPK.toString()));
 			}
@@ -256,6 +269,13 @@ public class SchoolAreaEditor extends SchoolBlock {
 		label = new Label(localize("info", "Info"), inputInfo);
 		layer.add(label);
 		layer.add(inputInfo);
+		form.add(layer);
+
+		layer = new Layer(Layer.DIV);
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("accounting_key", "Accounting key"), inputAccounting);
+		layer.add(label);
+		layer.add(inputAccounting);
 		form.add(layer);
 
 		if (iSchoolCategory == null) {

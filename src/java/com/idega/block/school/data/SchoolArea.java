@@ -26,6 +26,11 @@ public interface SchoolArea extends IDOEntity {
 	public String getSchoolAreaCity();
 
 	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getAccountingKey
+	 */
+	public String getAccountingKey();
+
+	/**
 	 * @see com.idega.block.school.data.SchoolAreaBMPBean#getCategory
 	 */
 	public SchoolCategory getCategory();
@@ -44,6 +49,11 @@ public interface SchoolArea extends IDOEntity {
 	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setSchoolAreaCity
 	 */
 	public void setSchoolAreaCity(String city);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setAccountingKey
+	 */
+	public void setAccountingKey(String accountingKey);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolAreaBMPBean#setCategory
