@@ -695,16 +695,13 @@ public class SchoolEditor extends SchoolBlock {
 					item.add(yearList);
 				}
 			}
+			ListItem handicapItem = new ListItem();
+			label = new Label(localize("has_handicap", "Has handicap facilities"), hasHandicap);
+			handicapItem.add(hasHandicap);
+			handicapItem.add(label);
+			list.add(handicapItem);
 			section.add(list);
 		}
-		
-		layer = new Layer(Layer.DIV);
-		layer.setID("hasHandicap");
-		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
-		label = new Label(localize("has_handicap", "Has handicap facilities"), hasHandicap);
-		layer.add(label);
-		layer.add(hasHandicap);
-		section.add(layer);
 
 		Layer buttonLayer = new Layer(Layer.DIV);
 		buttonLayer.setStyleClass("buttonLayer");
