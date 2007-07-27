@@ -12,7 +12,6 @@ import com.idega.data.IDOEntity;
 import com.idega.data.IDOFactory;
 
 public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
-
 	public Class getEntityInterfaceClass() {
 		return School.class;
 	}
@@ -105,6 +104,13 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 	public Collection findAllCentralizedAdministratedByType(Collection typeIds) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection ids = ((SchoolBMPBean) entity).ejbFindAllCentralizedAdministratedByType(typeIds);
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	public Collection findAllByHandicapParameter(boolean hasHandicap) throws FinderException {
+		IDOEntity entity = this.idoCheckOutPooledEntity();
+		Collection ids = ((SchoolBMPBean) entity).ejbFindAllByHandicapParameter(hasHandicap);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}

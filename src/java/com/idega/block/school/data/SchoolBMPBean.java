@@ -107,6 +107,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	public static final String HAS_REVIEW = "has_review";
 	public static final String HAS_PRE_CARE = "has_pre_care";
 	public static final String HAS_POST_CARE = "has_post_care";
+	/** Alex 27 July 2007 */
+	public static final String HAS_HANDICAP = "has_handicap";
 
 	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
 
@@ -165,7 +167,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		addAttribute(HAS_REVIEW, "Has review", Boolean.class);
 		addAttribute(HAS_PRE_CARE, "Has pre care", Boolean.class);
 		addAttribute(HAS_POST_CARE, "Has post care", Boolean.class);
-
+		/** Alex 27 July 2007 */
+		addAttribute(HAS_HANDICAP, "Has handicap facilities", Boolean.class);
 		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
 
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
@@ -229,6 +232,10 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	public boolean hasPostCare() {
 		return getBooleanColumnValue(HAS_POST_CARE, false);
+	}
+	
+	public boolean hasHandicap() {
+		return getBooleanColumnValue(HAS_HANDICAP, false);
 	}
 
 	public void setJuniorHighSchool(School school) {
@@ -371,6 +378,10 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	public void setHasPostCare(boolean hasPostCare) {
 		setColumn(HAS_POST_CARE, hasPostCare);
+	}
+	
+	public void setHasHandicap(boolean hasHandicap) {
+		setColumn(HAS_HANDICAP, hasHandicap);
 	}
 
 	public String getSchoolZipArea() {
@@ -619,6 +630,14 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 			select.append(" order by s.").append(NAME);
 			return super.idoFindPKsBySQL(select.toString());
 		}
+	}
+	
+	public Collection ejbFindAllByHandicapParameter(boolean hasHandicap) throws FinderException {
+		IDOQuery query = idoQueryGetSelect();
+		String flag = (hasHandicap) ? "Y" : "N";
+		query.appendWhereEqualsQuoted(HAS_HANDICAP, flag);
+
+		return idoFindPKsByQuery(query);
 	}
 
 	public Collection ejbFindAllBySchoolArea(int areaId) throws javax.ejb.FinderException {

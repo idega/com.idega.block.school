@@ -11,7 +11,6 @@ import javax.ejb.EJBException;
 import com.idega.data.IDOLookupException;
 
 public interface SchoolHome extends IDOHome {
-
 	public School create() throws CreateException;
 
 	public School findByPrimaryKey(Object pk) throws FinderException;
@@ -39,6 +38,8 @@ public interface SchoolHome extends IDOHome {
 	public Collection findAllCentralizedAdministrated() throws FinderException;
 
 	public Collection findAllCentralizedAdministratedByType(Collection typeIds) throws FinderException;
+
+	public Collection findAllByHandicapParameter(boolean hasHandicap) throws FinderException;
 
 	public Collection findAllBySchoolArea(int areaId) throws FinderException;
 

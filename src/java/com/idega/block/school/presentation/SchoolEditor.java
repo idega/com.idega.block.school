@@ -75,6 +75,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_HAS_POST_CARE = "prm_has_post_care";
 	private static final String PARAMETER_ORGANIZATION_ID = "prm_org_id";
 	private static final String PARAMETER_SCHOOL_TYPE = "prm_school_type";
+	private static final String PARAMETER_HAS_HANDICAP = "prm_has_handicap";
 
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -204,7 +205,8 @@ public class SchoolEditor extends SchoolBlock {
 		boolean hasReview = iwc.isParameterSet(PARAMETER_HAS_REVIEW) ? new Boolean(iwc.getParameter(PARAMETER_HAS_REVIEW)).booleanValue() : false;
 		boolean hasPreCare = iwc.isParameterSet(PARAMETER_HAS_PRE_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_PRE_CARE)).booleanValue() : false;
 		boolean hasPostCare = iwc.isParameterSet(PARAMETER_HAS_POST_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
-
+		boolean hasHandicap = iwc.isParameterSet(PARAMETER_HAS_HANDICAP) ? new Boolean(iwc.isParameterSet(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
+		
 		School school = getBusiness().storeSchool(sid, name, info, address, zipcode, ziparea, phone, null, null, null, areaId, types, years, communePK, providerStringId);
 		if (juniorHighID != null) {
 			school.setJuniorHighSchool(juniorHighID);
@@ -220,7 +222,8 @@ public class SchoolEditor extends SchoolBlock {
 		school.setHasReview(hasReview);
 		school.setHasPreCare(hasPreCare);
 		school.setHasPostCare(hasPostCare);
-
+		school.setHasHandicap(hasHandicap);
+		
 		school.store();
 	}
 
@@ -430,6 +433,8 @@ public class SchoolEditor extends SchoolBlock {
 		DropdownMenu hasPostCare = new DropdownMenu(PARAMETER_HAS_POST_CARE);
 		hasPostCare.addMenuElement(Boolean.TRUE.toString(), localize("yes", "Yes"));
 		hasPostCare.addMenuElement(Boolean.FALSE.toString(), localize("no", "No"));
+		
+		CheckBox hasHandicap = new CheckBox(PARAMETER_HAS_HANDICAP);
 
 		Map schooltypes = null, schoolyears = null;
 		Commune commune = null;
@@ -471,6 +476,7 @@ public class SchoolEditor extends SchoolBlock {
 				hasReview.setSelectedElement(String.valueOf(school.hasReview()));
 				hasPreCare.setSelectedElement(String.valueOf(school.hasPreCare()));
 				hasPostCare.setSelectedElement(String.valueOf(school.hasPostCare()));
+				hasHandicap.setChecked(school.hasHandicap());
 			}
 			catch (Exception ex) {
 			}
@@ -691,6 +697,14 @@ public class SchoolEditor extends SchoolBlock {
 			}
 			section.add(list);
 		}
+		
+		layer = new Layer(Layer.DIV);
+		layer.setID("hasHandicap");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("has_handicap", "Has handicap facilities"), hasHandicap);
+		layer.add(label);
+		layer.add(hasHandicap);
+		section.add(layer);
 
 		Layer buttonLayer = new Layer(Layer.DIV);
 		buttonLayer.setStyleClass("buttonLayer");

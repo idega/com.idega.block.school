@@ -19,7 +19,6 @@ import com.idega.core.location.data.Country;
 import com.idega.data.IDOEntity;
 
 public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Comparable {
-
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getPrimaryGroup
 	 */
@@ -89,6 +88,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	 * @see com.idega.block.school.data.SchoolBMPBean#hasPostCare
 	 */
 	public boolean hasPostCare();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#hasHandicap
+	 */
+	public boolean hasHandicap();
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#setJuniorHighSchool
@@ -244,6 +248,11 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable, Com
 	 * @see com.idega.block.school.data.SchoolBMPBean#setHasPostCare
 	 */
 	public void setHasPostCare(boolean hasPostCare);
+
+	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#setHasHandicap
+	 */
+	public void setHasHandicap(boolean hasHandicap);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolZipArea
