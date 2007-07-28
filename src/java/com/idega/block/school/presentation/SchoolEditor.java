@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.ejb.FinderException;
 
@@ -49,6 +50,8 @@ import com.idega.presentation.ui.util.SelectorUtility;
  */
 
 public class SchoolEditor extends SchoolBlock {
+	
+	private static final Logger logger = Logger.getLogger(SchoolEditor.class.toString());
 
 	private static final String PARAMETER_ACTION = "sch_prm_action";
 	private static final String PARAMETER_SCHOOL_PK = "prm_school_pk";
@@ -440,7 +443,7 @@ public class SchoolEditor extends SchoolBlock {
 		Commune commune = null;
 		if (schoolPK != null) {
 			School school = getBusiness().getSchool(schoolPK);
-
+			logger.info("School has handicap facilities?:" + school.hasHandicap());
 			try {
 				schooltypes = getSchoolRelatedSchoolTypes(school);
 				schoolyears = getSchoolRelatedSchoolYears(school);
