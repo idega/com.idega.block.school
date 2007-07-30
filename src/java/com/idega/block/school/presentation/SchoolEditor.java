@@ -695,6 +695,7 @@ public class SchoolEditor extends SchoolBlock {
 					item.add(yearList);
 				}
 			}
+			section.add(list);
 		}
 		
 //		ListItem handicapItem = new ListItem();
@@ -702,7 +703,7 @@ public class SchoolEditor extends SchoolBlock {
 //		handicapItem.add(hasHandicap);
 //		handicapItem.add(label);
 //		list.add(handicapItem);
-//		section.add(list);
+		
 
 		Layer buttonLayer = new Layer(Layer.DIV);
 		buttonLayer.setStyleClass("buttonLayer");
