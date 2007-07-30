@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.ejb.FinderException;
 
@@ -49,6 +50,8 @@ import com.idega.presentation.ui.util.SelectorUtility;
  */
 
 public class SchoolEditor extends SchoolBlock {
+	
+	private static final Logger logger = Logger.getLogger(SchoolEditor.class.toString());
 
 	private static final String PARAMETER_ACTION = "sch_prm_action";
 	private static final String PARAMETER_SCHOOL_PK = "prm_school_pk";
@@ -206,6 +209,8 @@ public class SchoolEditor extends SchoolBlock {
 		boolean hasPreCare = iwc.isParameterSet(PARAMETER_HAS_PRE_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_PRE_CARE)).booleanValue() : false;
 		boolean hasPostCare = iwc.isParameterSet(PARAMETER_HAS_POST_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
 		boolean hasHandicap = iwc.isParameterSet(PARAMETER_HAS_HANDICAP) ? new Boolean(iwc.isParameterSet(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
+		
+		logger.info("Saving School Entity with property hasHandicap: " + hasHandicap);
 		
 		School school = getBusiness().storeSchool(sid, name, info, address, zipcode, ziparea, phone, null, null, null, areaId, types, years, communePK, providerStringId);
 		if (juniorHighID != null) {
@@ -475,6 +480,7 @@ public class SchoolEditor extends SchoolBlock {
 				hasReview.setSelectedElement(String.valueOf(school.hasReview()));
 				hasPreCare.setSelectedElement(String.valueOf(school.hasPreCare()));
 				hasPostCare.setSelectedElement(String.valueOf(school.hasPostCare()));
+				logger.info("Rendering SchoolEditor Has Handicap facilities: " + school.hasHandicap());
 				hasHandicap.setChecked(school.hasHandicap());
 			}
 			catch (Exception ex) {
@@ -694,13 +700,14 @@ public class SchoolEditor extends SchoolBlock {
 					item.add(yearList);
 				}
 			}
-			ListItem handicapItem = new ListItem();
-			label = new Label(localize("has_handicap", "Has handicap facilities"), hasHandicap);
-			handicapItem.add(hasHandicap);
-			handicapItem.add(label);
-			list.add(handicapItem);
-			section.add(list);
 		}
+		
+		ListItem handicapItem = new ListItem();
+		label = new Label(localize("has_handicap", "Has handicap facilities"), hasHandicap);
+		handicapItem.add(hasHandicap);
+		handicapItem.add(label);
+		list.add(handicapItem);
+		section.add(list);
 
 		Layer buttonLayer = new Layer(Layer.DIV);
 		buttonLayer.setStyleClass("buttonLayer");
