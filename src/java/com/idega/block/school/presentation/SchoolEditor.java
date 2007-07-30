@@ -275,13 +275,16 @@ public class SchoolEditor extends SchoolBlock {
 
 		Collection schools = new java.util.Vector(0);
 		if (this.iSchoolCategory == null) {
+			logger.info("Finding all schools");
 			schools = getBusiness().findAllSchools();
 		}
 		else {
 			if (getSchoolTypePK(iwc) != null) {
+				logger.info("Finding all schools by type: " + Integer.parseInt(getSchoolTypePK(iwc).toString()));
 				schools = getBusiness().findAllSchoolsByType(Integer.parseInt(getSchoolTypePK(iwc).toString()));
 			}
 			else {
+				logger.info("Finding all schools by category: " + this.iSchoolCategory);
 				schools = getBusiness().findAllSchoolsByCategory(this.iSchoolCategory);
 			}
 		}
