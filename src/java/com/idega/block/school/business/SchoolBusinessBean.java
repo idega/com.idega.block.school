@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -94,6 +95,10 @@ import com.idega.util.IWTimestamp;
  * @version 1.0
  */
 public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness {
+	
+//	private static final long serialVersionUID = 23423748762734L;
+	
+	private static final Logger logger = Logger.getLogger(SchoolBusinessBean.class.toString());
 
 	public static final String GROUP_TYPE_SCHOOL_GROUP = "school_staff_group";
 
@@ -218,16 +223,20 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	public Student getStudent(User student) {
 		try {
 			if (student instanceof Student) {
+				logger.info("[getStudent] - casting: " + student);
 				return (Student) student;
 			}
 
 			StudentHome home = (StudentHome) IDOLookup.getHome(Student.class);
+			logger.info("[getStudent] - lookUp: " + student.getPrimaryKey());
 			return home.findByPrimaryKey(student.getPrimaryKey());
 		}
 		catch (IDOLookupException e) {
+			logger.info("[exception]" + e);
 			throw new IBORuntimeException(e.getMessage());
 		}
 		catch (FinderException e) {
+			logger.info("[exception]" + e);
 			e.printStackTrace();
 		}
 		return null;
