@@ -5,6 +5,12 @@
   </properties>
   <body>
   
+  	<release version="3.1.16" date="2007-10-04">
+		<action dev="laddi" type="update">
+			Fixed incorrect return of count query.
+		</action>
+	</release>
+
   	<release version="3.1.15" date="2007-07-27">
 		<action dev="alexis" type="update">
 			Added flag to mark a school facilitated for handicap children
