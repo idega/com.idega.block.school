@@ -38,4 +38,7 @@ public class SchoolTypeHandler implements ICPropertyHandler{
 	public void onUpdate(String values[], IWContext iwc) {
 	}
 
+	public PresentationObject getHandlerObject(String name, String stringValue, IWContext iwc, boolean oldGenerationHandler, String instanceId, String method) {
+		return null;
+	}
 }
