@@ -110,6 +110,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	/** Alex 27 July 2007 */
 	public static final String HAS_HANDICAP = "has_handicap";
 
+	public static final String COLUMN_HAS_DGK = "has_dgk";
+	
 	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
 
 	public void initializeAttributes() {
@@ -169,6 +171,9 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		addAttribute(HAS_POST_CARE, "Has post care", Boolean.class);
 		/** Alex 27 July 2007 */
 		addAttribute(HAS_HANDICAP, "Has handicap facilities", Boolean.class);
+		
+		addAttribute(COLUMN_HAS_DGK, "Has DGK", Boolean.class);
+		
 		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
 
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
@@ -236,6 +241,10 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	
 	public boolean hasHandicap() {
 		return getBooleanColumnValue(HAS_HANDICAP, false);
+	}
+	
+	public boolean getHasDGK() {
+		return getBooleanColumnValue(COLUMN_HAS_DGK, false);
 	}
 
 	public void setJuniorHighSchool(School school) {
@@ -382,6 +391,10 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	
 	public void setHasHandicap(boolean hasHandicap) {
 		setColumn(HAS_HANDICAP, hasHandicap);
+	}
+	
+	public void setHasDGK(boolean hasDGK) {
+		setColumn(COLUMN_HAS_DGK, hasDGK);
 	}
 
 	public String getSchoolZipArea() {

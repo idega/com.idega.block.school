@@ -5,7 +5,7 @@
   <pomVersion>3</pomVersion>
   <name>idegaWeb School Block</name>
   <artifactId>com.idega.block.school</artifactId>
-  <currentVersion>3.1.16</currentVersion>
+  <currentVersion>3.1.17</currentVersion>
   <inceptionYear>2000</inceptionYear>
   <shortDescription>School</shortDescription>
   <versions>
