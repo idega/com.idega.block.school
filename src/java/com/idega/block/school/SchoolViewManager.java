@@ -24,10 +24,10 @@ import com.idega.workspace.view.WorkspaceClassViewNode;
  * <p>
  * TODO tryggvil Describe Type SchoolViewManager
  * </p>
- *  Last modified: $Date: 2006/04/09 11:55:53 $ by $Author: laddi $
+ *  Last modified: $Date: 2008/01/17 08:11:11 $ by $Author: alexis $
  * 
  * @author <a href="mailto:tryggvil@idega.com">tryggvil</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class SchoolViewManager {
 
@@ -78,32 +78,31 @@ public class SchoolViewManager {
 		roles.add("schools_admin");
 		
 		DefaultViewNode schoolNode = new WorkspaceApplicationNode("school",workspace,roles);
-		schoolNode.setName("#{localizedStrings['com.idega.block.school']['school']}");
 
-		DefaultViewNode setupNode = new WorkspaceClassViewNode("setup",schoolNode);
+		WorkspaceClassViewNode setupNode = new WorkspaceClassViewNode("setup",schoolNode);
 		setupNode.setName("#{localizedStrings['com.idega.block.school']['setup']}");
 		
-		WorkspaceClassViewNode seasons = new WorkspaceClassViewNode("seasons",setupNode);
+		WorkspaceClassViewNode seasons = new WorkspaceClassViewNode("seasons",schoolNode);
 		seasons.setName("#{localizedStrings['com.idega.block.school']['school_seasons']}");
 		seasons.setComponentClass(SchoolSeasonEditor.class);
 		
-		WorkspaceClassViewNode years = new WorkspaceClassViewNode("years",setupNode);
+		WorkspaceClassViewNode years = new WorkspaceClassViewNode("years",schoolNode);
 		years.setName("#{localizedStrings['com.idega.block.school']['school_years']}");
 		years.setComponentClass(SchoolYearEditor.class);
 		
-		WorkspaceClassViewNode schools = new WorkspaceClassViewNode("schools",setupNode);
+		WorkspaceClassViewNode schools = new WorkspaceClassViewNode("schools",schoolNode);
 		schools.setName("#{localizedStrings['com.idega.block.school']['schools']}");
 		schools.setComponentClass(SchoolEditor.class);
 		
-		WorkspaceClassViewNode types = new WorkspaceClassViewNode("types",setupNode);
+		WorkspaceClassViewNode types = new WorkspaceClassViewNode("types",schoolNode);
 		types.setName("#{localizedStrings['com.idega.block.school']['school_types']}");
 		types.setComponentClass(SchoolTypeEditor.class);
 		
-		WorkspaceClassViewNode areas = new WorkspaceClassViewNode("areas",setupNode);
+		WorkspaceClassViewNode areas = new WorkspaceClassViewNode("areas",schoolNode);
 		areas.setName("#{localizedStrings['com.idega.block.school']['school_areas']}");
 		areas.setComponentClass(SchoolAreaEditor.class);
 		
-		WorkspaceClassViewNode users = new WorkspaceClassViewNode("users",setupNode);
+		WorkspaceClassViewNode users = new WorkspaceClassViewNode("users",schoolNode);
 		users.setName("#{localizedStrings['com.idega.block.school']['school_users']}");
 		users.setComponentClass(SchoolUserEditor.class);
 		
