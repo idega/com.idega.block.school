@@ -1,5 +1,5 @@
 /*
- * $Id: IWBundleStarter.java,v 1.7 2007/05/02 08:00:20 laddi Exp $ Created on 28.4.2005
+ * $Id: IWBundleStarter.java,v 1.8 2008/06/02 13:01:26 valdas Exp $ Created on 28.4.2005
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
  * 
@@ -29,6 +29,7 @@ import com.idega.block.school.data.SchoolTypeHome;
 import com.idega.block.school.presentation.SchoolBlock;
 import com.idega.business.IBOLookup;
 import com.idega.business.IBOLookupException;
+import com.idega.business.IBORuntimeException;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
 import com.idega.idegaweb.IWApplicationContext;
@@ -184,6 +185,9 @@ public class IWBundleStarter implements IWBundleStartable {
 			e.printStackTrace();
 		}
 		catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		catch (IBORuntimeException e) {
 			e.printStackTrace();
 		}
 	}

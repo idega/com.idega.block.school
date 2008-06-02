@@ -839,6 +839,9 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		catch (RemoteException re) {
 			throw new IBORuntimeException(re);
 		}
+		catch (NullPointerException e) {
+			throw new IBORuntimeException(e);
+		}
 	}
 
 	public boolean hasEditPermission(User user, School school) throws RemoteException {
