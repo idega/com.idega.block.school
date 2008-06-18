@@ -6,7 +6,7 @@ form.schoolForm div.FormSection {
 	margin: 12px;
 }
 
-form.schoolForm .listTable td, th {
+form.schoolForm .listTable td, form.schoolForm .listTable th {
 	font-size: 10px;
 	empty-cells: show;
 }
