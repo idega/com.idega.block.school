@@ -54,6 +54,7 @@ import com.idega.block.school.data.Student;
 import com.idega.block.school.data.StudentHome;
 import com.idega.block.text.data.LocalizedText;
 import com.idega.block.text.data.TxText;
+import com.idega.builder.bean.AdvancedProperty;
 import com.idega.business.IBOLookup;
 import com.idega.business.IBORuntimeException;
 import com.idega.business.IBOServiceBean;
@@ -68,6 +69,7 @@ import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
+import com.idega.presentation.IWContext;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
@@ -1035,6 +1037,55 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 			ex.printStackTrace();
 			return new java.util.Vector();
 		}
+	}
+	
+	public Collection findAllGroupsBySchoolDWR(String school) {
+		Collection result = new ArrayList();
+		if(school == null || school.length() == 0 || school.equals("-1")) {
+			return result;
+		}
+		result.add(new AdvancedProperty("-1", "Select"));
+		try {
+			Collection groups = getSchoolClassHome().findBySchool(Integer.parseInt(school));
+			if (groups.isEmpty()) {
+				result.add(new AdvancedProperty("-1", "Unavailable"));
+				return result;
+			}
+			Iterator iter = groups.iterator();
+			while (iter.hasNext()) {
+				SchoolClass group = (SchoolClass) iter.next();
+				result.add(new AdvancedProperty(group.getPrimaryKey().toString(), group.getName()));
+			}
+		}
+		catch (FinderException ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Collection findAllSchoolsByTypeDWR(String type) {
+		Collection result = new ArrayList();
+		if(type == null || type.length() == 0 || type.equals("-1")) {
+			return result;
+		}
+		result.add(new AdvancedProperty("-1", "Select"));
+		try {
+			SchoolHome shome = getSchoolHome();
+			Collection schools = shome.findAllBySchoolType(Integer.parseInt(type));
+			if (schools.isEmpty()) {
+				result.add(new AdvancedProperty("-1", "Unavailable"));
+				return result;
+			}
+			Iterator iter = schools.iterator();
+			while (iter.hasNext()) {
+				School school = (School) iter.next();
+				result.add(new AdvancedProperty(school.getPrimaryKey().toString(), school.getSchoolName()));
+			}
+		}
+		catch (FinderException ex) {
+			ex.printStackTrace();
+		}
+		return result;
 	}
 
 	public Collection findAllSchoolsByType(int type) {

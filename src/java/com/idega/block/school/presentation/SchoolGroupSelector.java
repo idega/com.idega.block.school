@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolGroupSelector.java,v 1.3 2006/04/09 11:55:53 laddi Exp $
+ * $Id: SchoolGroupSelector.java,v 1.4 2008/09/19 07:08:11 alexis Exp $
  * Created on 25.11.2004
  *
  * Copyright (C) 2004 Idega Software hf. All Rights Reserved.
@@ -9,6 +9,7 @@
  */
 package com.idega.block.school.presentation;
 
+import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -22,6 +23,8 @@ import com.idega.block.school.data.SchoolClassHome;
 import com.idega.block.school.data.SchoolHome;
 import com.idega.block.school.data.SchoolType;
 import com.idega.block.school.data.SchoolTypeHome;
+import com.idega.block.web2.business.Web2Business;
+import com.idega.business.IBOLookup;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
 import com.idega.data.IDORelationshipException;
@@ -31,13 +34,15 @@ import com.idega.presentation.ui.DropdownMenu;
 import com.idega.presentation.ui.InterfaceObject;
 import com.idega.presentation.ui.SelectOption;
 import com.idega.presentation.ui.util.SelectorUtility;
+import com.idega.util.CoreConstants;
+import com.idega.util.PresentationUtil;
 
 /**
  * 
- *  Last modified: $Date: 2006/04/09 11:55:53 $ by $Author: laddi $
+ *  Last modified: $Date: 2008/09/19 07:08:11 $ by $Author: alexis $
  * 
  * @author <a href="mailto:aron@idega.com">aron</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class SchoolGroupSelector extends InterfaceObject {
     
@@ -46,6 +51,8 @@ public class SchoolGroupSelector extends InterfaceObject {
 	public static final String ACTION_UPDATE_GROUPS = "a_upc";
 	
 	public static final String PARAMETER_TYPE_ID = "pcd_";
+	
+	private static final String BLOCK_SCHOOL_JS = "/javascript/block_school.js";
     
     private String specifiedTypeID = null;
 	private String specifiedSchoolID =  null;
@@ -77,8 +84,14 @@ public class SchoolGroupSelector extends InterfaceObject {
 		setName(this.iframeName);
 		
 		this.typeDrop = new DropdownMenu(this.parTypeID);
+		this.typeDrop.setId(this.parTypeID);
+		this.typeDrop.setStyleClass("schoolTypeDropdown");
 		this.schoolDrop = new DropdownMenu(this.parSchoolID);
+		this.schoolDrop.setId(this.parSchoolID);
+		this.schoolDrop.setStyleClass("schoolDropdown");
 		this.groupDrop = new DropdownMenu(this.parGroupID);
+		this.groupDrop.setId(this.parGroupID);
+		this.groupDrop.setStyleClass("schoolGroupDropdown");
 	}
 	
 	public Object clone() {
@@ -140,6 +153,13 @@ public class SchoolGroupSelector extends InterfaceObject {
 
 		SelectorUtility su = new SelectorUtility();
 		
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, getWeb2Business(iwc).getBundleURIToMootoolsLib());
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, CoreConstants.DWR_ENGINE_SCRIPT);
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, CoreConstants.DWR_UTIL_SCRIPT);
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, "/dwr/interface/SchoolBusiness.js");
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, getBundle(iwc).getResourcesVirtualPath() + BLOCK_SCHOOL_JS);
+		PresentationUtil.addJavaScriptActionToBody(iwc, "window.addEvent('domready', initializeSchoolDoubleDropdowns);");
+		
 		this.typeDrop.addMenuElement("-1", "Select a type");
 		this.typeDrop.addMenuElements(this.types);
 		if (usedTypeID != null) {
@@ -182,18 +202,22 @@ public class SchoolGroupSelector extends InterfaceObject {
 			add(this.groupDrop);
 		}
 
-		RemoteScriptHandler rsh = new RemoteScriptHandler(this.typeDrop, this.schoolDrop);
-		rsh.setRemoteScriptCollectionClass(SchoolGroupSelectorCollectionHandler.class);
-		rsh.addParameter(PARAMETER_ACTION, ACTION_UPDATE_SCHOOLS);
-		rsh.setToClear(this.groupDrop, "Select a group");
-		add(rsh);
-			
-		RemoteScriptHandler rsh2 = new RemoteScriptHandler(this.schoolDrop, this.groupDrop);
-		rsh2.setRemoteScriptCollectionClass(SchoolGroupSelectorCollectionHandler.class);
-		rsh2.addParameter(PARAMETER_ACTION, ACTION_UPDATE_GROUPS);
-		rsh2.addParameter(PARAMETER_TYPE_ID, this.parTypeID);
-		add(rsh2);
+//		RemoteScriptHandler rsh = new RemoteScriptHandler(this.typeDrop, this.schoolDrop);
+//		rsh.setRemoteScriptCollectionClass(SchoolGroupSelectorCollectionHandler.class);
+//		rsh.addParameter(PARAMETER_ACTION, ACTION_UPDATE_SCHOOLS);
+//		rsh.setToClear(this.groupDrop, "Select a group");
+//		add(rsh);
+//			
+//		RemoteScriptHandler rsh2 = new RemoteScriptHandler(this.schoolDrop, this.groupDrop);
+//		rsh2.setRemoteScriptCollectionClass(SchoolGroupSelectorCollectionHandler.class);
+//		rsh2.addParameter(PARAMETER_ACTION, ACTION_UPDATE_GROUPS);
+//		rsh2.addParameter(PARAMETER_TYPE_ID, this.parTypeID);
+//		add(rsh2);
 		
+	}
+	
+	public Web2Business getWeb2Business(IWContext iwc) throws RemoteException {
+		return (Web2Business) IBOLookup.getServiceInstance(iwc, Web2Business.class);
 	}
 	
 	public void setSelectedSchool(Object schoolPK){

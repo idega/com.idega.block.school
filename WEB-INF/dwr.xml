@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://www.getahead.ltd.uk/dwr//dwr20.dtd">
+
+<dwr>
+  <allow>
+    <create creator="ibo" javascript="SchoolBusiness" scope="application">
+      <param name="class" value="com.idega.block.school.business.SchoolBusiness"/>
+      <include method="findAllSchoolsByTypeDWR" />
+      <include method="findAllGroupsBySchoolDWR" />
+    </create>
+    <convert converter="bean" match="com.idega.builder.bean.AdvancedProperty" />
+  </allow>
+  <signatures>
+		<![CDATA[
+			import java.util.Collection;
+			import com.idega.builder.bean.AdvancedProperty;
+
+			SchoolBusiness.findAllSchoolsByTypeDWR(String);
+			SchoolBusiness.findAllGroupsBySchoolDWR(String);
+		]]>
+	</signatures>
+</dwr>

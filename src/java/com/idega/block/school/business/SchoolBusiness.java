@@ -384,6 +384,16 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByType
 	 */
 	public Collection findAllSchoolsByType(int type) throws RemoteException;
+	
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByTypeDWR
+	 */
+	public Collection findAllSchoolsByTypeDWR(String type) throws RemoteException;
+	
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByTypeDWR
+	 */
+	public Collection findAllGroupsBySchoolDWR(String type) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByType
