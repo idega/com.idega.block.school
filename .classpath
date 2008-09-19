@@ -9,7 +9,7 @@
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/bundles/jars/com.idega.builder-3.1.15.jar">
   </classpathentry>
-  <classpathentry kind="var" path="MAVEN_REPO/bundles/jars/com.idega.core-3.1.67.jar">
+  <classpathentry kind="var" path="MAVEN_REPO/bundles/jars/com.idega.core-3.1.91.jar">
   </classpathentry>
   <classpathentry kind="var" path="MAVEN_REPO/bundles/jars/com.idega.block.login-3.1.5.jar">
   </classpathentry>
