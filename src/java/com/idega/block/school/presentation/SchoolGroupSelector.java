@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolGroupSelector.java,v 1.4 2008/09/19 07:08:11 alexis Exp $
+ * $Id: SchoolGroupSelector.java,v 1.5 2008/09/19 12:39:46 laddi Exp $
  * Created on 25.11.2004
  *
  * Copyright (C) 2004 Idega Software hf. All Rights Reserved.
@@ -29,7 +29,6 @@ import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
 import com.idega.data.IDORelationshipException;
 import com.idega.presentation.IWContext;
-import com.idega.presentation.remotescripting.RemoteScriptHandler;
 import com.idega.presentation.ui.DropdownMenu;
 import com.idega.presentation.ui.InterfaceObject;
 import com.idega.presentation.ui.SelectOption;
@@ -39,10 +38,10 @@ import com.idega.util.PresentationUtil;
 
 /**
  * 
- *  Last modified: $Date: 2008/09/19 07:08:11 $ by $Author: alexis $
+ *  Last modified: $Date: 2008/09/19 12:39:46 $ by $Author: laddi $
  * 
  * @author <a href="mailto:aron@idega.com">aron</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class SchoolGroupSelector extends InterfaceObject {
     
