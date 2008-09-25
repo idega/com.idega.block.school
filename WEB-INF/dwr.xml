@@ -8,7 +8,6 @@
       <include method="findAllSchoolsByTypeDWR" />
       <include method="findAllGroupsBySchoolDWR" />
     </create>
-    <convert converter="bean" match="com.idega.builder.bean.AdvancedProperty" />
   </allow>
   <signatures>
 		<![CDATA[
