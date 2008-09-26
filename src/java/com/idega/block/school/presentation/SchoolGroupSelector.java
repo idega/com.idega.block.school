@@ -1,5 +1,5 @@
 /*
- * $Id: SchoolGroupSelector.java,v 1.5 2008/09/19 12:39:46 laddi Exp $
+ * $Id: SchoolGroupSelector.java,v 1.6 2008/09/26 09:35:09 alexis Exp $
  * Created on 25.11.2004
  *
  * Copyright (C) 2004 Idega Software hf. All Rights Reserved.
@@ -38,10 +38,10 @@ import com.idega.util.PresentationUtil;
 
 /**
  * 
- *  Last modified: $Date: 2008/09/19 12:39:46 $ by $Author: laddi $
+ *  Last modified: $Date: 2008/09/26 09:35:09 $ by $Author: alexis $
  * 
  * @author <a href="mailto:aron@idega.com">aron</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class SchoolGroupSelector extends InterfaceObject {
     
@@ -201,18 +201,6 @@ public class SchoolGroupSelector extends InterfaceObject {
 			add(this.groupDrop);
 		}
 
-//		RemoteScriptHandler rsh = new RemoteScriptHandler(this.typeDrop, this.schoolDrop);
-//		rsh.setRemoteScriptCollectionClass(SchoolGroupSelectorCollectionHandler.class);
-//		rsh.addParameter(PARAMETER_ACTION, ACTION_UPDATE_SCHOOLS);
-//		rsh.setToClear(this.groupDrop, "Select a group");
-//		add(rsh);
-//			
-//		RemoteScriptHandler rsh2 = new RemoteScriptHandler(this.schoolDrop, this.groupDrop);
-//		rsh2.setRemoteScriptCollectionClass(SchoolGroupSelectorCollectionHandler.class);
-//		rsh2.addParameter(PARAMETER_ACTION, ACTION_UPDATE_GROUPS);
-//		rsh2.addParameter(PARAMETER_TYPE_ID, this.parTypeID);
-//		add(rsh2);
-		
 	}
 	
 	public Web2Business getWeb2Business(IWContext iwc) throws RemoteException {
