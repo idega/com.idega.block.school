@@ -40,6 +40,7 @@ public abstract class SchoolContentItem extends Block {
 		this._iwc = iwc;
 		this._iwrb = super.getResourceBundle( this._iwc );
 		this._school = getSchool(iwc);
+		PresentationUtil.addStyleSheetToHeader(iwc, getBundle(iwc).getVirtualPathWithFileNameString("style/school.css"));
 		
 		if ( this._school != null) {
 			add(getObject());

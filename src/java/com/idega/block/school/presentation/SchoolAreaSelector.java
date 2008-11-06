@@ -78,6 +78,7 @@ public class SchoolAreaSelector extends Block {
 
 	public void main(IWContext iwc) throws RemoteException {
 		this.iwrb = getResourceBundle(iwc);
+		PresentationUtil.addStyleSheetToHeader(iwc, getBundle(iwc).getVirtualPathWithFileNameString("style/school.css"));
 		init(iwc);
 
 		if (!this._displayWithoutTypeId && this._schoolTypeId == -1) {

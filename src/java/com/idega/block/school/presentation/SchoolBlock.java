@@ -22,7 +22,7 @@ import com.idega.presentation.ui.CheckBox;
 import com.idega.presentation.ui.GenericButton;
 import com.idega.presentation.ui.InterfaceObject;
 import com.idega.presentation.ui.RadioButton;
-
+import com.idega.util.PresentationUtil;
 
 /**
  * @author laddi
@@ -60,6 +60,8 @@ public abstract class SchoolBlock extends Block {
 		this.iwb = getBundle(iwc);
 		this.iwrb = getResourceBundle(iwc);
 		this.business = getSchoolBusiness(iwc);
+		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/school.css"));
+		
 		init(iwc);
 	}
 	

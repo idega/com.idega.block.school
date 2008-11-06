@@ -238,6 +238,7 @@ public class SchoolYearPlacesEditor extends Block {
     this.iwb = getBundle(iwc);
     this.iwrb = getResourceBundle(iwc);
     this.tFormat = TextFormat.getInstance();
+		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/school.css"));
     control(iwc);
   }
 }

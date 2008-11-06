@@ -1,5 +1,5 @@
 /*
- * $Id: IWBundleStarter.java,v 1.8 2008/06/02 13:01:26 valdas Exp $ Created on 28.4.2005
+ * $Id: IWBundleStarter.java,v 1.9 2008/11/06 19:27:29 laddi Exp $ Created on 28.4.2005
  * 
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
  * 
@@ -52,9 +52,6 @@ public class IWBundleStarter implements IWBundleStartable {
 	}
 
 	private void updateData(IWApplicationContext iwac) {
-		GlobalIncludeManager includeManager = GlobalIncludeManager.getInstance();
-		includeManager.addBundleStyleSheet(SchoolBlock.IW_BUNDLE_IDENTIFIER, "/style/school.css");
-
 		try {
 			SchoolBusiness business = (SchoolBusiness) IBOLookup.getServiceInstance(iwac, SchoolBusiness.class);
 

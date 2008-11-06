@@ -68,6 +68,7 @@ public class SchoolStudyPathEditor extends Block {
 	}
 	
 	public void main (IWContext iwc) throws RemoteException {
+		PresentationUtil.addStyleSheetToHeader(iwc, getBundle(iwc).getVirtualPathWithFileNameString("style/school.css"));
 		init(iwc);
 		
 		String action = iwc.getParameter(this.ACTION);

@@ -34,6 +34,7 @@ public class SchoolTypeSelector extends Block {
 	private boolean _showOnlyNonFreetime = false;
 	
 	public void main(IWContext iwc) throws RemoteException {
+		PresentationUtil.addStyleSheetToHeader(iwc, getBundle(iwc).getVirtualPathWithFileNameString("style/school.css"));
 		init(iwc);
 
 		drawList(iwc);

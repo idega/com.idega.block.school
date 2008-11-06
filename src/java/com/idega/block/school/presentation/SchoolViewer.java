@@ -28,6 +28,7 @@ public class SchoolViewer extends Block {
 
 
 	public void main( IWContext iwc ) throws RemoteException{
+		PresentationUtil.addStyleSheetToHeader(iwc, getBundle(iwc).getVirtualPathWithFileNameString("style/school.css"));
 		init( iwc );
 		
 		schoolList( iwc );
