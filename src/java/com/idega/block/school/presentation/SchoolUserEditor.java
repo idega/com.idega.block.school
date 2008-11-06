@@ -59,6 +59,7 @@ import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.user.data.UserHome;
+import com.idega.util.PresentationUtil;
 import com.idega.util.text.Name;
 
 /**

@@ -22,6 +22,8 @@ import com.idega.presentation.ui.HiddenInput;
 import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextInput;
 import com.idega.presentation.util.TextFormat;
+import com.idega.util.PresentationUtil;
+
 /**
  * <p>Title: </p>
  * <p>Description: </p>
