@@ -12,6 +12,7 @@ import com.idega.data.IDOEntity;
 import com.idega.data.IDOFactory;
 
 public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
+	@Override
 	public Class getEntityInterfaceClass() {
 		return School.class;
 	}
@@ -112,6 +113,15 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 	public School findBySchoolName(String schoolName) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Object pk = ((SchoolBMPBean) entity).ejbFindBySchoolName(schoolName);
+		this.idoCheckInPooledEntity(entity);
+		return this.findByPrimaryKey(pk);
+	}
+
+	public School findByOrganizationNumber(String organizationNumber)
+			throws FinderException {
+		IDOEntity entity = this.idoCheckOutPooledEntity();
+		Object pk = ((SchoolBMPBean) entity)
+				.ejbFindByOrganizationNumber(organizationNumber);
 		this.idoCheckInPooledEntity(entity);
 		return this.findByPrimaryKey(pk);
 	}

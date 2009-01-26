@@ -623,6 +623,13 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return (Integer) super.idoFindOnePKBySQL(select);
 	}
 
+	public Integer ejbFindByOrganizationNumber(String organizationNumber) throws javax.ejb.FinderException {
+		String select = "select * from " + SCHOOL + " where " + ORGANIZATION_NUMBER + " = '" + organizationNumber + "'" + " and (termination_date is null or termination_date > '" + getCurrentDate() + "')";
+
+		return (Integer) super.idoFindOnePKBySQL(select);
+	}
+
+	
 	public Collection ejbFindAllCentralizedAdministrated() throws javax.ejb.FinderException {
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this.getEntityName()).appendWhereEqualsQuoted(CENTRALIZED_ADMINISTRATION, "Y");

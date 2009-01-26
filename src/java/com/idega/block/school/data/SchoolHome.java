@@ -46,6 +46,9 @@ public interface SchoolHome extends IDOHome {
 
 	public School findBySchoolName(String schoolName) throws FinderException;
 
+	public School findByOrganizationNumber(String organizationNumber)
+			throws FinderException;
+
 	public Collection findAllCentralizedAdministrated() throws FinderException;
 
 	public Collection findAllCentralizedAdministratedByType(Collection typeIds)
