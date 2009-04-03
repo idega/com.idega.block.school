@@ -12,7 +12,6 @@ import com.idega.data.IDOEntity;
 import com.idega.data.IDOFactory;
 
 public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
-	@Override
 	public Class getEntityInterfaceClass() {
 		return School.class;
 	}
