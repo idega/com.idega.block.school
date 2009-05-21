@@ -58,8 +58,6 @@ import com.idega.builder.bean.AdvancedProperty;
 import com.idega.business.IBOLookup;
 import com.idega.business.IBORuntimeException;
 import com.idega.business.IBOServiceBean;
-import com.idega.core.data.ICApplicationBinding;
-import com.idega.core.data.ICApplicationBindingHome;
 import com.idega.core.file.data.ICFile;
 import com.idega.core.location.data.Commune;
 import com.idega.core.location.data.CommuneHome;
@@ -1296,22 +1294,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @return
 	 */
 	public String getPropertyValue(String propertyName) {
-		try {
-			// TODO fix ugly hack
-			if (propertyName != null && propertyName.length() > 30) {
-				propertyName = propertyName.substring(propertyName.length() - 30);
-			}
-			ICApplicationBindingHome abHome = (ICApplicationBindingHome) IDOLookup.getHome(ICApplicationBinding.class);
-			ICApplicationBinding ab = abHome.findByPrimaryKey(propertyName);
-			if (ab != null) {
-				return ab.getValue();
-			}
-		}
-		catch (FinderException f) {
-		}
-		catch (IDOLookupException e) {
-		}
-		return null;
+		return this.getIWApplicationContext().getApplicationSettings().getProperty(propertyName);
 	}
 
 	/**
@@ -1321,31 +1304,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @param propertyValue
 	 */
 	public void setProperty(String propertyName, String propertyValue) {
-		try {
-			// TODO fix ugly hack
-			if (propertyName != null && propertyName.length() > 30) {
-				propertyName = propertyName.substring(propertyName.length() - 30);
-			}
-			ICApplicationBindingHome abHome = (ICApplicationBindingHome) IDOLookup.getHome(ICApplicationBinding.class);
-			ICApplicationBinding ab = null;
-			try {
-				ab = abHome.findByPrimaryKey(propertyName);
-			}
-			catch (FinderException f) {
-				ab = abHome.create();
-				ab.setKey(propertyName);
-			}
-
-			if (ab != null) {
-				ab.setValue(propertyValue);
-				ab.store();
-			}
-
-		}
-		catch (IDOLookupException e) {
-		}
-		catch (CreateException e) {
-		}
+		this.getIWApplicationContext().getApplicationSettings().setProperty(propertyName, propertyValue);
 	}
 
 	private Group getRootGroup(SchoolCategory category) {
