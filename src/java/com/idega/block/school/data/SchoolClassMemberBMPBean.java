@@ -1,5 +1,6 @@
 package com.idega.block.school.data;
 
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
