@@ -346,7 +346,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	public boolean getUserMainHeadmaster(User user) throws RemoteException, FinderException {
 		// Collection schUsers = getSchoolUserHome().findBySchoolAndUser(school, user);
-		// borde ev göras om lite eftersom det skulle kunna finnas flera school users på en user
+		// borde ev gï¿½ras om lite eftersom det skulle kunna finnas flera school users pï¿½ en user
 		Collection schUsers = getSchoolUserHome().findByUser(user);
 		Iterator iter = schUsers.iterator();
 		boolean main_head = false;
@@ -377,7 +377,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	public Collection getSchools(User user) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findByUser(user);
-		if (schUsers != null || !schUsers.isEmpty()) {
+		if (schUsers != null && !schUsers.isEmpty()) {
 			Collection coll = new Vector();
 			Iterator iter = schUsers.iterator();
 			SchoolUser sUser;

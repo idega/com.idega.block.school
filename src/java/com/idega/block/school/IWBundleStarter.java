@@ -26,7 +26,6 @@ import com.idega.block.school.data.SchoolSeason;
 import com.idega.block.school.data.SchoolSeasonHome;
 import com.idega.block.school.data.SchoolType;
 import com.idega.block.school.data.SchoolTypeHome;
-import com.idega.block.school.presentation.SchoolBlock;
 import com.idega.business.IBOLookup;
 import com.idega.business.IBOLookupException;
 import com.idega.business.IBORuntimeException;
@@ -36,7 +35,6 @@ import com.idega.idegaweb.IWApplicationContext;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWBundleStartable;
 import com.idega.idegaweb.IWMainApplication;
-import com.idega.idegaweb.include.GlobalIncludeManager;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.data.GroupType;
 
