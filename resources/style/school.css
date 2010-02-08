@@ -119,3 +119,21 @@ ul.schoolList li a:visited {
 	color:#444444;
 	text-decoration:underline;
 }
+
+body.school div.ws_main div.wf_block {
+	position: absolute;
+	margin: 0;
+	top: 4px;
+	bottom: 4px;
+	left: 4px;
+	right: 4px;
+}
+
+body.school div.ws_main div.wf_block .wf_blockmainarea {
+	position: absolute;
+	top: 23px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: auto;
+}
