@@ -525,8 +525,6 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendRightParenthesis();
 		sql.appendOrderBy(REGISTER_DATE + " desc");
 
-		System.out.println("<ejbFindByStudentAndSchoolAndTypes> = " + sql.toString());
-
 		return super.idoFindPKsBySQL(sql.toString());
 	}
 
@@ -573,7 +571,6 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	public int ejbHomeGetNumberOfPlacings(int userID) throws IDOException {
 		IDOQuery sql = idoQuery();
 		sql.appendSelectCountFrom(this).appendWhereEquals(MEMBER, userID);
-		System.out.println("<schoolClammMemberbmpBean> sql = " + sql.toString());
 		return this.idoGetNumberOfRecords(sql);
 	}
 
@@ -1596,8 +1593,6 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 			query.appendNotIn(subQuery);
 
-			System.out.println("SQL -> " + this.getClass() + ":" + query);
-
 			return idoGetNumberOfRecords(query);
 		}
 		catch (IDOCompositePrimaryKeyException e) {
@@ -1773,8 +1768,6 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 			subQuery.appendIn(subSubQuery);
 			query.appendNotIn(subQuery);
-
-			System.out.println("SQL -> " + this.getClass() + ":" + query);
 
 			return idoGetNumberOfRecords(query);
 		}
@@ -1989,8 +1982,6 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		query.append("m." + getIDColumnName());
 		query.appendIn(subquery);
 		query.appendRightParenthesis();
-
-		System.out.println("sql = " + query.toString());
 
 		return idoFindPKsByQuery(query);
 	}
