@@ -287,16 +287,13 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		Object communeId = getColumnValue(COMMUNE);
 		if (communeId == null) {
 			try {
-				System.out.print("[SchoolBMPBean] communeId not found ...");
 				CommuneHome cHome = (CommuneHome) IDOLookup.getHome(Commune.class);
 				Commune comm = cHome.findDefaultCommune();
 				if (comm != null) {
 					this.setCommunePK(comm.getPrimaryKey());
 					this.store();
-					System.out.print("set as defaul (pk=" + comm.getPrimaryKey() + ")");
 					return comm.getPrimaryKey();
 				}
-				System.out.print("NOT set. (Default not found)");
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -971,7 +968,6 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 					int lTextId = text.getID();
 					TxText txText = TextBusiness.saveText(-1, lTextId, localeId, -1, -1, null, null, text.getHeadline(), text.getTitle(), text.getBody(), null, null);
 					setText(txText);
-					System.out.println("[SchoolBMPBean] : Backwards compatability for localized text (School = '" + getSchoolName() + "')");
 					return TextFinder.getContentHelper(txText.getID(), localeId).getLocalizedText();
 				}
 				else {
