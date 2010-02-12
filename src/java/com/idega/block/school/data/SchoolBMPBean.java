@@ -847,9 +847,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 			sql.append(yearID);
 		}
 		sql.append(" order by s.").append(NAME);
-		this.getLogger().info(sql.toString() + " :::: " + area + ", " + yearID);
-		return super.idoFindPKsBySQL(sql.toString());
 
+		return super.idoFindPKsBySQL(sql.toString());
 	}
 
 	public Collection ejbFindAllBySubAreaAndTypes(int subarea, Collection types) throws javax.ejb.FinderException {
