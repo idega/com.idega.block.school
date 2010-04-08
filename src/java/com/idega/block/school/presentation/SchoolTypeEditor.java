@@ -168,32 +168,32 @@ public class SchoolTypeEditor extends SchoolBlock {
 		TableRow row = group.createRow();
 		TableCell2 cell = row.createHeaderCell();
 		cell.setStyleClass("firstColumn");
-		cell.setId("name");
+		cell.setStyleClass("name");
 		cell.add(new Text(localize("name", "Name")));
 
 		cell = row.createHeaderCell();
-		cell.setId("info");
+		cell.setStyleClass("info");
 		cell.add(new Text(localize("info", "Info")));
 
 		cell = row.createHeaderCell();
-		cell.setId("schoolCategory");
+		cell.setStyleClass("schoolCategory");
 		cell.add(new Text(localize("category", "Category")));
 
 		cell = row.createHeaderCell();
-		cell.setId("maxAge");
+		cell.setStyleClass("maxAge");
 		cell.add(new Text(localize("max_school_age", "Max school age")));
 
 		cell = row.createHeaderCell();
-		cell.setId("order");
+		cell.setStyleClass("order");
 		cell.add(new Text(localize("order", "Order")));
 
 		cell = row.createHeaderCell();
-		cell.setId("edit");
+		cell.setStyleClass("edit");
 		cell.add(Text.getNonBrakingSpace());
 
 		cell = row.createHeaderCell();
 		cell.setStyleClass("lastColumn");
-		cell.setId("delete");
+		cell.setStyleClass("delete");
 		cell.add(Text.getNonBrakingSpace());
 
 		group = table.createBodyRowGroup();
@@ -218,27 +218,27 @@ public class SchoolTypeEditor extends SchoolBlock {
 				cell.add(new Text(sType.getSchoolTypeName()));
 
 				cell = row.createCell();
-				cell.setId("info");
+				cell.setStyleClass("info");
 				cell.add(new Text(sType.getSchoolTypeInfo()));
 
 				cell = row.createCell();
-				cell.setId("schoolCategory");
+				cell.setStyleClass("schoolCategory");
 				cell.add(new Text(localize(category.getLocalizedKey(), category.getName())));
 
 				cell = row.createCell();
-				cell.setId("maxAge");
+				cell.setStyleClass("maxAge");
 				cell.add(new Text(sType.getMaxSchoolAge() > 0 ? String.valueOf(sType.getMaxSchoolAge()) : "-"));
 
 				cell = row.createCell();
-				cell.setId("order");
+				cell.setStyleClass("order");
 				cell.add(new Text(sType.getOrder() > 0 ? String.valueOf(sType.getOrder()) : "-"));
 
 				cell = row.createCell();
-				cell.setId("edit");
+				cell.setStyleClass("edit");
 				cell.add(edit);
 
 				cell = row.createCell();
-				cell.setId("delete");
+				cell.setStyleClass("delete");
 				cell.setStyleClass("lastColumn");
 				cell.add(delete);
 
