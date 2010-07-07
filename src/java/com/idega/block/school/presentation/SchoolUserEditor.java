@@ -1343,9 +1343,9 @@ public class SchoolUserEditor extends Block {
 		linkiGeneralInfo.addParameter(PARAMETER_TOPIC_EDITOR, SchoolEditorInfoText.PARAMETER_TOPIC_ID_EDITOR);
 		linkiGeneralInfo.setWindowToOpen(SchoolEditorInfoText.class);
 		// String sText = _iwrb.getLocalizedString("school.infoDepm","Om
-		// organisationen är enhetsindelad kan du i systemet skapa enheter genom att
+		// organisationen ï¿½r enhetsindelad kan du i systemet skapa enheter genom att
 		// skriva in enhetens namn och eventuellt telefonnummer under rubriken
-		// 'Skapa en enhet' och klicka på 'Spara'. ");
+		// 'Skapa en enhet' och klicka pï¿½ 'Spara'. ");
 		// linkiDepm.setToolTip(sText);
 
 		this.setTextInputStyle(pDepartmentName);
@@ -1380,9 +1380,6 @@ public class SchoolUserEditor extends Block {
 			UserHome userHome = (UserHome) IDOLookup.getHome(User.class);
 			User user = userHome.findByPrimaryKey(new Integer(uId));
 			try {
-				if (iwc == null) {
-					System.out.println("[SchoolUserEditor:deleteUser] iwc    == null");
-				}
 				if (user == null) {
 					System.out.println("[SchoolUserEditor:deleteUser] user   == null");
 				}
