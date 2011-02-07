@@ -790,7 +790,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		 * .appendRightParenthesis()
 		 */
 
-		.appendOrderBy(REGISTER_DATE + " desc");
+		.appendOrderBy(REGISTER_DATE + " desc, " + REMOVED_DATE + " desc");
 
 		return (Integer) this.idoFindOnePKBySQL(sql.toString());
 	}
