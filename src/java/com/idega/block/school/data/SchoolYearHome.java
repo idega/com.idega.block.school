@@ -10,13 +10,15 @@
 package com.idega.block.school.data;
 
 import java.util.Collection;
+
 import javax.ejb.FinderException;
+
 import com.idega.data.IDOHome;
 
 
 /**
  * Last modified: $Date: 2005/10/07 13:23:39 $ by $Author: laddi $
- * 
+ *
  * @author <a href="mailto:laddi@idega.com">laddi</a>
  * @version $Revision: 1.11 $
  */
@@ -34,7 +36,7 @@ public interface SchoolYearHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolYearBMPBean#ejbFindAllSchoolYearBySchoolType
 	 */
-	public Collection findAllSchoolYearBySchoolType(int schoolTypeId) throws FinderException;
+	public Collection<SchoolYear> findAllSchoolYearBySchoolType(int schoolTypeId) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolYearBMPBean#ejbFindAllSchoolYearBySchoolCategory
