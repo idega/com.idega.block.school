@@ -1,47 +1,49 @@
 package com.idega.block.school.business;
 
 
-import com.idega.block.school.data.SchoolSubAreaHome;
-import com.idega.block.school.data.SchoolDepartmentHome;
-import com.idega.block.school.data.SchoolAreaHome;
-import com.idega.block.school.data.School;
-import javax.ejb.CreateException;
-import com.idega.block.school.data.SchoolYearPlacesHome;
-import com.idega.block.school.data.SchoolYear;
-import com.idega.data.IDORemoveRelationshipException;
-import com.idega.block.school.data.SchoolDepartment;
-import com.idega.block.school.data.SchoolYearHome;
-import com.idega.block.school.data.SchoolSeasonHome;
-import com.idega.business.IBOService;
-import com.idega.block.school.data.SchoolSubArea;
-import com.idega.block.school.data.SchoolArea;
-import com.idega.block.school.data.SchoolManagementTypeHome;
-import com.idega.block.school.data.SchoolDistrictHome;
-import java.util.Map;
-import com.idega.block.school.data.SchoolTypeHome;
-import com.idega.block.school.data.SchoolClassHome;
-import java.sql.Date;
-import com.idega.user.data.User;
-import com.idega.block.school.data.SchoolClassMember;
-import com.idega.block.school.data.SchoolStudyPathHome;
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.sql.Timestamp;
-import com.idega.user.data.Group;
-import com.idega.block.school.data.SchoolClass;
-import com.idega.block.school.data.SchoolClassMemberHome;
 import java.util.Collection;
-import com.idega.block.school.data.SchoolUser;
-import com.idega.block.school.data.SchoolType;
-import com.idega.block.school.data.SchoolCategoryHome;
+import java.util.Map;
+
+import javax.ejb.CreateException;
 import javax.ejb.FinderException;
-import com.idega.block.school.data.SchoolStudyPath;
-import com.idega.block.school.data.SchoolSeason;
-import com.idega.block.school.data.SchoolHome;
-import com.idega.block.school.data.SchoolCategory;
-import com.idega.block.school.data.SchoolYearPlaces;
 import javax.ejb.RemoveException;
+
+import com.idega.block.school.data.School;
+import com.idega.block.school.data.SchoolArea;
+import com.idega.block.school.data.SchoolAreaHome;
+import com.idega.block.school.data.SchoolCategory;
+import com.idega.block.school.data.SchoolCategoryHome;
+import com.idega.block.school.data.SchoolClass;
+import com.idega.block.school.data.SchoolClassHome;
+import com.idega.block.school.data.SchoolClassMember;
+import com.idega.block.school.data.SchoolClassMemberHome;
 import com.idega.block.school.data.SchoolClassMemberLogHome;
+import com.idega.block.school.data.SchoolDepartment;
+import com.idega.block.school.data.SchoolDepartmentHome;
+import com.idega.block.school.data.SchoolDistrictHome;
+import com.idega.block.school.data.SchoolHome;
+import com.idega.block.school.data.SchoolManagementTypeHome;
+import com.idega.block.school.data.SchoolSeason;
+import com.idega.block.school.data.SchoolSeasonHome;
+import com.idega.block.school.data.SchoolStudyPath;
+import com.idega.block.school.data.SchoolStudyPathHome;
+import com.idega.block.school.data.SchoolSubArea;
+import com.idega.block.school.data.SchoolSubAreaHome;
+import com.idega.block.school.data.SchoolType;
+import com.idega.block.school.data.SchoolTypeHome;
+import com.idega.block.school.data.SchoolUser;
+import com.idega.block.school.data.SchoolYear;
+import com.idega.block.school.data.SchoolYearHome;
+import com.idega.block.school.data.SchoolYearPlaces;
+import com.idega.block.school.data.SchoolYearPlacesHome;
 import com.idega.block.school.data.Student;
+import com.idega.business.IBOService;
+import com.idega.data.IDORemoveRelationshipException;
+import com.idega.user.data.Group;
+import com.idega.user.data.User;
 
 public interface SchoolBusiness extends IBOService {
 
@@ -384,12 +386,12 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByType
 	 */
 	public Collection findAllSchoolsByType(int type) throws RemoteException;
-	
+
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByTypeDWR
 	 */
 	public Collection findAllSchoolsByTypeDWR(String type) throws RemoteException;
-	
+
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByTypeDWR
 	 */
@@ -558,22 +560,22 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypes
 	 */
-	public Collection findAllSchoolTypes() throws RemoteException;
+	public Collection<SchoolType> findAllSchoolTypes() throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategory
 	 */
-	public Collection findAllSchoolTypesInCategory(String Category) throws RemoteException;
+	public Collection<SchoolType> findAllSchoolTypesInCategory(String category) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategory
 	 */
-	public Collection findAllSchoolTypesInCategory(String Category, boolean showFreetimeTypes) throws RemoteException;
+	public Collection<SchoolType> findAllSchoolTypesInCategory(String Category, boolean showFreetimeTypes) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategoryFreeTime
 	 */
-	public Collection findAllSchoolTypesInCategoryFreeTime(String Category) throws RemoteException;
+	public Collection<SchoolType> findAllSchoolTypesInCategoryFreeTime(String Category) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getAfterSchoolCareSchoolCategory
@@ -1030,6 +1032,8 @@ public interface SchoolBusiness extends IBOService {
 	 */
 	public Collection findAllSchoolAreas(SchoolCategory category) throws RemoteException;
 
+	public Collection<SchoolArea> findAllSchoolAreasByType(int type) throws RemoteException;
+
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolSubAreas
 	 */
@@ -1149,4 +1153,12 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#alignLogs
 	 */
 	public void alignLogs(SchoolClassMember member) throws RemoteException;
+
+	public Collection<SchoolArea> getAllSchoolAreas();
+
+	/**
+	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolAreasByTypes
+	 */
+	public Collection<SchoolArea> findAllSchoolAreasByTypes(Collection<SchoolType> types) throws RemoteException;
+
 }
