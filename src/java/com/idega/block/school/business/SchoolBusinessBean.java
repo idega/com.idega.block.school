@@ -121,12 +121,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 
 	public final static String PROPERTY_NAME_USE_PLACEMENT_LOGGING = "log_placements";
 
-	@Override
+
 	public SchoolDepartmentHome getSchoolDepartmentHome() throws RemoteException {
 		return (SchoolDepartmentHome) IDOLookup.getHome(SchoolDepartment.class);
 	}
 
-	@Override
+
 	public SchoolHome getSchoolHome() {
 		try {
 			return (SchoolHome) IDOLookup.getHome(School.class);
@@ -136,7 +136,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMemberHome getSchoolClassMemberHome() {
 		try {
 			return (SchoolClassMemberHome) IDOLookup.getHome(SchoolClassMember.class);
@@ -146,7 +146,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassHome getSchoolClassHome() {
 		try {
 			return (SchoolClassHome) IDOLookup.getHome(SchoolClass.class);
@@ -156,7 +156,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolAreaHome getSchoolAreaHome() {
 		try {
 			return (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
@@ -166,7 +166,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolTypeHome getSchoolTypeHome() {
 		try {
 			return (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
@@ -176,7 +176,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolCategoryHome getSchoolCategoryHome() {
 		try {
 			return (SchoolCategoryHome) IDOLookup.getHome(SchoolCategory.class);
@@ -186,7 +186,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolSeasonHome getSchoolSeasonHome() {
 		try {
 			return (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
@@ -196,7 +196,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolStudyPathHome getSchoolStudyPathHome() {
 		try {
 			return (SchoolStudyPathHome) IDOLookup.getHome(SchoolStudyPath.class);
@@ -206,7 +206,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolDistrictHome getSchoolDistrictHome() {
 		try {
 			return (SchoolDistrictHome) IDOLookup.getHome(SchoolDistrict.class);
@@ -216,7 +216,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolManagementTypeHome getSchoolManagementTypeHome() {
 		try {
 			return (SchoolManagementTypeHome) IDOLookup.getHome(SchoolManagementType.class);
@@ -226,7 +226,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Student getStudent(User student) {
 		try {
 			if (student instanceof Student) {
@@ -245,22 +245,22 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public Collection getDepartments(School school) throws RemoteException, FinderException {
 		return getSchoolDepartmentHome().findAllDepartmentsBySchool(school);
 	}
 
-	@Override
+
 	public int getDepartmentID(SchoolDepartment schDepm) {
 		return schDepm.getDepartmentID();
 	}
 
-	@Override
+
 	public void removeDepartment(SchoolDepartment schDep) throws RemoveException {
 		schDep.remove();
 	}
 
-	@Override
+
 	public void addSchoolUsr(int schDep_id, SchoolUser schUser) throws FinderException, RemoteException {
 		try {
 			SchoolDepartmentHome schDepHome = (SchoolDepartmentHome) IDOLookup.getHome(SchoolDepartment.class);
@@ -273,14 +273,14 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolUsr(int schDep_id, SchoolUser schUser) throws FinderException, RemoteException, IDORemoveRelationshipException {
 		SchoolDepartmentHome schDepHome = (SchoolDepartmentHome) IDOLookup.getHome(SchoolDepartment.class);
 		SchoolDepartment schDep = schDepHome.findByPrimaryKey(new Integer(schDep_id));
 		schDep.removeSchoolUser(schUser);
 	}
 
-	@Override
+
 	public Collection getSchoolCategories() {
 		try {
 			return getSchoolCategoryHome().findAllCategories();
@@ -290,7 +290,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection getSchoolCategories(School school) {
 		Collection categories = new ArrayList();
 
@@ -313,7 +313,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return categories;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryMusicSchool() {
 		if (iSchoolCategoryMusicSchool == null) {
 			try {
@@ -335,7 +335,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryMusicSchool;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryAfterSchoolCare() {
 		if (iSchoolCategoryAfterSchoolCare == null) {
 			try {
@@ -348,7 +348,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryAfterSchoolCare;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryChildcare() {
 		if (iSchoolCategoryChildCare == null) {
 			try {
@@ -361,7 +361,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryChildCare;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryElementarySchool() {
 		if (iSchoolCategoryElementarySchool == null) {
 			try {
@@ -374,7 +374,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryElementarySchool;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryHighSchool() {
 		if (iSchoolCategoryHighSchool == null) {
 			try {
@@ -387,7 +387,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryHighSchool;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryCollege() {
 		if (iSchoolCategoryCollege == null) {
 			try {
@@ -400,7 +400,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryCollege;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryUniversity() {
 		if (iSchoolCategoryUniversity == null) {
 			try {
@@ -413,7 +413,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryUniversity;
 	}
 
-	@Override
+
 	public SchoolCategory getCategoryAdultEducation() {
 		if (iSchoolCategoryAdultEducation == null) {
 			try {
@@ -426,7 +426,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return iSchoolCategoryAdultEducation;
 	}
 
-	@Override
+
 	public Collection getSchoolManagementTypes() {
 		try {
 			return getSchoolManagementTypeHome().findAllManagementTypes();
@@ -436,7 +436,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public School getSchool(Object primaryKey) {
 		try {
 			return getSchoolHome().findByPrimaryKey(primaryKey);
@@ -446,7 +446,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolStudyPath getSchoolStudyPath(Object primaryKey) {
 		try {
 			return getSchoolStudyPathHome().findByPrimaryKey(primaryKey);
@@ -456,12 +456,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeProvider(int id) throws RemoveException {
 		removeProvider(new Integer(id));
 	}
 
-	@Override
+
 	public void removeProvider(Object primaryKey) throws RemoveException {
 		School school = getSchool(primaryKey);
 		school.addSchoolTypesRemoveOther(new int[0]);
@@ -501,7 +501,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		school.remove();
 	}
 
-	@Override
+
 	public void removeSchool(int id) {
 		try {
 			removeProvider(id);
@@ -511,7 +511,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchools() {
 		try {
 			return getSchoolHome().findAllSchools();
@@ -522,7 +522,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByAreaAndType(int area, int type) {
 		try {
 			return getSchoolHome().findAllByAreaAndType(area, type);
@@ -533,7 +533,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByAreaAndTypeAndYear(int areaID, int typeID, int yearID) {
 		try {
 			return getSchoolHome().findAllByAreaAndTypeAndYear(areaID, typeID, yearID);
@@ -544,7 +544,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByAreaAndTypes(int area, Collection types) {
 		try {
 			return getSchoolHome().findAllByAreaAndTypes(area, types);
@@ -555,7 +555,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolsBySubAreaAndTypes(int subarea, Collection types) {
 		try {
 			return getSchoolHome().findAllBySubAreaAndTypes(subarea, types);
@@ -566,7 +566,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public java.util.Collection findAllCentralizedAdministrated() {
 		try {
 			return getSchoolHome().findAllCentralizedAdministrated();
@@ -577,7 +577,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public java.util.Collection findAllCentralizedAdministratedByType(Collection typeIds) {
 		try {
 			return getSchoolHome().findAllCentralizedAdministratedByType(typeIds);
@@ -588,7 +588,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int school_type, Object communePK) throws RemoteException {
 		/**
 		 * @todo figure out how to implement
@@ -598,42 +598,42 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return createSchool(name, null, address, zipcode, ziparea, phone, null, null, null, area_id, sch_types, communePK);
 	}
 
-	@Override
+
 	public School createSchool(String name, String address, String zipcode, String ziparea, String phone, int area_id, int[] sch_types, Object communePK) throws RemoteException {
 		return createSchool(name, null, address, zipcode, ziparea, phone, null, null, null, area_id, sch_types, communePK);
 	}
 
-	@Override
+
 	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, Object communePK) throws RemoteException {
 		return createSchool(name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, type_ids, null, communePK);
 	}
 
-	@Override
+
 	public School createSchool(String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK) throws RemoteException {
 		return storeSchool(-1, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, type_ids, year_ids, communePK);
 	}
 
-	@Override
+
 	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK) throws RemoteException {
 		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, -1, type_ids, year_ids, null, null, null, null, communePK, -1, null, null);
 	}
 
-	@Override
+
 	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int[] type_ids, int[] year_ids, Object communePK, String providerStringId) throws RemoteException {
 		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, -1, type_ids, year_ids, null, null, null, null, communePK, -1, null, null, providerStringId);
 	}
 
-	@Override
+
 	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen) throws RemoteException {
 		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, sub_area_id, type_ids, year_ids, organizationNumber, extraProviderId, managementTypeId, terminationDate, communePK, countryId, centralizedAdministration, invisibleForCitizen, null);
 	}
 
-	@Override
+
 	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen, String providerStringId) throws RemoteException {
 		return storeSchool(id, name, info, address, zipcode, ziparea, phone, keycode, latitude, longitude, area_id, sub_area_id, type_ids, year_ids, organizationNumber, extraProviderId, managementTypeId, terminationDate, communePK, countryId, centralizedAdministration, invisibleForCitizen, providerStringId, null);
 	}
 
-	@Override
+
 	public School storeSchool(int id, String name, String info, String address, String zipcode, String ziparea, String phone, String keycode, String latitude, String longitude, int area_id, int sub_area_id, int[] type_ids, int[] year_ids, String organizationNumber, String extraProviderId, String managementTypeId, java.sql.Date terminationDate, Object communePK, int countryId, Boolean centralizedAdministration, Boolean invisibleForCitizen, String providerStringId, Boolean sortByBirthdate) throws RemoteException {
 		SchoolHome shome = getSchoolHome();
 		School newSchool;
@@ -728,7 +728,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return newSchool;
 	}
 
-	@Override
+
 	public Map getSchoolRelatedSchoolTypes(School school) {
 		try {
 			Collection types = school.findRelatedSchoolTypes();
@@ -749,7 +749,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public Map getSchoolRelatedSchoolYears(School school) {
 		try {
 			Collection years = school.findRelatedSchoolYears();
@@ -770,7 +770,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public Map getSchoolAndSchoolTypeRelatedSchoolCourses(School school, Object schoolTypeId) {
 		try {
 			SchoolStudyPathHome scHome = (SchoolStudyPathHome) IDOLookup.getHome(SchoolStudyPath.class);
@@ -795,7 +795,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public Map getMapOfSchools() {
 		try {
 			Collection schools = findAllSchools();
@@ -816,7 +816,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public Group getNewSchoolGroup(String name, String info) throws RemoteException {
 		try {
 			Group rootGroup = this.getRootSchoolGroup();
@@ -856,7 +856,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Group getRootSchoolCategoryGroup(SchoolCategory category) {
 		try {
 			String ROOT_SCHOOL_CATEGORY_GROUP_ID_PARAMETER = "category." + category.getCategory().toLowerCase();
@@ -897,7 +897,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public boolean hasEditPermission(User user, School school) throws RemoteException {
 		UserBusiness uBus = (UserBusiness) IBOLookup.getServiceInstance(getIWApplicationContext(), UserBusiness.class);
 		if (user != null && school != null) {
@@ -920,7 +920,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return false;
 	}
 
-	@Override
+
 	public Collection getSchoolGroups(User user) throws RemoteException {
 		Collection userSchoolGroups = getUserBusiness().getUserGroups(user, new String[] { GROUP_TYPE_SCHOOL_GROUP }, true);
 		if (userSchoolGroups != null) {
@@ -976,7 +976,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClass storeSchoolClass(String schoolClassName, School school, SchoolYear year, SchoolSeason season) {
 		if (year != null && season != null) {
 			return storeSchoolClass(-1, schoolClassName, ((Integer) school.getPrimaryKey()).intValue(), ((Integer) season.getPrimaryKey()).intValue(), ((Integer) year.getPrimaryKey()).intValue(), -1);
@@ -986,7 +986,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(SchoolClass sClass, User user) {
 		return storeSchoolClassMember(((Integer) user.getPrimaryKey()).intValue(), ((Integer) sClass.getPrimaryKey()).intValue(), -1, -1, IWTimestamp.getTimestampRightNow(), -1);
 		/*
@@ -1005,7 +1005,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws RemoteException
 	 * @author Borgman
 	 */
-	@Override
+
 	public Collection findAllSchClMemberInvoiceIntervalTypes() {
 		return getSchoolClassMemberHome().getInvoiceIntervalTypes();
 	}
@@ -1013,7 +1013,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * getAssistantHeadmasters added by Kelly (kelly@lindman.se) 15 may 2003
 	 */
-	@Override
+
 	public Collection getAssistantHeadmasters(School school) throws RemoteException {
 		try {
 			return getUserBusiness().getGroupBusiness().getUsers(school.getAssistantHeadmasterGroupId());
@@ -1023,7 +1023,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection getSchoolUsers(School school) throws RemoteException {
 		try {
 			return getSchoolUserBusiness().getSchoolUserHome().findBySchool(school);
@@ -1033,7 +1033,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection getAllSchoolUsers(School school) throws RemoteException {
 		Set users = new TreeSet();
 
@@ -1054,7 +1054,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return users;
 	}
 
-	@Override
+
 	public Collection getHeadmasters(School school) throws RemoteException {
 		try {
 			return getUserBusiness().getGroupBusiness().getUsers(school.getHeadmasterGroupId());
@@ -1064,7 +1064,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public User getHeadmaster(int schoolID) throws RemoteException {
 		try {
 			School school = getSchoolHome().findByPrimaryKey(new Integer(schoolID));
@@ -1078,7 +1078,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * Used for user who have admin rights, not only headmasters...
 	 */
-	@Override
+
 	public void addHeadmaster(School school, User user) throws RemoteException, FinderException {
 		GroupBusiness gBus = (GroupBusiness) IBOLookup.getServiceInstance(getIWApplicationContext(), GroupBusiness.class);
 		if (school.getHeadmasterGroupId() == -1) {
@@ -1090,7 +1090,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// user);
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByType(Collection typeIds) {
 		try {
 			SchoolHome shome = getSchoolHome();
@@ -1102,7 +1102,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllGroupsBySchoolDWR(String school) {
 		Collection result = new ArrayList();
 		if(school == null || school.length() == 0 || school.equals("-1")) {
@@ -1127,7 +1127,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return result;
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByTypeDWR(String type) {
 		Collection result = new ArrayList();
 		if(type == null || type.length() == 0 || type.equals("-1")) {
@@ -1153,7 +1153,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return result;
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByType(int type) {
 		try {
 			SchoolHome shome = getSchoolHome();
@@ -1165,7 +1165,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByType(SchoolType type) {
 		try {
 			SchoolHome shome = getSchoolHome();
@@ -1177,7 +1177,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolYearsInSchool(int schoolID) {
 		try {
 			School school = this.getSchool(new Integer(schoolID));
@@ -1196,7 +1196,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
@@ -1221,7 +1221,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootHighSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 
@@ -1247,7 +1247,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootMusicSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
@@ -1272,7 +1272,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootProviderAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
@@ -1297,7 +1297,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootSchoolOtherCommuneAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
@@ -1322,7 +1322,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootHighSchoolOtherCommuneAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 
@@ -1348,7 +1348,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootProviderOtherCommuneAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
@@ -1371,7 +1371,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @param propertyName
 	 * @return
 	 */
-	@Override
+
 	public String getPropertyValue(String propertyName) {
 		return this.getIWApplicationContext().getApplicationSettings().getProperty(propertyName);
 	}
@@ -1382,7 +1382,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @param propertyName
 	 * @param propertyValue
 	 */
-	@Override
+
 	public void setProperty(String propertyName, String propertyValue) {
 		this.getIWApplicationContext().getApplicationSettings().setProperty(propertyName, propertyValue);
 	}
@@ -1426,7 +1426,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @throws FinderException
 	 *           if it failed to locate the group.
 	 */
-	@Override
+
 	public Group getRootAdultEducationAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 
@@ -1444,7 +1444,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return rootGroup;
 	}
 
-	@Override
+
 	public void addSchoolAdministrator(User user) throws RemoteException {
 		try {
 			getUserBusiness().getGroupBusiness().addUser(((Integer) getRootSchoolAdministratorGroup().getPrimaryKey()).intValue(), user);
@@ -1457,7 +1457,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolYearPlaces getSchoolYearPlaces(Object primaryKey) {
 		try {
 			SchoolYearPlacesHome shome = (SchoolYearPlacesHome) IDOLookup.getHome(SchoolYearPlaces.class);
@@ -1468,7 +1468,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolYearPlace(int id) {
 		try {
 			SchoolYearPlaces schoolYearPlaces = getSchoolYearPlaces(new Integer(id));
@@ -1479,7 +1479,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolYearPlaces(int iSchoolId) {
 		try {
 			SchoolYearPlacesHome shome = getSchoolYearPlacesHome();
@@ -1491,7 +1491,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Map getMapOfSchoolYearPlaces(int iSchoolId) {
 		Collection c = findAllSchoolYearPlaces(iSchoolId);
 		Map m = new HashMap();
@@ -1507,7 +1507,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return m;
 	}
 
-	@Override
+
 	public SchoolYearPlacesHome getSchoolYearPlacesHome() {
 		try {
 			return (SchoolYearPlacesHome) IDOLookup.getHome(SchoolYearPlaces.class);
@@ -1517,7 +1517,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void storeSchoolYearPlaces(int id, int school_id, int school_year_id, int places) throws java.rmi.RemoteException {
 		SchoolYearPlacesHome shome = getSchoolYearPlacesHome();
 		SchoolYearPlaces newSchoolYearPlaces;
@@ -1541,7 +1541,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newSchoolYearPlaces.store();
 	}
 
-	@Override
+
 	public SchoolYear getSchoolYear(Object primaryKey) {
 		try {
 			SchoolYearHome shome = getSchoolYearHome();
@@ -1552,12 +1552,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolYear(int id) {
 		removeSchoolYear(new Integer(id));
 	}
 
-	@Override
+
 	public void removeSchoolYear(Object schoolYearPK) {
 		try {
 			SchoolYear area = getSchoolYear(schoolYearPK);
@@ -1568,7 +1568,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolYears() {
 		try {
 			SchoolYearHome shome = getSchoolYearHome();
@@ -1580,7 +1580,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolYearsBySchoolType(int schoolTypeId) {
 		try {
 			SchoolYearHome shome = getSchoolYearHome();
@@ -1593,12 +1593,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolYearsBySchoolCategory(String schoolCategory) throws FinderException {
 		return getSchoolYearHome().findBySchoolCategory(schoolCategory);
 	}
 
-	@Override
+
 	public Collection findAllSchoolYearsByAge(int age) {
 		try {
 			SchoolYearHome shome = getSchoolYearHome();
@@ -1610,7 +1610,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void storeSchoolYear(int pk, String name, int schoolTypeId, String category, String info, String localizedKey, int age) throws java.rmi.RemoteException {
 		SchoolYearHome shome = getSchoolYearHome();
 		SchoolYear newYear;
@@ -1643,7 +1643,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newYear.store();
 	}
 
-	@Override
+
 	public SchoolYearHome getSchoolYearHome() {
 		try {
 			return (SchoolYearHome) IDOLookup.getHome(SchoolYear.class);
@@ -1653,7 +1653,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolType getSchoolType(Object primaryKey) {
 		try {
 			SchoolTypeHome shome = (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
@@ -1665,7 +1665,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection getSchoolTypesForCategory(SchoolCategory category, boolean showFreetimeTypes) {
 		try {
 			return getSchoolTypeHome().findAllByCategory(category.getCategory(), showFreetimeTypes);
@@ -1675,12 +1675,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolType(int id) {
 		removeSchoolType(new Integer(id));
 	}
 
-	@Override
+
 	public void removeSchoolType(Object schoolTypePK) {
 		try {
 			SchoolType type = getSchoolType(schoolTypePK);
@@ -1691,7 +1691,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypes() {
 		try {
 			SchoolTypeHome shome = (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
@@ -1703,12 +1703,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypesInCategory(String Category) {
 		return findAllSchoolTypesInCategory(Category, true);
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypesInCategory(String Category, boolean showFreetimeTypes) {
 		try {
 			SchoolTypeHome shome = (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
@@ -1720,7 +1720,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypesInCategoryFreeTime(String Category) {
 		try {
 			SchoolTypeHome shome = (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
@@ -1735,7 +1735,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * @return The School type key registered for after school care school types.
 	 */
-	@Override
+
 	public String getAfterSchoolCareSchoolCategory() {
 		SchoolCategory category = getCategoryAfterSchoolCare();
 		if (category != null) {
@@ -1747,7 +1747,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * @return The School type key registered for Childcare school types.
 	 */
-	@Override
+
 	public String getChildCareSchoolCategory() {
 		SchoolCategory category = getCategoryChildcare();
 		if (category != null) {
@@ -1759,7 +1759,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * @return The School type key registered for Elementary school types.
 	 */
-	@Override
+
 	public String getElementarySchoolSchoolCategory() {
 		SchoolCategory category = getCategoryElementarySchool();
 		if (category != null) {
@@ -1768,7 +1768,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public String getAdultEducationSchoolCategory() {
 		SchoolCategory category = getCategoryAdultEducation();
 		if (category != null) {
@@ -1780,7 +1780,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * @return The School type key registered for Highschool types.
 	 */
-	@Override
+
 	public String getHighSchoolSchoolCategory() {
 		SchoolCategory category = getCategoryHighSchool();
 		if (category != null) {
@@ -1789,27 +1789,27 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return null;
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypesForChildCare() {
 		return findAllSchoolTypesInCategory(getChildCareSchoolCategory());
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypesForSchool() {
 		return findAllSchoolTypesInCategory(getElementarySchoolSchoolCategory());
 	}
 
-	@Override
+
 	public Collection findAllSchoolTypesForAdultEducation() {
 		return findAllSchoolTypesInCategory(getAdultEducationSchoolCategory());
 	}
 
-	@Override
+
 	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge, boolean isFreetimeType, boolean isFamilyFreetimeType, int order) throws java.rmi.RemoteException {
 		storeSchoolType(id, name, info, category, locKey, maxAge, isFreetimeType, isFamilyFreetimeType, order, null);
 	}
 
-	@Override
+
 	public void storeSchoolType(int id, String name, String info, String category, String locKey, int maxAge, boolean isFreetimeType, boolean isFamilyFreetimeType, int order, String typeStringId) throws java.rmi.RemoteException {
 		SchoolTypeHome shome = (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
 		SchoolType newType;
@@ -1843,7 +1843,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newType.store();
 	}
 
-	@Override
+
 	public SchoolSeason getSchoolSeason(Object primaryKey) {
 		try {
 			SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
@@ -1854,22 +1854,22 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolSeason getCurrentSchoolSeason(SchoolCategory category) throws FinderException {
 		return getSchoolSeasonHome().findCurrentSeason(category);
 	}
 
-	@Override
+
 	public SchoolSeason getNextSchoolSeason(SchoolCategory category) throws FinderException {
 		return getSchoolSeasonHome().findNextSeason(category, new IWTimestamp().getDate());
 	}
 
-	@Override
+
 	public void removeSchoolSeason(int id) {
 		removeSchoolSeason(new Integer(id));
 	}
 
-	@Override
+
 	public void removeSchoolSeason(Object schoolSeasonPK) {
 		try {
 			SchoolSeason season = getSchoolSeason(schoolSeasonPK);
@@ -1880,12 +1880,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolSeasons() {
 		return findAllSchoolSeasons((SchoolCategory) null);
 	}
 
-	@Override
+
 	public Collection findAllSchoolSeasons(String schoolCategory) {
 		try {
 			return findAllSchoolSeasons(getSchoolCategoryHome().findByPrimaryKey(schoolCategory));
@@ -1896,7 +1896,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolSeasons(SchoolCategory category) {
 		try {
 			SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
@@ -1914,7 +1914,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @param category
 	 * @return
 	 */
-	@Override
+
 	public Collection findAllCurrentSeasons(SchoolCategory category) {
 		try {
 			SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
@@ -1926,7 +1926,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllPreviousSchoolSeasons(SchoolSeason schoolSeason) {
 		try {
 			SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
@@ -1938,7 +1938,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllPreviousSchoolSeasons(int schoolSeasonID) {
 		try {
 			SchoolSeason season = getSchoolSeasonHome().findByPrimaryKey(new Integer(schoolSeasonID));
@@ -1949,7 +1949,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolSeason findPreviousSchoolSeason(int schoolSeasonID) {
 		try {
 			SchoolSeason season = getSchoolSeasonHome().findByPrimaryKey(new Integer(schoolSeasonID));
@@ -1960,7 +1960,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalID) throws java.rmi.RemoteException {
 		SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
 		SchoolSeason newSeason;
@@ -1988,7 +1988,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newSeason.store();
 	}
 
-	@Override
+
 	public SchoolClassMember findClassMemberInClass(int studentID, int schoolClassID) {
 		try {
 			return getSchoolClassMemberHome().findByUserAndSchoolClass(studentID, schoolClassID);
@@ -1998,7 +1998,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember findByStudentAndSeason(int userID, int seasonID) {
 		try {
 			return getSchoolClassMemberHome().findByUserAndSeason(userID, seasonID);
@@ -2008,7 +2008,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember findByStudentAndSchoolAndSeason(int userID, int schoolID, int seasonID) {
 		try {
 			return getSchoolClassMemberHome().findByUserAndSchoolAndSeason(userID, schoolID, seasonID);
@@ -2018,7 +2018,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember findByStudentAndSeason(User user, SchoolSeason season) {
 		try {
 			return getSchoolClassMemberHome().findByUserAndSeason(user, season);
@@ -2028,7 +2028,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember findByStudentAndSeason(SchoolClassMember student, SchoolSeason season) {
 		try {
 			return getSchoolClassMemberHome().findByUserAndSeason(student.getClassMemberId(), ((Integer) season.getPrimaryKey()).intValue());
@@ -2038,7 +2038,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findClassMember(int studentID) {
 		try {
 			return getSchoolClassMemberHome().findByStudent(studentID);
@@ -2048,12 +2048,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSubGroupPlacements(int studentID, int schoolID, int seasonID) throws FinderException {
 		return getSchoolClassMemberHome().findAllSubGroupPlacements(studentID, schoolID, seasonID);
 	}
 
-	@Override
+
 	public Collection findClassMemberInSchool(int studentID, int schoolID) {
 		try {
 			Collection types = findAllSchoolTypesForSchool();
@@ -2064,7 +2064,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findClassMemberInAdultEducation(int studentID, int schoolID) {
 		try {
 			Collection types = findAllSchoolTypesForAdultEducation();
@@ -2075,7 +2075,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findClassMemberInChildCare(int studentID, int schoolID) {
 		try {
 			Collection types = findAllSchoolTypesForChildCare();
@@ -2086,7 +2086,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsInClass(int studentClassID) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolClass(studentClassID);
@@ -2096,7 +2096,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsInClassAndYear(int studentClassID, int schoolYearID) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolClassAndYear(studentClassID, schoolYearID);
@@ -2106,7 +2106,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsInSchool(int schoolID, int schoolClassID) {
 		try {
 			return getSchoolClassMemberHome().findBySchool(schoolID, schoolClassID);
@@ -2116,7 +2116,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date) {
 		try {
 			return getSchoolClassMemberHome().findBySchool(schoolID, schoolClassID, date);
@@ -2126,12 +2126,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date, boolean showNotYetActive) {
 		return findStudentsInSchoolByDate(schoolID, schoolClassID, null, date, showNotYetActive);
 	}
 
-	@Override
+
 	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date, boolean showNotYetActive) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolAndLog(schoolID, schoolClassID, schoolCategory, date, showNotYetActive);
@@ -2141,7 +2141,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsInSchoolByDateChildcare(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date, boolean showNotYetActive) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolChildcare(schoolID, schoolClassID, schoolCategory, date, showNotYetActive);
@@ -2151,12 +2151,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, java.sql.Date date) {
 		return findStudentsInSchoolByDate(schoolID, schoolClassID, null, date);
 	}
 
-	@Override
+
 	public Collection findStudentsInSchoolByDate(int schoolID, int schoolClassID, String schoolCategory, java.sql.Date date) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolAndLog(schoolID, schoolClassID, schoolCategory, date);
@@ -2166,7 +2166,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember findSchoolClassMember(int userID, int schoolClassID) {
 		try {
 			return getSchoolClassMemberHome().findByUserAndSchoolClass(userID, schoolClassID);
@@ -2176,7 +2176,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsBySchoolAndSeasonAndYear(int schoolID, int seasonID, int yearID) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolAndSeasonAndYear(schoolID, seasonID, yearID);
@@ -2186,7 +2186,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsBySchoolAndSeasonAndYear(School school, SchoolSeason season, SchoolYear year) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolAndSeasonAndYearAndStudyPath(school, season, year, null);
@@ -2196,7 +2196,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findStudentsBySchoolAndSeason(int schoolID, int seasonID) {
 		try {
 			return getSchoolClassMemberHome().findBySchoolAndSeason(schoolID, seasonID);
@@ -2206,7 +2206,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolClassMemberFromClass(int studentID, int schoolClassID) {
 		try {
 			SchoolClass group = this.findSchoolClass(new Integer(schoolClassID));
@@ -2252,7 +2252,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolClassMember(int studentID) {
 		Collection members = findClassMember(studentID);
 		if (!members.isEmpty()) {
@@ -2271,7 +2271,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @return returns -1 if typeId is not found
 	 * @throws RemoteException
 	 */
-	@Override
+
 	public int getSchoolTypeIdFromSchoolClass(int schoolClassID) {
 		int schoolTypeId = -1;
 		if (schoolClassID != -1) {
@@ -2292,7 +2292,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * Used by ChildCare placements that don't store school year
 	 */
-	@Override
+
 	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, int registrator) {
 		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, registrator, null);
 	}
@@ -2300,7 +2300,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * Used by ChildCare placements that don't store school year
 	 */
-	@Override
+
 	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, int registrator, String notes) {
 		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, null, registrator, notes);
 	}
@@ -2308,33 +2308,33 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * Used by ChildCare placements that don't store school year
 	 */
-	@Override
+
 	public SchoolClassMember storeSchoolClassMemberCC(int studentID, int schoolClassID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes) {
 		return storeSchoolClassMember(studentID, schoolClassID, -1, schoolTypeID, registerDate, removedDate, registrator, notes);
 	}
 
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, registrator, null);
 	}
 
 	// ny
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, int studyPathID) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, null, null, studyPathID, -1);
 	}
 
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, String notes) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, notes);
 	}
 
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate, registrator, notes, null);
 	}
 
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language) {
 		return storeSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, removedDate, registrator, notes, language, -1, -1);
 	}
@@ -2342,7 +2342,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	/**
 	 * Stores placement. If placement for student and schoolgroup exist placement is updated
 	 */
-	@Override
+
 	public SchoolClassMember storeSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String language, int studyPathID, int handicraftId) {
 		try {
 			SchoolClass group = this.findSchoolClass(new Integer(schoolClassID));
@@ -2418,7 +2418,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, int registrator, String notes, String languageID) {
 		return storeNewSchoolClassMember(studentID, schoolClassID, schoolYearID, schoolTypeID, registerDate, null, registrator, notes, languageID);
 	}
@@ -2437,7 +2437,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @return
 	 * @throws RemoteException
 	 */
-	@Override
+
 	public SchoolClassMember storeNewSchoolClassMember(int studentID, int schoolClassID, int schoolYearID, int schoolTypeID, Timestamp registerDate, Timestamp removedDate, int registrator, String notes, String sLanguage) {
 		try {
 			SchoolClassMember member = getSchoolClassMemberHome().create();
@@ -2476,7 +2476,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClass findSchoolClass(Object primaryKey) {
 		try {
 			return getSchoolClassHome().findByPrimaryKey(primaryKey);
@@ -2486,7 +2486,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchool(int schoolID) {
 		try {
 			return getSchoolClassHome().findBySchool(schoolID);
@@ -2496,7 +2496,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndCategory(int schoolID, String category) {
 		try {
 			return getSchoolClassHome().findBySchoolAndCategory(schoolID, category);
@@ -2506,22 +2506,22 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findElementarySchoolClassesBySchool(int schoolID) {
 		return findSchoolClassesBySchoolAndCategory(schoolID, getElementarySchoolSchoolCategory());
 	}
 
-	@Override
+
 	public Collection findChildcareClassesBySchool(int schoolID) {
 		return findSchoolClassesBySchoolAndCategory(schoolID, getChildCareSchoolCategory());
 	}
 
-	@Override
+
 	public Collection findAfterschoolClassesBySchool(int schoolID) {
 		return findSchoolClassesBySchoolAndCategory(schoolID, getAfterSchoolCareSchoolCategory());
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeason(int schoolID, int schoolSeasonID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeason(schoolID, schoolSeasonID);
@@ -2531,7 +2531,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndYear(int schoolID, int schoolYearID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndYear(schoolID, schoolYearID);
@@ -2542,7 +2542,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID, boolean showSubGroups) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndYear(schoolID, schoolSeasonID, schoolYearID, showSubGroups);
@@ -2553,7 +2553,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSchoolTypeAndSeason(int schoolID, int schoolTypeID, int schoolSeasonID, Boolean showSubGroups, Boolean showNonSeasonGroups) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSchoolTypeAndSeason(schoolID, schoolTypeID, schoolSeasonID, showSubGroups, showNonSeasonGroups);
@@ -2564,7 +2564,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeasonAndYear(int schoolID, int schoolSeasonID, int schoolYearID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndYear(schoolID, schoolSeasonID, schoolYearID);
@@ -2575,7 +2575,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeasonAndYearAndStudyPath(int schoolID, int schoolSeasonID, int schoolYearID, int studyPathID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndInYear(schoolID, schoolSeasonID, schoolYearID, studyPathID);
@@ -2586,7 +2586,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndYears(schoolID, schoolSeasonID, schoolYearIDs);
@@ -2596,7 +2596,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeasonAndYears(int schoolID, int schoolSeasonID, String[] schoolYearIDs, boolean showSubGroups) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndYears(schoolID, schoolSeasonID, schoolYearIDs, showSubGroups);
@@ -2606,7 +2606,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesByTeacher(int teacherID) {
 		try {
 			return getSchoolClassHome().findByTeacher(teacherID);
@@ -2616,7 +2616,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSubGroupPlacements(SchoolClass group) {
 		try {
 			return group.getSubGroupPlacements();
@@ -2626,7 +2626,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndTeacher(int schoolID, int teacherID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndTeacher(schoolID, teacherID);
@@ -2636,7 +2636,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findSchoolClassesBySchoolAndSeasonAndTeacher(int schoolID, int schoolSeasonID, int teacherID) {
 		try {
 			return getSchoolClassHome().findBySchoolAndSeasonAndTeacher(schoolID, schoolSeasonID, teacherID);
@@ -2646,7 +2646,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public int getNumberOfStudentsInClass(int schoolClassID) {
 		try {
 			return getSchoolClassHome().getNumberOfStudentsInClass(schoolClassID);
@@ -2656,7 +2656,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolClass(int schoolClassID) {
 		try {
 			SchoolClass schoolClass = getSchoolClassHome().findByPrimaryKey(new Integer(schoolClassID));
@@ -2670,7 +2670,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void invalidateSchoolClass(int schoolClassID) {
 		try {
 			SchoolClass schoolClass = getSchoolClassHome().findByPrimaryKey(new Integer(schoolClassID));
@@ -2699,17 +2699,17 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs) {
 		return storeSchoolClass(schoolClassID, className, schoolID, schoolTypeID, seasonID, schoolYearIDs, teacherIDs, null);
 	}
 
-	@Override
+
 	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs) {
 		return storeSchoolClass(schoolClassID, className, schoolID, schoolTypeID, seasonID, schoolYearIDs, teacherIDs, studyPathIDs, null);
 	}
 
-	@Override
+
 	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolTypeID, int seasonID, String[] schoolYearIDs, String[] teacherIDs, String[] studyPathIDs, String groupStringId) {
 		SchoolClass schoolClass = null;
 		try {
@@ -2818,7 +2818,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return schoolClass;
 	}
 
-	@Override
+
 	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolSeasonID, int schoolYearID, int teacherID) {
 		try {
 			SchoolClass schoolClass;
@@ -2878,7 +2878,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolArea getSchoolArea(Object primaryKey) {
 		try {
 			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
@@ -2889,7 +2889,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolSubArea getSchoolSubArea(Object primaryKey) {
 		try {
 			SchoolSubAreaHome shome = (SchoolSubAreaHome) IDOLookup.getHome(SchoolSubArea.class);
@@ -2900,12 +2900,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolArea(int id) {
 		removeSchoolArea(new Integer(id));
 	}
 
-	@Override
+
 	public void removeSchoolArea(Object schoolAreaPK) {
 		try {
 			SchoolArea area = getSchoolArea(schoolAreaPK);
@@ -2916,7 +2916,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void removeSchoolSubArea(int id) {
 		try {
 			SchoolSubArea subarea = getSchoolSubArea(new Integer(id));
@@ -2927,7 +2927,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection<SchoolArea> getAllSchoolAreas() {
 		try {
 			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
@@ -2938,7 +2938,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return Collections.emptyList();
 	}
 
-	@Override
+
 	public Collection findAllSchoolAreas(SchoolCategory category) {
 		try {
 			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
@@ -2950,7 +2950,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection findAllSchoolSubAreas() {
 		try {
 			SchoolSubAreaHome shome = (SchoolSubAreaHome) IDOLookup.getHome(SchoolSubArea.class);
@@ -2962,7 +2962,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void storeSchoolArea(int id, String name, String info, String city, String accountingKey, SchoolCategory category) throws java.rmi.RemoteException {
 		SchoolAreaHome shome = getSchoolAreaHome();
 		SchoolArea newArea;
@@ -2988,7 +2988,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newArea.store();
 	}
 
-	@Override
+
 	public void storeSchoolSubArea(int id, String name, int areaid) throws java.rmi.RemoteException {
 		SchoolSubAreaHome shome = getSchoolSubAreaHome();
 		SchoolSubArea newSubArea;
@@ -3011,7 +3011,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newSubArea.store();
 	}
 
-	@Override
+
 	public void storeSchoolDepartment(String description, String phone, int schoolID, int schDepID) throws RemoteException {
 		/**
 		 * @todo figure out how to implement
@@ -3036,7 +3036,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		// return storeSchoolDepartment(description, phone, schoolID);
 	}
 
-	@Override
+
 	public SchoolUserBusiness getSchoolUserBusiness() {
 		try {
 			return (SchoolUserBusiness) IBOLookup.getServiceInstance(getIWApplicationContext(), SchoolUserBusiness.class);
@@ -3046,7 +3046,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public boolean hasSchoolRelationToYear(School school, SchoolYear schoolYear) {
 		try {
 			int relations = getSchoolHome().getNumberOfRelations(school, schoolYear);
@@ -3060,7 +3060,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public boolean hasAfterSchoolActivities(int schoolID) {
 		try {
 			int types = getSchoolHome().getNumberOfFreetimeTypes(schoolID);
@@ -3074,7 +3074,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public boolean hasSchoolPlacements(int userID) {
 		try {
 			int placings = getSchoolClassMemberHome().getNumberOfPlacings(userID);
@@ -3086,12 +3086,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public boolean hasGroupPlacement(int userID, int groupID) {
 		return hasGroupPlacement(userID, groupID, false);
 	}
 
-	@Override
+
 	public boolean hasGroupPlacement(int userID, int groupID, boolean isSubGroup) {
 		try {
 			if (isSubGroup) {
@@ -3106,7 +3106,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public String getSchoolPhone(int schoolID) {
 		School school = getSchool(new Integer(schoolID));
 		return school.getSchoolPhone();
@@ -3118,7 +3118,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 * @param schools
 	 *          the collection of schools
 	 */
-	@Override
+
 	public Collection getHomeCommuneSchools(Collection schools) {
 		ArrayList l = new ArrayList();
 		try {
@@ -3152,7 +3152,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return l;
 	}
 
-	@Override
+
 	public Collection findAllSchoolsByCategory(final String categoryString) {
 		final Collection result = new ArrayList();
 		try {
@@ -3165,12 +3165,12 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return result;
 	}
 
-	@Override
+
 	public String getProperty(School school, String propertyName) {
 		return school.getMetaData(propertyName);
 	}
 
-	@Override
+
 	public void setProperty(School school, String propertyName, String propertyValue) {
 		school.setMetaData(propertyName, propertyValue);
 		school.store();
@@ -3181,7 +3181,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	 *
 	 * @see com.idega.block.school.business.SchoolBusiness#findAllSchoolSubAreasByArea(java.lang.String)
 	 */
-	@Override
+
 	public Collection findAllSchoolSubAreasByArea(String area) {
 		final Collection result = new ArrayList();
 		try {
@@ -3194,7 +3194,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return result;
 	}
 
-	@Override
+
 	public SchoolClassMemberLogHome getSchoolClassMemberLogHome() {
 		try {
 			return (SchoolClassMemberLogHome) IDOLookup.getHome(SchoolClassMemberLog.class);
@@ -3204,7 +3204,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public SchoolSubAreaHome getSchoolSubAreaHome() {
 		try {
 			return (SchoolSubAreaHome) IDOLookup.getHome(SchoolSubArea.class);
@@ -3214,17 +3214,17 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void addToSchoolClassMemberLog(SchoolClassMember member, Date endDate, User performer) throws IllegalArgumentException {
 		addToSchoolClassMemberLog(member, null, null, endDate, performer);
 	}
 
-	@Override
+
 	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date endDate, User performer) throws IllegalArgumentException {
 		addToSchoolClassMemberLog(member, schoolClass, null, endDate, performer);
 	}
 
-	@Override
+
 	public void addToSchoolClassMemberLog(int schoolClassMemberID, int schoolClassID, Date startDate, Date endDate, User performer) throws IllegalArgumentException {
 		try {
 			addToSchoolClassMemberLog(getSchoolClassMemberHome().findByPrimaryKey(new Integer(schoolClassMemberID)), getSchoolClassHome().findByPrimaryKey(new Integer(schoolClassID)), startDate, endDate, performer);
@@ -3234,7 +3234,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public void addToSchoolClassMemberLog(SchoolClassMember member, SchoolClass schoolClass, Date startDate, Date endDate, User performer) throws IllegalArgumentException {
 		boolean logPlacements = false;
 		try {
@@ -3317,7 +3317,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public boolean hasActivePlacement(int studentId, int schoolId, SchoolCategory category) {
 		SchoolClassMember placement = null;
 		try {
@@ -3329,7 +3329,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return placement != null;
 	}
 
-	@Override
+
 	public void alignLogs(SchoolClassMember member) {
 		try {
 			Date placementEndDate = member.getRemovedDate() != null ? new IWTimestamp(member.getRemovedDate()).getDate() : null;
@@ -3383,7 +3383,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllSchoolAreasByType(int type) throws RemoteException {
 		SchoolAreaHome schoolAreaHome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);
 		try {
@@ -3394,7 +3394,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		return Collections.emptyList();
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllSchoolAreasByTypes(Collection<SchoolType> types) {
 		try {
 			SchoolAreaHome shome = (SchoolAreaHome) IDOLookup.getHome(SchoolArea.class);

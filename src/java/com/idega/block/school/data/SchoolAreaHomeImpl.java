@@ -13,22 +13,22 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 
 	private static final long serialVersionUID = 1767031846791864669L;
 
-	@Override
+
 	public Class<SchoolArea> getEntityInterfaceClass() {
 		return SchoolArea.class;
 	}
 
-	@Override
+
 	public SchoolArea create() throws CreateException {
 		return (SchoolArea) super.createIDO();
 	}
 
-	@Override
+
 	public SchoolArea findByPrimaryKey(Object pk) throws FinderException {
 		return (SchoolArea) super.findByPrimaryKeyIDO(pk);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllSchoolAreas(SchoolCategory category) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(category);
@@ -36,7 +36,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllSchoolAreas(SchoolCategory category, boolean useNullValue) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(category, useNullValue);
@@ -44,7 +44,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> getAllScoolAreas() throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(null, false);
@@ -52,7 +52,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	@Override
+
 	public SchoolArea findSchoolAreaByAreaName(SchoolCategory category, String name) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Object pk = ((SchoolAreaBMPBean) entity).ejbFindSchoolAreaByAreaName(category, name);
@@ -60,7 +60,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.findByPrimaryKey(pk);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllSchoolAreasByType(int type) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllBySchoolType(type);
@@ -68,7 +68,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllBySchoolTypeAndCity(int type, String city) throws FinderException{
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean)entity).ejbFindAllBySchoolTypeAndCity(type, city);
@@ -76,7 +76,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllBySchoolTypeCityAndManagementTypes(int type, String city, Collection<String> managementTypes) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean)entity).ejbFindAllBySchoolTypeCityAndManagementTypes(type, city, managementTypes);
@@ -84,7 +84,7 @@ public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	@Override
+
 	public Collection<SchoolArea> findAllBySchoolTypes(Collection<SchoolType> types) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection<?> ids = ((SchoolAreaBMPBean)entity).ejbFindAllBySchoolTypes(types);

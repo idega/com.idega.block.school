@@ -39,7 +39,7 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 	public final static String ACCOUNTING_KEY = "ACCOUNTING_KEY";
 	public final static String SCHOOL_CATEGORY = "SCHOOL_CATEGORY";
 
-	@Override
+
 	public void initializeAttributes() {
 		this.addAttribute(getIDColumnName());
 		this.addAttribute(NAME, "Schoolname", true, true, String.class);
@@ -51,64 +51,64 @@ public class SchoolAreaBMPBean extends GenericEntity implements SchoolArea {
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 
-	@Override
+
 	public String getEntityName() {
 		return SCHOOL;
 	}
 
 	// Getters
-	@Override
+
 	public String getName() {
 		return getSchoolAreaName();
 	}
 
-	@Override
+
 	public String getSchoolAreaName() {
 		return this.getStringColumnValue(NAME);
 	}
 
-	@Override
+
 	public String getSchoolAreaInfo() {
 		return this.getStringColumnValue(INFO);
 	}
 
-	@Override
+
 	public String getSchoolAreaCity() {
 		return this.getStringColumnValue(CITY);
 	}
 
-	@Override
+
 	public String getAccountingKey() {
 		return this.getStringColumnValue(ACCOUNTING_KEY);
 	}
 
-	@Override
+
 	public SchoolCategory getCategory() {
 		return (SchoolCategory) getColumnValue(SCHOOL_CATEGORY);
 	}
 
 	// Setters
-	@Override
+
 	public void setSchoolAreaName(String name) {
 		this.setColumn(NAME, name);
 	}
 
-	@Override
+
 	public void setSchoolAreaInfo(String info) {
 		this.setColumn(INFO, info);
 	}
 
-	@Override
+
 	public void setSchoolAreaCity(String city) {
 		this.setColumn(CITY, city);
 	}
 
-	@Override
+
 	public void setAccountingKey(String accountingKey) {
 		this.setColumn(ACCOUNTING_KEY, accountingKey);
 	}
 
-	@Override
+
 	public void setCategory(SchoolCategory category) {
 		setColumn(SCHOOL_CATEGORY, category);
 	}

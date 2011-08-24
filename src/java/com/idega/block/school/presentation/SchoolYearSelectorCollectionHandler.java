@@ -39,7 +39,6 @@ public class SchoolYearSelectorCollectionHandler implements RemoteScriptCollecti
 	 *
 	 * @see com.idega.presentation.remotescripting.RemoteScriptCollection#getResults(com.idega.presentation.IWContext)
 	 */
-	@Override
 	public RemoteScriptingResults getResults(IWContext iwc) {
 		IWResourceBundle iwrb = iwc.getIWMainApplication().getBundle(SchoolConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(iwc.getCurrentLocale());
 		String sourceName = iwc.getParameter(RemoteScriptHandler.PARAMETER_SOURCE_PARAMETER_NAME);
