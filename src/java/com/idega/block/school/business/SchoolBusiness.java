@@ -690,7 +690,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolSeason
 	 */
-	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category) throws RemoteException, RemoteException;
+	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalID) throws RemoteException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findClassMemberInClass

@@ -104,4 +104,14 @@ public interface SchoolSeason extends IDOEntity {
 	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#getPreviousSeason
 	 */
 	public SchoolSeason getPreviousSeason() throws FinderException;
+
+	/**
+	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#getExternalID
+	 */
+	public int getExternalID();
+
+	/**
+	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#setExternalID
+	 */
+	public void setExternalID(int externalID);
 }

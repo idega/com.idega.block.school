@@ -47,6 +47,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 	private static final String PARAMETER_SEASON_END = "prm_season_end";
 	private static final String PARAMETER_CHOICE_START_DATE = "prm_choice_start_date";
 	private static final String PARAMETER_CHOICE_END_DATE = "prm_choice_end_date";
+	private static final String PARAMETER_EXTERNAL_ID = "prm_external_id";
 	
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -72,7 +73,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				break;
 
 			case ACTION_SAVE:
-				saveArea(iwc);
+				saveSeason(iwc);
 				showList(iwc);
 				break;
 
@@ -90,7 +91,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		return ACTION_VIEW;
 	}
 
-	private void saveArea(IWContext iwc) throws java.rmi.RemoteException {
+	private void saveSeason(IWContext iwc) throws java.rmi.RemoteException {
 		String id = iwc.getParameter(PARAMETER_SCHOOL_SEASON_PK);
 		String name = iwc.getParameter(PARAMETER_NAME);
 		String category = null;
@@ -104,12 +105,13 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		Date endDate = iwc.isParameterSet(PARAMETER_SEASON_END) ? new IWTimestamp(iwc.getParameter(PARAMETER_SEASON_END)).getDate() : null;
 		Date dueDate = iwc.isParameterSet(PARAMETER_CHOICE_END_DATE) ? new IWTimestamp(iwc.getParameter(PARAMETER_CHOICE_END_DATE)).getDate() : null;
 		Date choiceStartDate = iwc.isParameterSet(PARAMETER_CHOICE_START_DATE) ? new IWTimestamp(iwc.getParameter(PARAMETER_CHOICE_START_DATE)).getDate() : null;
+		int externalID = iwc.isParameterSet(PARAMETER_EXTERNAL_ID) ? Integer.parseInt(iwc.getParameter(PARAMETER_EXTERNAL_ID)) : 0;
 
 		int aid = -1;
 		if (id != null) {
 			aid = Integer.parseInt(id);
 		}
-		getBusiness().storeSchoolSeason(aid, name, startDate, endDate, choiceStartDate, dueDate, category);
+		getBusiness().storeSchoolSeason(aid, name, startDate, endDate, choiceStartDate, dueDate, category, externalID);
 	}
 
 	public void showList(IWContext iwc) {
@@ -151,6 +153,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		row.createHeaderCell().add(new Text(localize("start", "Start")));
 		row.createHeaderCell().add(new Text(localize("end", "End")));
 		row.createHeaderCell().add(new Text(localize("due_date", "Due date")));
+		row.createHeaderCell().add(new Text(localize("external_id", "External ID")));
 		row.createHeaderCell().add(Text.getNonBrakingSpace());
 		cell = row.createHeaderCell();
 		cell.setStyleClass("lastColumn");
@@ -184,6 +187,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				row.createCell().add(new Text(startDate != null ? startDate.getLocaleDate(iwc.getCurrentLocale(), IWTimestamp.SHORT) : "-"));
 				row.createCell().add(new Text(endDate != null ? endDate.getLocaleDate(iwc.getCurrentLocale(), IWTimestamp.SHORT) : "-"));
 				row.createCell().add(new Text(dueDate != null ? dueDate.getLocaleDate(iwc.getCurrentLocale(), IWTimestamp.SHORT) : "-"));
+				row.createCell().add(new Text(season.getExternalID() > 0 ? String.valueOf(season.getExternalID()) : "-"));
 				row.createCell().add(edit);
 				cell = row.createCell();
 				cell.setStyleClass("lastColumn");
@@ -219,6 +223,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		DateInput inputEnd = new DateInput(PARAMETER_SEASON_END);
 		DateInput inputStartDate = new DateInput(PARAMETER_CHOICE_START_DATE);
 		DateInput inputDueDate = new DateInput(PARAMETER_CHOICE_END_DATE);
+		TextInput inputExternal = new TextInput(PARAMETER_EXTERNAL_ID);
 		SelectorUtility util = new SelectorUtility();
 		DropdownMenu drpCategory = (DropdownMenu) util.getSelectorFromIDOEntities(new DropdownMenu(PARAMETER_CATEGORY), getBusiness().getSchoolCategories(), "getLocalizedKey", getResourceBundle());
 		
@@ -245,6 +250,9 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				}
 				if (season.getSchoolCategoryPK() != null) {
 					drpCategory.setSelectedElement(season.getSchoolCategoryPK());
+				}
+				if (season.getExternalID() > 0) {
+					inputExternal.setContent(String.valueOf(season.getExternalID()));
 				}
 			}
 			catch (Exception ex) {
@@ -293,6 +301,13 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		label = new Label(localize("due_date", "Duedate"), inputDueDate);
 		layer.add(label);
 		layer.add(inputDueDate);
+		form.add(layer);
+
+		layer = new Layer(Layer.DIV);
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("external_id", "External ID"), inputExternal);
+		layer.add(label);
+		layer.add(inputExternal);
 		form.add(layer);
 
 		form.add(new Break());

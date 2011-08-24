@@ -100,7 +100,7 @@ public class IWBundleStarter implements IWBundleStartable {
 						Iterator iter = seasons.iterator();
 						while (iter.hasNext()) {
 							SchoolSeason season = (SchoolSeason) iter.next();
-							business.storeSchoolSeason(-1, season.getSchoolSeasonName(), season.getSchoolSeasonStart(), season.getSchoolSeasonEnd(), season.getChoiceStartDate(), season.getChoiceEndDate(), afterSchoolCareCategory.getCategory());
+							business.storeSchoolSeason(-1, season.getSchoolSeasonName(), season.getSchoolSeasonStart(), season.getSchoolSeasonEnd(), season.getChoiceStartDate(), season.getChoiceEndDate(), afterSchoolCareCategory.getCategory(), 0);
 							System.out.println("Created season for " + afterSchoolCareCategory.getCategory() + " = " + season.getSchoolSeasonName());
 						}
 					}

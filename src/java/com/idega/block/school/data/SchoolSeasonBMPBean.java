@@ -43,6 +43,8 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 	public final static String SCHOOL_CATEGORY = "school_category";
 
 	public final static String NAME = "name";
+	
+	public static final String EXTERNAL_ID = "external_id";
 
 	public String getEntityName() {
 		return SCHOOLSEASON;
@@ -55,9 +57,10 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 		addAttribute(END, "End", true, true, Date.class);
 		addAttribute(START_DATE, "Choice start date", Date.class);
 		addAttribute(DUE_DATE, "Choice end date", Date.class);
+		addAttribute(EXTERNAL_ID, "External ID", Integer.class);
 
 		addManyToOneRelationship(SCHOOL_CATEGORY, SchoolCategory.class);
-    getEntityDefinition().setBeanCachingActiveByDefault(true);
+		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 
 	public String getName() {
@@ -118,6 +121,14 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 
 	public void setSchoolCategory(Object categoryPK) {
 		setColumn(SCHOOL_CATEGORY, categoryPK);
+	}
+	
+	public int getExternalID() {
+		return getIntColumnValue(EXTERNAL_ID, 0);
+	}
+	
+	public void setExternalID(int externalID) {
+		setColumn(EXTERNAL_ID, externalID);
 	}
 
 	public java.util.Collection ejbFindAllSchoolSeasons() throws FinderException {
