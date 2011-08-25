@@ -1,25 +1,26 @@
 package com.idega.block.school.data;
 
 
-import com.idega.core.file.data.ICFile;
-import com.idega.data.IDOException;
-import com.idega.core.location.data.Commune;
-import com.idega.data.MetaDataCapable;
-import java.sql.Date;
-import com.idega.data.IDORemoveRelationshipException;
 import java.rmi.RemoteException;
-import com.idega.user.data.Group;
-import com.idega.data.IDOAddRelationshipException;
-import com.idega.data.IDORelationshipException;
+import java.sql.Date;
 import java.util.Collection;
-import javax.ejb.FinderException;
-import com.idega.block.text.data.LocalizedText;
-import com.idega.data.IDOLegacyEntity;
-import com.idega.core.location.data.Country;
-import com.idega.data.IDOEntity;
 
-public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable,
-		Comparable {
+import javax.ejb.FinderException;
+
+import com.idega.block.text.data.LocalizedText;
+import com.idega.core.file.data.ICFile;
+import com.idega.core.location.data.Commune;
+import com.idega.core.location.data.Country;
+import com.idega.data.IDOAddRelationshipException;
+import com.idega.data.IDOEntity;
+import com.idega.data.IDOException;
+import com.idega.data.IDOLegacyEntity;
+import com.idega.data.IDORelationshipException;
+import com.idega.data.IDORemoveRelationshipException;
+import com.idega.data.MetaDataCapable;
+import com.idega.user.data.Group;
+
+public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getPrimaryGroup
 	 */
@@ -639,9 +640,4 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable,
 	 * @see com.idega.block.school.data.SchoolBMPBean#setSortByBirthdate
 	 */
 	public void setSortByBirthdate(boolean arg);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#compareTo
-	 */
-	public int compareTo(Object o);
 }

@@ -20,6 +20,7 @@ import com.idega.core.location.data.CommuneHome;
 import com.idega.core.location.data.Country;
 import com.idega.data.GenericEntity;
 import com.idega.data.IDOAddRelationshipException;
+import com.idega.data.IDOEntity;
 import com.idega.data.IDOException;
 import com.idega.data.IDOFinderException;
 import com.idega.data.IDOLegacyEntity;
@@ -55,8 +56,10 @@ import com.idega.user.data.User;
  * @version 1.0
  */
 
-public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEntity, MetaDataCapable, Comparable {
+public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEntity, MetaDataCapable {
 
+	private static final long serialVersionUID = -2233834309495357949L;
+	
 	public final static String SCHOOL = "sch_school";
 	public final static String NAME = "SCHOOL_NAME";
 	public final static String ADDRESS = "school_address";
@@ -114,6 +117,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	
 	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
 
+	@Override
 	public void initializeAttributes() {
 		this.addAttribute(getIDColumnName());
 		// this.addAttribute(SCHOOLTYPE,"Schooltype",true,true,Integer.class,this.MANY_TO_ONE,SchoolType.class);
@@ -179,6 +183,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 
+	@Override
 	public String getEntityName() {
 		return SCHOOL;
 	}
@@ -191,6 +196,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		setColumn(COLUMN_PRIMARY_GROUP, group);
 	}
 
+	@Override
 	public String getName() {
 		return getSchoolName();
 	}
@@ -1158,7 +1164,10 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		setColumn(SORT_BY_BIRTHDATE, arg);
 	}
 
-	public int compareTo(Object o) {
+	public int compareTo(IDOEntity o) {
+		if (!(o instanceof School))
+			return 0;
+		
 		School school = (School) o;
 		String name1 = getName();
 		String name2 = school.getName();
