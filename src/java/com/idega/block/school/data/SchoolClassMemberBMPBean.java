@@ -1372,7 +1372,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 			}
 		}
 		sql.appendAnd().appendLeftParenthesis();
-		sql.append("m.removed_date").appendGreaterThanSign().append(date);
+		sql.append("m.removed_date").appendGreaterThanOrEqualsSign().append(date);
 		sql.appendOr().append("m.removed_date is null").appendRightParenthesis();
 		sql.appendOrderBy("u.first_name, u.middle_name, u.last_name");
 		return super.idoFindPKsByQuery(sql);
