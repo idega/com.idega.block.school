@@ -1961,7 +1961,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 
-	public void storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalID) throws java.rmi.RemoteException {
+	public SchoolSeason storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalID) throws java.rmi.RemoteException {
 		SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
 		SchoolSeason newSeason;
 		try {
@@ -1986,6 +1986,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newSeason.setSchoolCategory(category);
 		newSeason.setExternalID(externalID);
 		newSeason.store();
+		return newSeason;
 	}
 
 
