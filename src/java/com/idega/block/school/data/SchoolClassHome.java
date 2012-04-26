@@ -1,8 +1,8 @@
 /*
  * $Id: SchoolClassHome.java,v 1.36 2007/03/27 07:53:39 laddi Exp $ Created on Oct 26, 2005
- * 
+ *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- * 
+ *
  * This software is the proprietary information of Idega hf. Use is subject to license terms.
  */
 package com.idega.block.school.data;
@@ -16,9 +16,9 @@ import com.idega.data.IDOHome;
 import com.idega.user.data.User;
 
 /**
- * 
+ *
  * Last modified: $Date: 2007/03/27 07:53:39 $ by $Author: laddi $
- * 
+ *
  * @author <a href="mailto:bluebottle@idega.com">bluebottle</a>
  * @version $Revision: 1.36 $
  */
@@ -36,12 +36,12 @@ public interface SchoolClassHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchool
 	 */
-	public Collection findBySchool(School school) throws FinderException;
+	public Collection<SchoolClass> findBySchool(School school) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchool
 	 */
-	public Collection findBySchool(int schoolID) throws FinderException;
+	public Collection<SchoolClass> findBySchool(int schoolID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySchoolAndSeason

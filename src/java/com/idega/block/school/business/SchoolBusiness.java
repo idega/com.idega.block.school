@@ -215,7 +215,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchools
 	 */
-	public Collection findAllSchools() throws RemoteException;
+	public Collection<School> findAllSchools() throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByAreaAndType
@@ -1097,7 +1097,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByCategory
 	 */
-	public Collection findAllSchoolsByCategory(String categoryString) throws RemoteException;
+	public Collection<School> findAllSchoolsByCategory(String categoryString) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getProperty

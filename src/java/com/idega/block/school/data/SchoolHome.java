@@ -1,14 +1,16 @@
 package com.idega.block.school.data;
 
 
-import com.idega.data.IDOException;
-import com.idega.user.data.Group;
 import java.util.Collection;
+
 import javax.ejb.CreateException;
-import com.idega.data.IDOHome;
-import javax.ejb.FinderException;
 import javax.ejb.EJBException;
+import javax.ejb.FinderException;
+
+import com.idega.data.IDOException;
+import com.idega.data.IDOHome;
 import com.idega.data.IDOLookupException;
+import com.idega.user.data.Group;
 
 public interface SchoolHome extends IDOHome {
 	public School create() throws CreateException;
@@ -59,7 +61,7 @@ public interface SchoolHome extends IDOHome {
 
 	public Collection findAllBySchoolArea(int areaId) throws FinderException;
 
-	public Collection findAllSchools() throws FinderException;
+	public Collection<School> findAllSchools() throws FinderException;
 
 	public Collection findAllSchoolsIncludingTerminated()
 			throws FinderException;
@@ -84,7 +86,7 @@ public interface SchoolHome extends IDOHome {
 	public Collection findAllBySubAreaAndTypes(int subarea, Collection types)
 			throws FinderException;
 
-	public Collection findAllByCategory(SchoolCategory schoolCategory)
+	public Collection<School> findAllByCategory(SchoolCategory schoolCategory)
 			throws FinderException;
 
 	public Collection findAllInHomeCommuneByCategory(

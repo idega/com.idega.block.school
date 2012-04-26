@@ -10,39 +10,22 @@ import com.idega.block.school.data.School;
  * A class to compare a collection of <code>School</code> objects.
  * @author Laddi
  */
-public class SchoolComparator implements Comparator {
+public class SchoolComparator implements Comparator<School> {
 
-	Locale _locale;
-	
+	private Locale _locale;
+	private Collator collator;
+
 	/**
 	 * Constructor for SchoolComparator.
 	 */
 	public SchoolComparator(Locale locale) {
 		this._locale = locale;
+		collator = Collator.getInstance(this._locale);
 	}
 
-	/**
-	 * @see java.util.Comparator#compare(Object, Object)
-	 */
-	public int compare(Object o1, Object o2) {
-		Collator collator = Collator.getInstance(this._locale);
-		
-		School school1;
-		try {
-			school1 = (School) o1;
-		}
-		catch (ClassCastException e) {
-			return -1;
-		}
-		
-		School school2;
-		try {
-			school2 = (School) o2;
-		}
-		catch (ClassCastException e) {
-			return 1;
-		}
-		
+	@Override
+	public int compare(School school1, School school2) {
 		return collator.compare(school1.getSchoolName(), school2.getSchoolName());
 	}
+
 }

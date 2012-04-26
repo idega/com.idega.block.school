@@ -1,10 +1,12 @@
 /**
- * 
+ *
  */
 package com.idega.block.school.data;
 
 import java.util.Collection;
+
 import javax.ejb.FinderException;
+
 import com.idega.data.IDOHome;
 
 
@@ -13,7 +15,7 @@ import com.idega.data.IDOHome;
  * TODO is Describe Type SchoolTypeHome
  * </p>
  *  Last modified: $Date: 2006/05/15 09:39:02 $ by $Author: igors $
- * 
+ *
  * @author <a href="mailto:is@idega.com">is</a>
  * @version $Revision: 1.11 $
  */
@@ -31,7 +33,7 @@ public interface SchoolTypeHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#ejbFindAllByCategory
 	 */
-	public Collection findAllByCategory(String category) throws javax.ejb.FinderException;
+	public Collection<SchoolType> findAllByCategory(String category) throws javax.ejb.FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#ejbFindAllByCategoryTest
