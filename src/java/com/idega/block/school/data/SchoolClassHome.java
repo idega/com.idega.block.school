@@ -138,6 +138,8 @@ public interface SchoolClassHome extends IDOHome {
 	 */
 	public Collection findBySchoolAndCategory(int schoolID, String category) throws FinderException;
 
+	public Collection<SchoolClass> findBySchoolCategory(String schoolCategory) throws FinderException;
+
 	/**
 	 * @see com.idega.block.school.data.SchoolClassBMPBean#ejbFindBySeason
 	 */

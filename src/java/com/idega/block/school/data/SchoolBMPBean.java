@@ -50,7 +50,7 @@ import com.idega.user.data.User;
  * <p>
  * Company:
  * </p>
- * 
+ *
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir</a><br>
  * @version 1.0
@@ -59,7 +59,7 @@ import com.idega.user.data.User;
 public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEntity, MetaDataCapable {
 
 	private static final long serialVersionUID = -2233834309495357949L;
-	
+
 	public final static String SCHOOL = "sch_school";
 	public final static String NAME = "SCHOOL_NAME";
 	public final static String ADDRESS = "school_address";
@@ -114,7 +114,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	public static final String HAS_HANDICAP = "has_handicap";
 
 	public static final String COLUMN_HAS_DGK = "has_dgk";
-	
+
 	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
 
 	@Override
@@ -175,9 +175,9 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		addAttribute(HAS_POST_CARE, "Has post care", Boolean.class);
 		/** Alex 27 July 2007 */
 		addAttribute(HAS_HANDICAP, "Has handicap facilities", Boolean.class);
-		
+
 		addAttribute(COLUMN_HAS_DGK, "Has DGK", Boolean.class);
-		
+
 		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
 
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
@@ -188,10 +188,12 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return SCHOOL;
 	}
 
+	@Override
 	public Group getPrimaryGroup() {
 		return (Group) getColumnValue(COLUMN_PRIMARY_GROUP);
 	}
 
+	@Override
 	public void setPrimaryGroup(Group group) {
 		setColumn(COLUMN_PRIMARY_GROUP, group);
 	}
@@ -201,94 +203,117 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return getSchoolName();
 	}
 
+	@Override
 	public String getNameWithStarIfQueueSortedByBirthdate() {
 		return (this.getSortByBirthdate() ? "*" : "") + getSchoolName();
 	}
 
+	@Override
 	public School getAfterSchoolCareProvider() {
 		return (School) getColumnValue(AFTER_SCHOOL_CARE_PROVIDER);
 	}
 
+	@Override
 	public Object getAfterSchoolCareProviderPK() {
 		return getIntegerColumnValue(AFTER_SCHOOL_CARE_PROVIDER);
 	}
 
+	@Override
 	public void setAfterSchoolCareProvider(School provider) {
 		setColumn(AFTER_SCHOOL_CARE_PROVIDER, provider);
 	}
 
+	@Override
 	public void setAfterSchoolCareProvider(Object providerPK) {
 		setColumn(AFTER_SCHOOL_CARE_PROVIDER, providerPK);
 	}
 
+	@Override
 	public School getJuniorHighSchool() {
 		return (School) getColumnValue(JUNIOR_HIGH_SCHOOL);
 	}
 
+	@Override
 	public Object getJuniorHighSchoolPK() {
 		return getIntegerColumnValue(JUNIOR_HIGH_SCHOOL);
 	}
 
+	@Override
 	public boolean hasRefreshments() {
 		return getBooleanColumnValue(HAS_REFRESHMENTS, false);
 	}
 
+	@Override
 	public boolean hasReview() {
 		return getBooleanColumnValue(HAS_REVIEW, false);
 	}
 
+	@Override
 	public boolean hasPreCare() {
 		return getBooleanColumnValue(HAS_PRE_CARE, false);
 	}
 
+	@Override
 	public boolean hasPostCare() {
 		return getBooleanColumnValue(HAS_POST_CARE, false);
 	}
-	
+
+	@Override
 	public boolean hasHandicap() {
 		return getBooleanColumnValue(HAS_HANDICAP, false);
 	}
-	
+
+	@Override
 	public boolean getHasDGK() {
 		return getBooleanColumnValue(COLUMN_HAS_DGK, false);
 	}
 
+	@Override
 	public void setJuniorHighSchool(School school) {
 		setColumn(JUNIOR_HIGH_SCHOOL, school);
 	}
 
+	@Override
 	public void setJuniorHighSchool(Object schoolPK) {
 		setColumn(JUNIOR_HIGH_SCHOOL, schoolPK);
 	}
 
+	@Override
 	public int getSchoolAreaId() {
 		return this.getIntColumnValue(SCHOOLAREA);
 	}
 
+	@Override
 	public int getSchoolSubAreaId() {
 		return this.getIntColumnValue(SCHOOLSUBAREA);
 	}
 
+	@Override
 	public SchoolArea getSchoolArea() {
 		return (SchoolArea) getColumnValue(SCHOOLAREA);
 	}
 
+	@Override
 	public SchoolSubArea getSchoolSubArea() {
 		return (SchoolSubArea) getColumnValue(SCHOOLSUBAREA);
 	}
 
+	@Override
 	public void setSchoolAreaId(int id) {
 		this.setColumn(SCHOOLAREA, id);
 	}
 
+	@Override
 	public void setSchoolArea(SchoolArea area) {
 		this.setColumn(SCHOOLAREA, area);
 	}
 
+	@Override
 	public void setSchoolSubAreaId(int id) {
 		this.setColumn(SCHOOLSUBAREA, id);
 	}
 
+	@Override
 	public Object getCommunePK() {
 		Object communeId = getColumnValue(COMMUNE);
 		if (communeId == null) {
@@ -308,190 +333,237 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return communeId;
 	}
 
+	@Override
 	public Commune getCommune() {
 		return (Commune) getColumnValue(COMMUNE);
 	}
 
+	@Override
 	public int getCommuneId() {
 		return this.getIntColumnValue(COMMUNE);
 	}
 
+	@Override
 	public void setCommunePK(Object pk) {
 		this.setColumn(COMMUNE, pk);
 	}
 
+	@Override
 	public int getCountryId() {
 		return this.getIntColumnValue(COUNTRY);
 	}
 
+	@Override
 	public Country getCountry() {
 		return (Country) getColumnValue(COUNTRY);
 	}
 
+	@Override
 	public void setCountryId(int id) {
 		this.setColumn(COUNTRY, id);
 	}
 
+	@Override
 	public String getManagementTypeId() {
 		return this.getStringColumnValue(MANAGEMENT_TYPE);
 	}
 
+	@Override
 	public SchoolManagementType getManagementType() {
 		return (SchoolManagementType) getColumnValue(MANAGEMENT_TYPE);
 	}
 
+	@Override
 	public void setManagementTypeId(String id) {
 		this.setColumn(MANAGEMENT_TYPE, id);
 	}
 
+	@Override
 	public String getSchoolName() {
 		return this.getStringColumnValue(NAME);
 	}
 
+	@Override
 	public void setSchoolName(String name) {
 		this.setColumn(NAME, name);
 	}
 
+	@Override
 	public String getSchoolInfo() {
 		return this.getStringColumnValue(INFO);
 	}
 
+	@Override
 	public void setSchoolInfo(String info) {
 		this.setColumn(INFO, info);
 	}
 
+	@Override
 	public String getSchoolAddress() {
 		return this.getStringColumnValue(ADDRESS);
 	}
 
+	@Override
 	public void setSchoolAddress(String address) {
 		this.setColumn(ADDRESS, address);
 	}
 
+	@Override
 	public String getSchoolVisitAddress() {
 		return this.getStringColumnValue(VISITADDRESS);
 	}
 
+	@Override
 	public void setSchoolVisitAddress(String visitaddress) {
 		this.setColumn(VISITADDRESS, visitaddress);
 	}
 
+	@Override
 	public void setHasRefreshments(boolean hasRefreshments) {
 		setColumn(HAS_REFRESHMENTS, hasRefreshments);
 	}
 
+	@Override
 	public void setHasReview(boolean hasReview) {
 		setColumn(HAS_REVIEW, hasReview);
 	}
 
+	@Override
 	public void setHasPreCare(boolean hasPreCare) {
 		setColumn(HAS_PRE_CARE, hasPreCare);
 	}
 
+	@Override
 	public void setHasPostCare(boolean hasPostCare) {
 		setColumn(HAS_POST_CARE, hasPostCare);
 	}
-	
+
+	@Override
 	public void setHasHandicap(boolean hasHandicap) {
 		setColumn(HAS_HANDICAP, hasHandicap);
 	}
-	
+
+	@Override
 	public void setHasDGK(boolean hasDGK) {
 		setColumn(COLUMN_HAS_DGK, hasDGK);
 	}
 
+	@Override
 	public String getSchoolZipArea() {
 		return this.getStringColumnValue(ZIPAREA);
 	}
 
+	@Override
 	public void setSchoolZipArea(String ziparea) {
 		this.setColumn(ZIPAREA, ziparea);
 	}
 
+	@Override
 	public String getSchoolZipCode() {
 		return this.getStringColumnValue(ZIPCODE);
 	}
 
+	@Override
 	public void setSchoolZipCode(String zipcode) {
 		this.setColumn(ZIPCODE, zipcode);
 	}
 
+	@Override
 	public String getSchoolPhone() {
 		return this.getStringColumnValue(PHONE);
 	}
 
+	@Override
 	public void setSchoolPhone(String phone) {
 		this.setColumn(PHONE, phone);
 	}
 
+	@Override
 	public String getSchoolEmail() {
 		return this.getStringColumnValue(EMAIL);
 	}
 
+	@Override
 	public void setSchoolEmail(String email) {
 		this.setColumn(EMAIL, email);
 	}
 
+	@Override
 	public int getHeadmasterGroupId() {
 		return this.getIntColumnValue(HEADMASTER);
 	}
 
+	@Override
 	public Group getHeadmasterGroup() throws RemoteException, FinderException {
 		return ((GroupHome) IDOLookup.getHome(Group.class)).findByPrimaryKey(new Integer(getHeadmasterGroupId()));
 	}
 
+	@Override
 	public void setHeadmasterGroupId(int masterGroupId) {
 		this.setColumn(HEADMASTER, masterGroupId);
 	}
 
+	@Override
 	public String getSchoolKeyCode() {
 		return this.getStringColumnValue(KEYCODE);
 	}
 
+	@Override
 	public void setSchoolKeyCode(String code) {
 		this.setColumn(KEYCODE, code);
 	}
 
+	@Override
 	public String getSchoolLatitude() {
 		return this.getStringColumnValue(LATITUDE);
 	}
 
+	@Override
 	public void setSchoolLatitude(String lat) {
 		this.setColumn(LATITUDE, lat);
 	}
 
+	@Override
 	public String getSchoolLongitude() {
 		return this.getStringColumnValue(LONGITUDE);
 	}
 
+	@Override
 	public void setSchoolLongitude(String lon) {
 		this.setColumn(LONGITUDE, lon);
 	}
 
+	@Override
 	public String getOrganizationNumber() {
 		return this.getStringColumnValue(ORGANIZATION_NUMBER);
 	}
 
+	@Override
 	public void setOrganizationNumber(String orgNo) {
 		this.setColumn(ORGANIZATION_NUMBER, orgNo);
 	}
 
+	@Override
 	public String getExtraProviderId() {
 		return this.getStringColumnValue(EXTRA_PROVIDER_ID);
 	}
 
+	@Override
 	public void setExtraProviderId(String id) {
 		this.setColumn(EXTRA_PROVIDER_ID, id);
 	}
 
+	@Override
 	public Date getTerminationDate() {
 		return (Date) this.getColumnValue(TERMINATION_DATE);
 	}
 
+	@Override
 	public void setTerminationDate(Date date) {
 		this.setColumn(TERMINATION_DATE, date);
 	}
 
+	@Override
 	public boolean getCentralizedAdministration() {
 		boolean isCA = false;
 		Boolean b = (Boolean) this.getColumnValue(CENTRALIZED_ADMINISTRATION);
@@ -501,22 +573,27 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return isCA;
 	}
 
+	@Override
 	public void setCentralizedAdministration(boolean b) {
 		this.setColumn(CENTRALIZED_ADMINISTRATION, b);
 	}
 
+	@Override
 	public boolean getInvisibleForCitizen() {
 		return getBooleanColumnValue(INVISIBLE_FOR_CITIZEN, false);
 	}
 
+	@Override
 	public void setInvisibleForCitizen(boolean b) {
 		setColumn(INVISIBLE_FOR_CITIZEN, b);
 	}
 
+	@Override
 	public String getProviderStringId() {
 		return this.getStringColumnValue(PROVIDER_STRING_ID);
 	}
 
+	@Override
 	public void setProviderStringId(String id) {
 		this.setColumn(PROVIDER_STRING_ID, id);
 	}
@@ -632,7 +709,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return (Integer) super.idoFindOnePKBySQL(select);
 	}
 
-	
+
 	public Collection ejbFindAllCentralizedAdministrated() throws javax.ejb.FinderException {
 		IDOQuery sql = idoQuery();
 		sql.appendSelectAllFrom(this.getEntityName()).appendWhereEqualsQuoted(CENTRALIZED_ADMINISTRATION, "Y");
@@ -654,7 +731,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 			return super.idoFindPKsBySQL(select.toString());
 		}
 	}
-	
+
 	public Collection ejbFindAllByHandicapParameter(boolean hasHandicap) throws FinderException {
 		IDOQuery query = idoQueryGetSelect();
 		String flag = (hasHandicap) ? "Y" : "N";
@@ -693,6 +770,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return super.idoFindPKsBySQL(sql);
 	}
 
+	@Override
 	public void addSchoolTypes(int[] ids) {
 		try {
 			super.addTo(SchoolType.class, ids);
@@ -702,6 +780,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		}
 	}
 
+	@Override
 	public void addSchoolYears(int[] ids) {
 		try {
 			super.addTo(SchoolYear.class, ids);
@@ -711,14 +790,17 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		}
 	}
 
+	@Override
 	public void addSchoolYear(SchoolYear year) throws IDOAddRelationshipException {
 		super.idoAddTo(year);
 	}
 
+	@Override
 	public void addSchoolType(SchoolType type) throws IDOAddRelationshipException {
 		super.idoAddTo(type);
 	}
 
+	@Override
 	public void addSchoolYearsRemoveOther(int[] ids) {
 		try {
 			super.removeFrom(SchoolYear.class);
@@ -728,6 +810,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		this.addSchoolYears(ids);
 	}
 
+	@Override
 	public void addSchoolTypesRemoveOther(int[] ids) {
 		try {
 			super.removeFrom(SchoolType.class);
@@ -737,10 +820,12 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		this.addSchoolTypes(ids);
 	}
 
+	@Override
 	public Collection findRelatedSchoolTypes() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolType.class);
 	}
 
+	@Override
 	public Collection findRelatedSchoolTypes(SchoolCategory category) throws IDORelationshipException {
 		Collection coll = findRelatedSchoolTypes();
 		Collection types = new ArrayList();
@@ -756,6 +841,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return types;
 	}
 
+	@Override
 	public Collection findRelatedSchoolTypesWithFreetime(SchoolCategory category) throws IDORelationshipException {
 		Collection coll = findRelatedSchoolTypes();
 		Collection types = new ArrayList();
@@ -771,14 +857,17 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		return types;
 	}
 
+	@Override
 	public Collection findRelatedSchoolYears() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolYear.class);
 	}
 
+	@Override
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException {
 		return this.idoGetRelatedEntitiesOrderedByColumn(SchoolYear.class, SchoolYearBMPBean.NAME);
 	}
 
+	@Override
 	public java.util.Collection findRelatedStudyPaths() throws com.idega.data.IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
@@ -879,14 +968,14 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	/**
 	 * Finds all providers that is "part of" a category
-	 * 
+	 *
 	 * @param schoolCategory
 	 * @return Collection of School
 	 * @throws javax.ejb.FinderException
 	 */
 	public Collection ejbFindAllByCategory(SchoolCategory schoolCategory) throws javax.ejb.FinderException {
 		// String constants is concatenated at compile time...
-		return super.idoFindPKsBySQL("SELECT distinct s.* " + "FROM sch_school s, sch_school_type t, sch_school_sch_school_type m, sch_school_category c " + "WHERE s.sch_school_id = m.sch_school_id " + "AND m.sch_school_type_id = t.sch_school_type_id " + "AND t.school_category LIKE c.category " + "AND c.category LIKE '" + schoolCategory.getPrimaryKey() + "' order by s.school_name");
+		return super.idoFindPKsBySQL("SELECT distinct s.* FROM sch_school s, sch_school_type t, sch_school_sch_school_type m, sch_school_category c WHERE s.sch_school_id = m.sch_school_id AND m.sch_school_type_id = t.sch_school_type_id AND t.school_category LIKE c.category AND c.category LIKE '" + schoolCategory.getPrimaryKey() + "' order by s.school_name");
 	}
 
 	public Collection ejbFindAllInHomeCommuneByCategory(SchoolCategory schoolCategory) throws IDOLookupException, EJBException, FinderException {
@@ -945,6 +1034,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	}
 
+	@Override
 	public LocalizedText getLocalizedText(int localeId) throws IDORelationshipException {
 		Collection coll = getText();
 		// TxTextHome textHome = (TxTextHome) IDOLookup.getHome(TxText.class);
@@ -997,6 +1087,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		this.idoAddTo(text);
 	}
 
+	@Override
 	public void setLocalizedText(String text, int localeId) throws IDORelationshipException {
 		Collection coll = getText();
 		if (coll != null && !coll.isEmpty()) {
@@ -1024,79 +1115,98 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		// this.idoAddTo(text);
 	}
 
+	@Override
 	public String getSchoolFax() {
 		return getStringColumnValue(FAX);
 	}
 
+	@Override
 	public void setSchoolFax(String fax) {
 		setColumn(FAX, fax);
 	}
 
+	@Override
 	public String getSchoolWebPage() {
 		return getStringColumnValue(WEB_PAGE);
 	}
 
+	@Override
 	public void setSchoolWebPage(String webPage) {
 		setColumn(WEB_PAGE, webPage);
 	}
 
+	@Override
 	public String getMapUrl() {
 		return getStringColumnValue(MAP_URL);
 	}
 
+	@Override
 	public void setMapUrl(String url) {
 		setColumn(MAP_URL, url);
 	}
 
+	@Override
 	public String getActivity() {
 		return getStringColumnValue(ACTIVITY);
 	}
 
+	@Override
 	public void setActivity(String activity) {
 		setColumn(ACTIVITY, activity);
 	}
 
+	@Override
 	public String getOpenHours() {
 		return getStringColumnValue(OPEN_HOURS);
 	}
 
+	@Override
 	public void setOpenHours(String openHours) {
 		setColumn(OPEN_HOURS, openHours);
 	}
 
+	@Override
 	public String getSchoolManagementTypeString() {
 		return getStringColumnValue(MANAGEMENT_TYPE);
 	}
 
+	@Override
 	public SchoolManagementType getSchoolManagementType() {
 		return (SchoolManagementType) getColumnValue(MANAGEMENT_TYPE);
 	}
 
+	@Override
 	public void setSchoolManagementType(String managementType) {
 		setColumn(MANAGEMENT_TYPE, managementType);
 	}
 
+	@Override
 	public Collection getImages() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(ICFile.class);
 	}
 
+	@Override
 	public Collection getSchoolTypes() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolType.class);
 	}
 
+	@Override
 	public void removeImages() throws IDORelationshipException {
 		this.idoRemoveFrom(ICFile.class);
 	}
 
+	@Override
 	public void setImage(ICFile image) throws IDORelationshipException {
 		removeImages();
 		this.idoAddTo(image);
 	}
 
+	@Override
 	public void addImage(ICFile image) throws IDORelationshipException {
 		this.idoAddTo(image);
 	}
 
+	@Override
 	public void setImages(Collection images) throws IDORelationshipException, RemoteException {
 		this.idoRemoveFrom(ICFile.class);
 		if (images != null) {
@@ -1116,18 +1226,22 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		}
 	}
 
+	@Override
 	public int getHeadmasterUserId() {
 		return getIntColumnValue(HEADMASTER_USER_ID);
 	}
 
+	@Override
 	public void setHeadmasterUserId(int userId) {
 		setColumn(HEADMASTER_USER_ID, userId);
 	}
 
+	@Override
 	public int getAssistantHeadmasterGroupId() {
 		return getIntColumnValue(ASSISTANT_HEADMASTER_GROUP_ID);
 	}
 
+	@Override
 	public void setAssistantHeadmasterGroupId(int groupId) {
 		setColumn(ASSISTANT_HEADMASTER_GROUP_ID, groupId);
 	}
@@ -1136,38 +1250,46 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		System.out.println("hellu there");
 	}
 
+	@Override
 	public void removeFromClass(Class entityInterfaceClass) throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(entityInterfaceClass);
 	}
 
+	@Override
 	public void addStudyPath(SchoolStudyPath studyPath) throws IDOAddRelationshipException {
 		this.idoAddTo(studyPath);
 	}
 
+	@Override
 	public void removeStudyPath(SchoolStudyPath studyPath) throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(studyPath);
 	}
 
+	@Override
 	public Collection getStudyPaths() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
 
+	@Override
 	public void removeAllStudyPaths() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolStudyPath.class);
 	}
 
+	@Override
 	public boolean getSortByBirthdate() {
 		return getBooleanColumnValue(SORT_BY_BIRTHDATE);
 	}
 
+	@Override
 	public void setSortByBirthdate(boolean arg) {
 		setColumn(SORT_BY_BIRTHDATE, arg);
 	}
 
+	@Override
 	public int compareTo(IDOEntity o) {
 		if (!(o instanceof School))
 			return 0;
-		
+
 		School school = (School) o;
 		String name1 = getName();
 		String name2 = school.getName();

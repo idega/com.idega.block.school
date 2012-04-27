@@ -216,6 +216,14 @@ public class SchoolClassHomeImpl extends IDOFactory implements SchoolClassHome {
 	}
 
 	@Override
+	public Collection<SchoolClass> findBySchoolCategory(String schoolCategory) throws FinderException {
+		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
+		Collection<?> ids = ((SchoolClassBMPBean) entity).ejbFindBySchoolCategory(schoolCategory);
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	@Override
 	public Collection findBySeason(SchoolSeason schoolSeason) throws FinderException {
 		com.idega.data.IDOEntity entity = this.idoCheckOutPooledEntity();
 		java.util.Collection ids = ((SchoolClassBMPBean) entity).ejbFindBySeason(schoolSeason);

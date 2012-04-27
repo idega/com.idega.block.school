@@ -2,7 +2,9 @@ package com.idega.block.school.data;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+
 import javax.ejb.FinderException;
+
 import com.idega.data.GenericEntity;
 import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOException;
@@ -28,7 +30,7 @@ import com.idega.user.data.User;
  * <p>
  * Company:
  * </p>
- * 
+ *
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir</a><br>
  * @version 1.0
@@ -54,6 +56,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 	public final static String VALID = "Y";
 	public final static String INVALID = "N";
 
+	@Override
 	public void initializeAttributes() {
 		addAttribute(getIDColumnName());
 		addManyToOneRelationship(SCHOOL, "School", School.class);
@@ -75,83 +78,103 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		addAttribute(COLUMN_CODE, "code", String.class, 20);
 	}
 
+	@Override
 	public String getEntityName() {
 		return SCHOOLCLASS;
 	}
 
+	@Override
 	public String getName() {
 		return getSchoolClassName();
 	}
 
+	@Override
 	public String getCode() {
 		return getStringColumnValue(COLUMN_CODE);
 	}
 
+	@Override
 	public void setCode(String code) {
 		setColumn(COLUMN_CODE, code);
 	}
 
+	@Override
 	public int getSchoolId() {
 		return getIntColumnValue(SCHOOL);
 	}
 
+	@Override
 	public School getSchool() {
 		return (School) getColumnValue(SCHOOL);
 	}
 
+	@Override
 	public void setSchoolId(int id) {
 		this.setColumn(SCHOOL, id);
 	}
 
+	@Override
 	public void setSchool(School school) {
 		this.setColumn(SCHOOL, school);
 	}
 
+	@Override
 	public int getSchoolTypeId() {
 		return getIntColumnValue(SCHOOLTYPE);
 	}
 
+	@Override
 	public SchoolType getSchoolType() {
 		return (SchoolType) getColumnValue(SCHOOLTYPE);
 	}
 
+	@Override
 	public void setSchoolTypeId(int id) {
 		this.setColumn(SCHOOLTYPE, id);
 	}
 
+	@Override
 	public void setSchoolType(SchoolType type) {
 		this.setColumn(SCHOOLTYPE, type);
 	}
 
+	@Override
 	public void setSchoolSeasonId(int id) {
 		this.setColumn(SEASON, id);
 	}
 
+	@Override
 	public void setSchoolSeason(SchoolSeason season) {
 		this.setColumn(SEASON, season);
 	}
 
+	@Override
 	public int getSchoolSeasonId() {
 		return this.getIntColumnValue(SEASON);
 	}
 
+	@Override
 	public SchoolSeason getSchoolSeason() {
 		return (SchoolSeason) this.getColumnValue(SEASON);
 	}
 
+	@Override
 	public void setSchoolClassName(String name) {
 		this.setColumn(NAME, name);
 	}
 
+	@Override
 	public String getSchoolClassName() {
 		return getStringColumnValue(NAME);
 	}
 
+	@Override
 	public boolean getValid() {
 		String valid = getStringColumnValue(COLUMN_VALID);
 		return valid == null || !valid.equals(INVALID);
 	}
 
+	@Override
 	public void setValid(boolean valid) {
 		if (valid) {
 			setColumn(COLUMN_VALID, VALID);
@@ -161,11 +184,13 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		}
 	}
 
+	@Override
 	public boolean getReady() {
 		String valid = getStringColumnValue(COLUMN_READY);
 		return valid != null && valid.equals(VALID);
 	}
 
+	@Override
 	public void setReady(boolean valid) {
 		if (valid) {
 			setColumn(COLUMN_READY, VALID);
@@ -175,11 +200,13 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		}
 	}
 
+	@Override
 	public boolean getLocked() {
 		String valid = getStringColumnValue(COLUMN_LOCKED);
 		return valid != null && valid.equals(VALID);
 	}
 
+	@Override
 	public void setLocked(boolean valid) {
 		if (valid) {
 			setColumn(COLUMN_LOCKED, VALID);
@@ -189,38 +216,47 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		}
 	}
 
+	@Override
 	public void setReadyDate(Timestamp timestamp) {
 		setColumn(COLUMN_READY_DATE, timestamp);
 	}
 
+	@Override
 	public Timestamp getReadyDate() {
 		return (Timestamp) getColumnValue(COLUMN_READY_DATE);
 	}
 
+	@Override
 	public void setLockedDate(Timestamp timestamp) {
 		setColumn(COLUMN_LOCKED_DATE, timestamp);
 	}
 
+	@Override
 	public Timestamp getLockedDate() {
 		return (Timestamp) getColumnValue(COLUMN_LOCKED_DATE);
 	}
 
+	@Override
 	public void setIsSubGroup(boolean isSubGroup) {
 		setColumn(COLUMN_SUB_GROUP, isSubGroup);
 	}
 
+	@Override
 	public boolean getIsSubGroup() {
 		return getBooleanColumnValue(COLUMN_SUB_GROUP, false);
 	}
 
+	@Override
 	public void setGroupStringId(String groupStringId) {
 		this.setColumn(COLUMN_GROUP_STRING_ID, groupStringId);
 	}
 
+	@Override
 	public String getGroupStringId() {
 		return getStringColumnValue(COLUMN_GROUP_STRING_ID);
 	}
 
+	@Override
 	public boolean hasRelationToSchoolYear(SchoolYear schoolYear) {
 		try {
 			Collection relations = super.idoGetRelatedEntities(schoolYear);
@@ -234,6 +270,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		}
 	}
 
+	@Override
 	public boolean hasRelationToTeacher(User teacher) {
 		try {
 			Collection relations = super.idoGetRelatedEntities(teacher);
@@ -441,6 +478,16 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		return idoFindPKsByQuery(query);
 	}
 
+	public Collection<?> ejbFindBySchoolCategory(String schoolCategory) throws FinderException {
+		IDOQuery query = idoQuery();
+		query.appendSelect().append(" distinct c.*").appendFrom().append(this.getEntityName() + " c, ").append("sch_school s");
+		query.append(" where s.SCH_SCHOOL_ID in (SELECT distinct ss.SCH_SCHOOL_ID FROM sch_school ss, sch_school_type t, sch_school_sch_school_type m, sch_school_category cc WHERE ss.sch_school_id = m.sch_school_id AND m.sch_school_type_id = t.sch_school_type_id AND t.school_category LIKE cc.category AND cc.category LIKE '" + schoolCategory + "') and c.SCHOOL_ID = s.SCH_SCHOOL_ID ");
+
+		query.appendAnd().appendLeftParenthesis().appendEquals(COLUMN_VALID, true).appendOr().append(COLUMN_VALID).appendIsNull().appendRightParenthesis();
+		query.appendOrderBy(NAME);
+		return idoFindPKsByQuery(query);
+	}
+
 	public Collection ejbFindBySeason(SchoolSeason schoolSeason) throws FinderException {
 		return ejbFindBySeason(((Integer) schoolSeason.getPrimaryKey()).intValue());
 	}
@@ -537,7 +584,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 
 	/**
 	 * Returns a collection of all school classes. Used to create the SchoolClass - SchoolType relation
-	 * 
+	 *
 	 * @return Collection of all schoolClass
 	 * @throws FinderException
 	 */
@@ -566,60 +613,73 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		return idoFindPKsByQuery(query);
 	}
 
+	@Override
 	public Collection findRelatedUsers() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(User.class);
 	}
 
+	@Override
 	public Collection findRelatedSchoolYears() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolYear.class);
 	}
 
+	@Override
 	public void addSchoolYear(SchoolYear year) throws IDOAddRelationshipException {
 		super.idoAddTo(year);
 	}
 
+	@Override
 	public void removeSchoolYear(SchoolYear year) throws IDORemoveRelationshipException {
 		super.idoRemoveFrom(year);
 	}
 
+	@Override
 	public void addTeacher(User teacher) throws IDOAddRelationshipException {
 		super.idoAddTo(teacher);
 	}
 
+	@Override
 	public void removeTeacher(User teacher) throws IDORemoveRelationshipException {
 		super.idoRemoveFrom(teacher);
 	}
 
+	@Override
 	public Collection findRelatedStudyPaths() throws com.idega.data.IDORelationshipException {
 		return super.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
 
+	@Override
 	public void addStudyPath(SchoolStudyPath studyPath) throws IDOAddRelationshipException {
 		super.idoAddTo(studyPath);
 	}
 
+	@Override
 	public void removeStudyPath(SchoolStudyPath studyPath) throws IDORemoveRelationshipException {
 		super.idoRemoveFrom(studyPath);
 	}
 
+	@Override
 	public void removeStudyPaths() throws IDORemoveRelationshipException {
 		super.idoRemoveFrom(SchoolStudyPath.class);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see javax.ejb.EJBLocalObject#remove()
 	 */
+	@Override
 	public void remove() {
 		setValid(false);
 		super.store();
 	}
 
+	@Override
 	public void removeFromSchoolYear() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolYear.class);
 	}
 
+	@Override
 	public void removeFromUser() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(User.class);
 	}
@@ -632,6 +692,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 		return (Integer) super.idoFindOnePKBySQL("select * from " + this.getEntityName() + " where " + COLUMN_CODE + " = '" + code + "' and (" + COLUMN_VALID + " = '" + VALID + "' or " + COLUMN_VALID + " is null)");
 	}
 
+	@Override
 	public Collection getSubGroupPlacements() throws IDORelationshipException {
 		if (getIsSubGroup()) {
 			return this.idoGetRelatedEntities(SchoolClassMember.class);
