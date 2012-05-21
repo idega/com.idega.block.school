@@ -25,7 +25,6 @@ public class SchoolClassComparator implements Comparator<SchoolClass> {
 	/**
 	 * @see java.util.Comparator#compare(Object, Object)
 	 */
-	@Override
 	public int compare(SchoolClass schoolClass1, SchoolClass schoolClass2) {
 		int returner = 0;
 

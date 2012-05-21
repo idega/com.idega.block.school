@@ -23,7 +23,6 @@ public class SchoolComparator implements Comparator<School> {
 		collator = Collator.getInstance(this._locale);
 	}
 
-	@Override
 	public int compare(School school1, School school2) {
 		return collator.compare(school1.getSchoolName(), school2.getSchoolName());
 	}
