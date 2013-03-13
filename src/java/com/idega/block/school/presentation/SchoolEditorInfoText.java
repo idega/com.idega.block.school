@@ -45,35 +45,35 @@ public class SchoolEditorInfoText extends Window {
 
 		if (topicEditor) {
 			Text tHeading = getTextTitle("Redigeraren");
-			String sText = "I redigeraren kan du lägga in eller ändra adress- och kontaktuppgifter för en skola. Rektor för skolan, huvudrektorn, visas överst. Under Kontakta oss visas de kontaktpersoner som ni väljer att visa. Om skolan är indelad i enheter kan du välja att lägga in uppgifter och kontaktpersoner under en viss enhet. De personer som du skapat via admingränssnittet syns även här i redigeraren.";
+			String sText = "I redigeraren kan du lÃ¤gga in eller Ã¤ndra adress- och kontaktuppgifter fÃ¶r en skola. Rektor fÃ¶r skolan, huvudrektorn, visas Ã¶verst. Under Kontakta oss visas de kontaktpersoner som ni vÃ¤ljer att visa. Om skolan Ã¤r indelad i enheter kan du vÃ¤lja att lÃ¤gga in uppgifter och kontaktpersoner under en viss enhet. De personer som du skapat via admingrÃ¤nssnittet syns Ã¤ven hÃ¤r i redigeraren.";
 			Text tText = getTextNormal(sText);
 			table.add(tHeading, 1, 1);
 			table.add(tText, 1, 2);
 
 		} else if (topicDepm) {
 			Text tHeading = getTextTitle("Skapa en enhet");
-			String sText = "Om organisationen är enhetsindelad kan du i systemet skapa enheter genom att skriva in enhetens namn och eventuellt telefonnummer under rubriken ”Skapa en enhet” och klicka på ”Spara”.";
+			String sText = "Om organisationen Ã¤r enhetsindelad kan du i systemet skapa enheter genom att skriva in enhetens namn och eventuellt telefonnummer under rubriken Â”Skapa en enhetÂ” och klicka pÃ¥ Â”SparaÂ”.";
 			Text tText = getTextNormal(sText);
 			table.add(tHeading, 1, 1);
 			table.add(tText, 1, 2);
 		} else if (topicPerson){
-			Text tHeading = getTextTitle("Skapa en kontaktperson för skolan eller enheten");
+			Text tHeading = getTextTitle("Skapa en kontaktperson fÃ¶r skolan eller enheten");
 			Text tSubHeading = getTextTitleGray("Skapa Huvudrektor");
 			
-			String sTextHuvud = "För att skapa huvudrektorn på skolan väljer du typen Rektor samt kryssar i rutan Huvudrektor. Fyll sedan i fälten för kontaktuppgifterna. Du behöver inte välja någon enhet.";
-			sTextHuvud = sTextHuvud + "För att personen ska visas måste du även kryssa i rutan Visa i kontaktlista och sedan klicka på Spara.";
+			String sTextHuvud = "FÃ¶r att skapa huvudrektorn pÃ¥ skolan vÃ¤ljer du typen Rektor samt kryssar i rutan Huvudrektor. Fyll sedan i fÃ¤lten fÃ¶r kontaktuppgifterna. Du behÃ¶ver inte vÃ¤lja nÃ¥gon enhet.";
+			sTextHuvud = sTextHuvud + "FÃ¶r att personen ska visas mÃ¥ste du Ã¤ven kryssa i rutan Visa i kontaktlista och sedan klicka pÃ¥ Spara.";
 
 			Text tTextHuvud = getTextNormal(sTextHuvud);
 		
 			Text tHeadingKontakt = getTextTitleGray("Skapa annan kontaktperson");
-			String sTextKontakt = "För att skapa en kontaktperson väljer du typ av kontaktperson samt fyller i fälten för kontaktuppgifterna. Om personen tillhör någon enhet väljer du enhet i rullgardinsmenyn."; 
-			sTextKontakt = sTextKontakt + "För att personen ska visas måste du även kryssa i rutan Visa i kontaktlista och sedan klicka på Spara.";
+			String sTextKontakt = "FÃ¶r att skapa en kontaktperson vÃ¤ljer du typ av kontaktperson samt fyller i fÃ¤lten fÃ¶r kontaktuppgifterna. Om personen tillhÃ¶r nÃ¥gon enhet vÃ¤ljer du enhet i rullgardinsmenyn."; 
+			sTextKontakt = sTextKontakt + "FÃ¶r att personen ska visas mÃ¥ste du Ã¤ven kryssa i rutan Visa i kontaktlista och sedan klicka pÃ¥ Spara.";
 			Text tTextKontakt = getTextNormal(sTextKontakt);
 			Text tHeadingEdit = getTextTitleGray("Redigera kontaktperson");
-			String sTextEditKontakt = "För att redigera en kontaktperson klickar du på Ändra intill personen som ska redigeras. När du är färdig med dina ändringar klickar du på Spara.";
+			String sTextEditKontakt = "FÃ¶r att redigera en kontaktperson klickar du pÃ¥ Ã„ndra intill personen som ska redigeras. NÃ¤r du Ã¤r fÃ¤rdig med dina Ã¤ndringar klickar du pÃ¥ Spara.";
 			Text sTextEdit = getTextNormal(sTextEditKontakt);
 			Text tHeadingDelete = getTextTitleGray("Ta bort kontaktperson");
-			String sTextDelete = "För att ta bort en kontaktperson klickar du på länken Radera intill kontaktpersonen.";
+			String sTextDelete = "FÃ¶r att ta bort en kontaktperson klickar du pÃ¥ lÃ¤nken Radera intill kontaktpersonen.";
 			Text tTextDelete = getTextNormal(sTextDelete);
 
 			table.add(tHeading, 1, 1);
