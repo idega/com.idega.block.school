@@ -783,12 +783,8 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		.appendAnd().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
 
-		/*
-		 * .appendAnd() .appendLeftParenthesis() .append("mb." + REMOVED_DATE + " is
-		 * null") .appendOr() .append("mb." + REMOVED_DATE)
-		 * .appendGreaterThanOrEqualsSign() .append("mb." + REGISTER_DATE)
-		 * .appendRightParenthesis()
-		 */
+		.appendAnd() .appendLeftParenthesis() .append("mb." + REMOVED_DATE + " is null") .appendOr() .append("mb." + REMOVED_DATE)
+		.appendGreaterThanSign() .append("mb." + REGISTER_DATE).appendRightParenthesis()
 
 		.appendOrderBy(REGISTER_DATE + " desc, " + REMOVED_DATE + " desc");
 
