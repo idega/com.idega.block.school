@@ -1,5 +1,11 @@
 package com.idega.block.school.business;
 
+import is.idega.idegaweb.egov.course.business.CourseProviderBusinessBean;
+import is.idega.idegaweb.egov.course.data.CourseProviderAreaHome;
+import is.idega.idegaweb.egov.course.data.CourseProviderCategoryHome;
+import is.idega.idegaweb.egov.course.data.CourseProviderHome;
+import is.idega.idegaweb.egov.course.data.CourseProviderTypeHome;
+
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -58,7 +64,6 @@ import com.idega.block.text.data.TxText;
 import com.idega.builder.bean.AdvancedProperty;
 import com.idega.business.IBOLookup;
 import com.idega.business.IBORuntimeException;
-import com.idega.business.IBOServiceBean;
 import com.idega.core.file.data.ICFile;
 import com.idega.core.location.data.Commune;
 import com.idega.core.location.data.CommuneHome;
@@ -93,7 +98,9 @@ import com.idega.util.IWTimestamp;
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
  * @version 1.0
  */
-public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness {
+public class SchoolBusinessBean extends CourseProviderBusinessBean implements SchoolBusiness {
+
+	private static final long serialVersionUID = 7880012942831283305L;
 
 	public static final String GROUP_TYPE_SCHOOL_GROUP = "school_staff_group";
 
@@ -133,6 +140,11 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
+	@Override
+	protected CourseProviderHome getCourseProviderHome() {
+		return getSchoolHome();
+	}
+
 	public SchoolClassMemberHome getSchoolClassMemberHome() {
 		try {
 			return (SchoolClassMemberHome) IDOLookup.getHome(SchoolClassMember.class);
@@ -157,6 +169,11 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
+	@Override
+	protected CourseProviderAreaHome getCourseProviderAreaHome() {
+		return getSchoolAreaHome();
+	}
+
 	public SchoolTypeHome getSchoolTypeHome() {
 		try {
 			return (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
@@ -165,12 +182,22 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 	}
 
+	@Override
+	protected CourseProviderTypeHome getCourseProviderTypeHome() {
+		return getSchoolTypeHome();
+	}
+
 	public SchoolCategoryHome getSchoolCategoryHome() {
 		try {
 			return (SchoolCategoryHome) IDOLookup.getHome(SchoolCategory.class);
 		} catch (IDOLookupException e) {
 			throw new IBORuntimeException(e.getMessage());
 		}
+	}
+
+	@Override
+	protected CourseProviderCategoryHome getCourseProviderCategoryHome() {
+		return getSchoolCategoryHome();
 	}
 
 	public SchoolSeasonHome getSchoolSeasonHome() {

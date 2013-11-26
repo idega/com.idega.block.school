@@ -1,6 +1,8 @@
 package com.idega.block.school.business;
 
 
+import is.idega.idegaweb.egov.course.business.CourseProviderBusiness;
+
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -40,13 +42,24 @@ import com.idega.block.school.data.SchoolYearHome;
 import com.idega.block.school.data.SchoolYearPlaces;
 import com.idega.block.school.data.SchoolYearPlacesHome;
 import com.idega.block.school.data.Student;
-import com.idega.business.IBOService;
 import com.idega.data.IDORemoveRelationshipException;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
 
-public interface SchoolBusiness extends IBOService {
+public interface SchoolBusiness extends CourseProviderBusiness {
 
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusiness#getSchool(java.lang.Object)
+	 */
+	public School getSchool(Object primaryKey);
+	
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusiness#getSchoolArea(java.lang.Object)
+	 */
+	public SchoolArea getSchoolArea(Object primaryKey);
+	
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolDepartmentHome
 	 */
@@ -188,11 +201,6 @@ public interface SchoolBusiness extends IBOService {
 	public Collection getSchoolManagementTypes() throws RemoteException;
 
 	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchool
-	 */
-	public School getSchool(Object primaryKey) throws RemoteException;
-
-	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolStudyPath
 	 */
 	public SchoolStudyPath getSchoolStudyPath(Object primaryKey) throws RemoteException;
@@ -216,11 +224,6 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchools
 	 */
 	public Collection<School> findAllSchools() throws RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByAreaAndType
-	 */
-	public Collection findAllSchoolsByAreaAndType(int area, int type) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByAreaAndTypeAndYear
@@ -380,7 +383,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByType
 	 */
-	public Collection findAllSchoolsByType(Collection typeIds) throws RemoteException;
+	public Collection findAllSchoolsByType(Collection typeIds);
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByType
@@ -540,7 +543,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolType
 	 */
-	public SchoolType getSchoolType(Object primaryKey) throws RemoteException;
+	public SchoolType getSchoolType(Object primaryKey);
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolTypesForCategory
@@ -565,22 +568,12 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategory
 	 */
-	public Collection<SchoolType> findAllSchoolTypesInCategory(String category) throws RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategory
-	 */
 	public Collection<SchoolType> findAllSchoolTypesInCategory(String Category, boolean showFreetimeTypes) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolTypesInCategoryFreeTime
 	 */
 	public Collection<SchoolType> findAllSchoolTypesInCategoryFreeTime(String Category) throws RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getAfterSchoolCareSchoolCategory
-	 */
-	public String getAfterSchoolCareSchoolCategory() throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getChildCareSchoolCategory
@@ -1001,11 +994,6 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolClass
 	 */
 	public SchoolClass storeSchoolClass(int schoolClassID, String className, int schoolID, int schoolSeasonID, int schoolYearID, int teacherID) throws RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolArea
-	 */
-	public SchoolArea getSchoolArea(Object primaryKey) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolSubArea
