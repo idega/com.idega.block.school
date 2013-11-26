@@ -3,11 +3,11 @@
  */
 package com.idega.block.school.data;
 
+import is.idega.idegaweb.egov.course.data.CourseProviderTypeHomeImpl;
+
 import java.util.Collection;
 
 import javax.ejb.FinderException;
-
-import com.idega.data.IDOFactory;
 
 
 /**
@@ -19,7 +19,9 @@ import com.idega.data.IDOFactory;
  * @author <a href="mailto:is@idega.com">is</a>
  * @version $Revision: 1.11 $
  */
-public class SchoolTypeHomeImpl extends IDOFactory implements SchoolTypeHome {
+public class SchoolTypeHomeImpl extends CourseProviderTypeHomeImpl implements SchoolTypeHome {
+
+	private static final long serialVersionUID = -2510488204329632062L;
 
 	@Override
 	protected Class getEntityInterfaceClass() {

@@ -3,7 +3,7 @@
  */
 package com.idega.block.school.data;
 
-import com.idega.data.IDOEntity;
+import is.idega.idegaweb.egov.course.data.CourseProviderType;
 
 
 /**
@@ -15,26 +15,8 @@ import com.idega.data.IDOEntity;
  * @author <a href="mailto:is@idega.com">is</a>
  * @version $Revision: 1.17 $
  */
-public interface SchoolType extends IDOEntity {
+public interface SchoolType extends CourseProviderType {
 
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getName
-	 */
-	public String getName();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setSchoolTypeName
-	 */
-	public void setSchoolTypeName(String name);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getSchoolTypeName
-	 */
-	public String getSchoolTypeName();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setSchoolTypeInfo
-	 */
 	public void setSchoolTypeInfo(String info);
 
 	/**
@@ -46,31 +28,6 @@ public interface SchoolType extends IDOEntity {
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getCategory
 	 */
 	public SchoolCategory getCategory();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getSchoolCategory
-	 */
-	public String getSchoolCategory();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setCategory
-	 */
-	public void setCategory(SchoolCategory category);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setSchoolCategory
-	 */
-	public void setSchoolCategory(String category);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getLocalizationKey
-	 */
-	public String getLocalizationKey();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setLocalizationKey
-	 */
-	public void setLocalizationKey(String key);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#getMaxSchoolAge

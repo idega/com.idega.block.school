@@ -3,11 +3,11 @@
  */
 package com.idega.block.school.data;
 
+import is.idega.idegaweb.egov.course.data.CourseProviderTypeHome;
+
 import java.util.Collection;
 
 import javax.ejb.FinderException;
-
-import com.idega.data.IDOHome;
 
 
 /**
@@ -19,7 +19,7 @@ import com.idega.data.IDOHome;
  * @author <a href="mailto:is@idega.com">is</a>
  * @version $Revision: 1.11 $
  */
-public interface SchoolTypeHome extends IDOHome {
+public interface SchoolTypeHome extends CourseProviderTypeHome {
 
 	public SchoolType create() throws javax.ejb.CreateException;
 

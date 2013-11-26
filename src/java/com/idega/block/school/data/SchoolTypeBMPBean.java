@@ -1,10 +1,11 @@
 package com.idega.block.school.data;
 
+import is.idega.idegaweb.egov.course.data.CourseProviderTypeBMPBean;
+
 import java.util.Collection;
 
 import javax.ejb.FinderException;
 
-import com.idega.data.GenericEntity;
 import com.idega.data.query.MatchCriteria;
 import com.idega.data.query.OR;
 import com.idega.data.query.SelectQuery;
@@ -20,12 +21,9 @@ import com.idega.data.query.WildCardColumn;
  * @version 1.0
  */
 
-public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
+public class SchoolTypeBMPBean extends CourseProviderTypeBMPBean implements SchoolType {
 
-  public static final String NAME = "type_name";
   public static final String INFO = "type_info";
-  public static final String LOC_KEY = "loc_key";
-  public static final String SCHOOLCATEGORY = "school_category";
   public static final String SCHOOLTYPE = "sch_school_type";
   public static final String MAXSCHOOLAGE = "max_school_age";
 	public static final String IS_FREETIME_TYPE = "is_freetime_type";
@@ -36,17 +34,17 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
 
   public void initializeAttributes() {
     this.addAttribute(getIDColumnName());
-    this.addAttribute(NAME,"Schooltype",true,true,String.class);
+    this.addAttribute(COLUMN_NAME,"Schooltype",true,true,String.class);
     this.addAttribute(INFO,"Info",true,true,String.class);
     this.addAttribute(MAXSCHOOLAGE,"Max school age",true,true,Integer.class);
-    this.addAttribute(LOC_KEY,"Localization key",String.class);
+    this.addAttribute(COLUMN_LOC_KEY,"Localization key",String.class);
 		this.addAttribute(IS_FREETIME_TYPE,"Is freetime type",Boolean.class);
 		this.addAttribute(IS_FAMILY_FREETIME_TYPE,"Is freetime type",Boolean.class);
 		this.addAttribute(IS_SELECTABLE,"Is selectable",Boolean.class);
 		this.addAttribute(ORDER,"Order",true,true,Integer.class);
 		this.addAttribute(TYPE_STRING_ID,"Extra school type ID",true,true,String.class);
     
-    addManyToOneRelationship(SCHOOLCATEGORY, SchoolCategory.class);
+    addManyToOneRelationship(COLUMN_SCHOOL_CATEGORY, SchoolCategory.class);
     getEntityDefinition().setBeanCachingActiveByDefault(true);
   }
 
@@ -58,14 +56,6 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
     return getSchoolTypeName();
   }
 
-  public void setSchoolTypeName(String name){
-    setColumn(NAME,name);
-  }
-
-  public String getSchoolTypeName(){
-    return getStringColumnValue(NAME);
-  }
-
    public void setSchoolTypeInfo(String info){
     setColumn(INFO,info);
   }
@@ -74,30 +64,9 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
     return getStringColumnValue(INFO);
   }
 
-	public SchoolCategory getCategory(){
-		return (SchoolCategory) getColumnValue(SCHOOLCATEGORY);
-	}
-
-  public String getSchoolCategory(){
-    return getStringColumnValue(SCHOOLCATEGORY);
+  public SchoolCategory getCategory(){
+	  return (SchoolCategory) getColumnValue(COLUMN_SCHOOL_CATEGORY);
   }
-
-	public void setCategory(SchoolCategory category){
-		setColumn(SCHOOLCATEGORY,category);
-	}
-
-  public void setSchoolCategory(String category){
-    setColumn(SCHOOLCATEGORY,category);
-  }
-
-  public String getLocalizationKey(){
-    return getStringColumnValue(LOC_KEY);
-  }
-
-  public void setLocalizationKey(String key){
-    setColumn(LOC_KEY,key);
-  }
-
   public int getMaxSchoolAge(){
     return getIntColumnValue(MAXSCHOOLAGE);
   }
@@ -145,39 +114,12 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
 	public void setTypeStringId(String typeStringId){
 		setColumn(TYPE_STRING_ID, typeStringId);
 	}
-  
-  public Collection ejbFindAllSchoolTypes() throws javax.ejb.FinderException{
-      Table table = new Table(this);
-      SelectQuery query = new SelectQuery(table);
-      query.addColumn(new WildCardColumn());
-      query.addOrder(table,NAME,true); 
-      return super.idoFindPKsByQuery(query);
-  }
-
-  public Collection ejbFindAllByCategory(String category) throws javax.ejb.FinderException {
-	  Table table = new Table(this);
-	  SelectQuery query = new SelectQuery(table);
-	  query.addColumn(new WildCardColumn());
-	  query.addCriteria(new MatchCriteria(table,SCHOOLCATEGORY,MatchCriteria.EQUALS,category,true));
-	  return idoFindPKsByQuery(query);
-  }
-  
-  
-
-  public String ejbFindAllByCategoryTest(String category) throws javax.ejb.FinderException {
-
-	  Table table = new Table(this);
-	  SelectQuery query = new SelectQuery(table);
-	  query.addColumn(new WildCardColumn());
-	  query.addCriteria(new MatchCriteria(table,SCHOOLCATEGORY,MatchCriteria.EQUALS,category,true));
-	  return query.toString();
-  }
 
 	public Collection ejbFindAllByCategory(String category, boolean showFreetimeTypes) throws javax.ejb.FinderException {
 	    Table table = new Table(this);
 	    SelectQuery query = new SelectQuery(table);
 	    query.addColumn(new WildCardColumn());
-	    query.addCriteria(new MatchCriteria(table,SCHOOLCATEGORY,MatchCriteria.EQUALS,category,true));
+	    query.addCriteria(new MatchCriteria(table,COLUMN_SCHOOL_CATEGORY,MatchCriteria.EQUALS,category,true));
 	    if(!showFreetimeTypes){
 	        query.addCriteria(new OR(new MatchCriteria(table,IS_FREETIME_TYPE,MatchCriteria.EQUALS,false),new MatchCriteria(table,IS_FREETIME_TYPE,MatchCriteria.IS,MatchCriteria.NULL)));
 	    }
@@ -190,27 +132,6 @@ public class SchoolTypeBMPBean extends GenericEntity implements SchoolType{
 		}
 		return super.idoFindPKsByQuery(query);*/
 	}
-
-	/**
-	 *	Finds one SchoolType from a typeKey.
-	 *	@throws javax.ejb.FinderException if no SchoolType is found.	
-	 */
-  public Integer ejbFindByTypeKey(String typeKey) throws javax.ejb.FinderException{
-      Table table = new Table(this);
-	  SelectQuery query = new SelectQuery(table);
-	  query.addColumn(new WildCardColumn());
-	  query.addCriteria(new MatchCriteria(table,LOC_KEY,MatchCriteria.EQUALS,typeKey,true));
-  	  return (Integer)super.idoFindOnePKByQuery(query);
-  }
-  
-  public Integer ejbFindByName(String name) throws javax.ejb.FinderException{
-      Table table = new Table(this);
-	  SelectQuery query = new SelectQuery(table);
-	  query.addColumn(new WildCardColumn());
-	  query.addCriteria(new MatchCriteria(table,NAME,MatchCriteria.EQUALS,name,true));
-  	  return (Integer)super.idoFindOnePKByQuery(query);
-  }
-
   
   /**
 	 *	Finds one SchoolType from a typeString.
@@ -236,7 +157,7 @@ public Integer ejbFindByTypeString(String typeString) throws javax.ejb.FinderExc
   	SelectQuery query = new SelectQuery(table);
   	query.addColumn(new WildCardColumn());
   	query.addCriteria(new MatchCriteria(table,IS_FREETIME_TYPE,MatchCriteria.EQUALS,true));
-  	query.addCriteria(new MatchCriteria(table,SCHOOLCATEGORY,MatchCriteria.EQUALS,category));
+  	query.addCriteria(new MatchCriteria(table,COLUMN_SCHOOL_CATEGORY,MatchCriteria.EQUALS,category));
   	return idoFindPKsByQuery(query);
   }
 }
