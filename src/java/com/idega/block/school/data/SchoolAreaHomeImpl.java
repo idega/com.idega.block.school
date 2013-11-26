@@ -1,15 +1,16 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProviderAreaHomeImpl;
+
 import java.util.Collection;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
 
 import com.idega.data.IDOEntity;
-import com.idega.data.IDOFactory;
 
-public class SchoolAreaHomeImpl extends IDOFactory implements SchoolAreaHome {
+public class SchoolAreaHomeImpl extends CourseProviderAreaHomeImpl implements SchoolAreaHome {
 
 	private static final long serialVersionUID = 1767031846791864669L;
 
