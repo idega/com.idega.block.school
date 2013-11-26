@@ -3,17 +3,20 @@
  */
 package com.idega.block.school.business;
 
+import is.idega.idegaweb.egov.course.business.CourseProviderUserBusiness;
+
 import java.rmi.RemoteException;
 import java.util.Collection;
+
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
+
 import com.idega.block.school.data.School;
 import com.idega.block.school.data.SchoolHome;
 import com.idega.block.school.data.SchoolTypeHome;
 import com.idega.block.school.data.SchoolUser;
 import com.idega.block.school.data.SchoolUserHome;
-import com.idega.business.IBOService;
 import com.idega.data.IDORelationshipException;
 import com.idega.user.data.User;
 import com.idega.user.data.UserHome;
@@ -28,7 +31,7 @@ import com.idega.user.data.UserHome;
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
  * @version $Revision: 1.1 $
  */
-public interface SchoolUserBusiness extends IBOService {
+public interface SchoolUserBusiness extends CourseProviderUserBusiness {
 
 	/**
 	 * @see com.idega.block.school.business.SchoolUserBusinessBean#addUser
