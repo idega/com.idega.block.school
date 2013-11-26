@@ -750,7 +750,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		.appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id")
 
-		.appendAnd().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
+		.appendAnd().append("tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
 
 		/*
 		 * .appendAnd() .appendLeftParenthesis() .append("mb." + REMOVED_DATE + " is
@@ -781,7 +781,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		.appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id")
 
-		.appendAnd().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
+		.appendAnd().append("tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
 
 		.appendAnd() .appendLeftParenthesis() .append("mb." + REMOVED_DATE + " is null") .appendOr() .append("mb." + REMOVED_DATE)
 		.appendGreaterThanSign() .append("mb." + REGISTER_DATE).appendRightParenthesis()
@@ -795,7 +795,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		IDOQuery sql = idoQuery();
 
-		sql.appendSelectAllFrom(this.getTableName() + " mb" + ", " + SchoolClassBMPBean.SCHOOLCLASS + " cl, " + SchoolTypeBMPBean.SCHOOLTYPE + " tp").appendWhere().append("(cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().appendWithinSingleQuotes("Y").appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).append(" is null)").appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id").appendAnd().append("cl." + SchoolClassBMPBean.SEASON).appendEqualSign().append(season.getPrimaryKey()).appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id").appendAnd().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'").appendAnd().appendLeftParenthesis().append("mb." + REMOVED_DATE + " is null").appendOr().append("mb." + REMOVED_DATE).appendGreaterThanOrEqualsSign().append(new Date(System.currentTimeMillis())).appendRightParenthesis();
+		sql.appendSelectAllFrom(this.getTableName() + " mb" + ", " + SchoolClassBMPBean.SCHOOLCLASS + " cl, " + SchoolTypeBMPBean.SCHOOLTYPE + " tp").appendWhere().append("(cl." + SchoolClassBMPBean.COLUMN_VALID).appendEqualSign().appendWithinSingleQuotes("Y").appendOr().append("cl." + SchoolClassBMPBean.COLUMN_VALID).append(" is null)").appendAnd().append(" mb." + SCHOOLCLASS).appendEqualSign().append("cl." + SchoolClassBMPBean.SCHOOLCLASS + "_id").appendAnd().append("cl." + SchoolClassBMPBean.SEASON).appendEqualSign().append(season.getPrimaryKey()).appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id").appendAnd().append("tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'").appendAnd().appendLeftParenthesis().append("mb." + REMOVED_DATE + " is null").appendOr().append("mb." + REMOVED_DATE).appendGreaterThanOrEqualsSign().append(new Date(System.currentTimeMillis())).appendRightParenthesis();
 		if (schoolIds != null) {
 			if (notInSchools) {
 				sql.appendAnd().append("cl.school_id").appendNotInArray(schoolIds);
@@ -819,7 +819,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		catch (IDORelationshipException ire) {
 			throw new FinderException(ire.getMessage());
 		}
-		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
+		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, MatchCriteria.EQUALS, category));
 		query.addOrder(table, MEMBER, false);
 		query.addOrder(table, REGISTER_DATE, true);
 
@@ -886,7 +886,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		}
 		query.addCriteria(new MatchCriteria(table, MEMBER, MatchCriteria.EQUALS, studentId));
 		query.addCriteria(new MatchCriteria(schoolClassTable, SchoolClassBMPBean.SCHOOL, MatchCriteria.EQUALS, schoolId));
-		query.addCriteria(new MatchCriteria(typeTable, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
+		query.addCriteria(new MatchCriteria(typeTable, SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, MatchCriteria.EQUALS, category));
 		Date today = new Date(System.currentTimeMillis());
 		query.addCriteria(new MatchCriteria(table, REGISTER_DATE, MatchCriteria.LESSEQUAL, today));
 		Criteria a = new MatchCriteria(table, REMOVED_DATE, MatchCriteria.GREATER, today);
@@ -912,7 +912,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		}
 		query.addCriteria(new MatchCriteria(table, MEMBER, MatchCriteria.EQUALS, studentId));
 		query.addCriteria(new MatchCriteria(schoolClassTable, SchoolClassBMPBean.SCHOOL, MatchCriteria.EQUALS, schoolId));
-		query.addCriteria(new MatchCriteria(typeTable, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
+		query.addCriteria(new MatchCriteria(typeTable, SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, MatchCriteria.EQUALS, category));
 		Date today = new Date(System.currentTimeMillis());
 		Criteria a = new MatchCriteria(table, REMOVED_DATE, MatchCriteria.GREATER, today);
 		Criteria b = new MatchCriteria(table, REMOVED_DATE, MatchCriteria.IS, MatchCriteria.NULL);
@@ -962,7 +962,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		.appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id")
 
-		.appendAnd().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
+		.appendAnd().append("tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + cat.getPrimaryKey() + "'")
 
 		.appendOrderBy(REGISTER_DATE + " desc");
 
@@ -1000,7 +1000,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		.appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id")
 
-		.appendAnd().append("(tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_ELEMENTARY_SCHOOL + "'").appendOr().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_HIGH_SCHOOL + "')")
+		.appendAnd().append("(tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_ELEMENTARY_SCHOOL + "'").appendOr().append("tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_HIGH_SCHOOL + "')")
 
 		.appendOrderBy(REGISTER_DATE + " desc");
 
@@ -1035,7 +1035,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		.appendAnd().append("mb." + SCHOOL_TYPE).appendEqualSign().append("tp." + SchoolTypeBMPBean.SCHOOLTYPE + "_id")
 
-		.appendAnd().append("(tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_ELEMENTARY_SCHOOL + "'").appendOr().append("tp." + SchoolTypeBMPBean.SCHOOLCATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_HIGH_SCHOOL + "')")
+		.appendAnd().append("(tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_ELEMENTARY_SCHOOL + "'").appendOr().append("tp." + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY).appendEqualSign().append("'" + SchoolCategoryBMPBean.CATEGORY_HIGH_SCHOOL + "')")
 
 		.appendOrderBy(REGISTER_DATE + " desc");
 
@@ -1089,7 +1089,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 		sql.appendWhereEquals(M_ + MEMBER, U_ + User.FIELD_USER_ID);
 		sql.appendAndEquals(M_ + SCHOOL_TYPE, T_ + SchoolTypeBMPBean.SCHOOLTYPE + "_id");
-		sql.appendAndEqualsQuoted(T_ + SchoolTypeBMPBean.SCHOOLCATEGORY, operationalField);
+		sql.appendAndEqualsQuoted(T_ + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, operationalField);
 		sql.appendAndEquals(M_ + SCHOOLCLASS, C_ + SchoolClassBMPBean.SCHOOLCLASS + "_id");
 
 		// AND ((c.sch_school_season_id IS NULL AND m.removed_date IS NULL )
@@ -1271,7 +1271,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 			query.addCriteria(new MatchCriteria(tClass, SchoolClassBMPBean.SCHOOL, MatchCriteria.EQUALS, schoolID));
 			query.addCriteria(new OR(new MatchCriteria(tClass, SchoolClassBMPBean.COLUMN_VALID, MatchCriteria.EQUALS, true), new MatchCriteria(tClass, SchoolClassBMPBean.COLUMN_VALID, MatchCriteria.IS, MatchCriteria.NULL)));
 			if (schoolCategory != null) {
-				query.addCriteria(new MatchCriteria(tType, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, schoolCategory));
+				query.addCriteria(new MatchCriteria(tType, SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, MatchCriteria.EQUALS, schoolCategory));
 			}
 			if (schoolClassID != -1) {
 				query.addCriteria(new MatchCriteria(tMember, SCHOOLCLASS, MatchCriteria.EQUALS, schoolClassID));
@@ -1782,7 +1782,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendSelectAllFrom(getTableName() + " m").append(',' + SchoolTypeBMPBean.SCHOOLTYPE + " t").appendWhere().appendEquals(M_ + MEMBER, userId + "");
 		if (null != category) {
 			sql.appendAndEquals(M_ + SCHOOL_TYPE, T_ + SchoolTypeBMPBean.SCHOOLTYPE + "_id");
-			sql.appendAndEqualsQuoted(T_ + SchoolTypeBMPBean.SCHOOLCATEGORY, category.getCategory());
+			sql.appendAndEqualsQuoted(T_ + SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, category.getCategory());
 		}
 		if (null != period) {
 			final Calendar calendar = Calendar.getInstance();

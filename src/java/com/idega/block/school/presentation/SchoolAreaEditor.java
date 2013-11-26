@@ -234,7 +234,7 @@ public class SchoolAreaEditor extends SchoolBlock {
 		if (areaPK != null) {
 			try {
 				SchoolArea area = getBusiness().getSchoolArea(areaPK);
-				SchoolCategory category = area.getCategory();
+				SchoolCategory category = (SchoolCategory) area.getCategory();
 				inputName.setContent(area.getSchoolAreaName());
 				inputCity.setContent(area.getSchoolAreaCity());
 				inputInfo.setContent(area.getSchoolAreaInfo());

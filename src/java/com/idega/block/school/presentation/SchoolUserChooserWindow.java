@@ -55,20 +55,16 @@ public class SchoolUserChooserWindow extends UserChooserWindow {
 
 	public School getProvider(IWContext iwc) {
 		School _provider = null;
-		try {
-			if (iwc.isParameterSet(SchoolUserChooser.PARAMETER_SCHOOL_ID)) {
-				_provider = getSchoolBusiness(iwc).getSchool(iwc.getParameter(SchoolUserChooser.PARAMETER_SCHOOL_ID));
-				if (iwc.getSessionAttribute(SchoolUserChooser.PARAMETER_SCHOOL_ID) == null) {
-					iwc.setSessionAttribute(SchoolUserChooser.PARAMETER_SCHOOL_ID, _provider);
-				}
-			}
-			else {
-				_provider = (School) iwc.getSessionAttribute(SchoolUserChooser.PARAMETER_SCHOOL_ID);
+		if (iwc.isParameterSet(SchoolUserChooser.PARAMETER_SCHOOL_ID)) {
+			_provider = getSchoolBusiness(iwc).getSchool(iwc.getParameter(SchoolUserChooser.PARAMETER_SCHOOL_ID));
+			if (iwc.getSessionAttribute(SchoolUserChooser.PARAMETER_SCHOOL_ID) == null) {
+				iwc.setSessionAttribute(SchoolUserChooser.PARAMETER_SCHOOL_ID, _provider);
 			}
 		}
-		catch (RemoteException ex) {
-			ex.printStackTrace();
+		else {
+			_provider = (School) iwc.getSessionAttribute(SchoolUserChooser.PARAMETER_SCHOOL_ID);
 		}
+
 		return _provider;
 	}
 

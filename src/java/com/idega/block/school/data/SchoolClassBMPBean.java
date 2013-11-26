@@ -608,7 +608,7 @@ public class SchoolClassBMPBean extends GenericEntity implements SchoolClass {
 			throw new FinderException(e.getMessage());
 		}
 		query.addCriteria(new MatchCriteria(table, SEASON, MatchCriteria.EQUALS, season));
-		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
+		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.COLUMN_SCHOOL_CATEGORY, MatchCriteria.EQUALS, category));
 
 		return idoFindPKsByQuery(query);
 	}
