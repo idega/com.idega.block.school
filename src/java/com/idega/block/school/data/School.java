@@ -1,26 +1,24 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProvider;
+
 import java.rmi.RemoteException;
-import java.sql.Date;
 import java.util.Collection;
 
 import javax.ejb.FinderException;
 
 import com.idega.block.text.data.LocalizedText;
 import com.idega.core.file.data.ICFile;
-import com.idega.core.location.data.Commune;
 import com.idega.core.location.data.Country;
 import com.idega.data.IDOAddRelationshipException;
-import com.idega.data.IDOEntity;
 import com.idega.data.IDOException;
-import com.idega.data.IDOLegacyEntity;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
 import com.idega.data.MetaDataCapable;
 import com.idega.user.data.Group;
 
-public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
+public interface School extends CourseProvider, MetaDataCapable {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getPrimaryGroup
 	 */
@@ -30,11 +28,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setPrimaryGroup
 	 */
 	public void setPrimaryGroup(Group group);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getName
-	 */
-	public String getName();
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getNameWithStarIfQueueSortedByBirthdate
@@ -82,16 +75,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public boolean hasReview();
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#hasPreCare
-	 */
-	public boolean hasPreCare();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#hasPostCare
-	 */
-	public boolean hasPostCare();
-
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#hasHandicap
 	 */
 	public boolean hasHandicap();
@@ -112,11 +95,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public void setJuniorHighSchool(Object schoolPK);
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolAreaId
-	 */
-	public int getSchoolAreaId();
-
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolSubAreaId
 	 */
 	public int getSchoolSubAreaId();
@@ -132,39 +110,9 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public SchoolSubArea getSchoolSubArea();
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolAreaId
-	 */
-	public void setSchoolAreaId(int id);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolArea
-	 */
-	public void setSchoolArea(SchoolArea area);
-
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolSubAreaId
 	 */
 	public void setSchoolSubAreaId(int id);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getCommunePK
-	 */
-	public Object getCommunePK();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getCommune
-	 */
-	public Commune getCommune();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getCommuneId
-	 */
-	public int getCommuneId();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setCommunePK
-	 */
-	public void setCommunePK(Object pk);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getCountryId
@@ -197,36 +145,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public void setManagementTypeId(String id);
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolName
-	 */
-	public String getSchoolName();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolName
-	 */
-	public void setSchoolName(String name);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolInfo
-	 */
-	public String getSchoolInfo();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolInfo
-	 */
-	public void setSchoolInfo(String info);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolAddress
-	 */
-	public String getSchoolAddress();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolAddress
-	 */
-	public void setSchoolAddress(String address);
-
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolVisitAddress
 	 */
 	public String getSchoolVisitAddress();
@@ -247,16 +165,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public void setHasReview(boolean hasReview);
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setHasPreCare
-	 */
-	public void setHasPreCare(boolean hasPreCare);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setHasPostCare
-	 */
-	public void setHasPostCare(boolean hasPostCare);
-
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#setHasHandicap
 	 */
 	public void setHasHandicap(boolean hasHandicap);
@@ -265,36 +173,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setHasDGK
 	 */
 	public void setHasDGK(boolean hasDGK);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolZipArea
-	 */
-	public String getSchoolZipArea();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolZipArea
-	 */
-	public void setSchoolZipArea(String ziparea);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolZipCode
-	 */
-	public String getSchoolZipCode();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolZipCode
-	 */
-	public void setSchoolZipCode(String zipcode);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolPhone
-	 */
-	public String getSchoolPhone();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolPhone
-	 */
-	public void setSchoolPhone(String phone);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolEmail
@@ -352,16 +230,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	public void setSchoolLongitude(String lon);
 
 	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getOrganizationNumber
-	 */
-	public String getOrganizationNumber();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setOrganizationNumber
-	 */
-	public void setOrganizationNumber(String orgNo);
-
-	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getExtraProviderId
 	 */
 	public String getExtraProviderId();
@@ -370,16 +238,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setExtraProviderId
 	 */
 	public void setExtraProviderId(String id);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getTerminationDate
-	 */
-	public Date getTerminationDate();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setTerminationDate
-	 */
-	public void setTerminationDate(Date date);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getCentralizedAdministration
@@ -400,16 +258,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setInvisibleForCitizen
 	 */
 	public void setInvisibleForCitizen(boolean b);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getProviderStringId
-	 */
-	public String getProviderStringId();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setProviderStringId
-	 */
-	public void setProviderStringId(String id);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#addSchoolTypes
@@ -496,16 +344,6 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolFax
 	 */
 	public void setSchoolFax(String fax);
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolWebPage
-	 */
-	public String getSchoolWebPage();
-
-	/**
-	 * @see com.idega.block.school.data.SchoolBMPBean#setSchoolWebPage
-	 */
-	public void setSchoolWebPage(String webPage);
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getMapUrl

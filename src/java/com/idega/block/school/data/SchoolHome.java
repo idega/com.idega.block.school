@@ -1,6 +1,8 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProviderHome;
+
 import java.util.Collection;
 
 import javax.ejb.CreateException;
@@ -8,11 +10,10 @@ import javax.ejb.EJBException;
 import javax.ejb.FinderException;
 
 import com.idega.data.IDOException;
-import com.idega.data.IDOHome;
 import com.idega.data.IDOLookupException;
 import com.idega.user.data.Group;
 
-public interface SchoolHome extends IDOHome {
+public interface SchoolHome extends CourseProviderHome {
 	public School create() throws CreateException;
 
 	public School findByPrimaryKey(Object pk) throws FinderException;
