@@ -107,5 +107,9 @@
       <groupId>com.idega.block.platform</groupId>
       <artifactId>com.idega.workspace</artifactId>
     </dependency>
+    <dependency>
+    	<groupId>com.idega.block.egov</groupId>
+    	<artifactId>is.idega.idegaweb.egov.course</artifactId>
+    </dependency>
   </dependencies>
 </project>
