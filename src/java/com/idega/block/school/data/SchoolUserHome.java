@@ -1,13 +1,16 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProviderUserHome;
+
 import java.util.Collection;
+
 import javax.ejb.CreateException;
-import com.idega.data.IDOHome;
 import javax.ejb.FinderException;
+
 import com.idega.user.data.User;
 
-public interface SchoolUserHome extends IDOHome {
+public interface SchoolUserHome extends CourseProviderUserHome {
 
 	public SchoolUser create() throws CreateException;
 
@@ -29,7 +32,7 @@ public interface SchoolUserHome extends IDOHome {
 
 	public Collection findByUser(User user) throws FinderException;
 
-	public SchoolUser findForUser(User user) throws FinderException;
+	public SchoolUser findForUser(User user);
 
 	public Collection findBySchoolAndUser(School school, User user) throws FinderException;
 

@@ -1,14 +1,20 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProviderUserHomeImpl;
+
 import java.util.Collection;
+import java.util.logging.Level;
+
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
-import com.idega.user.data.User;
-import com.idega.data.IDOEntity;
-import com.idega.data.IDOFactory;
 
-public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome {
+import com.idega.data.IDOEntity;
+import com.idega.user.data.User;
+
+public class SchoolUserHomeImpl extends CourseProviderUserHomeImpl implements SchoolUserHome {
+
+	private static final long serialVersionUID = -8383345235383866840L;
 
 	public Class getEntityInterfaceClass() {
 		return SchoolUser.class;
@@ -78,11 +84,28 @@ public class SchoolUserHomeImpl extends IDOFactory implements SchoolUserHome {
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
 
-	public SchoolUser findForUser(User user) throws FinderException {
+	public SchoolUser findForUser(User user) {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
-		Object pk = ((SchoolUserBMPBean) entity).ejbFindForUser(user);
-		this.idoCheckInPooledEntity(entity);
-		return this.findByPrimaryKey(pk);
+		Object pk = null;
+		try {
+			pk = ((SchoolUserBMPBean) entity).ejbFindForUser(user);
+		} catch (FinderException e) {
+			java.util.logging.Logger.getLogger(getClass().getName()).log(
+					Level.WARNING, 
+					"Failed to get primary key for " + getEntityInterfaceClass().getName() + 
+					" by user: '" + user + "'");
+		}
+
+		try {
+			return this.findByPrimaryKey(pk);
+		} catch (FinderException e) {
+			java.util.logging.Logger.getLogger(getClass().getName()).log(
+					Level.WARNING, 
+					"Failed to get " + getEntityInterfaceClass().getName() + 
+					" by id's: '" + pk +  "'");
+		}
+
+		return null;
 	}
 
 	public Collection findBySchoolAndUser(School school, User user) throws FinderException {
