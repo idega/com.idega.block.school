@@ -1,13 +1,18 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProviderCategoryHomeImpl;
+
 import java.util.Collection;
+
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
-import com.idega.data.IDOEntity;
-import com.idega.data.IDOFactory;
 
-public class SchoolCategoryHomeImpl extends IDOFactory implements SchoolCategoryHome {
+import com.idega.data.IDOEntity;
+
+public class SchoolCategoryHomeImpl extends CourseProviderCategoryHomeImpl implements SchoolCategoryHome {
+
+	private static final long serialVersionUID = -2921265541424788425L;
 
 	public Class getEntityInterfaceClass() {
 		return SchoolCategory.class;

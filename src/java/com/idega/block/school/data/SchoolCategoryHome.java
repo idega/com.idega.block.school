@@ -1,12 +1,14 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProviderCategoryHome;
+
 import java.util.Collection;
+
 import javax.ejb.CreateException;
-import com.idega.data.IDOHome;
 import javax.ejb.FinderException;
 
-public interface SchoolCategoryHome extends IDOHome {
+public interface SchoolCategoryHome extends CourseProviderCategoryHome {
 
 	public SchoolCategory create() throws CreateException;
 
