@@ -1,14 +1,17 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProvider;
 import is.idega.idegaweb.egov.course.data.CourseProviderHome;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.FinderException;
 
+import com.idega.core.location.data.PostalCode;
 import com.idega.data.IDOException;
 import com.idega.data.IDOLookupException;
 import com.idega.user.data.Group;
@@ -106,4 +109,15 @@ public interface SchoolHome extends CourseProviderHome {
 			FinderException;
 
 	public Collection findAllWithNoPrimaryGroup() throws FinderException;
+
+	/**
+	 * 
+	 * @param name is {@link CourseProvider#getName()}, not <code>null</code>;
+	 * @param postalCode is {@link PostalCode#getPostalCode()}, not <code>null</code>;
+	 * @return entities by criteria or {@link Collections#emptyList()} on failure;
+	 * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
+	 */
+	public Collection<? extends CourseProvider> find(
+			String name, 
+			String postalCode);
 }

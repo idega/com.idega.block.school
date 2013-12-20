@@ -1,5 +1,6 @@
 package com.idega.block.school.data;
 
+import is.idega.idegaweb.egov.course.data.CourseProvider;
 import is.idega.idegaweb.egov.course.data.CourseProviderArea;
 import is.idega.idegaweb.egov.course.data.CourseProviderBMPBean;
 import is.idega.idegaweb.egov.course.data.CourseProviderType;
@@ -24,6 +25,7 @@ import com.idega.core.file.data.ICFileHome;
 import com.idega.core.location.data.Commune;
 import com.idega.core.location.data.CommuneHome;
 import com.idega.core.location.data.Country;
+import com.idega.core.location.data.PostalCode;
 import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOEntity;
 import com.idega.data.IDOException;
@@ -40,6 +42,7 @@ import com.idega.data.query.Table;
 import com.idega.user.data.Group;
 import com.idega.user.data.GroupHome;
 import com.idega.user.data.User;
+import com.idega.util.StringUtil;
 
 /**
  * <p>
@@ -65,8 +68,14 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	private static final long serialVersionUID = -2233834309495357949L;
 
 	public final static String SCHOOL = "sch_school";
+	public final static String COLUMN_NAME = "SCHOOL_NAME";
+	public final static String COLUMN_ADDRESS = "school_address";
+	public final static String COLUMN_INFO = "school_info";
 	public final static String HEADMASTER = "headmaster_group_id";
 	public final static String SCHOOLSUBAREA = "sch_school_sub_area_id";
+	public final static String COLUMN_ZIPCODE = "zip_code";
+	public final static String COLUMN_ZIPAREA = "zip_area";
+	public final static String COLUMN_PHONE = "phone";
 	public final static String EMAIL = "email";
 	public final static String KEYCODE = "key_kode";
 	public final static String LONGITUDE = "longitude";
@@ -81,7 +90,8 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	/** Kelly 13-14 May 2003 */
 	public final static String ACTIVITY = "activity";
 	public final static String OPEN_HOURS = "open_hours";
-	
+	/** Laddi 3 Sep 2003 */
+	public final static String COLUMN_COMMUNE = "commune";
 	/** Anders 15 Sep 2003 */
 	public final static String EXTRA_PROVIDER_ID = "extra_provider_id";
 	public final static String COUNTRY = "country"; // Not connected to commune
@@ -99,6 +109,8 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	public final static String SORT_BY_BIRTHDATE = "sort_by_birthdate";
 	public static final String HAS_REFRESHMENTS = "has_refreshments";
 	public static final String HAS_REVIEW = "has_review";
+	public final static String COLUMN_HAS_PRE_CARE = "has_pre_care";
+	public final static String COLUMN_HAS_POST_CARE = "has_post_care";
 	/** Alex 27 July 2007 */
 	public static final String HAS_HANDICAP = "has_handicap";
 
@@ -237,6 +249,24 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		return getBooleanColumnValue(HAS_REVIEW, false);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#hasPreCare()
+	 */
+	@Override
+	public boolean hasPreCare() {
+		return getBooleanColumnValue(COLUMN_HAS_PRE_CARE, false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#hasPostCare()
+	 */
+	@Override
+	public boolean hasPostCare() {
+		return getBooleanColumnValue(COLUMN_HAS_POST_CARE, false);
+	}
+
 	@Override
 	public boolean hasHandicap() {
 		return getBooleanColumnValue(HAS_HANDICAP, false);
@@ -282,6 +312,57 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		this.setColumn(SCHOOLSUBAREA, id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#getCommunePK()
+	 */
+	@Override
+	public Object getCommunePK() {
+		Object communeId = getColumnValue(COLUMN_COMMUNE);
+		if (communeId == null) {
+			try {
+				CommuneHome cHome = (CommuneHome) IDOLookup.getHome(Commune.class);
+				Commune comm = cHome.findDefaultCommune();
+				if (comm != null) {
+					this.setCommunePK(comm.getPrimaryKey());
+					this.store();
+					return comm.getPrimaryKey();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return communeId;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#getCommune()
+	 */
+	@Override
+	public Commune getCommune() {
+		return (Commune) getColumnValue(COLUMN_COMMUNE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#getCommuneId()
+	 */
+	@Override
+	public int getCommuneId() {
+		return this.getIntColumnValue(COLUMN_COMMUNE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#setCommunePK(java.lang.Object)
+	 */
+	@Override
+	public void setCommunePK(Object pk) {
+		this.setColumn(COLUMN_COMMUNE, pk);
+	}
+
 	@Override
 	public int getCountryId() {
 		return this.getIntColumnValue(COUNTRY);
@@ -312,6 +393,59 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		this.setColumn(MANAGEMENT_TYPE, id);
 	}
 
+	/* (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#getSchoolName()
+	 */
+	@Override
+	public String getSchoolName() {
+		return this.getStringColumnValue(COLUMN_NAME);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#setSchoolName(java.lang.String)
+	 */
+	@Override
+	public void setSchoolName(String name) {
+		this.setColumn(COLUMN_NAME, name);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#getSchoolInfo()
+	 */
+	@Override
+	public String getSchoolInfo() {
+		return this.getStringColumnValue(COLUMN_INFO);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#setSchoolInfo(java.lang.String)
+	 */
+	@Override
+	public void setSchoolInfo(String info) {
+		this.setColumn(COLUMN_INFO, info);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#getSchoolAddress()
+	 */
+	@Override
+	public String getSchoolAddress() {
+		return this.getStringColumnValue(COLUMN_ADDRESS);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#setSchoolAddress(java.lang.String)
+	 */
+	@Override
+	public void setSchoolAddress(String address) {
+		this.setColumn(COLUMN_ADDRESS, address);
+	}
+	
 	@Override
 	public String getSchoolVisitAddress() {
 		return this.getStringColumnValue(VISITADDRESS);
@@ -332,6 +466,24 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		setColumn(HAS_REVIEW, hasReview);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#setHasPreCare(boolean)
+	 */
+	@Override
+	public void setHasPreCare(boolean hasPreCare) {
+		setColumn(COLUMN_HAS_PRE_CARE, hasPreCare);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#setHasPostCare(boolean)
+	 */
+	@Override
+	public void setHasPostCare(boolean hasPostCare) {
+		setColumn(COLUMN_HAS_POST_CARE, hasPostCare);
+	}
+
 	@Override
 	public void setHasHandicap(boolean hasHandicap) {
 		setColumn(HAS_HANDICAP, hasHandicap);
@@ -340,6 +492,60 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	@Override
 	public void setHasDGK(boolean hasDGK) {
 		setColumn(COLUMN_HAS_DGK, hasDGK);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#getSchoolZipArea()
+	 */
+	@Override
+	public String getSchoolZipArea() {
+		return this.getStringColumnValue(COLUMN_ZIPAREA);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#setSchoolZipArea(java.lang.String)
+	 */
+	@Override
+	public void setSchoolZipArea(String ziparea) {
+		this.setColumn(COLUMN_ZIPAREA, ziparea);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#getSchoolZipCode()
+	 */
+	@Override
+	public String getSchoolZipCode() {
+		return this.getStringColumnValue(COLUMN_ZIPCODE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#setSchoolZipCode(java.lang.String)
+	 */
+	@Override
+	public void setSchoolZipCode(String zipcode) {
+		this.setColumn(COLUMN_ZIPCODE, zipcode);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#getSchoolPhone()
+	 */
+	@Override
+	public String getSchoolPhone() {
+		return this.getStringColumnValue(COLUMN_PHONE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProvider#setSchoolPhone(java.lang.String)
+	 */
+	@Override
+	public void setSchoolPhone(String phone) {
+		this.setColumn(COLUMN_PHONE, phone);
 	}
 
 	@Override
@@ -1139,5 +1345,34 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		query.addCriteria(new MatchCriteria(table.getColumn(COLUMN_PRIMARY_GROUP), false));
 
 		return idoFindPKsByQuery(query);
+	}
+
+	/**
+	 * 
+	 * @param name is {@link CourseProvider#getName()}, not <code>null</code>;
+	 * @param postalCode is {@link PostalCode#getPostalCode()}, not <code>null</code>;
+	 * @return {@link Collection} of {@link CourseProvider#getPrimaryKey()}s, 
+	 * filtered by criteria or {@link Collections#emptyList()} on failure;
+	 * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
+	 */
+	public Collection<Object> ejbFindByNameAndPostalCode(String name, String postalCode) {
+		if (StringUtil.isEmpty(name) || StringUtil.isEmpty(postalCode)) {
+			return Collections.emptyList();
+		}
+
+		IDOQuery sql = idoQuery();
+		sql.appendSelectAllFrom(this);
+		sql.appendWhereEqualsQuoted(COLUMN_NAME, name);
+		sql.appendAndEqualsQuoted(COLUMN_ZIPCODE, postalCode);
+		try {
+			return idoFindPKsByQuery(sql);
+		} catch (FinderException e) {
+			getLogger().log(Level.WARNING, 
+					"Failed to get primary keys for: '" + this.getClass().getName() + 
+					"' by name: '" + name + "' and postal code: '" + postalCode + 
+					"' cause of: ", e);
+		}
+
+		return Collections.emptyList();
 	}
 }

@@ -1,9 +1,12 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProvider;
 import is.idega.idegaweb.egov.course.data.CourseProviderHomeImpl;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.logging.Level;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
@@ -333,5 +336,29 @@ public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome
 				.ejbFindAllWithNoPrimaryGroup();
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.idega.block.school.data.SchoolHome#find(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Collection<? extends CourseProvider> find(String name, String postalCode) {
+		SchoolBMPBean entity = (SchoolBMPBean) this.idoCheckOutPooledEntity();
+		if (entity == null) {
+			return java.util.Collections.emptyList();
+		}
+
+		Collection<Object> primaryKeys = entity.ejbFindByNameAndPostalCode(name, postalCode);
+		try {
+			return getEntityCollectionForPrimaryKeys(primaryKeys);
+		} catch (FinderException e) {
+			java.util.logging.Logger.getLogger(getClass().getSimpleName()).log(
+					Level.WARNING, 
+					"Failed to get " + getEntityInterfaceClass().getSimpleName() + 
+					"'s by id's: '" + primaryKeys + "' cause of: ", e);
+		}
+
+		return Collections.emptyList();
 	}
 }

@@ -140,7 +140,6 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 		}
 	}
 
-	@Override
 	protected CourseProviderHome getCourseProviderHome() {
 		return getSchoolHome();
 	}
