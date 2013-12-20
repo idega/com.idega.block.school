@@ -81,7 +81,7 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	/** Kelly 13-14 May 2003 */
 	public final static String ACTIVITY = "activity";
 	public final static String OPEN_HOURS = "open_hours";
-	
+
 	/** Anders 15 Sep 2003 */
 	public final static String EXTRA_PROVIDER_ID = "extra_provider_id";
 	public final static String COUNTRY = "country"; // Not connected to commune
@@ -266,7 +266,7 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	public SchoolArea getSchoolArea() {
 		return (SchoolArea) getColumnValue(COLUMN_SCHOOL_AREA);
 	}
-	
+
 	@Override
 	public CourseProviderArea getCourseProviderArea() {
 		return getSchoolArea();
@@ -1004,18 +1004,18 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	}
 
 	@Override
-	public Collection<CourseProviderType> getCourseProviderAreas() {
+	public Collection<CourseProviderType> getCourseProviderTypes() {
 		try {
 			return getSchoolTypes();
 		} catch (IDORelationshipException e) {
 			getLogger().log(
-					Level.WARNING, 
+					Level.WARNING,
 					"Failed to get school types cause of: ", e);
 		}
 
 		return Collections.emptyList();
 	}
-	
+
 	@Override
 	public void removeImages() throws IDORelationshipException {
 		this.idoRemoveFrom(ICFile.class);
