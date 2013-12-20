@@ -52,14 +52,16 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	 * (non-Javadoc)
 	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusiness#getSchool(java.lang.Object)
 	 */
+	@Override
 	public School getSchool(Object primaryKey);
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusiness#getSchoolArea(java.lang.Object)
 	 */
+	@Override
 	public SchoolArea getSchoolArea(Object primaryKey);
-	
+
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolDepartmentHome
 	 */
@@ -163,6 +165,7 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getCategoryAfterSchoolCare
 	 */
+	@Override
 	public SchoolCategory getCategoryAfterSchoolCare() throws RemoteException;
 
 	/**
@@ -383,6 +386,7 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolsByType
 	 */
+	@Override
 	public Collection findAllSchoolsByType(Collection typeIds);
 
 	/**
@@ -543,6 +547,7 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getSchoolType
 	 */
+	@Override
 	public SchoolType getSchoolType(Object primaryKey);
 
 	/**

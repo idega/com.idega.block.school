@@ -1,6 +1,7 @@
 package com.idega.block.school.data;
 
 
+import is.idega.idegaweb.egov.course.data.CourseProvider;
 import is.idega.idegaweb.egov.course.data.CourseProviderHome;
 
 import java.util.Collection;
@@ -18,8 +19,7 @@ public interface SchoolHome extends CourseProviderHome {
 
 	public School findByPrimaryKey(Object pk) throws FinderException;
 
-	public Collection findAllBySchoolType(Collection typeIds)
-			throws FinderException;
+	public <P extends CourseProvider> Collection<P> findAllBySchoolType(Collection typeIds) throws FinderException;
 
 	public Collection findAllBySchoolType(int typeId) throws FinderException;
 
