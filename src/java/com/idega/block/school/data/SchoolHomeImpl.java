@@ -37,11 +37,9 @@ public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome
 	}
 
 	@Override
-	public Collection findAllBySchoolType(Collection typeIds)
-			throws FinderException {
+	public <P extends CourseProvider> Collection<P> findAllBySchoolType(Collection typeIds) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
-		Collection ids = ((SchoolBMPBean) entity)
-				.ejbFindAllBySchoolType(typeIds);
+		Collection ids = ((SchoolBMPBean) entity).ejbFindAllBySchoolType(typeIds);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
