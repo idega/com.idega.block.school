@@ -55,41 +55,44 @@ public abstract class SchoolBlock extends Block {
 	private IWBundle iwb;
 	private IWResourceBundle iwrb;
 	private SchoolBusiness business;
-	
+
+	@Override
 	public void main(IWContext iwc) throws Exception {
 		this.iwb = getBundle(iwc);
 		this.iwrb = getResourceBundle(iwc);
 		this.business = getSchoolBusiness(iwc);
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/school.css"));
-		
+
 		init(iwc);
 	}
-	
+
 	protected abstract void init(IWContext iwc) throws Exception;
-	
+
 	/**
 	 * @see com.idega.presentation.Block#getBundleIdentifier()
 	 */
-  public String getBundleIdentifier(){
+  @Override
+public String getBundleIdentifier(){
     return IW_BUNDLE_IDENTIFIER;
   }
-  
+
 	/**
 	 * @see com.idega.presentation.Block#getStyleNames()
 	 */
-  public Map getStyleNames() {
-  		Map map = new HashMap();
+  @Override
+public Map<String, String> getStyleNames() {
+  		Map<String, String> map = new HashMap<String, String>();
   		map.put(STYLENAME_HEADER_ROW, "");
   		map.put(STYLENAME_LIGHT_ROW, "");
   		map.put(STYLENAME_DARK_ROW, "");
-  		
+
   		map.put(STYLENAME_TEXT, "");
   		map.put(STYLENAME_SMALL_TEXT, "");
   		map.put(STYLENAME_HEADER, "");
   		map.put(STYLENAME_SMALL_HEADER, "");
   		map.put(STYLENAME_LINK, "");
   		map.put(STYLENAME_SMALL_LINK, "");
-  		
+
   		map.put(STYLENAME_INTERFACE, "");
   		map.put(STYLENAME_INTERFACE_BUTTON, "");
   		map.put(STYLENAME_CHECKBOX, "");
@@ -99,20 +102,20 @@ public abstract class SchoolBlock extends Block {
 
   private SchoolBusiness getSchoolBusiness(IWApplicationContext iwac) {
 		try {
-			return (SchoolBusiness) IBOLookup.getServiceInstance(iwac, SchoolBusiness.class);
+			return IBOLookup.getServiceInstance(iwac, SchoolBusiness.class);
 		}
 		catch (IBOLookupException ile) {
 			throw new IBORuntimeException(ile);
 		}
 	}
-	
+
 	public String localize(String textKey, String defaultText) {
 		if (this.iwrb == null) {
 			return defaultText;
 		}
 		return this.iwrb.getLocalizedString(textKey, defaultText);
 	}
-	
+
 	protected String getHeaderRowClass() {
 		return getStyleName(STYLENAME_HEADER_ROW);
 	}
@@ -170,20 +173,20 @@ public abstract class SchoolBlock extends Block {
 	protected InterfaceObject getStyledInterface(InterfaceObject obj) {
 		return (InterfaceObject) setStyle(obj, STYLENAME_INTERFACE);
 	}
-	
+
 	protected GenericButton getButton(GenericButton button) {
 		button.setStyleClass(STYLENAME_INTERFACE_BUTTON);
 		return button;
 	}
-	
+
 	protected CheckBox getCheckBox(String name, String value) {
 		return (CheckBox) setStyle(new CheckBox(name,value),STYLENAME_CHECKBOX);
 	}
-	
+
 	protected RadioButton getRadioButton(String name, String value) {
 		return (RadioButton) setStyle(new RadioButton(name,value),STYLENAME_CHECKBOX);
 	}
-	
+
 	/**
 	 * Returns the default edit icon with the tooltip specified.
 	 * @param toolTip	The tooltip to display on mouse over.
@@ -209,11 +212,11 @@ public abstract class SchoolBlock extends Block {
 	protected SchoolBusiness getBusiness() {
 		return this.business;
 	}
-	
+
 	protected IWBundle getBundle() {
 		return this.iwb;
 	}
-	
+
 	protected IWResourceBundle getResourceBundle() {
 		return this.iwrb;
 	}
