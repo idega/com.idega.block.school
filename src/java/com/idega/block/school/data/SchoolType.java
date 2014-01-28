@@ -3,6 +3,7 @@
  */
 package com.idega.block.school.data;
 
+import is.idega.idegaweb.egov.course.data.CourseProviderCategory;
 import is.idega.idegaweb.egov.course.data.CourseProviderType;
 
 
@@ -88,4 +89,18 @@ public interface SchoolType extends CourseProviderType {
 	 * @see com.idega.block.school.data.SchoolTypeBMPBean#setTypeStringId
 	 */
 	public void setTypeStringId(String typeStringId);
+
+	/**
+	 * 
+	 * @return {@link CourseProviderCategory#getCategory()}
+	 * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
+	 */
+	public String getSchoolCategory();
+
+	/**
+	 * 
+	 * @param category is {@link CourseProviderCategory#getCategory()}
+	 * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
+	 */
+	public void setSchoolCategory(String category);
 }

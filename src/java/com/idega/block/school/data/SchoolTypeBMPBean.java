@@ -1,11 +1,18 @@
 package com.idega.block.school.data;
 
+import is.idega.idegaweb.egov.course.data.CourseProviderType;
 import is.idega.idegaweb.egov.course.data.CourseProviderTypeBMPBean;
+import is.idega.idegaweb.egov.course.data.CourseProviderTypeHome;
 
 import java.util.Collection;
+import java.util.logging.Level;
 
 import javax.ejb.FinderException;
+import javax.ejb.RemoveException;
 
+import com.idega.data.IDOLookup;
+import com.idega.data.IDOLookupException;
+import com.idega.data.IDOStoreException;
 import com.idega.data.query.MatchCriteria;
 import com.idega.data.query.OR;
 import com.idega.data.query.SelectQuery;
@@ -94,6 +101,16 @@ public class SchoolTypeBMPBean extends CourseProviderTypeBMPBean implements Scho
   public boolean getIsFamilyFreetimeType() {
   	return getBooleanColumnValue(IS_FAMILY_FREETIME_TYPE, false);
   }
+
+	@Override
+	public String getSchoolCategory() {
+		return getStringColumnValue(COLUMN_SCHOOL_CATEGORY);
+	}
+
+	@Override
+	public void setSchoolCategory(String category) {
+		setColumn(COLUMN_SCHOOL_CATEGORY, category);
+	}
   
   public void setIsFamilyFreetimeType(boolean isFamilyFreetimeType) {
   	setColumn(IS_FAMILY_FREETIME_TYPE, isFamilyFreetimeType);
@@ -160,4 +177,39 @@ public Integer ejbFindByTypeString(String typeString) throws javax.ejb.FinderExc
   	query.addCriteria(new MatchCriteria(table,COLUMN_SCHOOL_CATEGORY,MatchCriteria.EQUALS,category));
   	return idoFindPKsByQuery(query);
   }
+
+	@Override
+	public void store() throws IDOStoreException {
+		super.store();
+		Object primaryKey = getPrimaryKey();
+		if (primaryKey != null) {
+			getCourseProviderTypeHome().update(primaryKey.toString(),
+					getSchoolTypeName(), getLocalizationKey(), getCategory());
+		}
+	}
+
+	@Override
+	public void remove() throws RemoveException {
+		super.remove();
+		getCourseProviderTypeHome().remove(getPrimaryKey());
+	}
+  
+	private CourseProviderTypeHome courseProviderTypeHome = null;
+
+	protected CourseProviderTypeHome getCourseProviderTypeHome() {
+		if (this.courseProviderTypeHome == null) {
+			try {
+				this.courseProviderTypeHome = (CourseProviderTypeHome) IDOLookup
+						.getHome(CourseProviderType.class);
+			} catch (IDOLookupException e) {
+				java.util.logging.Logger.getLogger(getClass().getName()).log(
+						Level.WARNING,
+						"Failed to get "
+								+ CourseProviderTypeHome.class.getSimpleName()
+								+ " cause of: ", e);
+			}
+		}
+
+		return this.courseProviderTypeHome;
+	}
 }
