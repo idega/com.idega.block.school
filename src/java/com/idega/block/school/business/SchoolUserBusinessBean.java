@@ -27,6 +27,7 @@ import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.user.data.UserHome;
+import com.idega.util.ListUtil;
 
 /**
  * @author gimmi
@@ -45,10 +46,12 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 	public static final int USER_TYPE_EXPEDITION = SchoolUserBMPBean.USER_TYPE_EXPEDITION;
 	public static final int USER_TYPE_PROJECT_MANAGER = SchoolUserBMPBean.USER_TYPE_PROJECT_MANAGER;
 
+	@Override
 	public SchoolUser addUser(School school, User user, int userType, boolean isEconomicalResponsible) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, userType, true, false, isEconomicalResponsible);
 	}
 
+	@Override
 	public SchoolUser addUser(School school, User user, int userType, boolean showInContacts, boolean main_headmaster, boolean isEconomicalResponsible) throws RemoteException, CreateException, FinderException {
 		SchoolUser sUser = getSchoolUserHome().create();
 		sUser.setSchoolId(((Integer) school.getPrimaryKey()).intValue());
@@ -64,6 +67,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		return sUser;
 	}
 
+	@Override
 	public SchoolUser updateSchUser(School school, User user, int userType, boolean showInContacts, boolean isEconomicalResponsible) throws RemoteException, FinderException {
 		// SchoolUser sUser = getSchoolUserHome().findByPrimaryKey(user.getPrimaryKey().intValue());
 		Object id = null;
@@ -84,39 +88,48 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		return sUser;
 	}
 
+	@Override
 	public SchoolUser addTeacher(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_TEACHER, false);
 	}
 
+	@Override
 	public SchoolUser addHeadmaster(School school, User user) throws RemoteException, CreateException, FinderException {
 		SchoolUser sUser = addUser(school, user, USER_TYPE_HEADMASTER, false);
 		return sUser;
 	}
 
+	@Override
 	public SchoolUser addAssistantHeadmaster(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_ASSISTANT_HEADMASTER, false);
 	}
 
+	@Override
 	public SchoolUser addSchoolMaster(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_SCHOOL_MASTER, false);
 	}
 
+	@Override
 	public SchoolUser addContactPerson(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_CONTACT_PERSON, false);
 	}
 
+	@Override
 	public SchoolUser addExpedition(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_EXPEDITION, false);
 	}
 
+	@Override
 	public SchoolUser addProjectManager(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_PROJECT_MANAGER, false);
 	}
 
+	@Override
 	public SchoolUser addWebAdmin(School school, User user) throws RemoteException, CreateException, FinderException {
 		return addUser(school, user, USER_TYPE_WEB_ADMIN, false);
 	}
 
+	@Override
 	public void setUserGroups(School school, User user, int userType) throws RemoteException, FinderException {
 		// code of death, fix later...
 		if (userType == USER_TYPE_HEADMASTER || userType == USER_TYPE_ASSISTANT_HEADMASTER || userType == USER_TYPE_WEB_ADMIN) {
@@ -124,6 +137,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		}
 	}
 
+	@Override
 	public void removeUser(School school, User user, int userType, User currentUser) throws FinderException, RemoteException, RemoveException {
 		Object id = null;
 		id = getSchoolUserHome().getSchoolUserId(school, user, userType);
@@ -134,6 +148,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		getUserBusiness().deleteUser(user, currentUser);
 	}
 
+	@Override
 	public void removeUser(School school, User user, User currentUser) throws FinderException, RemoteException, RemoveException {
 		Collection coll = getSchoolUserHome().findBySchoolAndUser(school, user);
 		if (coll != null && coll.size() > 0) {
@@ -163,76 +178,85 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Gets the Users of type Teacher for School with id schID
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getTeachers(int schoolID) throws RemoteException, FinderException {
 		return getTeachers(getSchoolHome().findByPrimaryKey(new Integer(schoolID)));
 	}
 
 	/**
 	 * Gets the UserIds for Users of type Teacher for School with id schID
-	 * 
+	 *
 	 * @return A collection of Integer PKs
 	 */
+	@Override
 	public Collection getTeacherUserIds(int schoolID) throws RemoteException, FinderException {
 		return getTeacherUserIds(getSchoolHome().findByPrimaryKey(new Integer(schoolID)));
 	}
 
 	/**
 	 * Gets the Users of type Teacher for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getTeachers(School school) throws RemoteException, FinderException {
 		return getUsers(school, USER_TYPE_TEACHER);
 	}
 
 	/**
 	 * Gets the UserIds for Users of type Teacher for School school
-	 * 
+	 *
 	 * @return A collection of Integer PKs
 	 */
+	@Override
 	public Collection getTeacherUserIds(School school) throws RemoteException, FinderException {
 		return getUserIds(school, USER_TYPE_TEACHER);
 	}
 
 	/**
 	 * Gets the Users of type Headmaster for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getHeadmasters(School school) throws RemoteException, FinderException {
 		return getUsers(school, USER_TYPE_HEADMASTER);
 	}
 
 	/**
 	 * Gets the Users of type Main Headmaster for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getMainHeadmasters(School school) throws RemoteException, FinderException {
 		return getUsersByMainHeadMaster(school, USER_TYPE_HEADMASTER, true);
 	}
 
 	/**
 	 * Gets the Users of type AssistantHeadMaster for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getAssistantHeadmasters(School school) throws RemoteException, FinderException {
 		return getUsers(school, USER_TYPE_ASSISTANT_HEADMASTER);
 	}
 
 	/**
 	 * Gets the Users of type WebAdmin for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getWebAdmins(School school) throws RemoteException, FinderException {
 		return getUsers(school, USER_TYPE_WEB_ADMIN);
 	}
 
+	@Override
 	public Collection getEconomicalResponsibles(School school) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndIsEconomicalResponsible(school);
 		Collection users = new Vector();
@@ -246,9 +270,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Gets the Users of a aspecific type for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getUsers(School school, int userType) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndType(school, userType);
 		Collection users = new Vector();
@@ -262,9 +287,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Gets the Users of a specific types for School school
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getUsers(School school, int[] userTypes) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndTypes(school, userTypes);
 		Collection users = new Vector();
@@ -278,9 +304,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Malin Gets the Users of a specific type for School school and usertype and specific department
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getUsersByDepartm(School school, int userType, int departmentID) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndTypeAndDepartment(school, userType, departmentID);
 		Collection users = new Vector();
@@ -294,9 +321,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Malin Gets the Users of a specific type for School school and specific department
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getUsersByDepartm(School school, int departmentID) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndDepartment(school, departmentID);
 		Collection users = new Vector();
@@ -310,9 +338,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Malin Gets the Users of a specific type for School school and specific department
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.User entites
 	 */
+	@Override
 	public Collection getUsersByMainHeadMaster(School school, int userType, boolean main_headmaster) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndMainHeadmaster(school, userType, main_headmaster);
 		Collection users = new Vector();
@@ -326,9 +355,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Malin Gets a collection of true or false if SchoolUsers should be shown in the contact list
-	 * 
+	 *
 	 * @return A collection of com.idega.user.data.SchoolUser entites
 	 */
+	@Override
 	public boolean getUserShowInContact(User user) throws RemoteException, FinderException {
 		// Collection schUsers = getSchoolUserHome().findBySchoolAndUser(school, user);
 		// should be changed since there could be more than one school user on one user
@@ -344,6 +374,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		return show;
 	}
 
+	@Override
 	public boolean getUserMainHeadmaster(User user) throws RemoteException, FinderException {
 		// Collection schUsers = getSchoolUserHome().findBySchoolAndUser(school, user);
 		// borde ev g�ras om lite eftersom det skulle kunna finnas flera school users p� en user
@@ -361,9 +392,10 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Gets the UserIds of a aspecific type for School school
-	 * 
+	 *
 	 * @return A collection of Integer Primary keys for com.idega.user.data.User
 	 */
+	@Override
 	public Collection getUserIds(School school, int userType) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findBySchoolAndType(school, userType);
 		Collection users = new Vector();
@@ -375,6 +407,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		return users;
 	}
 
+	@Override
 	public Collection getSchools(User user) throws RemoteException, FinderException {
 		Collection schUsers = getSchoolUserHome().findByUser(user);
 		if (schUsers != null && !schUsers.isEmpty()) {
@@ -394,6 +427,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 	/**
 	 * Returns a collection of Strings. "SCHOOL" or "CHILDCARE" or both or "HIGH_SCHOOL" //added handling for Highschool (Malin)
 	 */
+	@Override
 	public Collection getSchoolTypeCategories(School school) throws IDORelationshipException, RemoteException {
 		Collection sTypes = school.getSchoolTypes();
 		SchoolType sType;
@@ -462,13 +496,14 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Returns a collection of String[], [0] = localization key for schoolUserType [1] = default value if localization in null [2] = userTypeId.
-	 * 
+	 *
 	 * @param school
 	 * @return Collection
 	 * @throws IDORelationshipException
 	 * @throws RemoteException
 	 * @throws FinderException
 	 */
+	@Override
 	public Collection getSchoolUserTypes(School school) throws IDORelationshipException, RemoteException {
 		Collection schoolTypeCategories = getSchoolTypeCategories(school);
 		Collection userTypes = null;
@@ -527,6 +562,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		return userTypes;
 	}
 
+	@Override
 	public String getSchoolCategory(School school) throws RemoteException {
 		try {
 			Collection schoolTypeCategories = getSchoolTypeCategories(school);
@@ -545,12 +581,13 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		}
 	}
 
+	@Override
 	public School getFirstManagingChildCareForUser(User user) throws FinderException, RemoteException {
 		try {
 			Group rootGroup = getSchoolBusiness().getRootProviderAdministratorGroup();
 			if (user.getPrimaryGroup().equals(rootGroup)) {
 				Collection schoolIds = getSchools(user);
-				if (!schoolIds.isEmpty()) {
+				if (!ListUtil.isEmpty(schoolIds)) {
 					Iterator iter = schoolIds.iterator();
 					while (iter.hasNext()) {
 						School school = getSchoolHome().findByPrimaryKey(iter.next());
@@ -564,7 +601,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		}
 		catch (FinderException e) {
 			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
-			if (!schools.isEmpty()) {
+			if (!ListUtil.isEmpty(schools)) {
 				Iterator iter = schools.iterator();
 				while (iter.hasNext()) {
 					return (School) iter.next();
@@ -576,21 +613,21 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Method getFirstManagingSchoolForUser. If there is no school that the user manages then the method throws a FinderException.
-	 * 
+	 *
 	 * @param user
 	 *          a user
 	 * @return School that is the first school that the user is a manager for.
 	 * @throws javax.ejb.FinderException
 	 *           if ther is no school that the user manages.
 	 */
+	@Override
 	public School getFirstManagingMusicSchoolForUser(User user) throws FinderException, RemoteException {
 		try {
 			Group rootGroup = getSchoolBusiness().getRootMusicSchoolAdministratorGroup();
 			if (user.getPrimaryGroupID() != -1 && user.getPrimaryGroup().equals(rootGroup)) {
 				Collection schoolIds = getSchools(user);
-				if (!schoolIds.isEmpty()) {
-					Iterator iter = schoolIds.iterator();
-					while (iter.hasNext()) {
+				if (!ListUtil.isEmpty(schoolIds)) {
+					for (Iterator iter = schoolIds.iterator(); iter.hasNext();) {
 						School school = getSchoolHome().findByPrimaryKey(iter.next());
 						return school;
 					}
@@ -602,7 +639,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		}
 		catch (FinderException e) {
 			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
-			if (!schools.isEmpty()) {
+			if (!ListUtil.isEmpty(schools)) {
 				Iterator iter = schools.iterator();
 				while (iter.hasNext()) {
 					return (School) iter.next();
@@ -614,13 +651,14 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 
 	/**
 	 * Method getFirstManagingSchoolForUser. If there is no school that the user manages then the method throws a FinderException.
-	 * 
+	 *
 	 * @param user
 	 *          a user
 	 * @return School that is the first school that the user is a manager for.
 	 * @throws javax.ejb.FinderException
 	 *           if ther is no school that the user manages.
 	 */
+	@Override
 	public School getFirstManagingSchoolForUser(User user) throws FinderException, RemoteException {
 		try {
 			Group rootGroup = getSchoolBusiness().getRootSchoolAdministratorGroup();
@@ -628,7 +666,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 			Group adultEducationRootGroup = getSchoolBusiness().getRootAdultEducationAdministratorGroup();
 			if (user.getPrimaryGroup().equals(rootGroup) || user.getPrimaryGroup().equals(highSchoolRootGroup) || user.getPrimaryGroup().equals(adultEducationRootGroup)) {
 				Collection schoolIds = getSchools(user);
-				if (!schoolIds.isEmpty()) {
+				if (!ListUtil.isEmpty(schoolIds)) {
 					Iterator iter = schoolIds.iterator();
 					while (iter.hasNext()) {
 						School school = getSchoolHome().findByPrimaryKey(iter.next());
@@ -642,7 +680,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		}
 		catch (FinderException e) {
 			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
-			if (!schools.isEmpty()) {
+			if (!ListUtil.isEmpty(schools)) {
 				Iterator iter = schools.iterator();
 				while (iter.hasNext()) {
 					return (School) iter.next();
@@ -653,26 +691,31 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 	}
 
 	private UserBusiness getUserBusiness() throws RemoteException {
-		return (UserBusiness) IBOLookup.getServiceInstance(getIWApplicationContext(), UserBusiness.class);
+		return IBOLookup.getServiceInstance(getIWApplicationContext(), UserBusiness.class);
 	}
 
+	@Override
 	public SchoolTypeHome getSchoolTypeHome() throws RemoteException {
 		return (SchoolTypeHome) IDOLookup.getHome(SchoolType.class);
 	}
 
+	@Override
 	public UserHome getUserHome() throws RemoteException {
 		return (UserHome) IDOLookup.getHome(User.class);
 	}
 
+	@Override
 	public SchoolUserHome getSchoolUserHome() throws RemoteException {
 		return (SchoolUserHome) IDOLookup.getHome(SchoolUser.class);
 	}
 
+	@Override
 	public SchoolHome getSchoolHome() throws RemoteException {
 		return (SchoolHome) IDOLookup.getHome(School.class);
 	}
 
+	@Override
 	public SchoolBusiness getSchoolBusiness() throws RemoteException {
-		return (SchoolBusiness) IBOLookup.getServiceInstance(getIWApplicationContext(), SchoolBusiness.class);
+		return IBOLookup.getServiceInstance(getIWApplicationContext(), SchoolBusiness.class);
 	}
 }
