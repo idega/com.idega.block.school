@@ -162,11 +162,12 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	 */
 	public SchoolCategory getCategoryMusicSchool() throws RemoteException;
 
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getCategoryAfterSchoolCare
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusiness#getCategoryAfterSchoolCare()
 	 */
 	@Override
-	public SchoolCategory getCategoryAfterSchoolCare() throws RemoteException;
+	public SchoolCategory getCategoryAfterSchoolCare();
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getCategoryChildcare
