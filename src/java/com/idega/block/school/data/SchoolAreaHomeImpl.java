@@ -32,7 +32,7 @@ public class SchoolAreaHomeImpl extends CourseProviderAreaHomeImpl implements Sc
 
 	public Collection<SchoolArea> findAllSchoolAreas(SchoolCategory category) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
-		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(category);
+		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAll(category);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -40,7 +40,7 @@ public class SchoolAreaHomeImpl extends CourseProviderAreaHomeImpl implements Sc
 
 	public Collection<SchoolArea> findAllSchoolAreas(SchoolCategory category, boolean useNullValue) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
-		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(category, useNullValue);
+		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAll(category, useNullValue);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
@@ -48,7 +48,7 @@ public class SchoolAreaHomeImpl extends CourseProviderAreaHomeImpl implements Sc
 
 	public Collection<SchoolArea> getAllScoolAreas() throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();
-		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAllSchoolAreas(null, false);
+		Collection<?> ids = ((SchoolAreaBMPBean) entity).ejbFindAll(null, false);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
