@@ -1020,20 +1020,6 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		return super.idoFindPKsBySQL(sql.toString());
 	}
 
-	public Collection ejbFindAllBySchoolGroup(Group schoolGroup) throws javax.ejb.FinderException {
-		StringBuffer sql = new StringBuffer("Select s.* ");
-		sql.append("  from sch_school s ");
-		sql.append(" where s.headmaster_group_id in ( ");
-		sql.append(" select r.ic_group_id from ic_group_relation r ");
-		sql.append(" where r.ic_group_id in(select headmaster_group_id from sch_school ) ");
-		sql.append(" and r.related_ic_group_id = ");
-		sql.append(schoolGroup.getPrimaryKey().toString());
-		sql.append(" ) ");
-		sql.append(" and (termination_date is null or termination_date > '" + getCurrentDate() + "')");
-		sql.append(" order by s.").append(COLUMN_NAME);
-		return super.idoFindPKsBySQL(sql.toString());
-	}
-
 	public int ejbHomeGetNumberOfRelations(School school, SchoolYear year) throws IDOException {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select count(*) from sch_school s, sch_school_sch_school_year middle");

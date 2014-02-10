@@ -15,7 +15,6 @@ import javax.ejb.FinderException;
 import com.idega.data.IDOEntity;
 import com.idega.data.IDOException;
 import com.idega.data.IDOLookupException;
-import com.idega.user.data.Group;
 
 public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome {
 
@@ -285,16 +284,6 @@ public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome
 		IDOEntity entity = this.idoCheckOutPooledEntity();
 		Collection ids = ((SchoolBMPBean) entity)
 				.ejbFindAllInHomeCommuneByCategory(schoolCategory);
-		this.idoCheckInPooledEntity(entity);
-		return this.getEntityCollectionForPrimaryKeys(ids);
-	}
-
-	@Override
-	public Collection findAllBySchoolGroup(Group schoolGroup)
-			throws FinderException {
-		IDOEntity entity = this.idoCheckOutPooledEntity();
-		Collection ids = ((SchoolBMPBean) entity)
-				.ejbFindAllBySchoolGroup(schoolGroup);
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}

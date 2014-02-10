@@ -200,11 +200,6 @@ public interface SchoolUserBusiness extends CourseProviderUserBusiness {
 	public Collection getUserIds(School school, int userType) throws RemoteException, FinderException;
 
 	/**
-	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getSchools
-	 */
-	public Collection getSchools(User user) throws RemoteException, FinderException;
-
-	/**
 	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getSchoolTypeCategories
 	 */
 	public Collection getSchoolTypeCategories(School school) throws IDORelationshipException, RemoteException;
@@ -245,18 +240,7 @@ public interface SchoolUserBusiness extends CourseProviderUserBusiness {
 	public SchoolBusiness getSchoolBusiness() throws RemoteException;
 
 	/**
-	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getFirstManagingSchoolForUser
-	 */
-	public School getFirstManagingSchoolForUser(User user) throws FinderException, RemoteException, RemoteException;
-
-	/**
 	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getFirstManagingMusicSchoolForUser
 	 */
 	public School getFirstManagingMusicSchoolForUser(User user) throws FinderException, RemoteException, RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolUserBusinessBean#getFirstManagingChildCareForUser
-	 */
-	public School getFirstManagingChildCareForUser(User user) throws FinderException, RemoteException, RemoteException;
-
 }

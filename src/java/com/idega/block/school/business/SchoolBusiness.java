@@ -416,24 +416,9 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	public Collection findAllSchoolYearsInSchool(int schoolID) throws RemoteException;
 
 	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootSchoolAdministratorGroup
-	 */
-	public Group getRootSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException, RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootHighSchoolAdministratorGroup
-	 */
-	public Group getRootHighSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException, RemoteException;
-
-	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootMusicSchoolAdministratorGroup
 	 */
 	public Group getRootMusicSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException, RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootProviderAdministratorGroup
-	 */
-	public Group getRootProviderAdministratorGroup() throws CreateException, FinderException, RemoteException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootSchoolOtherCommuneAdministratorGroup
@@ -459,11 +444,6 @@ public interface SchoolBusiness extends CourseProviderBusiness {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#setProperty
 	 */
 	public void setProperty(String propertyName, String propertyValue) throws RemoteException;
-
-	/**
-	 * @see com.idega.block.school.business.SchoolBusinessBean#getRootAdultEducationAdministratorGroup
-	 */
-	public Group getRootAdultEducationAdministratorGroup() throws CreateException, FinderException, RemoteException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#addSchoolAdministrator

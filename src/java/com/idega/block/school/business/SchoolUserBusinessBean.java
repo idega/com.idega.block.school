@@ -1,5 +1,7 @@
 package com.idega.block.school.business;
 
+import is.idega.idegaweb.egov.course.business.CourseProviderUserBusinessBean;
+
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -19,7 +21,6 @@ import com.idega.block.school.data.SchoolUser;
 import com.idega.block.school.data.SchoolUserBMPBean;
 import com.idega.block.school.data.SchoolUserHome;
 import com.idega.business.IBOLookup;
-import com.idega.business.IBOServiceBean;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
@@ -33,8 +34,10 @@ import com.idega.util.ListUtil;
  * @author gimmi
  */
 
-public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUserBusiness {
+public class SchoolUserBusinessBean extends CourseProviderUserBusinessBean 
+		implements SchoolUserBusiness {
 
+	private static final long serialVersionUID = 8837165519283787855L;
 	public static final int USER_TYPE_HEADMASTER = SchoolUserBMPBean.USER_TYPE_HEADMASTER;
 	public static final int USER_TYPE_ASSISTANT_HEADMASTER = SchoolUserBMPBean.USER_TYPE_ASSISTANT_HEADMASTER;
 	public static final int USER_TYPE_TEACHER = SchoolUserBMPBean.USER_TYPE_TEACHER;
@@ -407,23 +410,6 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		return users;
 	}
 
-	@Override
-	public Collection getSchools(User user) throws RemoteException, FinderException {
-		Collection schUsers = getSchoolUserHome().findByUser(user);
-		if (schUsers != null && !schUsers.isEmpty()) {
-			Collection coll = new Vector();
-			Iterator iter = schUsers.iterator();
-			SchoolUser sUser;
-			while (iter.hasNext()) {
-				sUser = (SchoolUser) iter.next();
-				coll.add(new Integer(sUser.getSchoolId()));
-			}
-			return coll;
-		}
-
-		return null;
-	}
-
 	/**
 	 * Returns a collection of Strings. "SCHOOL" or "CHILDCARE" or both or "HIGH_SCHOOL" //added handling for Highschool (Malin)
 	 */
@@ -581,36 +567,6 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		}
 	}
 
-	@Override
-	public School getFirstManagingChildCareForUser(User user) throws FinderException, RemoteException {
-		try {
-			Group rootGroup = getSchoolBusiness().getRootProviderAdministratorGroup();
-			if (user.getPrimaryGroup().equals(rootGroup)) {
-				Collection schoolIds = getSchools(user);
-				if (!ListUtil.isEmpty(schoolIds)) {
-					Iterator iter = schoolIds.iterator();
-					while (iter.hasNext()) {
-						School school = getSchoolHome().findByPrimaryKey(iter.next());
-						return school;
-					}
-				}
-			}
-		}
-		catch (CreateException ce) {
-			ce.printStackTrace();
-		}
-		catch (FinderException e) {
-			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
-			if (!ListUtil.isEmpty(schools)) {
-				Iterator iter = schools.iterator();
-				while (iter.hasNext()) {
-					return (School) iter.next();
-				}
-			}
-		}
-		throw new FinderException("No childcare found that " + user.getName() + " manages");
-	}
-
 	/**
 	 * Method getFirstManagingSchoolForUser. If there is no school that the user manages then the method throws a FinderException.
 	 *
@@ -625,7 +581,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 		try {
 			Group rootGroup = getSchoolBusiness().getRootMusicSchoolAdministratorGroup();
 			if (user.getPrimaryGroupID() != -1 && user.getPrimaryGroup().equals(rootGroup)) {
-				Collection schoolIds = getSchools(user);
+				Collection schoolIds = getSchoolsIDs(user);
 				if (!ListUtil.isEmpty(schoolIds)) {
 					for (Iterator iter = schoolIds.iterator(); iter.hasNext();) {
 						School school = getSchoolHome().findByPrimaryKey(iter.next());
@@ -634,50 +590,11 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 				}
 			}
 		}
-		catch (CreateException ce) {
-			ce.printStackTrace();
-		}
-		catch (FinderException e) {
-			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
-			if (!ListUtil.isEmpty(schools)) {
-				Iterator iter = schools.iterator();
-				while (iter.hasNext()) {
-					return (School) iter.next();
-				}
-			}
-		}
-		throw new FinderException("No school found that " + user.getName() + " manages");
-	}
 
-	/**
-	 * Method getFirstManagingSchoolForUser. If there is no school that the user manages then the method throws a FinderException.
-	 *
-	 * @param user
-	 *          a user
-	 * @return School that is the first school that the user is a manager for.
-	 * @throws javax.ejb.FinderException
-	 *           if ther is no school that the user manages.
-	 */
-	@Override
-	public School getFirstManagingSchoolForUser(User user) throws FinderException, RemoteException {
-		try {
-			Group rootGroup = getSchoolBusiness().getRootSchoolAdministratorGroup();
-			Group highSchoolRootGroup = getSchoolBusiness().getRootHighSchoolAdministratorGroup();
-			Group adultEducationRootGroup = getSchoolBusiness().getRootAdultEducationAdministratorGroup();
-			if (user.getPrimaryGroup().equals(rootGroup) || user.getPrimaryGroup().equals(highSchoolRootGroup) || user.getPrimaryGroup().equals(adultEducationRootGroup)) {
-				Collection schoolIds = getSchools(user);
-				if (!ListUtil.isEmpty(schoolIds)) {
-					Iterator iter = schoolIds.iterator();
-					while (iter.hasNext()) {
-						School school = getSchoolHome().findByPrimaryKey(iter.next());
-						return school;
-					}
-				}
-			}
-		}
 		catch (CreateException ce) {
 			ce.printStackTrace();
 		}
+		
 		catch (FinderException e) {
 			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
 			if (!ListUtil.isEmpty(schools)) {

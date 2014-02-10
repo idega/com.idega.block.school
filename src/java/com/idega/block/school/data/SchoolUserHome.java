@@ -30,7 +30,7 @@ public interface SchoolUserHome extends CourseProviderUserHome {
 
 	public Collection findBySchoolAndMainHeadmaster(School school, int userType, boolean main_headmaster) throws FinderException;
 
-	public Collection findByUser(User user) throws FinderException;
+	public Collection<SchoolUser> findByUser(User user) throws FinderException;
 
 	public SchoolUser findForUser(User user);
 

@@ -14,7 +14,6 @@ import javax.ejb.FinderException;
 import com.idega.core.location.data.PostalCode;
 import com.idega.data.IDOException;
 import com.idega.data.IDOLookupException;
-import com.idega.user.data.Group;
 
 public interface SchoolHome extends CourseProviderHome {
 	public School create() throws CreateException;
@@ -95,9 +94,6 @@ public interface SchoolHome extends CourseProviderHome {
 	public Collection findAllInHomeCommuneByCategory(
 			SchoolCategory schoolCategory) throws IDOLookupException,
 			EJBException, FinderException;
-
-	public Collection findAllBySchoolGroup(Group schoolGroup)
-			throws FinderException;
 
 	public int getNumberOfRelations(School school, SchoolYear year)
 			throws IDOException;
