@@ -58,6 +58,15 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 	}
 
 	@Override
+	public Collection findAllByParentSchool(School parent)
+			throws FinderException {
+		IDOEntity entity = this.idoCheckOutPooledEntity();
+		Collection ids = ((SchoolBMPBean) entity).ejbFindAllByParentSchool(parent);
+		this.idoCheckInPooledEntity(entity);
+		return this.getEntityCollectionForPrimaryKeys(ids);
+	}
+
+	@Override
 	public Collection findAllByAreaTypeManagement(int areaId, int typeId,
 			String managementType) throws FinderException {
 		IDOEntity entity = this.idoCheckOutPooledEntity();

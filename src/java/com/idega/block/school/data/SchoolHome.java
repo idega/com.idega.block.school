@@ -25,6 +25,9 @@ public interface SchoolHome extends IDOHome {
 	public Collection findAllBySchoolType(SchoolType type)
 			throws FinderException;
 
+	public Collection findAllByParentSchool(School parent)
+			throws FinderException;
+
 	public Collection findAllByAreaTypeManagement(int areaId, int typeId,
 			String managementType) throws FinderException;
 
