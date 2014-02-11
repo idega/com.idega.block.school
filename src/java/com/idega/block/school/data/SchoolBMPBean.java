@@ -105,6 +105,7 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	/** Anders 10 Jan 2005 */
 	public final static String JUNIOR_HIGH_SCHOOL = "junior_high_school_id";
 	public final static String AFTER_SCHOOL_CARE_PROVIDER = "after_school_care_id";
+	public final static String PARENT_SCHOOL = "parent_school_id";
 	/** Dainis 23 Sep 2005 */
 	public final static String SORT_BY_BIRTHDATE = "sort_by_birthdate";
 	public static final String HAS_REFRESHMENTS = "has_refreshments";
@@ -167,6 +168,7 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 		this.addManyToManyRelationShip(SchoolStudyPath.class, "sch_school_study_path");
 		this.addAttribute(COLUMN_PROVIDER_STRING_ID, "Extra provider id", true, true, String.class, 40);
 		addManyToOneRelationship(AFTER_SCHOOL_CARE_PROVIDER, School.class);
+		addManyToOneRelationship(PARENT_SCHOOL, School.class);
 		addManyToOneRelationship(JUNIOR_HIGH_SCHOOL, School.class);
 		// Dainis 23 Sep 2005
 		this.addAttribute(SORT_BY_BIRTHDATE, "Sorted by date of birth", true, true, Boolean.class);
@@ -786,6 +788,16 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 			return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by " + COLUMN_NAME);
 		}
 	}
+	
+	public Collection ejbFindAllByParentSchool(School parent) throws javax.ejb.FinderException {
+		Table table = new Table(this);
+		
+		SelectQuery query = new SelectQuery(table);
+		query.addColumn(table.getColumn(getIDColumnName()));
+		query.addCriteria(new MatchCriteria(table.getColumn(PARENT_SCHOOL), MatchCriteria.EQUALS, parent));
+		
+		return idoFindPKsByQuery(query);
+	}
 
 	public Collection ejbFindAllSchoolsIncludingTerminated() throws javax.ejb.FinderException {
 		// String sql = "select * from " + SCHOOL + " where " +
@@ -1287,7 +1299,7 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	public Collection getStudyPaths() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
-
+	
 	@Override
 	public void removeAllStudyPaths() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolStudyPath.class);
