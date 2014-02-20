@@ -1373,4 +1373,35 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 
 		return Collections.emptyList();
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#ejbFindAllBySchoolGroup(com.idega.user.data.Group)
+	 */
+	@Override
+	public Collection<Object> ejbFindAllBySchoolGroup(Group schoolGroup) {
+		if (schoolGroup == null) {
+			return Collections.emptyList();
+		}
+
+		String id = schoolGroup.getPrimaryKey().toString();
+		StringBuffer sql = new StringBuffer("SELECT s.* ");
+		sql.append("FROM sch_school s ");
+		sql.append("WHERE s.headmaster_group_id IN ( ");
+		sql.append("SELECT r.ic_group_id FROM ic_group_relation r ");
+		sql.append("WHERE r.ic_group_id IN (SELECT headmaster_group_id FROM sch_school ) ");
+		sql.append("AND r.related_ic_group_id = ").append(id).append(" ) ");
+		sql.append("AND (termination_date IS NULL OR termination_date > '" + getCurrentDate() + "') ");
+		sql.append("ORDER BY s.SCHOOL_NAME");
+
+		try {
+			return idoFindPKsBySQL(sql.toString());
+		} catch (FinderException e) {
+			getLogger().log(Level.WARNING, 
+					"Failed to get primary keys for " + getInterfaceClass().getSimpleName() + 
+					" by query: '" + sql + "'");
+		}
+
+		return Collections.emptyList();
+	}
 }

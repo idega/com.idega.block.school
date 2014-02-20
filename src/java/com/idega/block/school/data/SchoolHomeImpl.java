@@ -7,6 +7,7 @@ import is.idega.idegaweb.egov.course.data.CourseProviderHomeImpl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
@@ -15,6 +16,8 @@ import javax.ejb.FinderException;
 import com.idega.data.IDOEntity;
 import com.idega.data.IDOException;
 import com.idega.data.IDOLookupException;
+import com.idega.user.data.Group;
+import com.idega.util.ListUtil;
 
 public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome {
 
@@ -353,6 +356,38 @@ public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome
 					Level.WARNING, 
 					"Failed to get " + getEntityInterfaceClass().getSimpleName() + 
 					"'s by id's: '" + primaryKeys + "' cause of: ", e);
+		}
+
+		return Collections.emptyList();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderHomeImpl#findAllBySchoolGroup(com.idega.user.data.Group)
+	 */
+	@Override
+	public <T extends CourseProvider> Collection<T> findAllBySchoolGroup(
+			Group schoolGroup) {
+		if (schoolGroup == null) {
+			return Collections.emptyList();
+		}
+		
+		SchoolBMPBean entity = (SchoolBMPBean) this.idoCheckOutPooledEntity();
+		if (entity == null) {
+			return Collections.emptyList();
+		}
+
+		Collection<Object> ids = entity.ejbFindAllBySchoolGroup(schoolGroup);
+		if (ListUtil.isEmpty(ids)) {
+			return Collections.emptyList();
+		}
+
+		try {
+			return this.getEntityCollectionForPrimaryKeys(ids);
+		} catch (FinderException e) {
+			Logger.getLogger(getClass().getName()).log(Level.WARNING, 
+					"Failed to get " + getEntityInterfaceClass().getSimpleName() + 
+					" by id's: '" + ids + "'");
 		}
 
 		return Collections.emptyList();
