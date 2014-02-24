@@ -10,16 +10,15 @@ import com.idega.block.school.data.SchoolYear;
  * A class to compare a collection of <code>SchoolYear</code> objects.
  * @author Laddi
  */
-public class SchoolYearComparator implements Comparator {
-	
+public class SchoolYearComparator implements Comparator<SchoolYear> {
+
 	/**
 	 * @see java.util.Comparator#compare(Object, Object)
 	 */
-	public int compare(Object o1, Object o2) {
+	@Override
+	public int compare(SchoolYear schoolYear1, SchoolYear schoolYear2) {
 		int returner = 0;
-		SchoolYear schoolYear1 = (SchoolYear) o1;
-		SchoolYear schoolYear2 = (SchoolYear) o2;
-		
+
 		if (schoolYear1.getSchoolTypeId() != schoolYear2.getSchoolTypeId()) {
 			SchoolType type1 = null;
 			try {
@@ -35,10 +34,10 @@ public class SchoolYearComparator implements Comparator {
 			catch (Exception e) {
 				type2 = null;
 			}
-			
+
 			returner = compareTypes(type1, type2);
 		}
-		
+
 		if (returner == 0) {
 			returner = compareAge(schoolYear1.getSchoolYearAge(), schoolYear2.getSchoolYearAge());
 		}
@@ -48,7 +47,7 @@ public class SchoolYearComparator implements Comparator {
 
 		return returner;
 	}
-	
+
 	public int compareOrder(int order1, int order2) {
 		if (order1 < order2) {
 			return -1;
@@ -79,7 +78,7 @@ public class SchoolYearComparator implements Comparator {
 			if (returner == 0) {
 				int typeID1 = ((Integer) schoolType1.getPrimaryKey()).intValue();
 				int typeID2 = ((Integer) schoolType2.getPrimaryKey()).intValue();
-	
+
 				if (typeID1 < typeID2) {
 					returner = -1;
 				}
@@ -91,7 +90,7 @@ public class SchoolYearComparator implements Comparator {
 				}
 			}
 		}
-		
+
 		return returner;
 	}
 

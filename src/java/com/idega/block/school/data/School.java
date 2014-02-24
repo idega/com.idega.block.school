@@ -34,6 +34,7 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getName
 	 */
+	@Override
 	public String getName();
 
 	/**
@@ -560,7 +561,7 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolTypes
 	 */
-	public Collection getSchoolTypes() throws IDORelationshipException;
+	public Collection<SchoolType> getSchoolTypes() throws IDORelationshipException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#removeImages
