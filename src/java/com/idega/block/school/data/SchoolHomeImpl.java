@@ -367,8 +367,8 @@ public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome
 	 */
 	@Override
 	public <T extends CourseProvider> Collection<T> findAllBySchoolGroup(
-			Group schoolGroup) {
-		if (schoolGroup == null) {
+			Collection<Group> schoolGroups) {
+		if (schoolGroups == null) {
 			return Collections.emptyList();
 		}
 		
@@ -377,7 +377,7 @@ public class SchoolHomeImpl extends CourseProviderHomeImpl implements SchoolHome
 			return Collections.emptyList();
 		}
 
-		Collection<Object> ids = entity.ejbFindAllBySchoolGroup(schoolGroup);
+		Collection<Object> ids = entity.ejbFindAllBySchoolGroup(schoolGroups);
 		if (ListUtil.isEmpty(ids)) {
 			return Collections.emptyList();
 		}

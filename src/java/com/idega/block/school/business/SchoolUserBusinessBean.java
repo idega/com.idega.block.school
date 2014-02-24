@@ -596,7 +596,8 @@ public class SchoolUserBusinessBean extends CourseProviderUserBusinessBean
 		}
 		
 		catch (FinderException e) {
-			Collection schools = getSchoolHome().findAllBySchoolGroup(user);
+			Collection schools = getSchoolHome().findAllBySchoolGroup(
+					getGroupBusiness().getParentGroups(user));
 			if (!ListUtil.isEmpty(schools)) {
 				Iterator iter = schools.iterator();
 				while (iter.hasNext()) {

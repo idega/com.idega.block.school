@@ -35,6 +35,7 @@ import com.idega.data.IDOLookupException;
 import com.idega.data.IDOQuery;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
+import com.idega.data.IDOUtil;
 import com.idega.data.MetaDataCapable;
 import com.idega.data.query.MatchCriteria;
 import com.idega.data.query.SelectQuery;
@@ -42,6 +43,7 @@ import com.idega.data.query.Table;
 import com.idega.user.data.Group;
 import com.idega.user.data.GroupHome;
 import com.idega.user.data.User;
+import com.idega.util.ListUtil;
 import com.idega.util.StringUtil;
 
 /**
@@ -1379,18 +1381,19 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#ejbFindAllBySchoolGroup(com.idega.user.data.Group)
 	 */
 	@Override
-	public Collection<Object> ejbFindAllBySchoolGroup(Group schoolGroup) {
-		if (schoolGroup == null) {
+	public Collection<Object> ejbFindAllBySchoolGroup(Collection<Group> schoolGroups) {
+		if (ListUtil.isEmpty(schoolGroups)) {
 			return Collections.emptyList();
 		}
 
-		String id = schoolGroup.getPrimaryKey().toString();
+		String ids = IDOUtil.getInstance()
+				.convertListToCommaseparatedString(schoolGroups, Boolean.TRUE);
 		StringBuffer sql = new StringBuffer("SELECT s.* ");
 		sql.append("FROM sch_school s ");
 		sql.append("WHERE s.headmaster_group_id IN ( ");
 		sql.append("SELECT r.ic_group_id FROM ic_group_relation r ");
 		sql.append("WHERE r.ic_group_id IN (SELECT headmaster_group_id FROM sch_school ) ");
-		sql.append("AND r.related_ic_group_id = ").append(id).append(" ) ");
+		sql.append("AND r.related_ic_group_id IN (").append(ids).append(")) ");
 		sql.append("AND (termination_date IS NULL OR termination_date > '" + getCurrentDate() + "') ");
 		sql.append("ORDER BY s.SCHOOL_NAME");
 
