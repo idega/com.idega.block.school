@@ -14,10 +14,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -79,6 +81,7 @@ import com.idega.user.data.Group;
 import com.idega.user.data.GroupHome;
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
+import com.idega.util.StringUtil;
 
 /**
  * <p>
@@ -1156,54 +1159,62 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 		}
 	}
 
-	/**
-	 * Returns or creates (if not available) the default usergroup all school
-	 * administors have as their primary group.
-	 *
-	 * @throws CreateException
-	 *             if it failed to create the group.
-	 * @throws FinderException
-	 *             if it failed to locate the group.
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusinessBean#getRootSchoolAdministratorGroup()
 	 */
-
 	@Override
-	public Group getRootSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
-		Group rootGroup = null;
+	public Group getRootSchoolAdministratorGroup() {
 		// create the default group
-		String ROOT_SCHOOL_ADMINISTRATORS_GROUP = "school_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
 		if (groupId != null) {
-			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
-		} else {
-			System.err.println("trying to store Commune Root school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("School Administrators", "The Commune Root School Administrators Group.");
-			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+			try {
+				return getGroupHome().findByPrimaryKey(groupId);
+			} catch (Exception e) {
+				getLogger().log(Level.WARNING, 
+						"Failed to get group by primary key: '" + groupId + "'");
+			}
 		}
-		return rootGroup;
+
+		System.err.println("trying to store Commune Root school administrators group");
+		List<Group> groups = getGroupBusiness().update(null, 
+				"School Administrators", 
+				"The Commune Root School Administrators Group.", null, null);
+		for (Group rootGroup : groups) {
+			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+			return rootGroup;
+		}
+
+		return null;
 	}
 
 	/**
 	 * Returns or creates (if not available) the default usergroup all high
 	 * school administors have as their primary group.
-	 *
-	 * @throws CreateException
-	 *             if it failed to create the group.
-	 * @throws FinderException
-	 *             if it failed to locate the group.
 	 */
 
 	@Override
-	public Group getRootHighSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
+	public Group getRootHighSchoolAdministratorGroup() {
 		Group rootGroup = null;
 
 		// create the default group
 		String ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP = "high_school_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP);
 		if (groupId != null) {
-			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
+			try {
+				rootGroup = getGroupHome().findByPrimaryKey(groupId);
+			} catch (FinderException e) {
+				getLogger().log(Level.WARNING, 
+						"Failed to get group by id: " + groupId);
+			}
 		} else {
 			System.err.println("trying to store Commune Root high school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("High School Administrators", "The Commune Root High School Administrators Group.");
+			try {
+				rootGroup = getGroupBusiness().createGroup("High School Administrators", "The Commune Root High School Administrators Group.");
+			} catch (Exception e) {
+				getLogger().log(Level.WARNING, "Failed ot create group!", e);
+			}
+
 			setProperty(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
@@ -1220,44 +1231,58 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 
 	@Override
 	public Group getRootMusicSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
-		Group rootGroup = null;
 		// create the default group
-		String ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP = "music_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP);
-		if (groupId != null) {
-			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
-		} else {
-			System.err.println("trying to store Commune Root school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Music School Administrators", "The Commune Root Music School Administrators Group.");
-			setProperty(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+		if (!StringUtil.isEmpty(groupId)) {
+			return getGroupHome().findByPrimaryKey(new Integer(groupId));
 		}
-		return rootGroup;
+
+		System.err.println("trying to store Commune Root school administrators group");
+		List<Group> rootGroups = getGroupBusiness().update(
+				null, 
+				"Music School Administrators", 
+				"The Commune Root Music School Administrators Group.", 
+				null,
+				null);
+		for (Group rootGroup : rootGroups) {
+			setProperty(
+					ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP, 
+					rootGroup.getPrimaryKey().toString());
+			return rootGroup;
+		}
+
+		return null;
 	}
 
-	/**
-	 * Returns or creates (if not available) the default usergroup all
-	 * provider(childcare) administors have as their primary group.
-	 *
-	 * @throws CreateException
-	 *             if it failed to create the group.
-	 * @throws FinderException
-	 *             if it failed to locate the group.
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.business.CourseProviderBusinessBean#getRootProviderAdministratorGroup()
 	 */
-
 	@Override
-	public Group getRootProviderAdministratorGroup() throws CreateException, FinderException, RemoteException {
-		Group rootGroup = null;
+	public Group getRootProviderAdministratorGroup() {
 		// create the default group
-		String ROOT_SCHOOL_ADMINISTRATORS_GROUP = "provider_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
 		if (groupId != null) {
-			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
-		} else {
-			System.err.println("trying to store Commune Root school administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Provider Administrators", "The Commune Root Provider Administrators Group.");
-			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+			try {
+				return getGroupHome().findByPrimaryKey(groupId);
+			} catch (FinderException e) {
+				getLogger().log(Level.WARNING, 
+						"Failed to get group by id: " + groupId);
+			}
 		}
-		return rootGroup;
+
+		System.err.println("trying to store Commune Root school administrators group");
+		List<Group> rootGroups = getGroupBusiness().update(null, 
+				"Provider Administrators", 
+				"The Commune Root Provider Administrators Group.", null, null);
+		for (Group rootGroup: rootGroups) {
+			setProperty(
+					ROOT_SCHOOL_ADMINISTRATORS_GROUP, 
+					rootGroup.getPrimaryKey().toString());
+			return rootGroup;
+		}
+
+		return null;
 	}
 
 	/**
@@ -1391,28 +1416,36 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 	/**
 	 * Returns or creates (if not available) the default usergroup all adult
 	 * education administors have as their primary group.
-	 *
-	 * @throws CreateException
-	 *             if it failed to create the group.
-	 * @throws FinderException
-	 *             if it failed to locate the group.
 	 */
 
 	@Override
-	public Group getRootAdultEducationAdministratorGroup() throws CreateException, FinderException, RemoteException {
-		Group rootGroup = null;
-
+	public Group getRootAdultEducationAdministratorGroup() {
 		// create the default group
-		String ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP = "adult_education_administrators_group_id";
 		String groupId = getPropertyValue(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP);
-		if (groupId != null) {
-			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
-		} else {
-			System.err.println("trying to store Commune Root Adult Education administrators group");
-			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Adult Education Administrators", "The Commune Root Adult Educaiton Administrators Group.");
-			setProperty(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+		if (!StringUtil.isEmpty(groupId)) {
+			try {
+				return getGroupHome().findByPrimaryKey(groupId);
+			} catch (FinderException e) {
+				getLogger().log(Level.WARNING, 
+						"Failed to get group by: " + groupId);
+			}
 		}
-		return rootGroup;
+
+		System.err.println("trying to store Commune Root Adult Education administrators group");
+		List<Group> rootGroups = getGroupBusiness().update(
+				null, 
+				"Adult Education Administrators", 
+				"The Commune Root Adult Educaiton Administrators Group.",
+				null,
+				null);
+		for (Group rootGroup : rootGroups) {
+			setProperty(
+					ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP, 
+					rootGroup.getPrimaryKey().toString());
+			return rootGroup;
+		}
+
+		return null;
 	}
 
 	@Override
