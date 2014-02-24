@@ -260,7 +260,7 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 	}
 
 	@Override
-	public Collection getDepartments(School school) throws RemoteException, FinderException {
+	public Collection<SchoolDepartment> getDepartments(School school) throws RemoteException, FinderException {
 		return getSchoolDepartmentHome().findAllDepartmentsBySchool(school);
 	}
 
@@ -294,7 +294,7 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 	}
 
 	@Override
-	public Collection getSchoolCategories() {
+	public Collection<SchoolCategory> getSchoolCategories() {
 		try {
 			return getSchoolCategoryHome().findAllCategories();
 		} catch (FinderException e) {
@@ -303,14 +303,13 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 	}
 
 	@Override
-	public Collection getSchoolCategories(School school) {
-		Collection categories = new ArrayList();
+	public Collection<SchoolCategory> getSchoolCategories(School school) {
+		Collection<SchoolCategory> categories = new ArrayList<SchoolCategory>();
 
 		try {
-			Collection types = school.getSchoolTypes();
-			Iterator iterator = types.iterator();
-			while (iterator.hasNext()) {
-				SchoolType type = (SchoolType) iterator.next();
+			Collection<SchoolType> types = school.getSchoolTypes();
+			for (Iterator<SchoolType> iterator = types.iterator(); iterator.hasNext();) {
+				SchoolType type = iterator.next();
 				SchoolCategory category = type.getCategory();
 
 				if (!categories.contains(category)) {
@@ -429,7 +428,7 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 	}
 
 	@Override
-	public Collection getSchoolManagementTypes() {
+	public Collection<SchoolManagementType> getSchoolManagementTypes() {
 		try {
 			return getSchoolManagementTypeHome().findAllManagementTypes();
 		} catch (FinderException e) {
@@ -481,10 +480,10 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 			System.err.println("Cannot remove text from school");
 		}
 		try {
-			Collection coll = getSchoolUserBusiness().getSchoolUserHome().findBySchool(school);
+			Collection<SchoolUser> coll = getSchoolUserBusiness().getSchoolUserHome().findBySchool(school);
 			SchoolUser sUser;
 			if (coll != null && !coll.isEmpty()) {
-				Iterator iter = coll.iterator();
+				Iterator<SchoolUser> iter = coll.iterator();
 				while (iter.hasNext()) {
 					sUser = getSchoolUserBusiness().getSchoolUserHome().findByPrimaryKey(iter.next());
 					sUser.remove();
@@ -1168,6 +1167,58 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 	 */
 
 	@Override
+	public Group getRootSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
+		Group rootGroup = null;
+		// create the default group
+		String ROOT_SCHOOL_ADMINISTRATORS_GROUP = "school_administrators_group_id";
+		String groupId = getPropertyValue(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
+		if (groupId != null) {
+			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
+		} else {
+			System.err.println("trying to store Commune Root school administrators group");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("School Administrators", "The Commune Root School Administrators Group.");
+			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+		}
+		return rootGroup;
+	}
+
+	/**
+	 * Returns or creates (if not available) the default usergroup all high
+	 * school administors have as their primary group.
+	 *
+	 * @throws CreateException
+	 *             if it failed to create the group.
+	 * @throws FinderException
+	 *             if it failed to locate the group.
+	 */
+
+	@Override
+	public Group getRootHighSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
+		Group rootGroup = null;
+
+		// create the default group
+		String ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP = "high_school_administrators_group_id";
+		String groupId = getPropertyValue(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP);
+		if (groupId != null) {
+			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
+		} else {
+			System.err.println("trying to store Commune Root high school administrators group");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("High School Administrators", "The Commune Root High School Administrators Group.");
+			setProperty(ROOT_HIGH_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+		}
+		return rootGroup;
+	}
+
+	/**
+	 * Returns or creates (if not available) the default usergroup all school
+	 * administors have as their primary group.
+	 * @throws CreateException
+	 *             if it failed to create the group.
+	 * @throws FinderException
+	 *             if it failed to locate the group.
+	 */
+
+	@Override
 	public Group getRootMusicSchoolAdministratorGroup() throws CreateException, FinderException, RemoteException {
 		Group rootGroup = null;
 		// create the default group
@@ -1179,6 +1230,32 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 			System.err.println("trying to store Commune Root school administrators group");
 			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Music School Administrators", "The Commune Root Music School Administrators Group.");
 			setProperty(ROOT_MUSIC_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+		}
+		return rootGroup;
+	}
+
+	/**
+	 * Returns or creates (if not available) the default usergroup all
+	 * provider(childcare) administors have as their primary group.
+	 *
+	 * @throws CreateException
+	 *             if it failed to create the group.
+	 * @throws FinderException
+	 *             if it failed to locate the group.
+	 */
+
+	@Override
+	public Group getRootProviderAdministratorGroup() throws CreateException, FinderException, RemoteException {
+		Group rootGroup = null;
+		// create the default group
+		String ROOT_SCHOOL_ADMINISTRATORS_GROUP = "provider_administrators_group_id";
+		String groupId = getPropertyValue(ROOT_SCHOOL_ADMINISTRATORS_GROUP);
+		if (groupId != null) {
+			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
+		} else {
+			System.err.println("trying to store Commune Root school administrators group");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Provider Administrators", "The Commune Root Provider Administrators Group.");
+			setProperty(ROOT_SCHOOL_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
 		}
 		return rootGroup;
 	}
@@ -1309,6 +1386,33 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns or creates (if not available) the default usergroup all adult
+	 * education administors have as their primary group.
+	 *
+	 * @throws CreateException
+	 *             if it failed to create the group.
+	 * @throws FinderException
+	 *             if it failed to locate the group.
+	 */
+
+	@Override
+	public Group getRootAdultEducationAdministratorGroup() throws CreateException, FinderException, RemoteException {
+		Group rootGroup = null;
+
+		// create the default group
+		String ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP = "adult_education_administrators_group_id";
+		String groupId = getPropertyValue(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP);
+		if (groupId != null) {
+			rootGroup = getUserBusiness().getGroupHome().findByPrimaryKey(new Integer(groupId));
+		} else {
+			System.err.println("trying to store Commune Root Adult Education administrators group");
+			rootGroup = getUserBusiness().getGroupBusiness().createGroup("Adult Education Administrators", "The Commune Root Adult Educaiton Administrators Group.");
+			setProperty(ROOT_ADULT_EDUCATION_ADMINISTRATORS_GROUP, rootGroup.getPrimaryKey().toString());
+		}
+		return rootGroup;
 	}
 
 	@Override

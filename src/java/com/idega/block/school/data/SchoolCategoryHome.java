@@ -14,7 +14,7 @@ public interface SchoolCategoryHome extends CourseProviderCategoryHome {
 
 	public SchoolCategory findByPrimaryKey(Object pk) throws FinderException;
 
-	public Collection findAllCategories() throws FinderException;
+	public Collection<SchoolCategory> findAllCategories() throws FinderException;
 
 	public SchoolCategory findByLocalizedKey(String key) throws FinderException;
 

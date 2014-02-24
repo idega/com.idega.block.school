@@ -36,7 +36,7 @@ public interface SchoolUserHome extends CourseProviderUserHome {
 
 	public Collection findBySchoolAndUser(School school, User user) throws FinderException;
 
-	public Collection findBySchool(School school) throws FinderException;
+	public Collection<SchoolUser> findBySchool(School school) throws FinderException;
 
 	public Collection findRelatedToSchool(School school) throws FinderException;
 

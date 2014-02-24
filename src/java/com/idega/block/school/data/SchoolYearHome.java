@@ -41,7 +41,7 @@ public interface SchoolYearHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolYearBMPBean#ejbFindAllSchoolYearBySchoolCategory
 	 */
-	public Collection findAllSchoolYearBySchoolCategory(SchoolCategory schoolCategory) throws FinderException;
+	public Collection<SchoolYear> findAllSchoolYearBySchoolCategory(SchoolCategory schoolCategory) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolYearBMPBean#ejbFindAllSchoolYearsBySchoolCategory

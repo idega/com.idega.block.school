@@ -30,6 +30,12 @@ public interface School extends CourseProvider, MetaDataCapable {
 	public void setPrimaryGroup(Group group);
 
 	/**
+	 * @see com.idega.block.school.data.SchoolBMPBean#getName
+	 */
+	@Override
+	public String getName();
+
+	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getNameWithStarIfQueueSortedByBirthdate
 	 */
 	public String getNameWithStarIfQueueSortedByBirthdate();
@@ -398,7 +404,7 @@ public interface School extends CourseProvider, MetaDataCapable {
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#getSchoolTypes
 	 */
-	public Collection getSchoolTypes() throws IDORelationshipException;
+	public Collection<SchoolType> getSchoolTypes() throws IDORelationshipException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#removeImages
