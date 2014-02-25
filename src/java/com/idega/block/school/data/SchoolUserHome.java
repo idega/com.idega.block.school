@@ -2,9 +2,11 @@ package com.idega.block.school.data;
 
 
 import java.util.Collection;
+
 import javax.ejb.CreateException;
-import com.idega.data.IDOHome;
 import javax.ejb.FinderException;
+
+import com.idega.data.IDOHome;
 import com.idega.user.data.User;
 
 public interface SchoolUserHome extends IDOHome {
@@ -33,7 +35,7 @@ public interface SchoolUserHome extends IDOHome {
 
 	public Collection findBySchoolAndUser(School school, User user) throws FinderException;
 
-	public Collection findBySchool(School school) throws FinderException;
+	public Collection<SchoolUser> findBySchool(School school) throws FinderException;
 
 	public Collection findRelatedToSchool(School school) throws FinderException;
 

@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package com.idega.block.school.data;
 
 import java.util.Collection;
+
 import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOEntity;
 import com.idega.data.IDORelationshipException;
@@ -15,7 +16,7 @@ import com.idega.data.IDORemoveRelationshipException;
  * TODO Dainis Describe Type SchoolStudyPath
  * </p>
  *  Last modified: $Date: 2006/03/08 11:51:36 $ by $Author: dainis $
- * 
+ *
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
  * @version $Revision: 1.16 $
  */
@@ -134,7 +135,7 @@ public interface SchoolStudyPath extends IDOEntity {
 	/**
 	 * @see com.idega.block.school.data.SchoolStudyPathBMPBean#getSchools
 	 */
-	public Collection getSchools() throws IDORelationshipException;
+	public Collection<School> getSchools() throws IDORelationshipException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolStudyPathBMPBean#removeAllSchools

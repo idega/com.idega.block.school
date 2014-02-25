@@ -2,9 +2,11 @@ package com.idega.block.school.data;
 
 
 import java.util.Collection;
+
 import javax.ejb.CreateException;
-import com.idega.data.IDOHome;
 import javax.ejb.FinderException;
+
+import com.idega.data.IDOHome;
 
 public interface SchoolCategoryHome extends IDOHome {
 
@@ -12,7 +14,7 @@ public interface SchoolCategoryHome extends IDOHome {
 
 	public SchoolCategory findByPrimaryKey(Object pk) throws FinderException;
 
-	public Collection findAllCategories() throws FinderException;
+	public Collection<SchoolCategory> findAllCategories() throws FinderException;
 
 	public SchoolCategory findByLocalizedKey(String key) throws FinderException;
 
