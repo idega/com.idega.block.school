@@ -2,6 +2,7 @@ package com.idega.block.school.business;
 
 import is.idega.idegaweb.egov.course.business.CourseProviderBusinessBean;
 import is.idega.idegaweb.egov.course.data.CourseProviderAreaHome;
+import is.idega.idegaweb.egov.course.data.CourseProviderCategory;
 import is.idega.idegaweb.egov.course.data.CourseProviderCategoryHome;
 import is.idega.idegaweb.egov.course.data.CourseProviderHome;
 import is.idega.idegaweb.egov.course.data.CourseProviderTypeHome;
@@ -423,10 +424,17 @@ public class SchoolBusinessBean extends CourseProviderBusinessBean implements Sc
 		if (iSchoolCategoryAdultEducation == null) {
 			try {
 				iSchoolCategoryAdultEducation = getSchoolCategoryHome().findAdultEducationCategory();
-			} catch (FinderException e) {
-				iSchoolCategoryAdultEducation = null;
-			}
+			} catch (FinderException e) {}
 		}
+
+		if (iSchoolCategoryAdultEducation == null) {
+			iSchoolCategoryAdultEducation = (SchoolCategory) getSchoolCategoryHome()
+					.update(CourseProviderCategory.CATEGORY_ADULT_EDUCATION);
+			iSchoolCategoryAdultEducation.setName("Adult education");
+			iSchoolCategoryAdultEducation.setLocalizedKey("school_category." + 
+					CourseProviderCategory.CATEGORY_ADULT_EDUCATION);
+		}
+
 		return iSchoolCategoryAdultEducation;
 	}
 

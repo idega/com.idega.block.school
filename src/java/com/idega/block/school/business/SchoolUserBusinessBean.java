@@ -24,7 +24,6 @@ import com.idega.business.IBOLookup;
 import com.idega.data.IDOLookup;
 import com.idega.data.IDORelationshipException;
 import com.idega.data.IDORemoveRelationshipException;
-import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.user.data.UserHome;
@@ -606,10 +605,6 @@ public class SchoolUserBusinessBean extends CourseProviderUserBusinessBean
 			}
 		}
 		throw new FinderException("No school found that " + user.getName() + " manages");
-	}
-
-	private UserBusiness getUserBusiness() throws RemoteException {
-		return IBOLookup.getServiceInstance(getIWApplicationContext(), UserBusiness.class);
 	}
 
 	@Override
