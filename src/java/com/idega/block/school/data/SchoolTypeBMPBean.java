@@ -12,7 +12,6 @@ import javax.ejb.RemoveException;
 
 import com.idega.data.IDOLookup;
 import com.idega.data.IDOLookupException;
-import com.idega.data.IDOStoreException;
 import com.idega.data.query.MatchCriteria;
 import com.idega.data.query.OR;
 import com.idega.data.query.SelectQuery;
@@ -177,16 +176,6 @@ public Integer ejbFindByTypeString(String typeString) throws javax.ejb.FinderExc
   	query.addCriteria(new MatchCriteria(table,COLUMN_SCHOOL_CATEGORY,MatchCriteria.EQUALS,category));
   	return idoFindPKsByQuery(query);
   }
-
-	@Override
-	public void store() throws IDOStoreException {
-		super.store();
-		Object primaryKey = getPrimaryKey();
-		if (primaryKey != null) {
-			getCourseProviderTypeHome().update(primaryKey.toString(),
-					getSchoolTypeName(), getLocalizationKey(), getCategory());
-		}
-	}
 
 	@Override
 	public void remove() throws RemoveException {
