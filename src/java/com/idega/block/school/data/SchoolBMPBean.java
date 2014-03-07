@@ -1205,18 +1205,32 @@ public class SchoolBMPBean extends CourseProviderBMPBean implements School, Meta
 	}
 
 	@Override
-	public Collection getSchoolTypes() throws IDORelationshipException {
+	public Collection<SchoolType> getSchoolTypes() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolType.class);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.course.data.CourseProviderBMPBean#getCourseProviderTypes()
+	 */
 	@Override
 	public Collection<CourseProviderType> getCourseProviderTypes() {
+		Collection<SchoolType> schoolTypes = null;
 		try {
-			return getSchoolTypes();
+			schoolTypes = getSchoolTypes();
 		} catch (IDORelationshipException e) {
 			getLogger().log(
 					Level.WARNING,
 					"Failed to get school types cause of: ", e);
+		}
+
+		if (!ListUtil.isEmpty(schoolTypes)) {
+			ArrayList<CourseProviderType> types = new ArrayList<CourseProviderType>();
+			for (SchoolType schoolType : schoolTypes) {
+				types.add(schoolType);
+			}
+
+			return types;
 		}
 
 		return Collections.emptyList();
