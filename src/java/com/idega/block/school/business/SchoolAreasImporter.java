@@ -165,6 +165,7 @@ public class SchoolAreasImporter extends DefaultSpringBean implements Applicatio
 						area.setSchoolAreaCity(schoolArea.getSchoolAreaCity());
 						area.setSchoolAreaInfo(schoolArea.getSchoolAreaInfo());
 						area.setSchoolAreaName(schoolArea.getSchoolAreaName());
+						area.setPrimaryKey(schoolArea.getPrimaryKey().toString());
 						area.store();
 	
 						getLogger().info(
