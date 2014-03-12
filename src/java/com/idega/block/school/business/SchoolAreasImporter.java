@@ -154,8 +154,8 @@ public class SchoolAreasImporter extends DefaultSpringBean implements Applicatio
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
 		if (event instanceof IWMainSlideStartedEvent) {
-			Collection<SchoolArea> schoolAreas = getSchoolAreaHome().find();
-			Collection<CourseProviderArea> courseProviderAreas = getCourseProviderAreaHome().find();
+			Collection<SchoolArea> schoolAreas = getSchoolAreaHome().findAll();
+			Collection<CourseProviderArea> courseProviderAreas = getCourseProviderAreaHome().findAll();
 			for (SchoolArea schoolArea : schoolAreas) {
 				if (!courseProviderAreas.contains(schoolArea)) {
 					try {
