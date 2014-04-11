@@ -471,6 +471,8 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 */
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException;
 
+	public Collection findRelatedSchoolYearsSortedByAge() throws IDOException;
+
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedStudyPaths
 	 */

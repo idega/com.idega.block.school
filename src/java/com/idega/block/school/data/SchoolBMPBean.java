@@ -759,14 +759,14 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 			return super.idoFindPKsBySQL("select * from " + SCHOOL + " order by " + NAME);
 		}
 	}
-	
+
 	public Collection ejbFindAllByParentSchool(School parent) throws javax.ejb.FinderException {
 		Table table = new Table(this);
-		
+
 		SelectQuery query = new SelectQuery(table);
 		query.addColumn(table.getColumn(getIDColumnName()));
 		query.addCriteria(new MatchCriteria(table.getColumn(PARENT_SCHOOL), MatchCriteria.EQUALS, parent));
-		
+
 		return idoFindPKsByQuery(query);
 	}
 
@@ -877,6 +877,11 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	@Override
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException {
 		return this.idoGetRelatedEntitiesOrderedByColumn(SchoolYear.class, SchoolYearBMPBean.NAME);
+	}
+
+	@Override
+	public Collection findRelatedSchoolYearsSortedByAge() throws IDOException {
+		return this.idoGetRelatedEntitiesOrderedByColumn(SchoolYear.class, SchoolYearBMPBean.AGE);
 	}
 
 	@Override
@@ -1281,7 +1286,7 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	public Collection getStudyPaths() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
-	
+
 	@Override
 	public void removeAllStudyPaths() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolStudyPath.class);
