@@ -324,6 +324,8 @@ public interface School extends CourseProvider, MetaDataCapable {
 	 */
 	public Collection findRelatedSchoolYearsSortedByName() throws IDOException;
 
+	public Collection findRelatedSchoolYearsSortedByAge() throws IDOException;
+
 	/**
 	 * @see com.idega.block.school.data.SchoolBMPBean#findRelatedStudyPaths
 	 */
