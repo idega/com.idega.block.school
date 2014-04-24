@@ -119,6 +119,7 @@ public class SchoolUserEditor extends Block {
 	private boolean _hideBackButton = false;
 	private boolean _addCloseButton = false;
 
+	@Override
 	public String getBundleIdentifier() {
 		return IW_BUNDLE_IDENTIFIER;
 	}
@@ -674,7 +675,7 @@ public class SchoolUserEditor extends Block {
 		// pPhone, true);
 		/*
 		 * if (row >= mRow && row >= mobRow) {
-		 * 
+		 *
 		 * ++row; }else if (mobRow >= row && mobRow >= mRow) { row = mobRow + 1; }else { row = mRow + 1; }
 		 */
 		return row;
@@ -933,7 +934,7 @@ public class SchoolUserEditor extends Block {
 		/*
 		 * Image imgContact; if (show) { imgContact = getBundle().getImage("shared/checkmark_green.gif", 11, 11); } else { imgContact =
 		 * getBundle().getImage("shared/checkmark_red.gif", 11, 11); }
-		 * 
+		 *
 		 * table.add(imgContact, 1, row);
 		 */
 		table.add(tName, 1, row);
@@ -1092,11 +1093,11 @@ public class SchoolUserEditor extends Block {
 
 	/**
 	 * Returns a UserForm
-	 * 
+	 *
 	 * @param userType
 	 *          1 = Headmaster, 2 = Assistant Headmaster, 3 = User
 	 * @return Table
-	 * 
+	 *
 	 */
 
 	private Table getUserForm(IWContext iwc, School school) {
@@ -1463,9 +1464,11 @@ public class SchoolUserEditor extends Block {
 				}
 			}
 
-			if (category.equalsIgnoreCase(getSchoolUserBusiness(iwc).getSchoolBusiness().getCategoryAdultEducation().getCategory())) {
-				priGroup = getSchoolBusiness(iwc).getRootAdultEducationAdministratorGroup();
-			}
+			try {
+				if (category.equalsIgnoreCase(getSchoolUserBusiness(iwc).getSchoolBusiness().getCategoryAdultEducation().getCategory())) {
+					priGroup = getSchoolBusiness(iwc).getRootAdultEducationAdministratorGroup();
+				}
+			} catch (Exception e) {}
 
 		}
 		catch (CreateException e1) {
@@ -1748,7 +1751,7 @@ public class SchoolUserEditor extends Block {
 
 	/**
 	 * Override me please.
-	 * 
+	 *
 	 * @param school
 	 *          School
 	 * @param user
@@ -1763,7 +1766,7 @@ public class SchoolUserEditor extends Block {
 
 	/**
 	 * Override me please.
-	 * 
+	 *
 	 * @param school
 	 *          School
 	 * @param user
@@ -1788,11 +1791,11 @@ public class SchoolUserEditor extends Block {
 	}
 
 	protected UserBusiness getUserBusiness(IWApplicationContext iwac) throws RemoteException {
-		return (UserBusiness) IBOLookup.getServiceInstance(iwac, UserBusiness.class);
+		return IBOLookup.getServiceInstance(iwac, UserBusiness.class);
 	}
 
 	protected SchoolBusiness getSchoolBusiness(IWContext iwc) throws RemoteException {
-		return (SchoolBusiness) IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
+		return IBOLookup.getServiceInstance(iwc, SchoolBusiness.class);
 	}
 
 	protected SchoolHome getSchoolHome() throws RemoteException {
@@ -1829,9 +1832,10 @@ public class SchoolUserEditor extends Block {
 			if (this._school != null) {
 				String category = getSchoolUserBusiness(iwc).getSchoolCategory(this._school);
 				this.PARAMETER_SCHOOL_HIGHSCHOOL = category.equalsIgnoreCase(getSchoolUserBusiness(iwc).getSchoolBusiness().getHighSchoolSchoolCategory());
-				this.PARAMETER_SCHOOL_ADULTSCHOOL = category.equalsIgnoreCase(getSchoolUserBusiness(iwc).getSchoolBusiness().getCategoryAdultEducation().getCategory());
+				try {
+					this.PARAMETER_SCHOOL_ADULTSCHOOL = category.equalsIgnoreCase(getSchoolUserBusiness(iwc).getSchoolBusiness().getCategoryAdultEducation().getCategory());
+				} catch (Exception e) {}
 			}
-
 		}
 
 		String uId = iwc.getParameter(this.PARAMETER_EDIT_USER);
@@ -1876,6 +1880,7 @@ public class SchoolUserEditor extends Block {
 		this.INPUT_STYLE = style;
 	}
 
+	@Override
 	public void main(IWContext iwc) throws RemoteException {
 		PresentationUtil.addStyleSheetToHeader(iwc, getBundle(iwc).getVirtualPathWithFileNameString("style/school.css"));
 		init(iwc);
@@ -1918,7 +1923,7 @@ public class SchoolUserEditor extends Block {
 	}
 
 	protected SchoolUserBusiness getSchoolUserBusiness(IWContext iwc) throws RemoteException {
-		return (SchoolUserBusiness) IBOLookup.getServiceInstance(iwc, SchoolUserBusiness.class);
+		return IBOLookup.getServiceInstance(iwc, SchoolUserBusiness.class);
 	}
 
 	public void addParameter(String parameterName, String parameterValue) {

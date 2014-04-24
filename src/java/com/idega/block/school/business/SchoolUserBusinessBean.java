@@ -449,7 +449,12 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 				String strAfterSchoolCare = getSchoolBusiness().getAfterSchoolCareSchoolCategory();
 				String strHighschool = getSchoolBusiness().getHighSchoolSchoolCategory();
 				String strMusicschool = getSchoolBusiness().getCategoryMusicSchool().getCategory();
-				String strAdultEducation = getSchoolBusiness().getCategoryAdultEducation().getCategory();
+
+				String strAdultEducation = null;
+				try {
+					strAdultEducation = getSchoolBusiness().getCategoryAdultEducation().getCategory();
+				} catch (Exception e) {}
+
 				if (sCat != null && sCat.equals(strElementary)) {
 					SCHOOL = true;
 				}
@@ -465,7 +470,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 				else if (sCat != null && sCat.equals(strMusicschool)) {
 					MUSIC_SCHOOL = true;
 				}
-				else if (sCat != null && sCat.equals(strAdultEducation)) {
+				else if (strAdultEducation != null && sCat != null && sCat.equals(strAdultEducation)) {
 					ADULT_EDUCATION = true;
 				}
 			}
