@@ -42,6 +42,8 @@ import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextArea;
 import com.idega.presentation.ui.TextInput;
 import com.idega.presentation.ui.util.SelectorUtility;
+import com.idega.util.EmailValidator;
+import com.idega.util.StringUtil;
 
 /**
  * @author <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
@@ -67,6 +69,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_TYPE_PKS = "prm_type_pks";
 	private static final String PARAMETER_YEAR_PKS = "prm_year_pks";
 	private static final String PARAMETER_WEB_PAGE = "prm_web_page";
+	private static final String PARAMETER_EMAIL_ADDRESS = "prm_email_address";
 	private static final String PARAMETER_JUNIOR_HIGH_SCHOOL = "prm_junior_high_school_pk";
 	private static final String PARAMETER_AFTER_SCHOOL_CARE_PROVIDER_PK = "prm_care_provider_pk";
 	private static final String PARAMETER_HAS_REFRESHMENTS = "prm_has_refreshments";
@@ -99,6 +102,7 @@ public class SchoolEditor extends SchoolBlock {
 		this._useProviderStringId = b;
 	}
 
+	@Override
 	protected void init(IWContext iwc) throws Exception {
 		switch (parseAction(iwc)) {
 			case ACTION_VIEW:
@@ -170,6 +174,7 @@ public class SchoolEditor extends SchoolBlock {
 		String[] type_ids = iwc.getParameterValues(PARAMETER_TYPE_PKS);
 		String[] year_ids = iwc.getParameterValues(PARAMETER_YEAR_PKS);
 		String webPage = iwc.getParameter(PARAMETER_WEB_PAGE);
+		String email = iwc.getParameter(PARAMETER_EMAIL_ADDRESS);
 		int[] types = new int[0];
 		int[] years = new int[0];
 		if (type_ids != null && type_ids.length > 0) {
@@ -206,8 +211,8 @@ public class SchoolEditor extends SchoolBlock {
 		boolean hasPreCare = iwc.isParameterSet(PARAMETER_HAS_PRE_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_PRE_CARE)).booleanValue() : false;
 		boolean hasPostCare = iwc.isParameterSet(PARAMETER_HAS_POST_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
 		boolean hasHandicap = iwc.isParameterSet(PARAMETER_HAS_HANDICAP) ? new Boolean(iwc.isParameterSet(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
-		
-		
+
+
 		School school = getBusiness().storeSchool(sid, name, info, address, zipcode, ziparea, phone, null, null, null, areaId, types, years, communePK, providerStringId);
 		if (juniorHighID != null) {
 			school.setJuniorHighSchool(juniorHighID);
@@ -224,7 +229,12 @@ public class SchoolEditor extends SchoolBlock {
 		school.setHasPreCare(hasPreCare);
 		school.setHasPostCare(hasPostCare);
 		school.setHasHandicap(hasHandicap);
-		
+		if (StringUtil.isEmpty(email)) {
+			school.setSchoolEmail(null);
+		} else if (EmailValidator.getInstance().isValid(email)) {
+			school.setSchoolEmail(email);
+		}
+
 		school.store();
 	}
 
@@ -391,6 +401,7 @@ public class SchoolEditor extends SchoolBlock {
 		// TextInput inputLAT = new TextInput(PARAMETER_LATITUDE);
 		TextInput inputOrgID = new TextInput(PARAMETER_ORGANIZATION_ID);
 		TextInput inputWebPage = new TextInput(PARAMETER_WEB_PAGE);
+		TextInput inputEmailAddress = new TextInput(PARAMETER_EMAIL_ADDRESS);
 
 		SchoolCategory category = null;
 		if (iSchoolCategory != null) {
@@ -434,7 +445,7 @@ public class SchoolEditor extends SchoolBlock {
 		DropdownMenu hasPostCare = new DropdownMenu(PARAMETER_HAS_POST_CARE);
 		hasPostCare.addMenuElement(Boolean.TRUE.toString(), localize("yes", "Yes"));
 		hasPostCare.addMenuElement(Boolean.FALSE.toString(), localize("no", "No"));
-		
+
 		CheckBox hasHandicap = new CheckBox(PARAMETER_HAS_HANDICAP);
 
 		Map schooltypes = null, schoolyears = null;
@@ -459,6 +470,7 @@ public class SchoolEditor extends SchoolBlock {
 				// inputLON.setContent(school.getSchoolLongitude());
 				// inputLAT.setContent(school.getSchoolLatitude());
 				inputWebPage.setContent(school.getSchoolWebPage());
+				inputEmailAddress.setContent(school.getSchoolEmail());
 				drpArea.setSelectedElement(String.valueOf(school.getSchoolAreaId()));
 				if (commune != null) {
 					communes.setSelectedElement(commune.getPrimaryKey().toString());
@@ -561,6 +573,14 @@ public class SchoolEditor extends SchoolBlock {
 		section.add(layer);
 
 		layer = new Layer(Layer.DIV);
+		layer.setID("emailAddress");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("school.email_address", "E-mail"), inputEmailAddress);
+		layer.add(label);
+		layer.add(inputEmailAddress);
+		section.add(layer);
+
+		layer = new Layer(Layer.DIV);
 		layer.setID("info");
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("info", "Info"), inputInfo);
@@ -571,10 +591,10 @@ public class SchoolEditor extends SchoolBlock {
 		/*
 		 * layer = new Layer(Layer.DIV); layer.setID("keycode"); layer.setStyleClass(STYLENAME_FORM_ELEMENT); label = new Label(localize("keycode",
 		 * "keycode"), inputKeyCode); layer.add(label); layer.add(inputKeyCode); section.add(layer);
-		 * 
+		 *
 		 * layer = new Layer(Layer.DIV); layer.setID("latitude"); layer.setStyleClass(STYLENAME_FORM_ELEMENT); label = new Label(localize("inputKeyCode",
 		 * "Latitude"), inputLAT); layer.add(label); layer.add(inputLAT); section.add(layer);
-		 * 
+		 *
 		 * layer = new Layer(Layer.DIV); layer.setID("longitude"); layer.setStyleClass(STYLENAME_FORM_ELEMENT); label = new Label(localize("longitude",
 		 * "Longitude"), inputLON); layer.add(label); layer.add(inputLON); section.add(layer);
 		 */
@@ -697,13 +717,13 @@ public class SchoolEditor extends SchoolBlock {
 			}
 			section.add(list);
 		}
-		
+
 //		ListItem handicapItem = new ListItem();
 //		label = new Label(localize("has_handicap", "Has handicap facilities"), hasHandicap);
 //		handicapItem.add(hasHandicap);
 //		handicapItem.add(label);
 //		list.add(handicapItem);
-		
+
 
 		Layer buttonLayer = new Layer(Layer.DIV);
 		buttonLayer.setStyleClass("buttonLayer");
@@ -748,7 +768,7 @@ public class SchoolEditor extends SchoolBlock {
 	}
 
 	public CommuneBusiness getCommuneBusiness(IWApplicationContext iwac) throws RemoteException {
-		return (CommuneBusiness) IBOLookup.getServiceInstance(iwac, CommuneBusiness.class);
+		return IBOLookup.getServiceInstance(iwac, CommuneBusiness.class);
 	}
 
 	public void setNewSchoolLocalizedKey(String newSchoolLocalizedKey) {
