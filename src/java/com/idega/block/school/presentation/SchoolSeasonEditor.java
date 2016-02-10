@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import com.idega.block.school.data.SchoolCategory;
 import com.idega.block.school.data.SchoolSeason;
 import com.idega.presentation.IWContext;
@@ -25,6 +26,7 @@ import com.idega.presentation.ui.Label;
 import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextInput;
 import com.idega.presentation.ui.util.SelectorUtility;
+import com.idega.util.CoreUtil;
 import com.idega.util.IWTimestamp;
 
 /**
@@ -32,7 +34,7 @@ import com.idega.util.IWTimestamp;
  * Description:
  * Copyright: Copyright (c) 2002
  * Company:
- * 
+ *
  * @author <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
  * @version 1.0
  */
@@ -48,15 +50,16 @@ public class SchoolSeasonEditor extends SchoolBlock {
 	private static final String PARAMETER_CHOICE_START_DATE = "prm_choice_start_date";
 	private static final String PARAMETER_CHOICE_END_DATE = "prm_choice_end_date";
 	private static final String PARAMETER_EXTERNAL_ID = "prm_external_id";
-	
+
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
 	private static final int ACTION_NEW = 3;
 	private static final int ACTION_SAVE = 4;
 	private static final int ACTION_DELETE = 5;
-	
+
 	private String iSchoolCategory;
 
+	@Override
 	protected void init(IWContext iwc) throws Exception {
 		switch (parseAction(iwc)) {
 			case ACTION_VIEW:
@@ -112,12 +115,13 @@ public class SchoolSeasonEditor extends SchoolBlock {
 			aid = Integer.parseInt(id);
 		}
 		getBusiness().storeSchoolSeason(aid, name, startDate, endDate, choiceStartDate, dueDate, category, externalID);
+		CoreUtil.clearAllCaches();
 	}
 
 	public void showList(IWContext iwc) {
 		Form form = new Form();
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
-		
+
 		Table2 table = new Table2();
 		table.setCellpadding(0);
 		table.setCellspacing(0);
@@ -171,7 +175,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				IWTimestamp endDate = season.getSchoolSeasonEnd() != null ? new IWTimestamp(season.getSchoolSeasonEnd()) : null;
 				IWTimestamp dueDate = season.getChoiceEndDate() != null ? new IWTimestamp(season.getChoiceEndDate()) : null;
 				SchoolCategory category = season.getSchoolCategory();
-				
+
 				Link edit = new Link(getEditIcon(localize("edit", "Edit")));
 				edit.addParameter(PARAMETER_SCHOOL_SEASON_PK, season.getPrimaryKey().toString());
 				edit.addParameter(PARAMETER_ACTION, ACTION_EDIT);
@@ -217,7 +221,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 	public void showEditor(IWContext iwc, Object seasonPK) throws RemoteException {
 		Form form = new Form();
 		form.setStyleClass(STYLENAME_SCHOOL_FORM);
-		
+
 		TextInput inputName = new TextInput(PARAMETER_NAME);
 		DateInput inputStart = new DateInput(PARAMETER_SEASON_START);
 		DateInput inputEnd = new DateInput(PARAMETER_SEASON_END);
@@ -226,7 +230,7 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		TextInput inputExternal = new TextInput(PARAMETER_EXTERNAL_ID);
 		SelectorUtility util = new SelectorUtility();
 		DropdownMenu drpCategory = (DropdownMenu) util.getSelectorFromIDOEntities(new DropdownMenu(PARAMETER_CATEGORY), getBusiness().getSchoolCategories(), "getLocalizedKey", getResourceBundle());
-		
+
 		if (seasonPK != null) {
 			form.add(new HiddenInput(PARAMETER_SCHOOL_SEASON_PK, seasonPK.toString()));
 
@@ -281,21 +285,21 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		layer.add(label);
 		layer.add(inputStart);
 		form.add(layer);
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("end", "End"), inputEnd);
 		layer.add(label);
 		layer.add(inputEnd);
 		form.add(layer);
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("start_date", "Start date"), inputStartDate);
 		layer.add(label);
 		layer.add(inputStartDate);
 		form.add(layer);
-		
+
 		layer = new Layer(Layer.DIV);
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
 		label = new Label(localize("due_date", "Duedate"), inputDueDate);
