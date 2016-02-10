@@ -1,11 +1,13 @@
 /**
- * 
+ *
  */
 package com.idega.block.school.data;
 
 import java.sql.Date;
 import java.util.Collection;
+
 import javax.ejb.FinderException;
+
 import com.idega.core.location.data.Commune;
 import com.idega.data.IDOException;
 import com.idega.data.IDOHome;
@@ -20,7 +22,7 @@ import com.idega.util.IWTimestamp;
  * TODO Dainis Describe Type SchoolClassMemberHome
  * </p>
  *  Last modified: $Date: 2006/04/12 14:39:59 $ by $Author: igors $
- * 
+ *
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
  * @version $Revision: 1.87 $
  */
@@ -63,7 +65,7 @@ public interface SchoolClassMemberHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#ejbFindBySchoolClassAndYear
 	 */
-	public Collection findBySchoolClassAndYear(int schoolClassID, int schoolYearID) throws FinderException;
+	public Collection<SchoolClassMember> findBySchoolClassAndYear(int schoolClassID, int schoolYearID) throws FinderException;
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#ejbFindBySchoolClassAndYearAndStudyPath
