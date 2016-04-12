@@ -54,7 +54,7 @@ import com.idega.util.IWTimestamp;
  * <p>
  * Company:
  * </p>
- * 
+ *
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir </a> <br>
  *         Last modified: $Date: 2007/10/04 11:02:33 $ by $Author: laddi $
@@ -82,7 +82,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	public final static String PLACEMENT_PARAGRAPH = "placement_paragraph";
 	public final static String COMPENSATION_BY_AGREEMENT = "comp_by_agreement";
 	public static final String STUDY_PATH = "study_path";
-	public final static String HANDICRAFT_ID = "handicraft_id"; // relation to sch_study_path.study_path_id	
+	public final static String HANDICRAFT_ID = "handicraft_id"; // relation to sch_study_path.study_path_id
 
 	private final static String PK = "school_class_member.invoice_interval.";
 	private final static String KEY_INVOICE_INTERVAL_VALUE_TERM = PK + "term";
@@ -90,6 +90,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	private final static String KEY_INVOICE_INTERVAL_VALUE_QUARTER = PK + "quarter";
 	private final static String KEY_INVOICE_INTERVAL_VALUE_YEAR = PK + "year";
 
+	@Override
 	public void initializeAttributes() {
 		addAttribute(getIDColumnName());
 
@@ -119,206 +120,257 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		addIndex("IDX_SCH_CLASS_MEMBER_1", new String[] { MEMBER, SCHOOL_TYPE });
 	}
 
+	@Override
 	public String getEntityName() {
 		return SCHOOLCLASSMEMBER;
 	}
 
+	@Override
 	public void setClassMemberId(int id) {
 		this.setColumn(MEMBER, id);
 	}
 
+	@Override
 	public int getClassMemberId() {
 		return this.getIntColumnValue(MEMBER);
 	}
 
+	@Override
 	public User getStudent() {
 		return (User) getColumnValue(MEMBER);
 	}
 
+	@Override
 	public void setStudent(User student) {
 		setColumn(MEMBER, student);
 	}
 
+	@Override
 	public void setSchoolClassId(int id) {
 		this.setColumn(SCHOOLCLASS, id);
 	}
 
+	@Override
 	public void setSchoolClass(SchoolClass group) {
 		this.setColumn(SCHOOLCLASS, group);
 	}
 
+	@Override
 	public int getSchoolClassId() {
 		return this.getIntColumnValue(SCHOOLCLASS);
 	}
 
+	@Override
 	public SchoolClass getSchoolClass() {
 		return (SchoolClass) this.getColumnValue(SCHOOLCLASS);
 	}
 
+	@Override
 	public void setSchoolTypeId(int id) {
 		setColumn(SCHOOL_TYPE, id);
 	}
 
+	@Override
 	public void setSchoolType(SchoolType type) {
 		setColumn(SCHOOL_TYPE, type);
 	}
 
+	@Override
 	public int getSchoolTypeId() {
 		return getIntColumnValue(SCHOOL_TYPE);
 	}
 
+	@Override
 	public SchoolType getSchoolType() {
 		return (SchoolType) getColumnValue(SCHOOL_TYPE);
 	}
 
+	@Override
 	public void setSchoolYear(int id) {
 		setColumn(SCHOOL_YEAR, id);
 	}
 
+	@Override
 	public void setSchoolYear(SchoolYear year) {
 		setColumn(SCHOOL_YEAR, year);
 	}
 
+	@Override
 	public void setSchoolYear(Object yearPK) {
 		setColumn(SCHOOL_YEAR, yearPK);
 	}
 
+	@Override
 	public int getSchoolYearId() {
 		return getIntColumnValue(SCHOOL_YEAR);
 	}
 
+	@Override
 	public SchoolYear getSchoolYear() {
 		return (SchoolYear) getColumnValue(SCHOOL_YEAR);
 	}
 
+	@Override
 	public void setRegisterDate(Timestamp stamp) {
 		this.setColumn(REGISTER_DATE, stamp);
 	}
 
+	@Override
 	public Timestamp getRegisterDate() {
 		return (Timestamp) this.getColumnValue(REGISTER_DATE);
 	}
 
+	@Override
 	public void setRegistrationCreatedDate(Timestamp stamp) {
 		this.setColumn(REGISTRATION_CREATED_DATE, stamp);
 	}
 
+	@Override
 	public Timestamp getRegistrationCreatedDate() {
 		return (Timestamp) this.getColumnValue(REGISTRATION_CREATED_DATE);
 	}
 
+	@Override
 	public void setRemovedDate(Timestamp stamp) {
 		this.setColumn(REMOVED_DATE, stamp);
 	}
 
+	@Override
 	public Timestamp getRemovedDate() {
 		return (Timestamp) this.getColumnValue(REMOVED_DATE);
 	}
 
+	@Override
 	public void setRegistratorId(int id) {
 		this.setColumn(REGISTRATOR, id);
 	}
 
+	@Override
 	public int getRegistratorId() {
 		return this.getIntColumnValue(REGISTRATOR);
 	}
 
+	@Override
 	public void setRegistrator(User user) {
 		setColumn(REGISTRATOR, user);
 	}
 
+	@Override
 	public void setNotes(String notes) {
 		this.setColumn(NOTES, notes);
 	}
 
+	@Override
 	public String getNotes() {
 		return this.getStringColumnValue(NOTES);
 	}
 
+	@Override
 	public void setNeedsSpecialAttention(boolean needsAttention) {
 		this.setColumn(NEEDS_SPECIAL_ATTENTION, needsAttention);
 	}
 
+	@Override
 	public boolean getNeedsSpecialAttention() {
 		return getBooleanColumnValue(NEEDS_SPECIAL_ATTENTION, false);
 	}
 
+	@Override
 	public void setSpeciallyPlaced(boolean speciallyPlaced) {
 		this.setColumn(SPECIALLY_PLACED, speciallyPlaced);
 	}
 
+	@Override
 	public boolean getSpeciallyPlaced() {
 		return getBooleanColumnValue(SPECIALLY_PLACED, false);
 	}
 
+	@Override
 	public void setLanguage(String language) {
 		this.setColumn(LANGUAGE, language);
 	}
 
+	@Override
 	public String getLanguage() {
 		return this.getStringColumnValue(LANGUAGE);
 	}
 
+	@Override
 	public String getInvoiceInterval() {
 		return getStringColumnValue(INVOICE_INTERVAL);
 	}
 
+	@Override
 	public void setInvoiceInterval(String interval) {
 		setColumn(INVOICE_INTERVAL, interval);
 	}
 
+	@Override
 	public Timestamp getLatestInvoiceDate() {
 		return (Timestamp) getColumnValue(LATEST_INVOICE_DATE);
 	}
 
+	@Override
 	public void setLatestInvoiceDate(Timestamp date) {
 		setColumn(LATEST_INVOICE_DATE, date);
 	}
 
+	@Override
 	public String getPlacementParagraph() {
 		return this.getStringColumnValue(PLACEMENT_PARAGRAPH);
 	}
 
+	@Override
 	public void setPlacementParagraph(String placementParagraph) {
 		this.setColumn(PLACEMENT_PARAGRAPH, placementParagraph);
 	}
 
+	@Override
 	public boolean getHasCompensationByAgreement() {
 		return getBooleanColumnValue(COMPENSATION_BY_AGREEMENT, false);
 	}
 
+	@Override
 	public void setHasCompensationByAgreement(boolean hasCompensation) {
 		setColumn(COMPENSATION_BY_AGREEMENT, hasCompensation);
 	}
 
+	@Override
 	public void setStudyPathId(int id) {
 		this.setColumn(STUDY_PATH, id);
 	}
 
+	@Override
 	public void setStudyPath(SchoolStudyPath studyPath) {
 		this.setColumn(STUDY_PATH, studyPath);
 	}
 
+	@Override
 	public void setStudyPathToNull() {
 		removeFromColumn(STUDY_PATH);
 	}
 
+	@Override
 	public int getStudyPathId() {
 		return this.getIntColumnValue(STUDY_PATH);
 	}
 
+	@Override
 	public SchoolStudyPath getHandicraft() {
 		return (SchoolStudyPath) getColumnValue(HANDICRAFT_ID);
 	}
 
+	@Override
 	public int getHandicraftId() {
 		return getIntColumnValue(HANDICRAFT_ID);
 	}
 
+	@Override
 	public void setHandicraft(SchoolStudyPath path) {
 		setColumn(HANDICRAFT_ID, path);
 	}
 
+	@Override
 	public void setHandicraftId(int schoolStudyPathId) {
 		setColumn(HANDICRAFT_ID, schoolStudyPathId);
 	}
@@ -619,6 +671,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 			throw new IDOException("Couldn't join tables sch_class_member and sch_school_class...");
 		}
 		query.addCriteria(new MatchCriteria(table, MEMBER, MatchCriteria.EQUALS, child));
+		query.addCriteria(new MatchCriteria(table, REMOVED_DATE, MatchCriteria.IS, MatchCriteria.NULL));
 		query.addCriteria(new MatchCriteria(schoolType, "school_category", MatchCriteria.EQUALS, schoolCategory));
 		query.addCriteria(new MatchCriteria(schoolClass, "sch_school_season_id", MatchCriteria.EQUALS, season));
 
@@ -830,23 +883,23 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		/*
 		Table table = new Table(this);
 		Table type = new Table(SchoolType.class);
-		
+
 		SelectQuery query = new SelectQuery(table);
 		query.addColumn(new WildCardColumn());
 		try {
 			query.addJoin(table, type);
 		}
 		catch (IDORelationshipException ire) {
-			throw new FinderException(ire.getMessage()); 
+			throw new FinderException(ire.getMessage());
 		}
 		query.addCriteria(new MatchCriteria(type, SchoolTypeBMPBean.SCHOOLCATEGORY, MatchCriteria.EQUALS, category));
-		
+
 		query.addCriteria(new MatchCriteria(table, REGISTER_DATE, MatchCriteria.GREATER, endDate));
 		new MatchCriteria()
-		
+
 		query.addOrder(table, MEMBER, false);
 		query.addOrder(table, REGISTER_DATE, true);
-		
+
 		return idoFindPKsByQuery(query);
 		*/
 		StringBuffer query = new StringBuffer();
@@ -973,7 +1026,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	 * Gets latest placement for user in school_categories elementary and high
 	 * school. Checks that removed_date is after register_date, otherwise the
 	 * placement is invalid.
-	 * 
+	 *
 	 * @param user
 	 * @return
 	 * @throws FinderException
@@ -1011,7 +1064,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	 * Gets latest placement for user and season in school_categories elementary
 	 * and high school. Checks that removed_date is after register_date, otherwise
 	 * the placement is invalid.
-	 * 
+	 *
 	 * @param user
 	 * @return
 	 * @throws FinderException
@@ -1121,8 +1174,8 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		sql.appendRightParenthesis().appendRightParenthesis();*/
 
 		//	Christoffer - the above code changes to:
-		/*(SELECT sch_school_season_id FROM sch_school_season WHERE sch_school_season_id in 
-		  (SELECT sch_school_season_id FROM sch_school_season 
+		/*(SELECT sch_school_season_id FROM sch_school_season WHERE sch_school_season_id in
+		  (SELECT sch_school_season_id FROM sch_school_season
 		  WHERE season_start <= sysDate AND school_category = 'ELEMENTARY_SCHOOL' AND season_end >= sysDate));*/
 
 		//Anna - ..and therefore the code is changed too:
@@ -1412,7 +1465,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	/**
 	 * Finds all Students who are on the last year in their school. Does not take
 	 * into account years with age higher than 14 by default.
-	 * 
+	 *
 	 * @param season
 	 * @param year
 	 * @return
@@ -1426,7 +1479,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 
 	/**
 	 * Finds all Students who are on the last year in their school
-	 * 
+	 *
 	 * @param season
 	 * @param year
 	 * @param maxAge
@@ -1906,7 +1959,7 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	/**
 	 * This method returns a Collection with the domain of allowed values (types)
 	 * for the invoice_int column
-	 * 
+	 *
 	 * @return
 	 * @author Borgman
 	 */
@@ -1931,10 +1984,10 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 	}
 
 	public Collection ejbFindPlacementsBySchoolTypeAndRegisterDateAndGradeInPeriod(SchoolType type, IWTimestamp periodFrom, IWTimestamp periodTo) throws FinderException {
-		//select * from sch_class_member m where m.sch_school_type_id = 67 and m.register_date < '2005-11-16' and 
-		//(m.removed_date is null or m.removed_date >= '2005-10-16' 
+		//select * from sch_class_member m where m.sch_school_type_id = 67 and m.register_date < '2005-11-16' and
+		//(m.removed_date is null or m.removed_date >= '2005-10-16'
 		//or m.sch_class_member_id in (
-		//select g.sch_class_member_id from sch_class_member_grade g where g.created < '2005-11-16' and g.created >= '2005-10-15' 
+		//select g.sch_class_member_id from sch_class_member_grade g where g.created < '2005-11-16' and g.created >= '2005-10-15'
 		//and g.sch_class_member_grade_id in (
 		//select min(g2.sch_class_member_grade_id) from sch_class_member_grade g2 where g2.sch_class_member_id = m.sch_class_member_id)))
 
@@ -1982,42 +2035,52 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 		return idoFindPKsByQuery(query);
 	}
 
+	@Override
 	public Collection getSubGroups() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolClass.class);
 	}
 
+	@Override
 	public void addToGroup(SchoolClass group) throws IDOAddRelationshipException {
 		this.idoAddTo(group);
 	}
 
+	@Override
 	public void addSchoolYear(SchoolYear year) throws IDOAddRelationshipException {
 		super.idoAddTo(year);
 	}
 
+	@Override
 	public void addStudyPath(SchoolStudyPath path) throws IDOAddRelationshipException {
 		super.idoAddTo(path);
 	}
 
+	@Override
 	public void removeFromGroup(SchoolClass group) throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(group);
 	}
 
+	@Override
 	public void removeStudyPath(SchoolStudyPath path) throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(path);
 	}
 
+	@Override
 	public void removeAllStudyPaths() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolStudyPath.class);
 	}
 
+	@Override
 	public void removeAllSubGroups() throws IDORemoveRelationshipException {
 		this.idoRemoveFrom(SchoolClass.class);
 	}
 
+	@Override
 	public Collection getStudyPaths() throws IDORelationshipException {
 		return this.idoGetRelatedEntities(SchoolStudyPath.class);
 	}
 
+	@Override
 	public void remove() throws RemoveException {
 		try {
 			Collection logs = ((SchoolClassMemberLogHome) IDOLookup.getHome(SchoolClassMemberLog.class)).findAllByPlacement(this);
