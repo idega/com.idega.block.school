@@ -5,8 +5,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.idega.block.school.SchoolConstants;
 import com.idega.block.school.data.SchoolCategory;
 import com.idega.block.school.data.SchoolSeason;
+import com.idega.block.school.data.SchoolSeasonExternalId;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Layer;
 import com.idega.presentation.Table2;
@@ -49,7 +51,8 @@ public class SchoolSeasonEditor extends SchoolBlock {
 	private static final String PARAMETER_SEASON_END = "prm_season_end";
 	private static final String PARAMETER_CHOICE_START_DATE = "prm_choice_start_date";
 	private static final String PARAMETER_CHOICE_END_DATE = "prm_choice_end_date";
-	private static final String PARAMETER_EXTERNAL_ID = "prm_external_id";
+	private static final String PARAMETER_EXTERNAL_ID_MENTOR = "prm_external_id_mentor";
+	private static final String PARAMETER_EXTERNAL_ID_NAMSFUS = "prm_external_id_namsfus";
 
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -108,13 +111,14 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		Date endDate = iwc.isParameterSet(PARAMETER_SEASON_END) ? new IWTimestamp(iwc.getParameter(PARAMETER_SEASON_END)).getDate() : null;
 		Date dueDate = iwc.isParameterSet(PARAMETER_CHOICE_END_DATE) ? new IWTimestamp(iwc.getParameter(PARAMETER_CHOICE_END_DATE)).getDate() : null;
 		Date choiceStartDate = iwc.isParameterSet(PARAMETER_CHOICE_START_DATE) ? new IWTimestamp(iwc.getParameter(PARAMETER_CHOICE_START_DATE)).getDate() : null;
-		int externalID = iwc.isParameterSet(PARAMETER_EXTERNAL_ID) ? Integer.parseInt(iwc.getParameter(PARAMETER_EXTERNAL_ID)) : 0;
+		int externalIDMentor = iwc.isParameterSet(PARAMETER_EXTERNAL_ID_MENTOR) ? Integer.parseInt(iwc.getParameter(PARAMETER_EXTERNAL_ID_MENTOR)) : 0;
+		int externalIDNamsfus = iwc.isParameterSet(PARAMETER_EXTERNAL_ID_NAMSFUS) ? Integer.parseInt(iwc.getParameter(PARAMETER_EXTERNAL_ID_NAMSFUS)) : 0;
 
 		int aid = -1;
 		if (id != null) {
 			aid = Integer.parseInt(id);
 		}
-		getBusiness().storeSchoolSeason(aid, name, startDate, endDate, choiceStartDate, dueDate, category, externalID);
+		getBusiness().storeSchoolSeason(aid, name, startDate, endDate, choiceStartDate, dueDate, category, externalIDMentor, externalIDNamsfus);
 		CoreUtil.clearAllCaches();
 	}
 
@@ -157,7 +161,8 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		row.createHeaderCell().add(new Text(localize("start", "Start")));
 		row.createHeaderCell().add(new Text(localize("end", "End")));
 		row.createHeaderCell().add(new Text(localize("due_date", "Due date")));
-		row.createHeaderCell().add(new Text(localize("external_id", "External ID")));
+		row.createHeaderCell().add(new Text(localize("external_id_mentor", "Mentor external ID")));
+		row.createHeaderCell().add(new Text(localize("external_id_namsfus", "Namsfus external ID")));
 		row.createHeaderCell().add(Text.getNonBrakingSpace());
 		cell = row.createHeaderCell();
 		cell.setStyleClass("lastColumn");
@@ -176,6 +181,12 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				IWTimestamp dueDate = season.getChoiceEndDate() != null ? new IWTimestamp(season.getChoiceEndDate()) : null;
 				SchoolCategory category = season.getSchoolCategory();
 
+				//Mentor external id
+				SchoolSeasonExternalId schoolSeasonExternalIdMentor = getBusiness().getSchoolSeasonExternalIdBySchoolSeasonAndType(season, SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+				//Namsfus external id
+				SchoolSeasonExternalId schoolSeasonExternalIdNamsfus = getBusiness().getSchoolSeasonExternalIdBySchoolSeasonAndType(season, SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
+
+
 				Link edit = new Link(getEditIcon(localize("edit", "Edit")));
 				edit.addParameter(PARAMETER_SCHOOL_SEASON_PK, season.getPrimaryKey().toString());
 				edit.addParameter(PARAMETER_ACTION, ACTION_EDIT);
@@ -191,7 +202,9 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				row.createCell().add(new Text(startDate != null ? startDate.getLocaleDate(iwc.getCurrentLocale(), IWTimestamp.SHORT) : "-"));
 				row.createCell().add(new Text(endDate != null ? endDate.getLocaleDate(iwc.getCurrentLocale(), IWTimestamp.SHORT) : "-"));
 				row.createCell().add(new Text(dueDate != null ? dueDate.getLocaleDate(iwc.getCurrentLocale(), IWTimestamp.SHORT) : "-"));
-				row.createCell().add(new Text(season.getExternalID() > 0 ? String.valueOf(season.getExternalID()) : "-"));
+				row.createCell().add(new Text(schoolSeasonExternalIdMentor != null && schoolSeasonExternalIdMentor.getExternalID() > 0 ? String.valueOf(schoolSeasonExternalIdMentor.getExternalID()) : "-"));
+				row.createCell().add(new Text(schoolSeasonExternalIdNamsfus != null && schoolSeasonExternalIdNamsfus.getExternalID() > 0 ? String.valueOf(schoolSeasonExternalIdNamsfus.getExternalID()) : "-"));
+
 				row.createCell().add(edit);
 				cell = row.createCell();
 				cell.setStyleClass("lastColumn");
@@ -227,7 +240,8 @@ public class SchoolSeasonEditor extends SchoolBlock {
 		DateInput inputEnd = new DateInput(PARAMETER_SEASON_END);
 		DateInput inputStartDate = new DateInput(PARAMETER_CHOICE_START_DATE);
 		DateInput inputDueDate = new DateInput(PARAMETER_CHOICE_END_DATE);
-		TextInput inputExternal = new TextInput(PARAMETER_EXTERNAL_ID);
+		TextInput inputExternalMentor = new TextInput(PARAMETER_EXTERNAL_ID_MENTOR);
+		TextInput inputExternalNamsfus = new TextInput(PARAMETER_EXTERNAL_ID_NAMSFUS);
 		SelectorUtility util = new SelectorUtility();
 		DropdownMenu drpCategory = (DropdownMenu) util.getSelectorFromIDOEntities(new DropdownMenu(PARAMETER_CATEGORY), getBusiness().getSchoolCategories(), "getLocalizedKey", getResourceBundle());
 
@@ -255,8 +269,17 @@ public class SchoolSeasonEditor extends SchoolBlock {
 				if (season.getSchoolCategoryPK() != null) {
 					drpCategory.setSelectedElement(season.getSchoolCategoryPK());
 				}
-				if (season.getExternalID() > 0) {
-					inputExternal.setContent(String.valueOf(season.getExternalID()));
+				if (season != null) {
+					//Mentor external id
+					SchoolSeasonExternalId schoolSeasonExternalIdMentor = getBusiness().getSchoolSeasonExternalIdBySchoolSeasonAndType(season, SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+					if (schoolSeasonExternalIdMentor != null && schoolSeasonExternalIdMentor.getExternalID() > 0) {
+						inputExternalMentor.setContent(String.valueOf(schoolSeasonExternalIdMentor.getExternalID()));
+					}
+					//Namsfus external id
+					SchoolSeasonExternalId schoolSeasonExternalIdNamsfus = getBusiness().getSchoolSeasonExternalIdBySchoolSeasonAndType(season, SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
+					if (schoolSeasonExternalIdNamsfus != null && schoolSeasonExternalIdNamsfus.getExternalID() > 0) {
+						inputExternalNamsfus.setContent(String.valueOf(schoolSeasonExternalIdNamsfus.getExternalID()));
+					}
 				}
 			}
 			catch (Exception ex) {
@@ -309,9 +332,16 @@ public class SchoolSeasonEditor extends SchoolBlock {
 
 		layer = new Layer(Layer.DIV);
 		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
-		label = new Label(localize("external_id", "External ID"), inputExternal);
+		label = new Label(localize("external_id_mentor", "Mentor external ID"), inputExternalMentor);
 		layer.add(label);
-		layer.add(inputExternal);
+		layer.add(inputExternalMentor);
+		form.add(layer);
+
+		layer = new Layer(Layer.DIV);
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("external_id_namsfus", "Namsfus external ID"), inputExternalNamsfus);
+		layer.add(label);
+		layer.add(inputExternalNamsfus);
 		form.add(layer);
 
 		form.add(new Break());

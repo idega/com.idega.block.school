@@ -216,3 +216,9 @@ year.new=New year
 yes=Yes
 ziparea=Ziparea
 zipcode=Zipcode
+external_id_mentor=Mentor external ID
+external_id_namsfus=Namsfus external ID
+school_system.Mentor=Mentor
+school_system.Namsfus=Namsfus
+school_system=School system
+

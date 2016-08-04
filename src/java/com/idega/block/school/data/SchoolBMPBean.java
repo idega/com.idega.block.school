@@ -118,6 +118,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	private static final String COLUMN_PRIMARY_GROUP = "primary_group_id";
 
+	private static final String COLUMN_SCHOOL_SYSTEM = "school_system";
+
 	@Override
 	public void initializeAttributes() {
 		this.addAttribute(getIDColumnName());
@@ -181,6 +183,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		addAttribute(COLUMN_HAS_DGK, "Has DGK", Boolean.class);
 
 		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
+
+		this.addAttribute(COLUMN_SCHOOL_SYSTEM, "School system", true, true, String.class, 40);
 
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
@@ -396,6 +400,12 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	}
 
 	@Override
+	public String getSchoolSystem() {
+		return this.getStringColumnValue(COLUMN_SCHOOL_SYSTEM);
+	}
+
+
+	@Override
 	public void setSchoolInfo(String info) {
 		this.setColumn(INFO, info);
 	}
@@ -574,6 +584,13 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		}
 		return isCA;
 	}
+
+
+	@Override
+	public void setSchoolSystem(String schoolSystem) {
+		this.setColumn(COLUMN_SCHOOL_SYSTEM, schoolSystem);
+	}
+
 
 	@Override
 	public void setCentralizedAdministration(boolean b) {

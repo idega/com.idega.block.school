@@ -7,6 +7,13 @@
  */
 package com.idega.block.school;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.idega.builder.bean.AdvancedProperty;
+import com.idega.idegaweb.IWMainApplication;
+import com.idega.util.CoreUtil;
+
 public class SchoolConstants {
 
 	public static final String GROUP_TYPE_SCHOOL_CATEGORY = "school_category";
@@ -22,5 +29,13 @@ public class SchoolConstants {
 	public static final String ROLE_WEB_ADMIN = "school_web_admin";
 
 	public static final String IW_BUNDLE_IDENTIFIER = "com.idega.block.school";
+
+	public static final String MENTOR_WEB_CLIENT_TYPE = "Mentor";
+	public static final String NAMSFUS_WEB_CLIENT_TYPE = "Namsfus";
+
+	public static final List<AdvancedProperty> SCHOOL_SYSTEMS = Arrays.asList(
+			new AdvancedProperty(MENTOR_WEB_CLIENT_TYPE, IWMainApplication.getDefaultIWMainApplication().getBundle(IW_BUNDLE_IDENTIFIER).getResourceBundle(CoreUtil.getCurrentLocale()).getLocalizedString("school_system.Mentor", "Mentor")),
+			new AdvancedProperty(NAMSFUS_WEB_CLIENT_TYPE, IWMainApplication.getDefaultIWMainApplication().getBundle(IW_BUNDLE_IDENTIFIER).getResourceBundle(CoreUtil.getCurrentLocale()).getLocalizedString("school_system.Namsfus", "Námsfús"))
+	);
 
 }

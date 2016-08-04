@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.ejb.FinderException;
 
+import com.idega.block.school.SchoolConstants;
 import com.idega.block.school.business.SchoolYearComparator;
 import com.idega.block.school.data.School;
 import com.idega.block.school.data.SchoolArea;
@@ -42,6 +43,7 @@ import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextArea;
 import com.idega.presentation.ui.TextInput;
 import com.idega.presentation.ui.util.SelectorUtility;
+import com.idega.util.CoreUtil;
 import com.idega.util.EmailValidator;
 import com.idega.util.StringUtil;
 
@@ -79,6 +81,7 @@ public class SchoolEditor extends SchoolBlock {
 	private static final String PARAMETER_ORGANIZATION_ID = "prm_org_id";
 	private static final String PARAMETER_SCHOOL_TYPE = "prm_school_type";
 	private static final String PARAMETER_HAS_HANDICAP = "prm_has_handicap";
+	private static final String PARAMETER_SCHOOL_SYSTEM = "prm_school_system";
 
 	private static final int ACTION_VIEW = 1;
 	private static final int ACTION_EDIT = 2;
@@ -211,6 +214,7 @@ public class SchoolEditor extends SchoolBlock {
 		boolean hasPreCare = iwc.isParameterSet(PARAMETER_HAS_PRE_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_PRE_CARE)).booleanValue() : false;
 		boolean hasPostCare = iwc.isParameterSet(PARAMETER_HAS_POST_CARE) ? new Boolean(iwc.getParameter(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
 		boolean hasHandicap = iwc.isParameterSet(PARAMETER_HAS_HANDICAP) ? new Boolean(iwc.isParameterSet(PARAMETER_HAS_POST_CARE)).booleanValue() : false;
+		String schoolSystem = iwc.isParameterSet(PARAMETER_SCHOOL_SYSTEM) ? new String(iwc.getParameter(PARAMETER_SCHOOL_SYSTEM)) : SchoolConstants.MENTOR_WEB_CLIENT_TYPE;
 
 
 		School school = getBusiness().storeSchool(sid, name, info, address, zipcode, ziparea, phone, null, null, null, areaId, types, years, communePK, providerStringId);
@@ -229,6 +233,7 @@ public class SchoolEditor extends SchoolBlock {
 		school.setHasPreCare(hasPreCare);
 		school.setHasPostCare(hasPostCare);
 		school.setHasHandicap(hasHandicap);
+		school.setSchoolSystem(schoolSystem);
 		if (StringUtil.isEmpty(email)) {
 			school.setSchoolEmail(null);
 		} else if (EmailValidator.getInstance().isValid(email)) {
@@ -236,6 +241,8 @@ public class SchoolEditor extends SchoolBlock {
 		}
 
 		school.store();
+
+		CoreUtil.clearAllCaches();
 	}
 
 	public void showList(IWContext iwc) throws RemoteException {
@@ -446,11 +453,15 @@ public class SchoolEditor extends SchoolBlock {
 		hasPostCare.addMenuElement(Boolean.TRUE.toString(), localize("yes", "Yes"));
 		hasPostCare.addMenuElement(Boolean.FALSE.toString(), localize("no", "No"));
 
+		DropdownMenu schoolSystem = new DropdownMenu(PARAMETER_SCHOOL_SYSTEM);
+		schoolSystem.addMenuElements(SchoolConstants.SCHOOL_SYSTEMS);
+
 		CheckBox hasHandicap = new CheckBox(PARAMETER_HAS_HANDICAP);
 
 		Map schooltypes = null, schoolyears = null;
 		Commune commune = null;
 		if (schoolPK != null) {
+			CoreUtil.clearAllCaches();
 			School school = getBusiness().getSchool(schoolPK);
 			try {
 				schooltypes = getSchoolRelatedSchoolTypes(school);
@@ -489,6 +500,7 @@ public class SchoolEditor extends SchoolBlock {
 				hasPreCare.setSelectedElement(String.valueOf(school.hasPreCare()));
 				hasPostCare.setSelectedElement(String.valueOf(school.hasPostCare()));
 				hasHandicap.setChecked(school.hasHandicap());
+				schoolSystem.setSelectedElement(school.getSchoolSystem());
 			}
 			catch (Exception ex) {
 			}
@@ -661,6 +673,14 @@ public class SchoolEditor extends SchoolBlock {
 		label = new Label(localize("has_post_care", "Has post care"), hasPostCare);
 		layer.add(label);
 		layer.add(hasPostCare);
+		section.add(layer);
+
+		layer = new Layer(Layer.DIV);
+		layer.setID("schoolSystem");
+		layer.setStyleClass(STYLENAME_FORM_ELEMENT);
+		label = new Label(localize("school_system", "School system"), schoolSystem);
+		layer.add(label);
+		layer.add(schoolSystem);
 		section.add(layer);
 
 		Layer clearLayer = new Layer();

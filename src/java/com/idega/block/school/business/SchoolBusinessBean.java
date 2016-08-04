@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -39,6 +40,8 @@ import com.idega.block.school.data.SchoolHome;
 import com.idega.block.school.data.SchoolManagementType;
 import com.idega.block.school.data.SchoolManagementTypeHome;
 import com.idega.block.school.data.SchoolSeason;
+import com.idega.block.school.data.SchoolSeasonExternalId;
+import com.idega.block.school.data.SchoolSeasonExternalIdHome;
 import com.idega.block.school.data.SchoolSeasonHome;
 import com.idega.block.school.data.SchoolStudyPath;
 import com.idega.block.school.data.SchoolStudyPathHome;
@@ -1879,7 +1882,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	@Override
-	public SchoolSeason storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalID) throws java.rmi.RemoteException {
+	public SchoolSeason storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalIDMentor, int externalIDNamsfus) throws java.rmi.RemoteException {
 		SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
 		SchoolSeason newSeason;
 		try {
@@ -1899,8 +1902,46 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		newSeason.setChoiceStartDate(choiceStartDate);
 		newSeason.setChoiceEndDate(choiceEndDate);
 		newSeason.setSchoolCategory(category);
-		newSeason.setExternalID(externalID);
+		newSeason.setExternalID(externalIDMentor);
 		newSeason.store();
+
+		//Create/update external id table
+		if (newSeason != null) {
+			//Mentor external id
+			try {
+				SchoolSeasonExternalId schoolSeasonExternalIdMentor = getSchoolSeasonExternalIdBySchoolSeasonAndType(newSeason, SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+				if (schoolSeasonExternalIdMentor != null) {
+					schoolSeasonExternalIdMentor.setExternalID(externalIDMentor);
+					schoolSeasonExternalIdMentor.store();
+				} else {
+					schoolSeasonExternalIdMentor = getSchoolSeasonExternalIdHome().create();
+					schoolSeasonExternalIdMentor.setSchoolSeason(newSeason);
+					schoolSeasonExternalIdMentor.setType(SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+					schoolSeasonExternalIdMentor.setExternalID(externalIDMentor);
+					schoolSeasonExternalIdMentor.store();
+				}
+			} catch (Exception e) {
+				getLogger().log(Level.WARNING, "Could not create/update the external id for Mentor: ", e);
+			}
+
+			//Namsfus external id
+			try {
+				SchoolSeasonExternalId schoolSeasonExternalIdNamsfus = getSchoolSeasonExternalIdBySchoolSeasonAndType(newSeason, SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
+				if (schoolSeasonExternalIdNamsfus != null) {
+					schoolSeasonExternalIdNamsfus.setExternalID(externalIDNamsfus);
+					schoolSeasonExternalIdNamsfus.store();
+				} else {
+					schoolSeasonExternalIdNamsfus = getSchoolSeasonExternalIdHome().create();
+					schoolSeasonExternalIdNamsfus.setSchoolSeason(newSeason);
+					schoolSeasonExternalIdNamsfus.setType(SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
+					schoolSeasonExternalIdNamsfus.setExternalID(externalIDNamsfus);
+					schoolSeasonExternalIdNamsfus.store();
+				}
+			} catch (Exception e) {
+				getLogger().log(Level.WARNING, "Could not create/update the external id for Namsfus: ", e);
+			}
+		}
+
 		return newSeason;
 	}
 
@@ -3222,4 +3263,20 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 		}
 		return Collections.emptyList();
 	}
+
+	@Override
+	public SchoolSeasonExternalId getSchoolSeasonExternalIdBySchoolSeasonAndType(SchoolSeason schoolSeason, String type) {
+		SchoolSeasonExternalId schoolSeasonExternalId = null;
+		try {
+			schoolSeasonExternalId = getSchoolSeasonExternalIdHome().findSchoolSeasonExternalIdBySchoolSeasonAndType(schoolSeason, type);
+		} catch (Exception e) {
+			getLogger().log(Level.WARNING, "Could not get the external id: ", e);
+		}
+		return schoolSeasonExternalId;
+	}
+
+	private SchoolSeasonExternalIdHome getSchoolSeasonExternalIdHome() throws RemoteException {
+		return (SchoolSeasonExternalIdHome) IDOLookup.getHome(SchoolSeasonExternalId.class);
+	}
+
 }

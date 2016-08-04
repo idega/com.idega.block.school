@@ -669,7 +669,7 @@ public class SchoolUserBusinessBean extends IBOServiceBean implements SchoolUser
 			Group rootGroup = getSchoolBusiness().getRootSchoolAdministratorGroup();
 			Group highSchoolRootGroup = getSchoolBusiness().getRootHighSchoolAdministratorGroup();
 			Group adultEducationRootGroup = getSchoolBusiness().getRootAdultEducationAdministratorGroup();
-			if (user.getPrimaryGroup().equals(rootGroup) || user.getPrimaryGroup().equals(highSchoolRootGroup) || user.getPrimaryGroup().equals(adultEducationRootGroup)) {
+			if (user.getPrimaryGroup() != null && (user.getPrimaryGroup().equals(rootGroup) || user.getPrimaryGroup().equals(highSchoolRootGroup) || user.getPrimaryGroup().equals(adultEducationRootGroup))) {
 				Collection schoolIds = getSchools(user);
 				if (!ListUtil.isEmpty(schoolIds)) {
 					Iterator iter = schoolIds.iterator();

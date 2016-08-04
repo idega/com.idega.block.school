@@ -2,7 +2,9 @@ package com.idega.block.school.data;
 
 import java.sql.Date;
 import java.util.Collection;
+
 import javax.ejb.FinderException;
+
 import com.idega.data.GenericEntity;
 import com.idega.data.query.MatchCriteria;
 import com.idega.data.query.SelectQuery;
@@ -23,7 +25,7 @@ import com.idega.util.IWTimestamp;
  * <p>
  * Company:
  * </p>
- * 
+ *
  * @author <br>
  *         <a href="mailto:aron@idega.is">Aron Birkir</a><br>
  * @version 1.0
@@ -43,13 +45,15 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 	public final static String SCHOOL_CATEGORY = "school_category";
 
 	public final static String NAME = "name";
-	
+
 	public static final String EXTERNAL_ID = "external_id";
 
+	@Override
 	public String getEntityName() {
 		return SCHOOLSEASON;
 	}
 
+	@Override
 	public void initializeAttributes() {
 		addAttribute(getIDColumnName());
 		addAttribute(NAME, "name", true, true, String.class);
@@ -63,70 +67,87 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
 
+	@Override
 	public String getName() {
 		return getSchoolSeasonName();
 	}
 
+	@Override
 	public String getSchoolSeasonName() {
 		return getStringColumnValue(NAME);
 	}
 
+	@Override
 	public void setSchoolSeasonName(String name) {
 		setColumn(NAME, name);
 	}
 
+	@Override
 	public Date getSchoolSeasonEnd() {
 		return (Date) getColumnValue(END);
 	}
 
+	@Override
 	public void setSchoolSeasonEnd(java.util.Date end) {
 		setColumn(END, end);
 	}
 
+	@Override
 	public Date getSchoolSeasonStart() {
 		return (Date) getColumnValue(START);
 	}
 
+	@Override
 	public void setSchoolSeasonStart(java.util.Date start) {
 		setColumn(START, start);
 	}
 
+	@Override
 	public Date getChoiceEndDate() {
 		return (Date) getColumnValue(DUE_DATE);
 	}
 
+	@Override
 	public void setChoiceEndDate(java.util.Date due) {
 		setColumn(DUE_DATE, due);
 	}
 
+	@Override
 	public Date getChoiceStartDate() {
 		return (Date) getColumnValue(START_DATE);
 	}
 
+	@Override
 	public void setChoiceStartDate(java.util.Date due) {
 		setColumn(START_DATE, due);
 	}
 
+	@Override
 	public SchoolCategory getSchoolCategory() {
 		return (SchoolCategory) getColumnValue(SCHOOL_CATEGORY);
 	}
 
+	@Override
 	public String getSchoolCategoryPK() {
 		return getStringColumnValue(SCHOOL_CATEGORY);
 	}
 
+	@Override
 	public void setSchoolCategory(SchoolCategory category) {
 		setColumn(SCHOOL_CATEGORY, category);
 	}
 
+	@Override
 	public void setSchoolCategory(Object categoryPK) {
 		setColumn(SCHOOL_CATEGORY, categoryPK);
 	}
-	
+
+	@Override
 	public int getExternalID() {
 		return getIntColumnValue(EXTERNAL_ID, 0);
 	}
-	
+
+	@Override
 	public void setExternalID(int externalID) {
 		setColumn(EXTERNAL_ID, externalID);
 	}
@@ -161,10 +182,11 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 
 	/**
 	 * Gets the previous season to this one.
-	 * 
+	 *
 	 * @throws FinderException
 	 *             if none is found
 	 */
+	@Override
 	public SchoolSeason getPreviousSeason() throws FinderException {
 		return getSchoolSeasonHome().findPreviousSchoolSeason(this);
 	}
@@ -176,7 +198,7 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 	/**
 	 * Find all schoolseasons that start before SchoolSeason schoolSeason and
 	 * order by start date
-	 * 
+	 *
 	 * @param schoolSeason
 	 * @return
 	 * @throws FinderException
@@ -244,7 +266,7 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 
 		return idoFindOnePKByQuery(query);
 	}
-	
+
 	public Integer ejbFindCurrentSeason(SchoolCategory category) throws FinderException {
 		return ejbFindSeasonByDate(category, new IWTimestamp().getDate());
 	}

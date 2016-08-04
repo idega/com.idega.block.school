@@ -643,4 +643,9 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 	 * @see com.idega.block.school.data.SchoolBMPBean#setSortByBirthdate
 	 */
 	public void setSortByBirthdate(boolean arg);
+
+	public void setSchoolSystem(String schoolSystem);
+
+	public String getSchoolSystem();
+
 }

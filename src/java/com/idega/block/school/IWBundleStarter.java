@@ -1,8 +1,8 @@
 /*
  * $Id: IWBundleStarter.java,v 1.9 2008/11/06 19:27:29 laddi Exp $ Created on 28.4.2005
- * 
+ *
  * Copyright (C) 2005 Idega Software hf. All Rights Reserved.
- * 
+ *
  * This software is the proprietary information of Idega hf. Use is subject to license terms.
  */
 package com.idega.block.school;
@@ -23,6 +23,8 @@ import com.idega.block.school.data.SchoolClass;
 import com.idega.block.school.data.SchoolClassHome;
 import com.idega.block.school.data.SchoolHome;
 import com.idega.block.school.data.SchoolSeason;
+import com.idega.block.school.data.SchoolSeasonExternalId;
+import com.idega.block.school.data.SchoolSeasonExternalIdHome;
 import com.idega.block.school.data.SchoolSeasonHome;
 import com.idega.block.school.data.SchoolType;
 import com.idega.block.school.data.SchoolTypeHome;
@@ -37,14 +39,21 @@ import com.idega.idegaweb.IWBundleStartable;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.data.GroupType;
+import com.idega.util.CoreConstants;
+import com.idega.util.ListUtil;
+import com.idega.util.StringUtil;
 
 public class IWBundleStarter implements IWBundleStartable {
 
+	@Override
 	public void start(IWBundle starterBundle) {
 		updateData(starterBundle.getApplication().getIWApplicationContext());
 		addStandardViews(starterBundle.getApplication());
+		addSchoolSeasonExternalIds();
+		updateSchoolsSystemTypes();
 	}
 
+	@Override
 	public void stop(IWBundle starterBundle) {
 		// nothing to do
 	}
@@ -100,7 +109,7 @@ public class IWBundleStarter implements IWBundleStartable {
 						Iterator iter = seasons.iterator();
 						while (iter.hasNext()) {
 							SchoolSeason season = (SchoolSeason) iter.next();
-							business.storeSchoolSeason(-1, season.getSchoolSeasonName(), season.getSchoolSeasonStart(), season.getSchoolSeasonEnd(), season.getChoiceStartDate(), season.getChoiceEndDate(), afterSchoolCareCategory.getCategory(), 0);
+							business.storeSchoolSeason(-1, season.getSchoolSeasonName(), season.getSchoolSeasonStart(), season.getSchoolSeasonEnd(), season.getChoiceStartDate(), season.getChoiceEndDate(), afterSchoolCareCategory.getCategory(), 0, 0);
 							System.out.println("Created season for " + afterSchoolCareCategory.getCategory() + " = " + season.getSchoolSeasonName());
 						}
 					}
@@ -212,8 +221,82 @@ public class IWBundleStarter implements IWBundleStartable {
 		}
 	}
 
+	/**
+	 * Adding school season external ids into the new table (to have all web service providers' external ids in one place)
+	 */
+	private void addSchoolSeasonExternalIds() {
+		try {
+			Collection<SchoolSeasonExternalId> schoolSeasonExternalIdCol = getSchoolSeasonExternalIdHome().findAll();
+			if (schoolSeasonExternalIdCol == null || (schoolSeasonExternalIdCol != null && schoolSeasonExternalIdCol.size() == 0)) {
+				//Collection<SchoolSeason> schoolSeasonCol = getSchoolSeasonHome().findAllSchoolSeasons(getSchoolCategoryHome().findElementarySchoolCategory());
+				Collection<SchoolSeason> schoolSeasonCol = getSchoolSeasonHome().findAllSchoolSeasons();
+				if (!ListUtil.isEmpty(schoolSeasonCol)) {
+					for (SchoolSeason schoolSeason : schoolSeasonCol) {
+						if (schoolSeason != null) {
+							//Creating external id for Mantor web service provider
+							SchoolSeasonExternalId schoolSeasonExternalIdForMentor = getSchoolSeasonExternalIdHome().create();
+							schoolSeasonExternalIdForMentor.setSchoolSeason(schoolSeason);
+							schoolSeasonExternalIdForMentor.setType(SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+							schoolSeasonExternalIdForMentor.setExternalID(schoolSeason.getExternalID());
+							schoolSeasonExternalIdForMentor.store();
+							//Creating external id for Namsfus web service provider
+							SchoolSeasonExternalId schoolSeasonExternalIdForNamsfus = getSchoolSeasonExternalIdHome().create();
+							schoolSeasonExternalIdForNamsfus.setSchoolSeason(schoolSeason);
+							schoolSeasonExternalIdForNamsfus.setType(SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
+							schoolSeasonExternalIdForNamsfus.setExternalID(Integer.valueOf(schoolSeason.getName().replace(CoreConstants.MINUS, CoreConstants.EMPTY)));
+							schoolSeasonExternalIdForNamsfus.store();
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Updating school system types - setting them to default - Mentor, if this is the first time the system is started
+	 */
+	private void updateSchoolsSystemTypes() {
+		try {
+			Collection<School> schools = getSchoolHome().findAllSchools();
+			if (!ListUtil.isEmpty(schools)) {
+				for (School school : schools) {
+					if (school != null && StringUtil.isEmpty(school.getSchoolSystem())) {
+						school.setSchoolSystem(SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+						school.store();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
 	protected void addStandardViews(IWMainApplication iwma) {
 		SchoolViewManager manager = SchoolViewManager.getInstance(iwma);
 		manager.getSchoolViewNode();
 	}
+
+	private SchoolSeasonExternalIdHome getSchoolSeasonExternalIdHome() throws RemoteException {
+		return (SchoolSeasonExternalIdHome) IDOLookup.getHome(SchoolSeasonExternalId.class);
+	}
+
+	private SchoolSeasonHome getSchoolSeasonHome() throws RemoteException {
+		return (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
+	}
+
+	private SchoolCategoryHome getSchoolCategoryHome() throws RemoteException {
+		return (SchoolCategoryHome) IDOLookup.getHome(SchoolCategory.class);
+	}
+
+	public SchoolHome getSchoolHome() {
+		try {
+			return (SchoolHome) IDOLookup.getHome(School.class);
+		} catch (IDOLookupException e) {
+			throw new IBORuntimeException(e.getMessage());
+		}
+	}
+
 }

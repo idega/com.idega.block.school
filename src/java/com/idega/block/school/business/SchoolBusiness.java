@@ -27,6 +27,7 @@ import com.idega.block.school.data.SchoolDistrictHome;
 import com.idega.block.school.data.SchoolHome;
 import com.idega.block.school.data.SchoolManagementTypeHome;
 import com.idega.block.school.data.SchoolSeason;
+import com.idega.block.school.data.SchoolSeasonExternalId;
 import com.idega.block.school.data.SchoolSeasonHome;
 import com.idega.block.school.data.SchoolStudyPath;
 import com.idega.block.school.data.SchoolStudyPathHome;
@@ -690,7 +691,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#storeSchoolSeason
 	 */
-	public SchoolSeason storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalID) throws RemoteException, RemoteException;
+	public SchoolSeason storeSchoolSeason(int id, String name, Date start, Date end, Date choiceStartDate, Date choiceEndDate, String category, int externalIDMentor, int externalIDNamsfus) throws RemoteException, RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findClassMemberInClass
@@ -1160,5 +1161,7 @@ public interface SchoolBusiness extends IBOService {
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolAreasByTypes
 	 */
 	public Collection<SchoolArea> findAllSchoolAreasByTypes(Collection<SchoolType> types) throws RemoteException;
+
+	public SchoolSeasonExternalId getSchoolSeasonExternalIdBySchoolSeasonAndType(SchoolSeason schoolSeason, String type);
 
 }
