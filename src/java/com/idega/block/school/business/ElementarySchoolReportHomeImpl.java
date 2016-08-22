@@ -96,8 +96,8 @@ import com.idega.business.IBOHomeImpl;
  * @version 1.0.0 2016 rugp. 17
  * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
  */
-public class SchoolReportHomeImpl extends IBOHomeImpl implements
-		SchoolReportHome {
+public class ElementarySchoolReportHomeImpl extends IBOHomeImpl implements
+		ElementarySchoolReportHome {
 
 	private static final long serialVersionUID = -7027083935862204181L;
 
@@ -105,18 +105,18 @@ public class SchoolReportHomeImpl extends IBOHomeImpl implements
 	 * @see is.idega.idegaweb.egov.musicschool.business.SchoolReportHome#create()
 	 */
 	@Override
-	public SchoolReport create() {
+	public ElementarySchoolReport create() {
 		try {
-			return (SchoolReport) super.createIBO();
+			return (ElementarySchoolReport) super.createIBO();
 		} catch (CreateException e) {
 			Logger.getLogger(getClass().getName()).log(Level.WARNING, 
-					"Failed to create " + SchoolReport.class + " cause of: ", e);
+					"Failed to create " + ElementarySchoolReport.class + " cause of: ", e);
 		}
 
 		return null;
 	}
 
 	protected Class getBeanInterfaceClass() {
-		return SchoolReport.class;
+		return ElementarySchoolReport.class;
 	}
 }

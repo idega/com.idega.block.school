@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
@@ -1953,7 +1954,16 @@ public class SchoolClassMemberBMPBean extends GenericEntity implements SchoolCla
 			query.addCriteria(new MatchCriteria(address, "ic_commune_id", MatchCriteria.EQUALS, commune));
 		}
 
-		return idoGetNumberOfRecords(query);
+		try {
+			
+			int results = idoGetNumberOfRecords(query);
+			getLogger().log(Level.INFO, "Found " + results + " results by query: " + query);
+			return results;
+		} catch (Exception e) {
+			getLogger().log(Level.WARNING, "Failed to get results by query: " + query);
+		}
+
+		return -1;
 	}
 
 	/**
