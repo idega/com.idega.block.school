@@ -1,5 +1,5 @@
 /**
- * @(#)SchoolReport.java    1.0.0 14:21:15
+ * @(#)SchoolReportHome.java    1.0.0 15:03:29
  *
  * Idega Software hf. Source Code Licence Agreement x
  *
@@ -82,18 +82,15 @@
  */
 package com.idega.block.school.business;
 
-import com.idega.block.datareport.util.ReportableCollection;
-import com.idega.block.school.data.SchoolSeason;
-import com.idega.business.IBOSession;
+import com.idega.business.IBOHome;
 
 /**
- * <p>Yup, it does nothing, needed only to support bean</p>
  * <p>You can report about problems to: 
  * <a href="mailto:martynas@idega.is">Martynas Stakė</a></p>
  *
  * @version 1.0.0 2016 rugp. 17
  * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
  */
-public interface ElementarySchoolReport extends IBOSession {
-	public ReportableCollection getPlacingsReport(SchoolSeason season) throws java.rmi.RemoteException;
+public interface SchoolReportHome extends IBOHome {
+	public SchoolReport create();
 }

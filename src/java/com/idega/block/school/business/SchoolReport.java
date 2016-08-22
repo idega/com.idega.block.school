@@ -1,5 +1,5 @@
 /**
- * @(#)ElementarySchoolSeasonDropdown.java    1.0.0 09:50:42
+ * @(#)SchoolReport.java    1.0.0 14:21:15
  *
  * Idega Software hf. Source Code Licence Agreement x
  *
@@ -80,25 +80,20 @@
  *     License that was purchased to become eligible to receive the Source 
  *     Code after Licensee receives the source code. 
  */
-package com.idega.block.school.presentation;
+package com.idega.block.school.business;
 
-import java.rmi.RemoteException;
-import java.util.Collection;
-
+import com.idega.block.datareport.util.ReportableCollection;
 import com.idega.block.school.data.SchoolSeason;
-import com.idega.presentation.IWContext;
+import com.idega.business.IBOSession;
 
 /**
- * <p>Drop-down list for elementary schools</p>
+ * <p>Yup, it does nothing, needed only to support bean</p>
  * <p>You can report about problems to: 
  * <a href="mailto:martynas@idega.is">Martynas Stakė</a></p>
  *
- * @version 1.0.0 2016 rugp. 19
+ * @version 1.0.0 2016 rugp. 17
  * @author <a href="mailto:martynas@idega.is">Martynas Stakė</a>
  */
-public class ElementarySchoolSeasonDropdown extends SchoolSeasonDropdown {
-
-	protected Collection<SchoolSeason> getSeasons(IWContext iwc) throws RemoteException {
-		return getSchoolBusiness(iwc).findAllSchoolSeasons(getSchoolBusiness(iwc).getCategoryElementarySchool());
-	}
+public interface SchoolReport extends IBOSession {
+	public ReportableCollection getPlacingsReport(SchoolSeason season) throws java.rmi.RemoteException;
 }

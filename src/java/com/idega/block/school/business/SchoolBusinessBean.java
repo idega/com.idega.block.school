@@ -1807,7 +1807,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	@Override
-	public Collection<SchoolSeason> findAllSchoolSeasons() {
+	public Collection findAllSchoolSeasons() {
 		return findAllSchoolSeasons((SchoolCategory) null);
 	}
 
@@ -1822,7 +1822,7 @@ public class SchoolBusinessBean extends IBOServiceBean implements SchoolBusiness
 	}
 
 	@Override
-	public Collection<SchoolSeason> findAllSchoolSeasons(SchoolCategory category) {
+	public Collection findAllSchoolSeasons(SchoolCategory category) {
 		try {
 			SchoolSeasonHome shome = (SchoolSeasonHome) IDOLookup.getHome(SchoolSeason.class);
 			return shome.findAllSchoolSeasons(category);

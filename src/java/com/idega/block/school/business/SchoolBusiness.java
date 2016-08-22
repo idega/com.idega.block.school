@@ -656,7 +656,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolSeasons
 	 */
-	public Collection<SchoolSeason> findAllSchoolSeasons() throws RemoteException;
+	public Collection findAllSchoolSeasons() throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolSeasons
@@ -666,7 +666,7 @@ public interface SchoolBusiness extends IBOService {
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllSchoolSeasons
 	 */
-	public Collection<SchoolSeason> findAllSchoolSeasons(SchoolCategory category) throws RemoteException;
+	public Collection findAllSchoolSeasons(SchoolCategory category) throws RemoteException;
 
 	/**
 	 * @see com.idega.block.school.business.SchoolBusinessBean#findAllCurrentSeasons

@@ -4,8 +4,8 @@
 <invoke>
 	<method_description name="getPlacingsReport">
 		<class_description 
-			class="com.idega.block.school.business.ElementarySchoolReport" 
-			default_display_name="ElementarySchoolReport" 
+			class="com.idega.block.school.business.SchoolReport" 
+			default_display_name="SchoolReport" 
 			type="IBOSessionBean" />
 
 		<input>
@@ -15,8 +15,8 @@
 				name="school_season">
 				<localized_name name="Skólaár" locale="is_IS"/>
 				<localized_name name="School season" locale="en"/>
-				<class_handler
-					class="com.idega.block.school.presentation.ElementarySchoolSeasonDropdown" />
+				<class_handler 
+					class="com.idega.block.school.presentation.SchoolSeasonDropdown" />
 			</class_description>
 	
 		</input>
