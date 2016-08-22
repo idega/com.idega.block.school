@@ -2,11 +2,12 @@ package com.idega.block.school.presentation;
 
 import java.rmi.RemoteException;
 import java.util.Collection;
-import java.util.Iterator;
 
 import javax.ejb.FinderException;
 
+import com.idega.block.school.SchoolConstants;
 import com.idega.block.school.business.SchoolBusiness;
+import com.idega.block.school.data.SchoolCategory;
 import com.idega.block.school.data.SchoolSeason;
 import com.idega.block.school.data.SchoolSeasonHome;
 import com.idega.business.IBOLookup;
@@ -34,18 +35,28 @@ public class SchoolSeasonDropdown extends DropDownMenuInputHandler {
 	}
 
 	public void main(IWContext iwc) throws Exception {
-		Collection seasons = getSeasons(iwc);
-
+		Collection<SchoolSeason> seasons = getSeasons(iwc);
 		if (seasons != null) {
-			Iterator iter = seasons.iterator();
-			while (iter.hasNext()) {
-				SchoolSeason season = (SchoolSeason) iter.next();
-				addMenuElement(season.getPrimaryKey().toString(), season.getSchoolSeasonName());
+			for (SchoolSeason season : seasons) {
+				SchoolCategory category = season.getSchoolCategory();
+				if (category != null) {
+					String localizedKey = getLocalizedString(
+							category.getLocalizedKey(), 
+							category.getLocalizedKey(), 
+							getIWUserContext());
+					addMenuElement(
+							season.getPrimaryKey().toString(), 
+							season.getSchoolSeasonName() + " - " + localizedKey);
+				} else {
+					addMenuElement(
+							season.getPrimaryKey().toString(), 
+							season.getSchoolSeasonName());
+				}
 			}
 		}
 	}
 
-	protected Collection getSeasons(IWContext iwc) throws RemoteException {
+	protected Collection<SchoolSeason> getSeasons(IWContext iwc) throws RemoteException {
 		return getSchoolBusiness(iwc).findAllSchoolSeasons();
 	}
 
@@ -90,8 +101,23 @@ public class SchoolSeasonDropdown extends DropDownMenuInputHandler {
 	 */
 	public String getDisplayForResultingObject(Object value, IWContext iwc) {
 		if (value != null) {
+			SchoolCategory category = ((SchoolSeason) value).getSchoolCategory();
+			if (category != null) {
+				String localizedKey = getLocalizedString(
+						category.getLocalizedKey(), 
+						category.getLocalizedKey(), 
+						getIWUserContext());
+				
+				return ((SchoolSeason) value).getSchoolSeasonName() + " - " + localizedKey; 
+			}
+			
 			return ((SchoolSeason) value).getSchoolSeasonName();
 		}
 		return "";
+	}
+
+	@Override
+	public String getBundleIdentifier() {
+		return SchoolConstants.IW_BUNDLE_IDENTIFIER;
 	}
 }
