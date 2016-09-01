@@ -225,8 +225,8 @@ public class ElementarySchoolReportBean extends IBOSessionBean implements
 		if (department != null) {
 			String yearName = department.getSchoolYearName();
 			if (!StringUtil.isEmpty(yearName)) {
-				if (yearName.contains("1")) {
-					return 1;
+				if (yearName.contains("10")) {
+					return 10;
 				} else if (yearName.contains("2")) {
 					return 2;
 				} else if (yearName.contains("3")) {
@@ -243,8 +243,8 @@ public class ElementarySchoolReportBean extends IBOSessionBean implements
 					return 8;
 				} else if (yearName.contains("9")) {
 					return 9;
-				} else if (yearName.contains("10")) {
-					return 10;
+				} else if (yearName.contains("1")) {
+					return 1;
 				}
 			}
 		}
