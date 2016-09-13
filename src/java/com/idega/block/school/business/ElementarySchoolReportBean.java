@@ -303,13 +303,13 @@ public class ElementarySchoolReportBean extends IBOSessionBean implements
 							commune, showAllStudents);
 					String variableName = getVariable(department);
 					data.addData(map.get(variableName), new Integer(totalNR));
-					getLogger().info("Variable name: " + variableName + " has " + totalNR);
+					getLogger().fine("Variable name: " + variableName + " has " + totalNR);
 				}
 
 				reportCollection.add(data);
 			}
 
-			getLogger().info("Report data: " + reportCollection);
+			getLogger().fine("Report data: " + reportCollection);
 			return reportCollection;
 		}
 		catch (Exception fe) {
