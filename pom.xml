@@ -53,6 +53,13 @@
       <organization>Idega Baltic</organization>
       <roles />
     </developer>
+    <developer>
+      <name>Valdas Žemaitis</name>
+      <id>valdaszem</id>
+      <email>valdas@idega.com</email>
+      <organization>Idega/organization>
+      <roles />
+    </developer>
   </developers>
   <dependencies>
     <dependency>
