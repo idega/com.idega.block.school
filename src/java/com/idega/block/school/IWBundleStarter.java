@@ -226,20 +226,33 @@ public class IWBundleStarter implements IWBundleStartable {
 	 */
 	private void addSchoolSeasonExternalIds() {
 		try {
-			Collection<SchoolSeasonExternalId> schoolSeasonExternalIdCol = getSchoolSeasonExternalIdHome().findAll();
-			if (schoolSeasonExternalIdCol == null || (schoolSeasonExternalIdCol != null && schoolSeasonExternalIdCol.size() == 0)) {
-				//Collection<SchoolSeason> schoolSeasonCol = getSchoolSeasonHome().findAllSchoolSeasons(getSchoolCategoryHome().findElementarySchoolCategory());
-				Collection<SchoolSeason> schoolSeasonCol = getSchoolSeasonHome().findAllSchoolSeasons();
-				if (!ListUtil.isEmpty(schoolSeasonCol)) {
-					for (SchoolSeason schoolSeason : schoolSeasonCol) {
-						if (schoolSeason != null) {
+			Collection<SchoolSeason> schoolSeasonCol = getSchoolSeasonHome().findAllSchoolSeasons();
+			if (!ListUtil.isEmpty(schoolSeasonCol)) {
+				for (SchoolSeason schoolSeason : schoolSeasonCol) {
+					if (schoolSeason != null) {
+						//Get the MENTOR external id according the season
+						SchoolSeasonExternalId schoolSeasonExternalIdMentor = null;
+						try {
+							schoolSeasonExternalIdMentor = getSchoolSeasonExternalIdHome().findSchoolSeasonExternalIdBySchoolSeasonAndType(schoolSeason, SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
+						} catch (Exception exM) {
+						}
+						if (schoolSeasonExternalIdMentor == null) {
 							//Creating external id for Mantor web service provider
 							SchoolSeasonExternalId schoolSeasonExternalIdForMentor = getSchoolSeasonExternalIdHome().create();
 							schoolSeasonExternalIdForMentor.setSchoolSeason(schoolSeason);
 							schoolSeasonExternalIdForMentor.setType(SchoolConstants.MENTOR_WEB_CLIENT_TYPE);
 							schoolSeasonExternalIdForMentor.setExternalID(schoolSeason.getExternalID());
 							schoolSeasonExternalIdForMentor.store();
-							//Creating external id for Namsfus web service provider
+						}
+
+						//Get the NAMFUS external id according the season
+						SchoolSeasonExternalId schoolSeasonExternalIdNamfus = null;
+						try {
+							schoolSeasonExternalIdNamfus = getSchoolSeasonExternalIdHome().findSchoolSeasonExternalIdBySchoolSeasonAndType(schoolSeason, SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
+						} catch (Exception exM) {
+						}
+						if (schoolSeasonExternalIdNamfus == null) {
+							//Creating external id for Namfus web service provider
 							SchoolSeasonExternalId schoolSeasonExternalIdForNamsfus = getSchoolSeasonExternalIdHome().create();
 							schoolSeasonExternalIdForNamsfus.setSchoolSeason(schoolSeason);
 							schoolSeasonExternalIdForNamsfus.setType(SchoolConstants.NAMSFUS_WEB_CLIENT_TYPE);
