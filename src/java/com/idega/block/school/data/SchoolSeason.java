@@ -10,7 +10,9 @@
 package com.idega.block.school.data;
 
 import java.sql.Date;
+
 import javax.ejb.FinderException;
+
 import com.idega.data.IDOEntity;
 
 
@@ -19,7 +21,7 @@ import com.idega.data.IDOEntity;
  * TODO gimmi Describe Type SchoolSeason
  * </p>
  *  Last modified: $Date: 2006/01/25 00:27:23 $ by $Author: gimmi $
- * 
+ *
  * @author <a href="mailto:gimmi@idega.com">gimmi</a>
  * @version $Revision: 1.12 $
  */
@@ -114,4 +116,13 @@ public interface SchoolSeason extends IDOEntity {
 	 * @see com.idega.block.school.data.SchoolSeasonBMPBean#setExternalID
 	 */
 	public void setExternalID(int externalID);
+
+	public int getMinAge();
+
+	public void setMinAge(int minAge);
+
+	public int getMaxAge();
+
+	public void setMaxAge(int maxAge);
+
 }
