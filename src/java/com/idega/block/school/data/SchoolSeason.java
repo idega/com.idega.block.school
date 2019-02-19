@@ -117,6 +117,12 @@ public interface SchoolSeason extends IDOEntity {
 	 */
 	public void setExternalID(int externalID);
 
+	public int getMinAge();
 
+	public void setMinAge(int minAge);
+
+	public int getMaxAge();
+
+	public void setMaxAge(int maxAge);
 
 }

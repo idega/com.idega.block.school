@@ -48,6 +48,10 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 
 	public static final String EXTERNAL_ID = "external_id";
 
+	public static final String MIN_AGE = "min_age";
+
+	public static final String MAX_AGE = "max_age";
+
 	@Override
 	public String getEntityName() {
 		return SCHOOLSEASON;
@@ -62,6 +66,8 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 		addAttribute(START_DATE, "Choice start date", Date.class);
 		addAttribute(DUE_DATE, "Choice end date", Date.class);
 		addAttribute(EXTERNAL_ID, "External ID", Integer.class);
+		addAttribute(MIN_AGE, "Min age", Integer.class);
+		addAttribute(MAX_AGE, "Max age", Integer.class);
 
 		addManyToOneRelationship(SCHOOL_CATEGORY, SchoolCategory.class);
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
@@ -322,5 +328,25 @@ public class SchoolSeasonBMPBean extends GenericEntity implements SchoolSeason {
 		query.addOrder(table, START, true);
 
 		return (Integer) idoFindOnePKByQuery(query);
+	}
+
+	@Override
+	public int getMinAge() {
+		return getIntColumnValue(MIN_AGE);
+	}
+
+	@Override
+	public void setMinAge(int minAge) {
+		setValue(MIN_AGE, minAge);
+	}
+
+	@Override
+	public int getMaxAge() {
+		return getIntColumnValue(MAX_AGE);
+	}
+
+	@Override
+	public void setMaxAge(int maxAge) {
+		setValue(MAX_AGE, maxAge);
 	}
 }
