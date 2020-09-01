@@ -339,4 +339,16 @@ public class SchoolHomeImpl extends IDOFactory implements SchoolHome {
 		this.idoCheckInPooledEntity(entity);
 		return this.getEntityCollectionForPrimaryKeys(ids);
 	}
+
+
+	@Override
+	public School findByProviderId(String providerId)
+			throws FinderException {
+		IDOEntity entity = this.idoCheckOutPooledEntity();
+		Object pk = ((SchoolBMPBean) entity)
+				.ejbFindByProviderId(providerId);
+		this.idoCheckInPooledEntity(entity);
+		return this.findByPrimaryKey(pk);
+	}
+
 }

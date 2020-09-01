@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import javax.ejb.EJBException;
 import javax.ejb.FinderException;
@@ -36,6 +37,8 @@ import com.idega.data.query.Table;
 import com.idega.user.data.Group;
 import com.idega.user.data.GroupHome;
 import com.idega.user.data.User;
+import com.idega.util.CoreConstants;
+import com.idega.util.StringUtil;
 
 /**
  * <p>
@@ -120,6 +123,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 	private static final String COLUMN_SCHOOL_SYSTEM = "school_system";
 
+	public final static String COLUMN_FOREIGN_ID = "foreign_id";
+
 	@Override
 	public void initializeAttributes() {
 		this.addAttribute(getIDColumnName());
@@ -185,6 +190,8 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 		addOneToOneRelationship(COLUMN_PRIMARY_GROUP, Group.class);
 
 		this.addAttribute(COLUMN_SCHOOL_SYSTEM, "School system", true, true, String.class, 40);
+
+		this.addAttribute(COLUMN_FOREIGN_ID, "Foreign school id", true, true, String.class, 40);
 
 		getEntityDefinition().setBeanCachingActiveByDefault(true);
 	}
@@ -616,6 +623,30 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 	public void setProviderStringId(String id) {
 		this.setColumn(PROVIDER_STRING_ID, id);
 	}
+
+
+	@Override
+	public String getForeignId() {
+		return this.getStringColumnValue(COLUMN_FOREIGN_ID);
+	}
+
+	@Override
+	public void setForeignId(String id) {
+		this.setColumn(COLUMN_FOREIGN_ID, id);
+	}
+
+	@Override
+	public String getIdForSync() {
+		String schoolIdTmp = CoreConstants.EMPTY;
+		if (!StringUtil.isEmpty(getForeignId())) {
+			Logger.getLogger(SchoolBMPBean.class.getName()).info("Using the foreign school id for school with ID: " + getProviderStringId() + ", foreign ID: " + getForeignId());
+			schoolIdTmp = getForeignId().trim();
+		} else {
+			schoolIdTmp = getProviderStringId().trim();
+		}
+		return schoolIdTmp;
+	}
+
 
 	private Date getCurrentDate() {
 		return new Date(System.currentTimeMillis());
@@ -1348,4 +1379,12 @@ public class SchoolBMPBean extends GenericEntity implements School, IDOLegacyEnt
 
 		return idoFindPKsByQuery(query);
 	}
+
+
+	public Integer ejbFindByProviderId(String providerId) throws javax.ejb.FinderException {
+		String select = "select * from " + SCHOOL + " where " + PROVIDER_STRING_ID + " = '" + providerId + "'";
+
+		return (Integer) super.idoFindOnePKBySQL(select);
+	}
+
 }

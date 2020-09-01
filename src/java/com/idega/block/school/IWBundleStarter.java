@@ -51,6 +51,7 @@ public class IWBundleStarter implements IWBundleStartable {
 		addStandardViews(starterBundle.getApplication());
 		addSchoolSeasonExternalIds();
 		updateSchoolsSystemTypes();
+		updateSchoolsWithForeignId();
 	}
 
 	@Override
@@ -286,6 +287,32 @@ public class IWBundleStarter implements IWBundleStartable {
 		}
 	}
 
+	/**
+	 * Updating some school with provided foreign id from Mentor
+	 */
+	private void updateSchoolsWithForeignId() {
+		try {
+			School schoolEngjaskoli = getSchoolHome().findByProviderId("5206952069");
+			if (schoolEngjaskoli != null && StringUtil.isEmpty(schoolEngjaskoli.getForeignId())) {
+				schoolEngjaskoli.setForeignId("5206958888");
+				schoolEngjaskoli.store();
+			}
+
+			School schoolVikurskoli = getSchoolHome().findByProviderId("6708013060");
+			if (schoolVikurskoli != null && StringUtil.isEmpty(schoolVikurskoli.getForeignId())) {
+				schoolVikurskoli.setForeignId("6708018888");
+				schoolVikurskoli.store();
+			}
+
+			School schoolBorgaskoli = getSchoolHome().findByProviderId("4708982089");
+			if (schoolBorgaskoli != null && StringUtil.isEmpty(schoolBorgaskoli.getForeignId())) {
+				schoolBorgaskoli.setForeignId("4708988888");
+				schoolBorgaskoli.store();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	protected void addStandardViews(IWMainApplication iwma) {
 		SchoolViewManager manager = SchoolViewManager.getInstance(iwma);

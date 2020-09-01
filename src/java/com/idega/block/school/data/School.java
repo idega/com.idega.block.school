@@ -648,4 +648,10 @@ public interface School extends IDOEntity, IDOLegacyEntity, MetaDataCapable {
 
 	public String getSchoolSystem();
 
+	public String getForeignId();
+
+	public void setForeignId(String id);
+
+	public String getIdForSync();
+
 }

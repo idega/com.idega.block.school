@@ -108,4 +108,8 @@ public interface SchoolHome extends IDOHome {
 			FinderException;
 
 	public Collection findAllWithNoPrimaryGroup() throws FinderException;
+
+	public School findByProviderId(String providerId)
+			throws FinderException;
+
 }
