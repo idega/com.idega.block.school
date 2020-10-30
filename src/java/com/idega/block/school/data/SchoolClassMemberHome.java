@@ -76,7 +76,7 @@ public interface SchoolClassMemberHome extends IDOHome {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#ejbFindBySchoolAndSeasonAndYearAndStudyPath
 	 */
-	public Collection findBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason season, SchoolYear year,
+	public Collection<SchoolClassMember> findBySchoolAndSeasonAndYearAndStudyPath(School school, SchoolSeason season, SchoolYear year,
 			SchoolStudyPath studyPath) throws FinderException;
 
 	/**

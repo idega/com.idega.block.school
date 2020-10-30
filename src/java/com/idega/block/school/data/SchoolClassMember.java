@@ -1,10 +1,11 @@
 /**
- * 
+ *
  */
 package com.idega.block.school.data;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+
 import com.idega.data.IDOAddRelationshipException;
 import com.idega.data.IDOEntity;
 import com.idega.data.IDORelationshipException;
@@ -17,7 +18,7 @@ import com.idega.user.data.User;
  * TODO Dainis Describe Type SchoolClassMember
  * </p>
  *  Last modified: $Date: 2006/04/11 08:15:10 $ by $Author: laddi $
- * 
+ *
  * @author <a href="mailto:Dainis@idega.com">Dainis</a>
  * @version $Revision: 1.57 $
  */
@@ -37,7 +38,7 @@ public interface SchoolClassMember extends IDOEntity {
 	//Added for the kompliterings project
 	public final static String FIELD_COMPENSATION_BY_INVOICE = "comp_by_invoice";
 	public final static String FIELD_INVOICE_INTERVAL = "invoice_int";
-	public final static String FIELD_LATEST_INVOICE_DATE = "latest_invoice_date";		
+	public final static String FIELD_LATEST_INVOICE_DATE = "latest_invoice_date";
 
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#setClassMemberId
@@ -332,5 +333,6 @@ public interface SchoolClassMember extends IDOEntity {
 	/**
 	 * @see com.idega.block.school.data.SchoolClassMemberBMPBean#getStudyPaths
 	 */
-	public Collection getStudyPaths() throws IDORelationshipException;
+	public Collection<SchoolStudyPath> getStudyPaths() throws IDORelationshipException;
+
 }
